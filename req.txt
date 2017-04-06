@@ -1,0 +1,11 @@
+admission serial no. 
+
+registarion 
+roll no.
+
+
+3 Configurations
+1. Section & Class Entry
+2. Class configuration
+3. Exam configuration
+

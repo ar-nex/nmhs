@@ -1,0 +1,74 @@
+﻿<Window x:Class="NaimouzaHighSchool.Views.SubjectComboView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:NaimouzaHighSchool.ViewModels"
+        Title="SubjectComboView" Height="450" Width="750">
+    <Window.Resources>
+        <vm:SubjectComboViewModel x:Key="sCom"></vm:SubjectComboViewModel>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Border>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical">
+                    <Label>Class</Label>
+                    <ComboBox ItemsSource="{Binding ClassNames, Source={StaticResource sCom}}"
+                          SelectedItem="{Binding ClassOfCombo, Source={StaticResource sCom}}">
+                    </ComboBox>
+                    <Label>Combo Name</Label>
+                    <TextBox IsReadOnly="{Binding IsTxbComboReadOnly, Source={StaticResource sCom}}"
+                         Text="{Binding TxbComboText, Source={StaticResource sCom}, UpdateSourceTrigger=PropertyChanged}">
+                    </TextBox>
+
+                    <Button Command="{Binding CommandAddCombo, Source={StaticResource sCom}}">Add</Button>
+                    <Button Command="{Binding CommandEditCombo, Source={StaticResource sCom}}">Edit</Button>
+                    <Button Command="{Binding CommandSaveCombo, Source={StaticResource sCom}}">Save</Button>
+                    <Button Command="{Binding CommandDeleteCombo, Source={StaticResource sCom}}">Delete</Button>
+                </StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1">
+                    <ListBox ItemsSource="{Binding ScomboByClass, Source={StaticResource sCom}}" 
+                             DisplayMemberPath="Code" 
+                             SelectedIndex="{Binding SelectedComboIndex, Source={StaticResource sCom}}">
+                    </ListBox>
+                </ScrollViewer>
+            </Grid>
+            
+        </Border>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+           
+            <Label Grid.Row="1">Unselected Subs</Label>
+            <Label Grid.Row="1" Grid.Column="2">Selected Subs</Label>
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                <ListBox ItemsSource="{Binding SublistNotSelected, Source={StaticResource sCom}}" SelectedIndex="{Binding IndexNotSelected, Source={StaticResource sCom}}">
+                    
+                </ListBox>
+            </ScrollViewer>
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+                <Button Width="80" Command="{Binding CommandAddInSelection, Source={StaticResource sCom}}"> &gt;&gt; </Button>
+                <Button Width="80" Command="{Binding CommandRemoveFromSelection,Source={StaticResource sCom}}"> &lt;&lt; </Button>
+            </StackPanel>
+            <ScrollViewer Grid.Row="2" Grid.Column="2" VerticalScrollBarVisibility="Auto">
+                <ListBox ItemsSource="{Binding SublistSelected, Source={StaticResource sCom}}" SelectedIndex="{Binding IndexSelected, Source={StaticResource sCom}}">                   
+                </ListBox>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>

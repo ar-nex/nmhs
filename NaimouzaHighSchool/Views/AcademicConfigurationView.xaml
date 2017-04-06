@@ -1,0 +1,8 @@
+﻿<Window x:Class="NaimouzaHighSchool.Views.AcademicConfigurationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AcademicConfigurationView" Height="424.907" Width="848.699">
+    <Grid>
+        
+    </Grid>
+</Window>

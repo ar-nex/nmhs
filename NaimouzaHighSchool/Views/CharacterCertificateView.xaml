@@ -1,0 +1,141 @@
+﻿<Window x:Class="NaimouzaHighSchool.Views.CharacterCertificateView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cvm="clr-namespace:NaimouzaHighSchool.ViewModels"
+        Title="Character Certificate" Height="519.755" Width="909.558">
+    <Window.Resources>
+        <cvm:CharacterCertificateViewModel x:Key="CharacVm"></cvm:CharacterCertificateViewModel>
+        <Style TargetType="Border" x:Key="BottomTopBorder">
+            <Setter Property="Background" Value="#FF1EA48C" />
+            <Setter Property="Padding" Value="13"/>
+        </Style>
+        <Style TargetType="Label" x:Key="AddhocLabel">
+            <Setter Property="Margin" Value="5,1,2,1" />
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <Style TargetType="TextBox" x:Key="AddhocTxb">
+            <Setter Property="Margin" Value="2,1,10,1" />
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <Style TargetType="ComboBox" x:Key="AddhocCombo">
+            <Setter Property="Margin" Value="2,1,10,1" />
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <Style TargetType="StackPanel" x:Key="rightStackPanel">
+            <Setter Property="Margin" Value="2,5,2,5" />
+        </Style>
+
+        <ControlTemplate x:Key="buttonTemplate" TargetType="{x:Type Button}">
+            <Border Name="TemBorder" TextBlock.Foreground="Black" CornerRadius="0" Background="#FFD1F7F9">
+                <ContentPresenter Name="buttonConPresenter" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}">
+                   
+                </ContentPresenter>
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Color="#666"></DropShadowEffect>
+                </Border.Effect>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="TemBorder" Property="Background" Value="#F22613" />
+                    
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="TemBorder" Property="Background" Value="#FFB0B2B2" />
+                    <Setter TargetName="TemBorder" Property="TextBlock.Foreground" Value="white"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <Border DockPanel.Dock="Bottom" Style="{StaticResource BottomTopBorder}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Padding="5" Width="80" Margin="2" Template="{StaticResource buttonTemplate}" Command="{Binding GenerateCertificateCommand, Source={StaticResource CharacVm}}">Generate</Button>
+                <Button Padding="5" Width="80" Margin="2" Template="{StaticResource buttonTemplate}">Reset</Button>
+                <Button Padding="5" Width="80" Margin="2" Template="{StaticResource buttonTemplate}">Exit</Button>
+            </StackPanel>           
+        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.3*" />
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.ColumnSpan="2" Style="{StaticResource BottomTopBorder}">
+                <Label FontSize="18" FontWeight="Bold" Foreground="#FFDAF7E3">Character Certificate Generator</Label>
+            </Border>
+            <Grid Grid.Row="1" x:Name="GridAddhoc" Visibility="{Binding VisibilityAddhoc, Source={StaticResource CharacVm}}" Background="#FFDAF7E3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Style="{StaticResource AddhocLabel}">Name</Label>
+                <Label Grid.Row="1" Style="{StaticResource AddhocLabel}">Father's Name</Label>
+                <Label Grid.Row="2" Style="{StaticResource AddhocLabel}">Vill.</Label>
+                <Label Grid.Row="3" Style="{StaticResource AddhocLabel}">P.O.</Label>
+                <Label Grid.Row="4" Style="{StaticResource AddhocLabel}">P.S.</Label>
+                <Label Grid.Row="5" Style="{StaticResource AddhocLabel}">Dist.</Label>
+                <Label Grid.Row="6" Style="{StaticResource AddhocLabel}">PIN</Label>
+                <Label Grid.Row="7" Style="{StaticResource AddhocLabel}">Gender</Label>
+                <Label Grid.Row="8" Style="{StaticResource AddhocLabel}">Date of birth</Label>
+
+                <TextBox Grid.Column="1" Style="{StaticResource AddhocTxb}" Text="{Binding StdName, Source={StaticResource CharacVm}, Mode=TwoWay}"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource AddhocTxb}" Text="{Binding FatherName, Source={StaticResource CharacVm}, Mode=TwoWay}"></TextBox>
+                <ComboBox Grid.Row="2" Grid.Column="1" IsEditable="True" Style="{StaticResource AddhocCombo}" ItemsSource="{Binding VillList, Source={StaticResource CharacVm}}" Text="{Binding Vill, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
+                <ComboBox Grid.Row="3" Grid.Column="1" IsEditable="True" Style="{StaticResource AddhocCombo}" ItemsSource="{Binding POList, Source={StaticResource CharacVm}}" Text="{Binding PO, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
+                <ComboBox Grid.Row="4" Grid.Column="1" IsEditable="True" Style="{StaticResource AddhocCombo}" ItemsSource="{Binding PSList, Source={StaticResource CharacVm}}" Text="{Binding Ps, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
+                <ComboBox Grid.Row="5" Grid.Column="1" IsEditable="True" Style="{StaticResource AddhocCombo}" ItemsSource="{Binding DistList, Source={StaticResource CharacVm}}" Text="{Binding Dist, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
+                <ComboBox Grid.Row="6" Grid.Column="1" IsEditable="True" Style="{StaticResource AddhocCombo}" Width="100" HorizontalAlignment="Left" ItemsSource="{Binding PinList, Source={StaticResource CharacVm}}" Text="{Binding Pin, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
+                <ComboBox Grid.Row="7" Grid.Column="1" Style="{StaticResource AddhocCombo}" Width="100" HorizontalAlignment="Left" ItemsSource="{Binding Gender, Source={StaticResource CharacVm}}" Text="{Binding StdGender, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
+                <DatePicker Grid.Row="8" Grid.Column="1" Width="130" HorizontalAlignment="Left" FontSize="13" Margin="2,1,1,1" Text="{Binding Dob, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></DatePicker>
+            </Grid>
+            <Grid Grid.Row="1" x:Name="GridUnique" Visibility="{Binding VisibilityUniqueIndividual, Source={StaticResource CharacVm}}">
+                <Label>Grid Two</Label>
+            </Grid>
+            <Grid Grid.Column="1" Margin="5,57,-5,3" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                   
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Style="{StaticResource rightStackPanel}">
+                    <Label>Search By</Label>
+                    <ComboBox ItemsSource="{Binding SearchType, Source={StaticResource CharacVm}}" Width="180" SelectedItem="{Binding SelectedSearchType, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
+                    <CheckBox Margin="20,2,2,2" VerticalAlignment="Center" IsChecked="{Binding IncludeHeader, Source={StaticResource CharacVm}, Mode=TwoWay}">Include School header</CheckBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Style="{StaticResource rightStackPanel}">
+                    <Label>Class</Label>
+                    <ComboBox Width="70" ItemsSource="{Binding SchoolClass, Source={StaticResource CharacVm}}" Text="{Binding SelectedClass, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
+                    <Label>Section</Label>
+                    <ComboBox Width="70" ItemsSource="{Binding SchoolSection, Source={StaticResource CharacVm}}" Text="{Binding SelectedSection, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
+                    <Label>Roll</Label>
+                    <TextBox Width="50" Text="{Binding Roll, Source={StaticResource CharacVm}, Mode=TwoWay}"></TextBox>
+                    <Label>Session</Label>
+                    <TextBox Width="150" Text="{Binding Session, Source={StaticResource CharacVm}, Mode=TwoWay}"></TextBox>
+                    <Button>Get</Button>
+                </StackPanel>
+                <Border Grid.Row="2">
+                    <RichTextBox>
+                        <FlowDocument>
+                            <Paragraph>One Two</Paragraph>
+                        </FlowDocument>
+                    </RichTextBox>      
+                </Border>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>
