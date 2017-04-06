@@ -88,6 +88,7 @@ namespace NaimouzaHighSchool.ViewModels
             get { return _includeHeader; }
             set { _includeHeader = value; this.OnPropertyChanged("IncludeHeader"); }
         }
+        // testing.
         public string SelectedSearchType
         {
             get { return _selectedSearchType; }
