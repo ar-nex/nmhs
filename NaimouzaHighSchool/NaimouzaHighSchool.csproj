@@ -96,6 +96,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Database\CharacterCertificateDb.cs" />
     <Compile Include="Models\Database\StudentDataReadDb.cs" />
     <Compile Include="Models\Database\StudentDataWriteDb.cs" />
     <Compile Include="Models\Database\SubjectComboDb.cs" />

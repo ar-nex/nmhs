@@ -23,33 +23,13 @@ namespace NaimouzaHighSchool.ViewModels.Helpers
 
         public void CreateCharacterCertificatePDF(string[] CertificateData) 
         {
-            if (CertificateData.Length != 13)
+            if (CertificateData.Length != 5)
             {
                 return;
             }
             else
             {
-                string currentYear = DateTime.Today.ToString("yyyy");
-                string stdName = CertificateData[0];
-                string xchild = (CertificateData[7] == "Boy") ? "son" : "daughter";
-                string fatherName = CertificateData[1];
-                string vill = CertificateData[2];
-                string po = CertificateData[3];
-                string ps = CertificateData[4];
-                string dist = CertificateData[5];
-                string pin = CertificateData[6];
-                string xhe = (CertificateData[7] == "Boy") ? "he" : "she";
-                string Xhe = (CertificateData[7] == "Boy") ? "He" : "She";
-                string wis = ((CertificateData[11].IndexOf(currentYear) >= 0)) ? "is" : "was";
-                string stdClass = CertificateData[8];
-                string stdsec = CertificateData[9];
-                string roll = CertificateData[10];
-                string stdSession = CertificateData[11];
-                string Hir = (CertificateData[7] == "Boy") ? "His" : "Her";
-                string hir = (CertificateData[7] == "Boy") ? "his" : "her";
-                string dob = CertificateData[12];
-
-
+              
 
                 // Generate nmhs-nexap directory in my document folder
                 string containerfolder = this.GenerateDocumentBaseDirectory();
@@ -105,8 +85,13 @@ namespace NaimouzaHighSchool.ViewModels.Helpers
                 para_a.AddLineBreak();
                 para_a.AddTab();
 
+                string  para_aText, para_aTextb, paraTextc, paraTextd, stdName;
+                        para_aText = CertificateData[0].Trim();
+                        para_aTextb = CertificateData[1].Trim();
+                        paraTextc = CertificateData[2].Trim();
+                        paraTextd = CertificateData[3].Trim();
+                        stdName = CertificateData[4].Trim();
 
-                string para_aText = "This is to certify that " + stdName + ", " + xchild + " of " + fatherName + ", Vill. " + vill + ", P.O. " + po + ", P.S. " + ps + ", Dist. " + dist + ", PIN-" + pin + " is personally known to me.";
                 para_a.AddText(para_aText);
 
                 MigraModel.Paragraph para_b = sec.AddParagraph();
@@ -116,7 +101,6 @@ namespace NaimouzaHighSchool.ViewModels.Helpers
                 para_b.Format.Alignment = MigraModel.ParagraphAlignment.Justify;
                 para_b.AddLineBreak();
                 para_b.AddTab();
-                string para_aTextb = Xhe + " comes of a respectable family. " + Xhe + " " + wis + " reading in Class " + stdClass + ", Sec. " + stdsec + ", Roll " + roll + ", Session " + stdSession + ".";
                 para_b.AddText(para_aTextb);
 
                 MigraModel.Paragraph para_c = sec.AddParagraph();
@@ -126,7 +110,6 @@ namespace NaimouzaHighSchool.ViewModels.Helpers
                 para_c.Format.Alignment = MigraModel.ParagraphAlignment.Justify;
                 para_c.AddLineBreak();
                 para_c.AddTab();
-                string paraTextc = Hir + " date of birth as per School records is " + dob + ".";
                 para_c.AddText(paraTextc);
 
                 MigraModel.Paragraph para_d = sec.AddParagraph();
@@ -136,7 +119,6 @@ namespace NaimouzaHighSchool.ViewModels.Helpers
                 para_d.Format.Alignment = MigraModel.ParagraphAlignment.Justify;
                 para_d.AddLineBreak();
                 para_d.AddTab();
-                string paraTextd = "So far I know, " + xhe + " bears a good moral character. I wish " + hir + " every success in life.";
                 para_d.AddText(paraTextd);
 
 
@@ -179,5 +161,7 @@ namespace NaimouzaHighSchool.ViewModels.Helpers
                 System.Diagnostics.Process.Start(processInfo);
             }
         }
+
+       
     }
 }

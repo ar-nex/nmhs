@@ -27,7 +27,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.IgnoredRow = 0;
             this.LblProgress = "0/0";
             this.ProgressbarValue = "0";
-            this.ClassesInSchool = new string[] {"V", "VI", "VII", "VIII", "IX", "X", "XI", "XI"};
+            this.ClassesInSchool = new string[] {"V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"};
             this.SectionsInClass = new string[] { "-not applicable-", "A", "B", "C", "D", "E" };
             this.SessionStartYear = DateTime.Today.ToString("yyyy");
             this.SessionEndYear = DateTime.Today.ToString("yyyy");
