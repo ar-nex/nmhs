@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cvm="clr-namespace:NaimouzaHighSchool.ViewModels"
-        Title="Character Certificate" Height="519.755" Width="909.558">
+        Title="Character Certificate" Height="519.755" Width="949.558">
     <Window.Resources>
         <cvm:CharacterCertificateViewModel x:Key="CharacVm"></cvm:CharacterCertificateViewModel>
         <Style TargetType="Border" x:Key="BottomTopBorder">
@@ -99,41 +99,72 @@
                 <ComboBox Grid.Row="4" Grid.Column="1" IsEditable="True" Style="{StaticResource AddhocCombo}" ItemsSource="{Binding PSList, Source={StaticResource CharacVm}}" Text="{Binding Ps, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
                 <ComboBox Grid.Row="5" Grid.Column="1" IsEditable="True" Style="{StaticResource AddhocCombo}" ItemsSource="{Binding DistList, Source={StaticResource CharacVm}}" Text="{Binding Dist, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
                 <ComboBox Grid.Row="6" Grid.Column="1" IsEditable="True" Style="{StaticResource AddhocCombo}" Width="100" HorizontalAlignment="Left" ItemsSource="{Binding PinList, Source={StaticResource CharacVm}}" Text="{Binding Pin, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
-                <ComboBox Grid.Row="7" Grid.Column="1" Style="{StaticResource AddhocCombo}" Width="100" HorizontalAlignment="Left" ItemsSource="{Binding Gender, Source={StaticResource CharacVm}}" Text="{Binding StdGender, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
+                <ComboBox Grid.Row="7" Grid.Column="1" Style="{StaticResource AddhocCombo}" Width="100" HorizontalAlignment="Left" ItemsSource="{Binding Gender, Source={StaticResource CharacVm}}" SelectedIndex="{Binding GenderIndex, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
                 <DatePicker Grid.Row="8" Grid.Column="1" Width="130" HorizontalAlignment="Left" FontSize="13" Margin="2,1,1,1" Text="{Binding Dob, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></DatePicker>
             </Grid>
-            <Grid Grid.Row="1" x:Name="GridUnique" Visibility="{Binding VisibilityUniqueIndividual, Source={StaticResource CharacVm}}">
-                <Label>Grid Two</Label>
-            </Grid>
-            <Grid Grid.Column="1" Margin="5,57,-5,3" Grid.RowSpan="2">
+            <Grid Grid.Row="1" x:Name="GridUnique" Visibility="{Binding VisibilityUniqueIndividual, Source={StaticResource CharacVm}}" Background="#FFDAF7E3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                   
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" Style="{StaticResource rightStackPanel}">
-                    <Label>Search By</Label>
-                    <ComboBox ItemsSource="{Binding SearchType, Source={StaticResource CharacVm}}" Width="180" SelectedItem="{Binding SelectedSearchType, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
-                    <CheckBox Margin="20,2,2,2" VerticalAlignment="Center" IsChecked="{Binding IncludeHeader, Source={StaticResource CharacVm}, Mode=TwoWay}">Include School header</CheckBox>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Style="{StaticResource rightStackPanel}">
-                    <Label>Class</Label>
-                    <ComboBox Width="70" ItemsSource="{Binding SchoolClass, Source={StaticResource CharacVm}}" Text="{Binding SelectedClass, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
-                    <Label>Section</Label>
-                    <ComboBox Width="70" ItemsSource="{Binding SchoolSection, Source={StaticResource CharacVm}}" Text="{Binding SelectedSection, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
-                    <Label>Roll</Label>
-                    <TextBox Width="50" Text="{Binding Roll, Source={StaticResource CharacVm}, Mode=TwoWay}"></TextBox>
-                    <Label>Session</Label>
-                    <TextBox Width="150" Text="{Binding Session, Source={StaticResource CharacVm}, Mode=TwoWay}"></TextBox>
-                    <Button>Get</Button>
-                </StackPanel>
-                <Border Grid.Row="2">
-                    <RichTextBox>
-                        <FlowDocument>
-                            <Paragraph>One Two</Paragraph>
-                        </FlowDocument>
-                    </RichTextBox>      
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label Style="{StaticResource AddhocLabel}">Name</Label>
+                <Label Grid.Row="1" Style="{StaticResource AddhocLabel}">Father's Name</Label>
+                <Label Grid.Row="2" Style="{StaticResource AddhocLabel}">Address</Label>
+                <Label Grid.Row="3" Style="{StaticResource AddhocLabel}">Gender</Label>
+                <Label Grid.Row="4" Style="{StaticResource AddhocLabel}">Date of birth</Label>
+                <TextBox Grid.Column="1" Style="{StaticResource AddhocTxb}" Text="{Binding StdName, Source={StaticResource CharacVm}, Mode=TwoWay}"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource AddhocTxb}" Text="{Binding FatherName, Source={StaticResource CharacVm}, Mode=TwoWay}"></TextBox>
+                <TextBox Grid.Row="2" Grid.Column="1" Height="100" Style="{StaticResource AddhocTxb}"
+                         Text="{Binding Address, Source={StaticResource CharacVm}, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap">
+                </TextBox>
+                <ComboBox Grid.Row="3" Grid.Column="1" Style="{StaticResource AddhocCombo}" Width="100" HorizontalAlignment="Left" ItemsSource="{Binding Gender, Source={StaticResource CharacVm}}" SelectedIndex="{Binding GenderIndex, Source={StaticResource CharacVm}}"></ComboBox>
+                <DatePicker Grid.Row="4" Grid.Column="1" Width="130" HorizontalAlignment="Left" FontSize="13" Margin="2,1,1,1" 
+                            Text="{Binding Dob, Source={StaticResource CharacVm}}">
+                </DatePicker>
+            </Grid>
+            <Grid Grid.Column="1" Margin="5,57,-5,3" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>                
+                </Grid.RowDefinitions>
+                <Border Background="#c1fbd5" Margin="-5,3,5,2">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource rightStackPanel}">
+                            <Label>Generate By</Label>
+                            <ComboBox ItemsSource="{Binding SearchType, Source={StaticResource CharacVm}}" Width="180" SelectedIndex="{Binding SearchTypeIndex, Source={StaticResource CharacVm}}"></ComboBox>
+                            <CheckBox Margin="20,2,2,2" VerticalAlignment="Center" IsChecked="{Binding IncludeHeader, Source={StaticResource CharacVm}, Mode=TwoWay}">Include School header</CheckBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Style="{StaticResource rightStackPanel}">
+                            <Label>Class</Label>
+                            <ComboBox Width="50" Margin="38,0,0,0" ItemsSource="{Binding SchoolClass, Source={StaticResource CharacVm}}" SelectedIndex="{Binding SelectedClassIndex, Source={StaticResource CharacVm}}"></ComboBox>
+                            <Label>Section</Label>
+                            <ComboBox Width="50" ItemsSource="{Binding SchoolSection, Source={StaticResource CharacVm}}" SelectedIndex="{Binding SelectedSectionIndex, Source={StaticResource CharacVm}}"></ComboBox>
+                            <Label>Roll</Label>
+                            <TextBox Width="50" Text="{Binding Roll, Source={StaticResource CharacVm}, Mode=TwoWay}"></TextBox>
+                            <Label>Session</Label>
+                            <TextBox Width="45" Text="{Binding Session, Source={StaticResource CharacVm}, Mode=TwoWay}"></TextBox>
+                            <Label>-</Label>
+                            <TextBox Width="45" Text="{Binding SessionEnd, Source={StaticResource CharacVm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <Button Command="{Binding GetStudentDataCommand, Source={StaticResource CharacVm}}" Width="80" Margin="3,0"
+                                    Content="{Binding GetBtnContent, Source={StaticResource CharacVm}}">
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="1" Padding="20" BorderBrush="LightGray" BorderThickness="1" Margin="5,5,10,5">   
+                    <StackPanel Orientation="Vertical">
+                        <Label FontSize="16" FontWeight="Black" Foreground="Green" Margin="2,2,2,10">Preview</Label>
+                        <TextBlock FontSize="16" Text="{Binding PreviewText, Source={StaticResource CharacVm}, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" FontStyle="Italic">
+                        </TextBlock>
+                    </StackPanel>
                 </Border>
             </Grid>
         </Grid>
