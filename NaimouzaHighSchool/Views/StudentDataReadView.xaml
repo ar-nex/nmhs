@@ -634,6 +634,12 @@
                             <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource doubleDot}"> : </Label>
                             <Label Grid.Row="3" Grid.Column="2" Content="{Binding TxbRoll, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbRollColor, Source={StaticResource dObj}}"></Label>
 
+                            <Label Grid.Row="4" Style="{StaticResource lblProperty}">Subjects</Label>
+                            <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource doubleDot}"> : </Label>
+                            <ListBox Grid.Row="4" Grid.Column="2" ItemsSource="{Binding TakenSubjects, Source={StaticResource dObj}}" Background="#313b55" Foreground="White" BorderBrush="Black">
+                                
+                            </ListBox>
+                            
                             <Label Grid.Row="1" Grid.Column="3" Style="{StaticResource lblProperty}">Gender</Label>
                             <Label Grid.Row="1" Grid.Column="4" Style="{StaticResource doubleDot}"> : </Label>
                             <Label Grid.Row="1" Grid.Column="5" Content="{Binding TxbGen, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbGenColor, Source={StaticResource dObj}}"></Label>

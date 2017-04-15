@@ -137,6 +137,11 @@ namespace NaimouzaHighSchool.ViewModels
                 {
                     this.BuildStdDetailView(this.StudentList[value]);
                     this.SelectedStudent = this.StudentList[value];
+                    this.TakenSubjects.Clear();
+                    if (!string.IsNullOrEmpty(this.StudentList[value].SubjectComboId))
+                    {
+                        this.SetSubjects(this.StudentList[value].SubjectComboId);
+                    }
                 }
                 this.OnPropertyChanged("SelectedStudentListIndex");
             }
@@ -189,6 +194,32 @@ namespace NaimouzaHighSchool.ViewModels
         public string TxbAge { get { return this._txbAge; } set { this._txbAge = value; this.OnPropertyChanged("TxbAge"); } }
         private string _txbAgeColor;
         public string TxbAgeColor { get { return this._txbAgeColor; } set { this._txbAgeColor = value; this.OnPropertyChanged("TxbAgeColor"); } }
+
+        private string _txbSubComboId;
+        public string TxbSubComboId { get { return this._txbSubComboId; } set { this._txbSubComboId = value; this.OnPropertyChanged("TxbSubComboId"); } }
+        private string _txbSubComboIdColor;
+        public string TxbSubComboIdColor { get { return this._txbSubComboIdColor; } set { this._txbSubComboIdColor = value; this.OnPropertyChanged("TxbSubComboIdColor"); } }
+
+        private ObservableCollection<string> _takenSubjects;
+        public ObservableCollection<string> TakenSubjects
+        {
+            get { return this._takenSubjects; }
+            set { this._takenSubjects = value; this.OnPropertyChanged("TakenSubjects"); }
+        }
+        
+        private System.Collections.ArrayList _arrayOfSubs;
+        public System.Collections.ArrayList ArrayOfSubs
+        {
+            get { return this._arrayOfSubs; }
+            set { this._arrayOfSubs = value; this.OnPropertyChanged("ArrayOfSubs"); }
+        }
+
+        private Dictionary<string, System.Collections.ArrayList> _subDictionary;
+        public Dictionary<string, System.Collections.ArrayList> SubDictionary
+        {
+            get { return this._subDictionary; }
+            set { this._subDictionary = value; this.OnPropertyChanged("SubDictionary"); }
+        }
         #endregion
 
         #region personal
@@ -362,7 +393,7 @@ namespace NaimouzaHighSchool.ViewModels
         #region other
 
         #endregion
-
+       
         #endregion
         private StudentDataReadDb db { get; set; }
         private int _numberOfMatches;
@@ -391,6 +422,10 @@ namespace NaimouzaHighSchool.ViewModels
             this.SelectedClassIndex = -1;
             this.SelectedSectionIndex = -1;
             this.SelectedStudentListIndex = -1;
+
+            this.TakenSubjects = new ObservableCollection<string>();
+            this.ArrayOfSubs = new System.Collections.ArrayList();
+            this.SubDictionary = new Dictionary<string, System.Collections.ArrayList>();
 
             this.SearchCommand = new RelayCommand(this.Search, this.CanSearch);
 
@@ -654,6 +689,34 @@ namespace NaimouzaHighSchool.ViewModels
                 this.NumberOfMatches = 0;
             }
         
+        }
+
+        private void SetSubjects(string comboId)
+        {
+            if (this.SubDictionary.ContainsKey(comboId))
+            {
+                this.ArrayOfSubs = this.SubDictionary[comboId];
+            }
+            else
+            {
+                try
+                {
+                    this.ArrayOfSubs = this.db.GetComboSubjects(comboId);
+                    
+                    this.SubDictionary.Add(comboId, this.ArrayOfSubs);
+                }
+                catch (Exception ex4)
+                {
+                    System.Windows.MessageBox.Show("ex4 : "+ex4.ToString());
+                }
+            }
+            if (this.ArrayOfSubs.Count > 0)
+            {
+                foreach (string item in this.ArrayOfSubs)
+                {
+                    this.TakenSubjects.Add(item);
+                }
+            }
         }
 
         #endregion
