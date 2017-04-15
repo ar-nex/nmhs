@@ -19,6 +19,8 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         #region property field
+        private const string fontcolor1 = "Yellow";
+        private const string fontcolor0 = "Black";
         #region search bar
         private string _searchText;
         public string SearchText
@@ -155,71 +157,116 @@ namespace NaimouzaHighSchool.ViewModels
         #region gen
         private string _txbName;
         public string TxbName { get { return this._txbName; } set { this._txbName = value; this.OnPropertyChanged("TxbName"); } }
+        private string _txbNameColor;
+        public string TxbNameColor { get { return this._txbNameColor; } set { this._txbNameColor = value; this.OnPropertyChanged("TxbNameColor"); } }
 
         private string _txbCls;
         public string TxbCls { get { return this._txbCls; } set { this._txbCls = value; this.OnPropertyChanged("TxbCls"); } }
+        private string _txbClsColor;
+        public string TxbClsColor { get { return this._txbClsColor; } set { this._txbClsColor = value; this.OnPropertyChanged("TxbClsColor"); } }
 
         private string _txbSection;
         public string TxbSection { get { return this._txbSection; } set { this._txbSection = value; this.OnPropertyChanged("TxbSection"); } }
+        private string _txbSectionColor;
+        public string TxbSectionColor { get { return this._txbSectionColor; } set { this._txbSectionColor = value; this.OnPropertyChanged("TxbSectionColor"); } }
 
         private string _txbRoll;
         public string TxbRoll { get { return this._txbRoll; } set { this._txbRoll = value; this.OnPropertyChanged("TxbRoll"); } }
+        private string _txbRollColor;
+        public string TxbRollColor { get { return this._txbRollColor; } set { this._txbRollColor = value; this.OnPropertyChanged("TxbRollColor"); } }
 
         private string _txbGen;
         public string TxbGen { get { return this._txbGen; } set { this._txbGen = value; this.OnPropertyChanged("TxbGen"); } }
+        private string _txbGenColor;
+        public string TxbGenColor { get { return this._txbGenColor; } set { this._txbGenColor = value; this.OnPropertyChanged("TxbGenColor"); } }
 
         private string _txbDob;
         public string TxbDob { get { return this._txbDob; } set { this._txbDob = value; this.OnPropertyChanged("TxbDob"); } }
+        private string _txbDobColor;
+        public string TxbDobColor { get { return this._txbDobColor; } set { this._txbDobColor = value; this.OnPropertyChanged("TxbDobColor"); } }
 
         private string _txbAge;
         public string TxbAge { get { return this._txbAge; } set { this._txbAge = value; this.OnPropertyChanged("TxbAge"); } }
+        private string _txbAgeColor;
+        public string TxbAgeColor { get { return this._txbAgeColor; } set { this._txbAgeColor = value; this.OnPropertyChanged("TxbAgeColor"); } }
         #endregion
 
         #region personal
         private string _txbFather;
         public string TxbFather { get { return this._txbFather; } set { this._txbFather = value; this.OnPropertyChanged("TxbFather"); } }
+        private string _txbFatherColor;
+        public string TxbFatherColor { get { return this._txbFatherColor; } set { this._txbFatherColor = value; this.OnPropertyChanged("TxbFatherColor"); } }
+
 
         private string _txbMother;
         public string TxbMother { get { return this._txbMother; } set { this._txbMother = value; this.OnPropertyChanged("TxbMother"); } }
+        private string _txbMotherColor;
+        public string TxbMotherColor { get { return this._txbMotherColor; } set { this._txbMotherColor = value; this.OnPropertyChanged("TxbMotherColor"); } }
 
         private string _txbGrd;
         public string TxbGrd { get { return this._txbGrd; } set { this._txbGrd = value; this.OnPropertyChanged("TxbGrd"); } }
+        private string _txbGrdColor;
+        public string TxbGrdColor { get { return this._txbGrdColor; } set { this._txbGrdColor = value; this.OnPropertyChanged("TxbGrdColor"); } }
 
         private string _txbGrdRel;
         public string TxbGrdRel { get { return this._txbGrdRel; } set { this._txbGrdRel = value; this.OnPropertyChanged("TxbGrdRel"); } }
+        private string _txbGrdRelColor;
+        public string TxbGrdRelColor { get { return this._txbGrdRelColor; } set { this._txbGrdRelColor = value; this.OnPropertyChanged("TxbGrdRelColor"); } }
 
         private string _txbGrdOcc;
         public string TxbGrdOcc { get { return this._txbGrdOcc; } set { this._txbGrdOcc = value; this.OnPropertyChanged("TxbGrdOcc"); } }
+        private string _txbGrdOccColor;
+        public string TxbGrdOccColor { get { return this._txbGrdOccColor; } set { this._txbGrdOccColor = value; this.OnPropertyChanged("TxbGrdOccColor"); } }
 
         private string _txbGrdAadhar;
         public string TxbGrdAadhar { get { return this._txbGrdAadhar; } set { this._txbGrdAadhar = value; this.OnPropertyChanged("TxbGrdAadhar"); } }
+        private string _txbGrdAadharColor;
+        public string TxbGrdAadharColor { get { return this._txbGrdAadharColor; } set { this._txbGrdAadharColor = value; this.OnPropertyChanged("TxbGrdAadharColor"); } }
 
         private string _txbGrdEpic;
         public string TxbGrdEpic { get { return this._txbGrdEpic; } set { this._txbGrdEpic = value; this.OnPropertyChanged("TxbGrdEpic"); } }
+        private string _txbGrdEpicColor;
+        public string TxbGrdEpicColor { get { return this._txbGrdEpicColor; } set { this._txbGrdEpicColor = value; this.OnPropertyChanged("TxbGrdEpicColor"); } }
 
         private string _txbAadhar;
         public string TxbAadhar { get { return this._txbAadhar; } set { this._txbAadhar = value; this.OnPropertyChanged("TxbAadhar"); } }
+        private string _txbAadharColor;
+        public string TxbAadharColor { get { return this._txbAadharColor; } set { this._txbAadharColor = value; this.OnPropertyChanged("TxbAadharColor"); } }
 
         private string _txbSocCat;
         public string TxbSocCat { get { return this._txbSocCat; } set { this._txbSocCat = value; this.OnPropertyChanged("TxbSocCat"); } }
+        private string _txbSocCatColor;
+        public string TxbSocCatColor { get { return this._txbSocCatColor; } set { this._txbSocCatColor = value; this.OnPropertyChanged("TxbSocCatColor"); } }
 
         private string _txbSbCat;
         public string TxbSbCat { get { return this._txbSbCat; } set { this._txbSbCat = value; this.OnPropertyChanged("TxbSbCat"); } }
+        private string _txbSbCatColor;
+        public string TxbSbCatColor { get { return this._txbSbCatColor; } set { this._txbSbCatColor = value; this.OnPropertyChanged("TxbSbCatColor"); } }
 
         private string _txbIsPh;
         public string TxbIsPh { get { return this._txbIsPh; } set { this._txbIsPh = value; this.OnPropertyChanged("TxbIsPh"); } }
+        private string _txbIsPhColor;
+        public string TxbIsPhColor { get { return this._txbIsPhColor; } set { this._txbIsPhColor = value; this.OnPropertyChanged("TxbIsPhColor"); } }
 
         private string _txbPhType;
         public string TxbPhType { get { return this._txbPhType; } set { this._txbPhType = value; this.OnPropertyChanged("TxbPhType"); } }
+        private string _txbPhTypeColor;
+        public string TxbPhTypeColor { get { return this._txbPhTypeColor; } set { this._txbPhTypeColor = value; this.OnPropertyChanged("TxbPhTypeColor"); } }
 
         private string _txbIsBpl;
         public string TxbIsBpl { get { return this._txbIsBpl; } set { this._txbIsBpl = value; this.OnPropertyChanged("TxbIsBpl"); } }
+        private string _txbIsBplColor;
+        public string TxbIsBplColor { get { return this._txbIsBplColor; } set { this._txbIsBplColor = value; this.OnPropertyChanged("TxbIsBplColor"); } }
 
         private string _txbBplNo;
         public string TxbBplNo { get { return this._txbBplNo; } set { this._txbBplNo = value; this.OnPropertyChanged("TxbBplNo"); } }
+        private string _txbBplNoColor;
+        public string TxbBplNoColor { get { return this._txbBplNoColor; } set { this._txbBplNoColor = value; this.OnPropertyChanged("TxbBplNoColor"); } }
 
         private string _txbReligion;
         public string TxbReligion { get { return this._txbReligion; } set { this._txbReligion = value; this.OnPropertyChanged("TxbReligion"); } }
+        private string _txbReligionColor;
+        public string TxbReligionColor { get { return this._txbReligionColor; } set { this._txbReligionColor = value; this.OnPropertyChanged("TxbReligionColor"); } }
 
    
         #endregion
@@ -227,59 +274,89 @@ namespace NaimouzaHighSchool.ViewModels
         #region contact
         private string _presentAddr;
         public string PresentAddr { get { return this._presentAddr; } set { this._presentAddr = value; this.OnPropertyChanged("PresentAddr"); } }
+        private string _presentAddrColor;
+        public string PresentAddrColor { get { return this._presentAddrColor; } set { this._presentAddrColor = value; this.OnPropertyChanged("PresentAddrColor"); } }
 
         private string _permanentAddr;
         public string PermanentAddr { get { return this._permanentAddr; } set { this._permanentAddr = value; this.OnPropertyChanged("PermanentAddr"); } }
+        private string _permanentAddrColor;
+        public string PermanentAddrColor { get { return this._permanentAddrColor; } set { this._permanentAddrColor = value; this.OnPropertyChanged("PermanentAddrColor"); } }
 
         private string _txbMobile;
         public string TxbMobile { get { return this._txbMobile; } set { this._txbMobile = value; this.OnPropertyChanged("TxbMobile"); } }
+        private string _txbMobileColor;
+        public string TxbMobileColor { get { return this._txbMobileColor; } set { this._txbMobileColor = value; this.OnPropertyChanged("TxbMobileColor"); } }
 
         private string _txbEmail;
         public string TxbEmail { get { return this._txbEmail; } set { this._txbEmail = value; this.OnPropertyChanged("TxbEmail"); } }
+        private string _txbEmailColor;
+        public string TxbEmailColor { get { return this._txbEmailColor; } set { this._txbEmailColor = value; this.OnPropertyChanged("TxbEmailColor"); } }
         #endregion
 
         #region bank
         private string _bankAcc;
-        public string BankAcc { get { return this._bankAcc; } set { this._bankAcc = value; this.OnPropertyChanged("BankAcc"); } } 
+        public string BankAcc { get { return this._bankAcc; } set { this._bankAcc = value; this.OnPropertyChanged("BankAcc"); } }
+        private string _bankAccColor;
+        public string BankAccColor { get { return this._bankAccColor; } set { this._bankAccColor = value; this.OnPropertyChanged("BankAccColor"); } } 
 
         private string _bankName;
         public string BankName { get { return this._bankName; } set { this._bankName = value; this.OnPropertyChanged("BankName"); } }
+        private string _bankNameColor;
+        public string BankNameColor { get { return this._bankNameColor; } set { this._bankNameColor = value; this.OnPropertyChanged("BankNameColor"); } }
 
         private string _bankBranch;
         public string BankBranch { get { return this._bankBranch; } set { this._bankBranch = value; this.OnPropertyChanged("BankBranch"); } }
+        private string _bankBranchColor;
+        public string BankBranchColor { get { return this._bankBranchColor; } set { this._bankBranchColor = value; this.OnPropertyChanged("BankBranchColor"); } }
 
         private string _bankIfsc;
         public string BankIfsc { get { return this._bankIfsc; } set { this._bankIfsc = value; this.OnPropertyChanged("BankIfsc"); } }
+        private string _bankIfscColor;
+        public string BankIfscColor { get { return this._bankIfscColor; } set { this._bankIfscColor = value; this.OnPropertyChanged("BankIfscColor"); } }
 
         private string _bankMicr;
         public string BankMicr { get { return this._bankMicr; } set { this._bankMicr = value; this.OnPropertyChanged("BankMicr"); } }
+        private string _bankMicrColor;
+        public string BankMicrColor { get { return this._bankMicrColor; } set { this._bankMicrColor = value; this.OnPropertyChanged("BankMicrColor"); } }
 
         #endregion
         private System.Windows.Visibility _stdDetailVisibility;
         public System.Windows.Visibility StdDetailVisibility
         {
-            //get { return this._stdDetailVisibility; }
-            get { return System.Windows.Visibility.Visible; }
+            get { return this._stdDetailVisibility; }
+            //get { return System.Windows.Visibility.Visible; }
             set { this._stdDetailVisibility = value; this.OnPropertyChanged("StdDetailVisibility"); }
         }
         #region Admission
         private string _admissionNo;
         public string AdmissionNo { get { return this._admissionNo; } set { this._admissionNo = value; this.OnPropertyChanged("AdmissionNo"); } }
+        private string _admissionNoColor;
+        public string AdmissionNoColor { get { return this._admissionNoColor; } set { this._admissionNoColor = value; this.OnPropertyChanged("AdmissionNoColor"); } }
 
         private string _admissionDate;
         public string AdmissionDate { get { return this._admissionDate; } set { this._admissionDate = value; this.OnPropertyChanged("AdmissionDate"); } }
+        private string _admissionDateColor;
+        public string AdmissionDateColor { get { return this._admissionDateColor; } set { this._admissionDateColor = value; this.OnPropertyChanged("AdmissionDateColor"); } }
 
         private string _admittedClass;
         public string AdmittedClass { get { return this._admittedClass; } set { this._admittedClass = value; this.OnPropertyChanged("AdmittedClass"); } }
+        private string _admittedClassColor;
+        public string AdmittedClassColor { get { return this._admittedClassColor; } set { this._admittedClassColor = value; this.OnPropertyChanged("AdmittedClassColor"); } }
 
         private string _lastSchool;
         public string LastSchool { get { return this._lastSchool; } set { this._lastSchool = value; this.OnPropertyChanged("LastSchool"); } }
+        private string _lastSchoolColor;
+        public string LastSchoolColor { get { return this._lastSchoolColor; } set { this._lastSchoolColor = value; this.OnPropertyChanged("LastSchoolColor"); } }
 
         private string _dateOfLeaving;
         public string DateOfLeaving { get { return this._dateOfLeaving; } set { this._dateOfLeaving = value; this.OnPropertyChanged("DateOfLeaving"); } }
+        private string _dateOfLeavingColor;
+        public string DateOfLeavingColor { get { return this._dateOfLeavingColor; } set { this._dateOfLeavingColor = value; this.OnPropertyChanged("DateOfLeavingColor"); } }
 
         private string _tc;
-        public string Tc { get { return this._tc; } set { this._tc = value; this.OnPropertyChanged("Tc"); } } 
+        public string Tc { get { return this._tc; } set { this._tc = value; this.OnPropertyChanged("Tc"); } }
+        private string _tcColor;
+        public string TcColor { get { return this._tcColor; } set { this._tcColor = value; this.OnPropertyChanged("TcColor"); } } 
         #endregion
 
         #region other
@@ -409,51 +486,88 @@ namespace NaimouzaHighSchool.ViewModels
         private void BuildStdDetailView(Student s)
         {
             this.TxbName = s.Name;
+            this.TxbNameColor = fontcolor1;
             this.TxbCls = s.StudyingClass;
+            this.TxbClsColor = fontcolor1;
             this.TxbSection = s.Section;
+            this.TxbSectionColor = fontcolor1;
             this.TxbRoll = s.Roll.ToString();
+            this.TxbRollColor = (s.Roll != 0) ? fontcolor1 : fontcolor0; 
             string sdob_temp = s.Dob.ToString("dd-MM-yyyy");
             this.TxbDob = (sdob_temp == "01-01-0001") ? "Not found" : sdob_temp;
+            this.TxbDobColor = (sdob_temp == "01-01-0001") ? fontcolor0 : fontcolor1;
             this.TxbGen = (string.IsNullOrEmpty(s.Sex)) ? "Not found" : s.Sex;
+            this.TxbGenColor = (string.IsNullOrEmpty(s.Sex)) ? fontcolor0 : fontcolor1;
             //not implemented yet
             this.TxbAge = "Not implemented yet.";
+            this.TxbAgeColor = (sdob_temp == "01-01-0001") ? fontcolor0 : fontcolor1;
 
-            this.TxbFather = s.FatherName;
+            this.TxbFather = (string.IsNullOrEmpty(s.FatherName)) ? "Not found" : s.FatherName;
+            this.TxbFatherColor = (string.IsNullOrEmpty(s.FatherName)) ? fontcolor0 : fontcolor1;
             this.TxbMother = (string.IsNullOrEmpty(s.MotherName)) ? "Not found" : s.MotherName;
+            this.TxbMotherColor = (string.IsNullOrEmpty(s.MotherName)) ? fontcolor0 : fontcolor1;
             this.TxbGrd = (string.IsNullOrEmpty(s.GuardianName)) ? "Not found" : s.GuardianName;
+            this.TxbGrdColor = (string.IsNullOrEmpty(s.GuardianName)) ? fontcolor0 : fontcolor1;
             this.TxbGrdRel = (string.IsNullOrEmpty(s.GuardianRelation)) ? "Not found" : s.GuardianRelation;
+            this.TxbGrdRelColor = (string.IsNullOrEmpty(s.GuardianRelation)) ? fontcolor0 : fontcolor1;
             this.TxbGrdAadhar= (string.IsNullOrEmpty(s.GuardianAadhar)) ? "Not found" : s.GuardianAadhar;
+            this.TxbGrdAadharColor = (string.IsNullOrEmpty(s.GuardianAadhar)) ? fontcolor0 : fontcolor1;
             this.TxbGrdEpic = (string.IsNullOrEmpty(s.GuardianEpic)) ? "Not found" : s.GuardianEpic;
+            this.TxbGrdEpicColor = (string.IsNullOrEmpty(s.GuardianEpic)) ? fontcolor0 : fontcolor1;
             this.TxbGrdOcc = (string.IsNullOrEmpty(s.GuardianOccupation)) ? "Not found" : s.GuardianOccupation;
+            this.TxbGrdOccColor = (string.IsNullOrEmpty(s.GuardianOccupation)) ? fontcolor0 : fontcolor1;
 
             this.TxbAadhar = (string.IsNullOrEmpty(s.Aadhar)) ? "Not found" : s.Aadhar;
+            this.TxbAadharColor = (string.IsNullOrEmpty(s.Aadhar)) ? fontcolor0 : fontcolor1;
             this.TxbSocCat = (string.IsNullOrEmpty(s.SocialCategory)) ? "Not found" : s.SocialCategory;
+            this.TxbSocCatColor = (string.IsNullOrEmpty(s.SocialCategory)) ? fontcolor0 : fontcolor1;
             this.TxbSbCat = (string.IsNullOrEmpty(s.SubCast)) ? "Not found" : s.SubCast;
+            this.TxbSbCatColor = (string.IsNullOrEmpty(s.SubCast)) ? fontcolor0 : fontcolor1;
             this.TxbIsPh = (s.IsPH) ? "Yes" : "No";
+            this.TxbIsPhColor = fontcolor1;
             this.TxbPhType = s.PhType;
+            this.TxbPhTypeColor = fontcolor1;
             this.TxbIsBpl = (s.IsBpl) ? "Yes" : "No";
+            this.TxbIsBplColor = fontcolor1;
             this.TxbBplNo = s.BplNo;
+            this.TxbBplNoColor = fontcolor1;
             this.TxbReligion = (string.IsNullOrEmpty(s.Religion)) ? "Not found" : s.Religion;
+            this.TxbReligionColor = (string.IsNullOrEmpty(s.Religion)) ? fontcolor0 : fontcolor1;
 
             this.PresentAddr = (string.IsNullOrEmpty(s.PresentAdrress)) ? "Not found" : s.PresentAdrress;
+            this.PresentAddrColor = (string.IsNullOrEmpty(s.PresentAdrress)) ? fontcolor0 : fontcolor1;
             this.PermanentAddr = (string.IsNullOrEmpty(s.PermanentAddress)) ? "Not found" : s.PermanentAddress;
+            this.PermanentAddrColor = (string.IsNullOrEmpty(s.PermanentAddress)) ? fontcolor0 : fontcolor1;
             this.TxbMobile = (string.IsNullOrEmpty(s.Mobile)) ? "Not found" : s.Mobile;
+            this.TxbMobileColor = (string.IsNullOrEmpty(s.Mobile)) ? fontcolor0 : fontcolor1;
             this.TxbEmail = (string.IsNullOrEmpty(s.Email)) ? "Not found" : s.Email;
+            this.TxbEmailColor = (string.IsNullOrEmpty(s.Email)) ? fontcolor0 : fontcolor1;
 
             this.BankAcc = (string.IsNullOrEmpty(s.BankAcc)) ? "Not found" : s.BankAcc;
+            this.BankAccColor = (string.IsNullOrEmpty(s.BankAcc)) ? fontcolor0 : fontcolor1;
             this.BankName = (string.IsNullOrEmpty(s.BankName)) ? "Not found" : s.BankName;
+            this.BankNameColor = (string.IsNullOrEmpty(s.BankName)) ? fontcolor0 : fontcolor1;
             this.BankBranch = (string.IsNullOrEmpty(s.BankBranch)) ? "Not found" : s.BankBranch;
+            this.BankBranchColor = (string.IsNullOrEmpty(s.BankBranch)) ? fontcolor0 : fontcolor1;
             this.BankIfsc = (string.IsNullOrEmpty(s.Ifsc)) ? "Not found" : s.Ifsc;
+            this.BankIfscColor = (string.IsNullOrEmpty(s.Ifsc)) ? fontcolor0 : fontcolor1;
             this.BankMicr = (string.IsNullOrEmpty(s.MICR)) ? "Not found" : s.MICR;
+            this.BankMicrColor = (string.IsNullOrEmpty(s.MICR)) ? "Not found" : fontcolor1;
 
             this.AdmissionNo = (string.IsNullOrEmpty(s.AdmissionNo)) ? "Not found" : s.AdmissionNo;
+            this.AdmissionNoColor = (string.IsNullOrEmpty(s.AdmissionNo)) ? fontcolor0 : fontcolor1;
             string doa_temp = s.AdmDate.ToString("dd-MM-yyyy");
             this.AdmissionDate = (doa_temp == "01-01-0001") ? "Not found" : doa_temp;
+            this.AdmissionDateColor = (doa_temp == "01-01-0001") ? fontcolor0 : fontcolor1;
             this.AdmittedClass = (string.IsNullOrEmpty(s.AdmittedClass)) ? "Not found" : s.AdmittedClass;
+            this.AdmittedClassColor = (string.IsNullOrEmpty(s.AdmittedClass)) ? fontcolor0 : fontcolor1;
             this.LastSchool = (string.IsNullOrEmpty(s.LastSchool)) ? "Not found" : s.LastSchool;
+            this.LastSchoolColor = (string.IsNullOrEmpty(s.LastSchool)) ? fontcolor0 : fontcolor1;
             string dol_temp = s.DateOfLeaving.ToString("dd-MM-yyyy");
             this.DateOfLeaving = (dol_temp == "01-01-0001") ? "Not found" : dol_temp;
+            this.DateOfLeavingColor = (dol_temp == "01-01-0001") ? fontcolor0 : fontcolor1;
             this.Tc = (string.IsNullOrEmpty(s.TC)) ? "Not found" : s.TC;
+            this.TcColor = (string.IsNullOrEmpty(s.TC)) ? fontcolor0 : fontcolor1;
 
         }
 
@@ -482,13 +596,14 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private void Edit()
-        { 
-        
+        {
+           // System.Windows.MessageBox.Show("Working");
         }
 
         private bool CanEdit()
         {
-            return (this.SelectedStudentListIndex > -1);
+            //return (this.SelectedStudentListIndex > -1);
+            return true;
         }
 
         private void EnableDisableSearchControl()
