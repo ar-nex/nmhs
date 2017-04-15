@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -107,6 +108,7 @@ namespace NaimouzaHighSchool.Models.Database
                     s.StudyingClass = rdr[39].ToString();
                     s.Section = rdr[40].ToString();
                     s.Roll = Int32.Parse(rdr[41].ToString());
+                    s.SubjectComboId = rdr[44].ToString(); 
 
                     s.AdmissionNo = rdr[46].ToString();
                     s.AdmDate = (string.IsNullOrEmpty(rdr[47].ToString())) ? default(DateTime) : DateTime.Parse(rdr[47].ToString());
@@ -188,6 +190,7 @@ namespace NaimouzaHighSchool.Models.Database
                     s.StudyingClass = rdr[39].ToString();
                     s.Section = rdr[40].ToString();
                     s.Roll = Int32.Parse(rdr[41].ToString());
+                    s.SubjectComboId = rdr[44].ToString(); 
 
                     s.AdmissionNo = rdr[46].ToString();
                     s.AdmDate = (string.IsNullOrEmpty(rdr[47].ToString())) ? default(DateTime) : DateTime.Parse(rdr[47].ToString());
@@ -269,6 +272,7 @@ namespace NaimouzaHighSchool.Models.Database
                     s.StudyingClass = rdr[39].ToString();
                     s.Section = rdr[40].ToString();
                     s.Roll = Int32.Parse(rdr[41].ToString());
+                    s.SubjectComboId = rdr[44].ToString(); 
 
                     s.AdmissionNo = rdr[46].ToString();
                     s.AdmDate = (string.IsNullOrEmpty(rdr[47].ToString())) ? default(DateTime) : DateTime.Parse(rdr[47].ToString());
@@ -350,6 +354,7 @@ namespace NaimouzaHighSchool.Models.Database
                     s.StudyingClass = rdr[39].ToString();
                     s.Section = rdr[40].ToString();
                     s.Roll = Int32.Parse(rdr[41].ToString());
+                    s.SubjectComboId = rdr[44].ToString(); 
 
                     s.AdmissionNo = rdr[46].ToString();
                     s.AdmDate = (string.IsNullOrEmpty(rdr[47].ToString())) ? default(DateTime) : DateTime.Parse(rdr[47].ToString());
@@ -375,6 +380,31 @@ namespace NaimouzaHighSchool.Models.Database
         
         }
 
+        public ArrayList GetComboSubjects(string comboId)
+        {
+            ArrayList sList = new ArrayList();
+            try
+            {
+                this.conn.Open();
+                string sql = "SELECT s.Name FROM Subject s WHERE id IN (SELECT Subject_id FROM SubjectCombo_has_Subject WHERE SubjectCombo_id="+comboId+")";
+                MySqlCommand cmd = new MySqlCommand(sql, this.conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    sList.Add(rdr[0].ToString());
+                }
+            }
+            catch (Exception ex3)
+            {
+                System.Windows.MessageBox.Show("ex3" + ex3.Message);
+            }
+            finally
+            {
+                this.conn.Close();
+            }
+
+            return sList;
+        }
 
         public bool DeleteStudent(string StdId)
         {
