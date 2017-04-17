@@ -9,6 +9,11 @@
         <conv:SearchConverter x:Key="SearchConverter"></conv:SearchConverter>
         <conv:IntConverter x:Key="IntConverter"></conv:IntConverter>
         <conv:GenderFilterConverter x:Key="GenFilterConverter"></conv:GenderFilterConverter>
+        <conv:GenderConverter x:Key="GenConverter"></conv:GenderConverter>
+        <conv:BoolConverter x:Key="YesNoConverter"></conv:BoolConverter>
+        <conv:Bool1Converter x:Key="Bool1Converter"></conv:Bool1Converter>
+        <conv:DateConverter x:Key="DateConverter"></conv:DateConverter>
+        <conv:DateConverter1 x:Key="DateConverter1"></conv:DateConverter1>
         <Style TargetType="RadioButton">
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Margin" Value="20,2,2,2" />
@@ -46,24 +51,24 @@
             <Setter Property="FontSize" Value="13"/>
         </Style>
         <Style TargetType="Label" x:Key="lblValue">
-            
-            <Setter Property="FontSize" Value="13"/>
-            
+            <Setter Property="FontSize" Value="13"/>            
         </Style>
         <Style TargetType="Label" x:Key="doubleDot">
             <Setter Property="Foreground" Value="Salmon"/>
         </Style>
     </Window.Resources>
     <DockPanel LastChildFill="True">
-        <Border DockPanel.Dock="Bottom" Height="0" Name="EditPanel" Background="RosyBrown">
+        <Border DockPanel.Dock="Bottom" Height="0" Name="EditPanel" Background="#b3bcd3" Margin="8,0,8,0" BorderBrush="#b3bcd3" BorderThickness="5,2,5,0" CornerRadius="7,7,0,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Border>
-                    <Button Content="cancel" Name="HideEdit">
-                        <Button.Triggers>
+                <Border Padding="5">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Width="80" Margin="1">Save</Button>
+                         <Button Content="Exit" Name="HideEdit" Width="80" Margin="1">
+                            <Button.Triggers>
                             <EventTrigger RoutedEvent="Button.Click" SourceName="HideEdit">
                                 <BeginStoryboard Name="myStoryBoardClose">
                                     <Storyboard>
@@ -76,132 +81,43 @@
                                 </BeginStoryboard>
                             </EventTrigger>
                         </Button.Triggers>
-                    </Button>
-                    
+                         </Button>   
+                    </StackPanel>                
                 </Border>
-               
-                <!--<TabControl Grid.Row="1">
-                    <TabItem>
-                        <TabItem.Header>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <Image Source="/NaimouzaHighSchool;component/Asset/Images/user.ico" Width="20"></Image>
-                                <TextBlock>Basic</TextBlock>
-                            </StackPanel>
-                        </TabItem.Header>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="300"/>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Orientation="Vertical" Margin="5,5,30,5">
-                                <Label>
-                                    <TextBlock Style="{StaticResource headerTextBlock}">Student's Class Info</TextBlock>
-                                </Label>
-                                <Label>First Name</Label>
-                                <TextBox Text="{Binding TxbFirstName, Source={StaticResource Srvm}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Middle Name</Label>
-                                <TextBox Text="{Binding TxbMidName, Source={StaticResource Srvm}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Last Name</Label>
-                                <TextBox Text="{Binding TxbLastName, Source={StaticResource Srvm}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Class</Label>
-                                <ComboBox ItemsSource="{Binding SchoolClass, Source={StaticResource Srvm}}" 
-                                      SelectedIndex="{Binding ClassSelectedIndex, Source={StaticResource Srvm}}">
-                                </ComboBox>
-                                <Label>Section</Label>
-                                <ComboBox ItemsSource="{Binding SchoolSection, Source={StaticResource Srvm}}" SelectedIndex="{Binding SectionSelectedIndex, Source={StaticResource Srvm}}"></ComboBox>
-                                <Label>Roll</Label>
-                                <TextBox Text="{Binding Roll, Source={StaticResource Srvm}, Converter={StaticResource IntConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Stream</Label>
-                                <ComboBox ItemsSource="{Binding StreamList, Source={StaticResource Srvm}}" IsEnabled="{Binding EnableStream, Source={StaticResource Srvm}}" SelectedIndex="{Binding ClassSelectedIndex, Source={StaticResource Srvm}, Mode=TwoWay}"></ComboBox>
-                                <Label>Subject Combination</Label>
-                                <ComboBox ItemsSource="{Binding FilteredComboCode, Source={StaticResource Srvm}}" SelectedIndex="{Binding ComboIndex, Source={StaticResource Srvm}}"></ComboBox>
-                            </StackPanel>
-                            <Grid Grid.Column="1" Margin="30,5,5,5">
+
+                <ScrollViewer Grid.Row="1" Background="#eee">
+                    <TabControl>
+                        <TabItem Header="Class">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Label Grid.ColumnSpan="2">
-                                    <TextBlock Style="{StaticResource headerTextBlock}">General Info</TextBlock>
-                                </Label>
-                                <Label Grid.Row="1">Gender</Label>
-                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                                    <RadioButton GroupName="Gen" VerticalAlignment="Center" IsChecked="{Binding Sex, Source={StaticResource Srvm}, Mode=TwoWay, ConverterParameter=M, Converter={StaticResource GenConverter}}">Boy</RadioButton>
-                                    <RadioButton GroupName="Gen" Margin="20,0,0,0" VerticalAlignment="Center" IsChecked="{Binding Sex, Source={StaticResource Srvm}, Mode=TwoWay, ConverterParameter=F, Converter={StaticResource GenConverter}}">Girl</RadioButton>
-                                </StackPanel>
-                                <Label Grid.Row="2">DoB</Label>
-                                <DatePicker Grid.Row="2" Grid.Column="1"
-                                Text="{Binding Dob, Source={StaticResource Srvm}, Mode=TwoWay, Converter={StaticResource DateConverter}}">
-                                </DatePicker>
-                                <Label Grid.Row="3">Aadhar No.</Label>
-                                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TxbAadhar, Source={StaticResource Srvm}, Mode=TwoWay}"></TextBox>
-                                <Label Grid.Row="4">Blood group</Label>
-                                <ComboBox Grid.Row="4" Grid.Column="1"
-                                ItemsSource="{Binding BloodGroups, Source={StaticResource Srvm}}" SelectedIndex="{Binding BloodGroupIndex, Source={StaticResource Srvm}}">
-                                </ComboBox>
-                                <Label Grid.Row="5">Social category</Label>
-                                <ComboBox Grid.Row="5" Grid.Column="1"
-                                ItemsSource="{Binding SocialCatList, Source={StaticResource Srvm}}" SelectedIndex="{Binding SocialCatIndex, Source={StaticResource Srvm}}">
-                                </ComboBox>
-                                <Label Grid.Row="6">Social Sub Cat</Label>
-                                <TextBox Grid.Row="6" Grid.Column="1"
-                                     Text="{Binding SocialSubCat, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                </TextBox>
-                                <Label Grid.Row="7">BPL</Label>
-                                <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="1">
-                                    <RadioButton GroupName="bpl" IsChecked="{Binding Isbpl, Source={StaticResource Srvm}, Mode=TwoWay, ConverterParameter=no, Converter={StaticResource YesNoConverter}}">No</RadioButton>
-                                    <RadioButton GroupName="bpl" IsChecked="{Binding Isbpl, Source={StaticResource Srvm}, Mode=TwoWay, ConverterParameter=yes, Converter={StaticResource YesNoConverter}}">Yes</RadioButton>
-                                </StackPanel>
-                                <Label Grid.Row="8">BPL No.</Label>
-                                <TextBox Grid.Row="8" Grid.Column="1" 
-                                     IsEnabled="{Binding EnableBplTxb, Source={StaticResource Srvm}}" Text="{Binding BplNo, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                </TextBox>
-                                <Label Grid.Row="9">PH</Label>
-                                <StackPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="1">
-                                    <RadioButton GroupName="ph" IsChecked="{Binding IsPh, Source={StaticResource Srvm}, Mode=TwoWay, ConverterParameter=no, Converter={StaticResource YesNoConverter}}">No</RadioButton>
-                                    <RadioButton GroupName="ph" IsChecked="{Binding IsPh, Source={StaticResource Srvm}, Mode=TwoWay, ConverterParameter=yes, Converter={StaticResource YesNoConverter}}">Yes</RadioButton>
-                                </StackPanel>
-                                <Label Grid.Row="10">PH detail</Label>
-                                <TextBox Grid.Row="10" Grid.Column="1"
-                                Text="{Binding PhDetail, Source={StaticResource Srvm}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding EnablePhTxb, Source={StaticResource Srvm}}">
-                                </TextBox>
-                                <Label Grid.Row="11">Religion</Label>
-                                <ComboBox Grid.Row="11" Grid.Column="1"
-                                      ItemsSource="{Binding ReligionList, Source={StaticResource Srvm}}" SelectedIndex="{Binding ReligionIndex, Source={StaticResource Srvm}}">
-                                </ComboBox>
-                            </Grid>
-
-
-
-
-                            <StackPanel Grid.Column="2">
-                                <Label>
-                                    <TextBlock TextDecorations="Underline" Foreground="Purple">
-                                    Subject Combination (Only for Class XI &amp; XII
-                                    </TextBlock>
-                                </Label>
-
                                 <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Label>Name</Label>
+                                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TxbName, Source={StaticResource dObj}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label Grid.Row="1">Class</Label>
+                                    <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding SchoolClasses, Source={StaticResource dObj}}"                                             
+                                              SelectedItem="{Binding TxbCls, Source={StaticResource dObj}}">
+                                    </ComboBox>
+                                    <Label Grid.Row="2">Section</Label>
+                                    <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding SchoolSections, Source={StaticResource dObj}}" SelectedItem="{Binding TxbSection, Source={StaticResource dObj}}"></ComboBox>
+                                    <Label Grid.Row="3">Roll</Label>
+                                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TxbRoll, Source={StaticResource dObj}, Converter={StaticResource IntConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
@@ -209,256 +125,275 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                   
+                                    <Label>Stream</Label>
+                                    <ComboBox Grid.Column="1" ItemsSource="{Binding StreamList, Source={StaticResource dObj}}" IsEnabled="{Binding EnableStream, Source={StaticResource dObj}}" SelectedIndex="{Binding ClassSelectedIndex, Source={StaticResource dObj}, Mode=TwoWay}"></ComboBox>
+                                    <Label Grid.Row="1">Subject Combination</Label>
+                                    <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding FilteredComboCode, Source={StaticResource dObj}}" SelectedIndex="{Binding ComboIndex, Source={StaticResource dObj}}"></ComboBox>
                                 </Grid>
                                
-                            </StackPanel>
-                        </Grid>
-                    </TabItem>
-                    <TabItem>
-                        <TabItem.Header>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <Image Source="/NaimouzaHighSchool;component/Asset/Images/home.ico" Width="20"></Image>
-                                <TextBlock>Address &amp; Contact</TextBlock>
-                            </StackPanel>
-                        </TabItem.Header>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Orientation="Vertical">
-                                <Label>
-                                    <TextBlock TextDecorations="Underline">Parent's Info</TextBlock>
-                                </Label>
-                                <Label>Father Name</Label>
-                                <TextBox Text="{Binding TxbFatherName, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Mother Name</Label>
-                                <TextBox Text="{Binding TxbMotherName, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label>Guardian's Name</Label>
-                                    <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsSameGuardian, Source={StaticResource Srvm}, Mode=TwoWay}">Same as father</CheckBox>
+                                <StackPanel Grid.Column="2">
+                                    <Label>
+                                        <TextBlock TextDecorations="Underline" Foreground="Purple">
+                                    Subject Combination (Only for Class XI &amp; XII
+                                        </TextBlock>
+                                    </Label>
+
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                    </Grid>
+
                                 </StackPanel>
-                                <TextBox Text="{Binding GuardianName, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Relation with guardian</Label>
-                                <TextBox Text="{Binding RelationWithGuardian, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Father / Guardian occupation</Label>
-                                <TextBox Text="{Binding Occupation, Source={StaticResource Srvm}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Yearly family income</Label>
-                                <TextBox Text="{Binding AnnualIncome, Source={StaticResource Srvm}, Mode=TwoWay, Converter={StaticResource IntConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Father / Guardian EPIC (Voter) No.</Label>
-                                <TextBox Text="{Binding VoterCardNo, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Father / Guardian Aadhar No.</Label>
-                                <TextBox Text="{Binding GuardianAadhar, Source={StaticResource Srvm}, Mode=TwoWay}"></TextBox>
-                            </StackPanel>
-                            <StackPanel Grid.Column="1" Orientation="Vertical">
-                                <Label>
-                                    <TextBlock TextDecorations="Underline">Present Address</TextBlock>
-                                </Label>
-                                <CheckBox Visibility="Hidden">Hidden</CheckBox>
-                                <Label>Para / House No.</Label>
-                                <TextBox Text="{Binding PresentAddr1, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Village Or Street</Label>
-                                <ComboBox 
-                                IsEditable="True"
-                                Text="{Binding PresentAddr2, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                ItemsSource="{Binding VillList, Source={StaticResource Srvm}}">
-                                </ComboBox>
-                                <Label>Post Office</Label>
-                                <ComboBox 
-                                IsEditable="True"
-                                Text="{Binding PresentPostOffice, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                ItemsSource="{Binding PostOfficeList, Source={StaticResource Srvm}}">
-                                </ComboBox>
-                                <Label>Police Station</Label>
-                                <ComboBox 
-                                IsEditable="True"
-                                Text="{Binding PresentPs, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                ItemsSource="{Binding PSList, Source={StaticResource Srvm}}">
-                                </ComboBox>
-                                <Label>District</Label>
-                                <ComboBox 
-                                IsEditable="True"
-                                Text="{Binding PresentDist, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                ItemsSource="{Binding DistList, Source={StaticResource Srvm}}">
-                                </ComboBox>
-                                <Label>PIN</Label>
-                                <ComboBox 
-                                IsEditable="True"
-                                Text="{Binding PresentPin, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                ItemsSource="{Binding PinList, Source={StaticResource Srvm}}">
-                                </ComboBox>
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="2" Orientation="Vertical">
-                                <Label>
-                                    <TextBlock TextDecorations="Underline">Permanent Address</TextBlock>
-                                </Label>
-                                <CheckBox IsChecked="{Binding Same2Address, Source={StaticResource Srvm}, Mode=TwoWay}">Same as present address</CheckBox>
-                                <Label>Para / House No.</Label>
-                                <TextBox Text="{Binding PermAddr1, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Village / Street</Label>
-                                <TextBox Text="{Binding PermAddr2, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Post Office</Label>
-                                <TextBox Text="{Binding PermPO, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Police Station</Label>
-                                <TextBox Text="{Binding PermPs, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>District</Label>
-                                <TextBox Text="{Binding PermDist, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>PIN</Label>
-                                <TextBox Text="{Binding PermPin, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                            </StackPanel>
-                            <StackPanel Grid.Column="3">
-                                <Label>
-                                    <TextBlock TextDecorations="Underline">Contact Info</TextBlock>
-                                </Label>
-                                <Label>Student Mobile No.</Label>
-                                <TextBox Text="{Binding StdMobile, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Guardian's Mobile No.</Label>
-                                <TextBox Text="{Binding GrdMobile, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Email ID</Label>
-                                <TextBox Text="{Binding Email, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                            </StackPanel>
-                        </Grid>
-
-                    </TabItem>
-                    <TabItem>
-                        <TabItem.Header>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <Image Source="/NaimouzaHighSchool;component/Asset/Images/admission.ico" Width="20"></Image>
-                                <TextBlock>Admission</TextBlock>
-                            </StackPanel>
-                        </TabItem.Header>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Orientation="Vertical">
-                                <Label>
-                                    <TextBlock TextDecorations="Underline">Admission info</TextBlock>
-                                </Label>
-                                <Label>Admission No.</Label>
-                                <TextBox Text="{Binding AdmissionNo, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Admissin Date</Label>
-                                <DatePicker Text="{Binding AdmissionDate, Source={StaticResource Srvm}, Converter={StaticResource DateConverter}, Mode=TwoWay}"></DatePicker>
-                                <Label>Admitted Class</Label>
-                                <ComboBox ItemsSource="{Binding ClassessForAdmission, Source={StaticResource Srvm}}" SelectedIndex="{Binding IndexOfAdmittedClass, Source={StaticResource Srvm}}"></ComboBox>
-                            </StackPanel>
-                            <StackPanel Grid.Column="1" Orientation="Vertical">
-                                <Label>
-                                    <TextBlock TextDecorations="Underline">Last School Info</TextBlock>
-                                </Label>
-                                <Label>Last School Name</Label>
-                                <TextBox Text="{Binding LastSchool, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Last Class</Label>
-                                <ComboBox ItemsSource="{Binding LastClasses, Source={StaticResource Srvm}}" SelectedIndex="{Binding LastClassIndex, Source={StaticResource Srvm}}"></ComboBox>
-                                <Label>Year of passing of last class</Label>
-                                <ComboBox ItemsSource="{Binding YearOfPassingArray, Source={StaticResource Srvm}}" SelectedIndex="{Binding IndexOfLastClassYear, Source={StaticResource Srvm}}"></ComboBox>
-                                <Label>Percentage of marks obtained</Label>
-                                <TextBox Text="{Binding LastPercentage, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>TC details</Label>
-                                <TextBox Text="{Binding Tc, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label>Date of leaving</Label>
-                                <DatePicker Text="{Binding DateOfLeaving, Source={StaticResource Srvm}, Converter={StaticResource DateConverter}}"></DatePicker>
-                            </StackPanel>
-                        </Grid>
-                    </TabItem>
-                    <TabItem>
-                        <TabItem.Header>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <Image Source="/NaimouzaHighSchool;component/Asset/Images/bank.ico" Width="20"></Image>
-                                <TextBlock>Bank</TextBlock>
-                            </StackPanel>
-                        </TabItem.Header>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="229*" />
-                                <ColumnDefinition Width="283*"/>
-                                <ColumnDefinition Width="511*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Border Grid.ColumnSpan="3" Background="red">
-                                <TextBlock>Enter Student's Bank Account Details</TextBlock>
-                            </Border>
-                            <Label Grid.Row="1" Grid.ColumnSpan="2">Bank Name</Label>
-                            <Label Grid.Row="2" Grid.ColumnSpan="2">Branch Name</Label>
-                            <Label Grid.Row="3" Grid.ColumnSpan="2">Account No.</Label>
-                            <Label Grid.Row="4" Grid.ColumnSpan="2">Branch IFSC code</Label>
-                            <Label Grid.Row="5" Grid.ColumnSpan="2">Bank MICR code</Label>
-                            <ComboBox Grid.Row="1" Grid.Column="2"
-                                  IsEditable="True"
-                                  ItemsSource="{Binding Banks, Source={StaticResource Srvm}}"
-                                  Text="{Binding BankName, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-
-                            </ComboBox>
-                            <ComboBox Grid.Row="2" Grid.Column="2"
-                                  IsEditable="True"
-                                  ItemsSource="{Binding Branchs, Source={StaticResource Srvm}}"
-                                  Text="{Binding BranchName, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            </ComboBox>
-                            <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding AccNo, Source={StaticResource Srvm}}"></TextBox>
-                            <ComboBox Grid.Row="4" Grid.Column="2"
-                                  IsEditable="True"
-                                  ItemsSource="{Binding IfcrList, Source={StaticResource Srvm}}"
-                                  Text="{Binding Ifcr, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            </ComboBox>
-                            <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding Micr, Source={StaticResource Srvm}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
-                        </Grid>
-                    </TabItem>
-                    <TabItem>
-                        <TabItem.Header>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <Image Source="/NaimouzaHighSchool;component/Asset/Images/other.ico" Width="20"></Image>
-                                <TextBlock>Other</TextBlock>
-                            </StackPanel>
-                        </TabItem.Header>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Social">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                    <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.ColumnSpan="2">
+                                        <TextBlock Style="{StaticResource headerTextBlock}">General Info</TextBlock>
+                                    </Label>
+                                    <Label Grid.Row="1">Gender</Label>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                                        <RadioButton GroupName="Gen" VerticalAlignment="Center" IsChecked="{Binding TxbGen, Source={StaticResource dObj}, Mode=TwoWay, ConverterParameter=M, Converter={StaticResource GenConverter}}">Boy</RadioButton>
+                                        <RadioButton GroupName="Gen" Margin="20,0,0,0" VerticalAlignment="Center" IsChecked="{Binding TxbGen, Source={StaticResource dObj}, Mode=TwoWay, ConverterParameter=F, Converter={StaticResource GenConverter}}">Girl</RadioButton>
+                                    </StackPanel>
+                                    <Label Grid.Row="2">DoB</Label>
+                                    <DatePicker Grid.Row="2" Grid.Column="1"
+                                        Text="{Binding Dob, Source={StaticResource dObj}, Mode=TwoWay, Converter={StaticResource DateConverter}}">
+                                    </DatePicker>
+                                    <Label Grid.Row="3">Aadhar No.</Label>
+                                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TxbAadhar, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label Grid.Row="4">Blood group</Label>
+                                    <ComboBox Grid.Row="4" Grid.Column="1"
+                                            ItemsSource="{Binding BloodGroups, Source={StaticResource dObj}}" 
+                                            SelectedItem="{Binding BloodGrp, Source={StaticResource dObj}}">
+                                    </ComboBox>
+                                    <Label Grid.Row="5">Social category</Label>
+                                    <ComboBox Grid.Row="5" Grid.Column="1"
+                                            ItemsSource="{Binding SocialCatList, Source={StaticResource dObj}}" 
+                                            SelectedItem="{Binding TxbSocCat, Source={StaticResource dObj}}">
+                                    </ComboBox>
+                                    <Label Grid.Row="6">Social Sub Cat</Label>
+                                    <TextBox Grid.Row="6" Grid.Column="1"
+                                            Text="{Binding TxbSbCat, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    </TextBox>
+                                    <Label Grid.Row="7">BPL</Label>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="1">
+                                        <RadioButton GroupName="bpl" IsChecked="{Binding TxbIsBpl, Source={StaticResource dObj}, Mode=TwoWay, ConverterParameter=no, Converter={StaticResource YesNoConverter}}">No</RadioButton>
+                                        <RadioButton GroupName="bpl" IsChecked="{Binding TxbIsBpl, Source={StaticResource dObj}, Mode=TwoWay, ConverterParameter=yes, Converter={StaticResource YesNoConverter}}">Yes</RadioButton>
+                                    </StackPanel>
+                                    <Label Grid.Row="8">BPL No.</Label>
+                                    <TextBox Grid.Row="8" Grid.Column="1" 
+                                     IsEnabled="{Binding EnableBplTxb, Source={StaticResource dObj}}" Text="{Binding TxbBplNo, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    </TextBox>
+                                    <Label Grid.Row="9">PH</Label>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="1">
+                                        <RadioButton GroupName="ph" IsChecked="{Binding TxbIsPh, Source={StaticResource dObj}, Mode=TwoWay, ConverterParameter=no, Converter={StaticResource YesNoConverter}}">No</RadioButton>
+                                        <RadioButton GroupName="ph" IsChecked="{Binding TxbIsPh, Source={StaticResource dObj}, Mode=TwoWay, ConverterParameter=yes, Converter={StaticResource YesNoConverter}}">Yes</RadioButton>
+                                    </StackPanel>
+                                    <Label Grid.Row="10">PH detail</Label>
+                                    <TextBox Grid.Row="10" Grid.Column="1"
+                                        Text="{Binding TxbPhType, Source={StaticResource dObj}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding EnablePhTxb, Source={StaticResource dObj}}">
+                                    </TextBox>
+                                    <Label Grid.Row="11">Religion</Label>
+                                    <TextBox Grid.Row="11" Grid.Column="1" Text="{Binding TxbReligion, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    </TextBox>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Parents">
+                            <Grid>
+                                
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Address &amp; Contact">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Vertical">
+                                    <Label>
+                                        <TextBlock TextDecorations="Underline">Parent's Info</TextBlock>
+                                    </Label>
+                                    <Label>Father Name</Label>
+                                    <TextBox Text="{Binding TxbFather, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label>Mother Name</Label>
+                                    <TextBox Text="{Binding TxbMother, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>                                 
+                                    <TextBox Text="{Binding TxbGrd, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label>Relation with guardian</Label>
+                                    <TextBox Text="{Binding TxbGrdRel, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label>Father / Guardian occupation</Label>
+                                    <TextBox Text="{Binding TxbGrdOcc, Source={StaticResource dObj}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label>Yearly family income</Label>
+                                    <TextBox Text="{Binding AnnualIncome, Source={StaticResource dObj}, Mode=TwoWay, Converter={StaticResource IntConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label>Father / Guardian EPIC (Voter) No.</Label>
+                                    <TextBox Text="{Binding TxbGrdEpic, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label>Father / Guardian Aadhar No.</Label>
+                                    <TextBox Text="{Binding TxbGrdAadhar, Source={StaticResource dObj}, Mode=TwoWay}"></TextBox>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Vertical">
+                                    <Label>
+                                        <TextBlock TextDecorations="Underline">Present Address</TextBlock>
+                                    </Label>
+                                    <TextBox Text="{Binding PresentAddr, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="80" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
+                                    <Label>
+                                        <TextBlock TextDecorations="Underline">Permanent Address</TextBlock>
+                                    </Label>
+                                    <CheckBox IsChecked="{Binding Same2Address, Source={StaticResource dObj}, Mode=TwoWay}">Same as present address</CheckBox>
+                                    <TextBox Text="{Binding PermanentAddr, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="80" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2">
+                                    <Label>
+                                        <TextBlock TextDecorations="Underline">Contact Info</TextBlock>
+                                    </Label>
+                                    <Label>Student Mobile No.</Label>
+                                    <TextBox Text="{Binding TxbMobile, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label>Guardian's Mobile No.</Label>
+                                    <TextBox Text="{Binding GrdMobile, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label>Email ID</Label>
+                                    <TextBox Text="{Binding TxbEmail, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                </StackPanel>
+                            </Grid>
+
+                        </TabItem>
+                        <TabItem Header="Admission">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Vertical">
+                                    <Label>
+                                        <TextBlock TextDecorations="Underline">Admission info</TextBlock>
+                                    </Label>
+                                    <Label>Admission No.</Label>
+                                    <TextBox Text="{Binding AdmissionNo, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label>Admissin Date</Label>
+                                    <DatePicker Text="{Binding AdmissionDate, Source={StaticResource dObj}, Converter={StaticResource DateConverter}, Mode=TwoWay}"></DatePicker>
+                                    <Label>Admitted Class</Label>
+                                    <ComboBox ItemsSource="{Binding ClassesForAdmission, Source={StaticResource dObj}}" SelectedItem="{Binding AdmittedClass, Source={StaticResource dObj}}"></ComboBox>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Vertical">
+                                    <Label>
+                                        <TextBlock TextDecorations="Underline">Last School Info</TextBlock>
+                                    </Label>
+                                    <Label>Last School Name</Label>
+                                    <TextBox Text="{Binding LastSchool, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>                            
+                                    <Label>Year of passing of last class</Label>
+                                    <ComboBox ItemsSource="{Binding YearOfPassingArray, Source={StaticResource dObj}}" SelectedIndex="{Binding IndexOfLastClassYear, Source={StaticResource dObj}}"></ComboBox>                                   
+                                    <Label>TC details</Label>
+                                    <TextBox Text="{Binding Tc, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label>Date of leaving</Label>
+                                    <DatePicker Text="{Binding DateOfLeaving, Source={StaticResource dObj}, Converter={StaticResource DateConverter}}"></DatePicker>
+                                </StackPanel>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Bank">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="229*" />
+                                    <ColumnDefinition Width="283*"/>
+                                    <ColumnDefinition Width="511*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <Label>Board No.</Label>
-                                <TextBox Grid.Row="0" Grid.Column="1"
-                                     Text="{Binding BoardNo, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
-                                </TextBox>
-                                <Label Grid.Row="1">Board Roll No.</Label>
-                                <TextBox Grid.Row="1" Grid.Column="1"
-                                     Text="{Binding BoarRoll, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
-                                </TextBox>
-                                <Label Grid.Row="2">Council No.</Label>
-                                <TextBox Grid.Row="2" Grid.Column="1"
-                                     Text="{Binding CouncilNo, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
-                                </TextBox>
-                                <Label Grid.Row="3">Council Roll No.</Label>
-                                <TextBox Grid.Row="3" Grid.Column="1"
-                                     Text="{Binding CouncilRoll, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
-                                </TextBox>
+                                <Border Grid.ColumnSpan="3" Background="red">
+                                    <TextBlock>Enter Student's Bank Account Details</TextBlock>
+                                </Border>
+                                <Label Grid.Row="1" Grid.ColumnSpan="2">Account No.</Label>
+                                <Label Grid.Row="2" Grid.ColumnSpan="2">Bank Name</Label>
+                                <Label Grid.Row="3" Grid.ColumnSpan="2">Branch Name</Label>   
+                                <Label Grid.Row="4" Grid.ColumnSpan="2">Branch IFSC code</Label>
+                                <Label Grid.Row="5" Grid.ColumnSpan="2">Bank MICR code</Label>
+                                <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding BankAcc, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding BankName, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding BankBranch, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding BankIfsc, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding BankMicr, Source={StaticResource dObj}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             </Grid>
-                        </Grid>
-                    </TabItem>
-                </TabControl>-->
+                        </TabItem>
+                        <TabItem Header="Other">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Label>Board No.</Label>
+                                    <TextBox Grid.Row="0" Grid.Column="1"
+                                     Text="{Binding TxbMadhyamicNo, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                                    </TextBox>
+                                    <Label Grid.Row="1">Board Roll No.</Label>
+                                    <TextBox Grid.Row="1" Grid.Column="1"
+                                     Text="{Binding TxbMadhyamicRoll, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                                    </TextBox>
+                                    <Label Grid.Row="2">Council No.</Label>
+                                    <TextBox Grid.Row="2" Grid.Column="1"
+                                     Text="{Binding TxbCouncilNo, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                                    </TextBox>
+                                    <Label Grid.Row="3">Council Roll No.</Label>
+                                    <TextBox Grid.Row="3" Grid.Column="1"
+                                     Text="{Binding TxbCouncilRoll, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                                    </TextBox>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </ScrollViewer>
+             
             </Grid>
             
         </Border>
@@ -516,8 +451,8 @@
                                 </ComboBox>
                                 <Label>Roll</Label>
                                 <TextBox Width="50" Text="{Binding Roll, Source={StaticResource dObj}, Mode=TwoWay, Converter={StaticResource IntConverter}}"></TextBox>
-                                <Button Margin="15,0,0,0" Command="{Binding SearchCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}">Search</Button>
-                                <Button Name="EditBtn" Content="Edit" Command="{Binding EditCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}">
+                        <Button Margin="15,0,0,0" Command="{Binding SearchCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}" Content="Search"/>
+                        <Button Name="EditBtn" Content="Edit" Command="{Binding EditCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}">
                                     <Button.Triggers>
                                         <EventTrigger RoutedEvent="Button.Click" SourceName="EditBtn">
                                             <BeginStoryboard Name="myStoryBoard">
@@ -525,7 +460,7 @@
                                                     <DoubleAnimation 
                                                             Storyboard.TargetName="EditPanel"
                                                             Storyboard.TargetProperty="Height"
-                                                            To="300" Duration="0:0:0.1" 
+                                                            To="320" Duration="0:0:0.1" 
                                                             />
                                                 </Storyboard>
                                             </BeginStoryboard>
@@ -572,7 +507,7 @@
                     <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
                         <DataGrid ItemsSource="{Binding StudentList, Source={StaticResource dObj}}"
                               SelectedIndex="{Binding SelectedStudentListIndex, Source={StaticResource dObj}}"
-                              AutoGenerateColumns="False"
+                              AutoGenerateColumns="False" SelectionMode="Single"
                               IsReadOnly="True"
                               GridLinesVisibility="None"
                               AlternatingRowBackground="#eee">
@@ -585,8 +520,6 @@
                         </DataGrid>
                     </ScrollViewer>
                 </Grid>
-
-
                 <ScrollViewer Grid.Column="1" Visibility="{Binding StdDetailVisibility, Source={StaticResource dObj}}">
                     <Grid Background="#313b55">
                         <Grid.RowDefinitions>
@@ -632,7 +565,7 @@
              
                             <Label Grid.Row="3" Style="{StaticResource lblProperty}">Roll</Label>
                             <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource doubleDot}"> : </Label>
-                            <Label Grid.Row="3" Grid.Column="2" Content="{Binding TxbRoll, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbRollColor, Source={StaticResource dObj}}"></Label>
+                            <Label Grid.Row="3" Grid.Column="2" Content="{Binding TxbRoll, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource IntConverter}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbRollColor, Source={StaticResource dObj}}"></Label>
 
                             <Label Grid.Row="4" Style="{StaticResource lblProperty}">Subjects</Label>
                             <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource doubleDot}"> : </Label>
@@ -645,7 +578,7 @@
                             <Label Grid.Row="1" Grid.Column="5" Content="{Binding TxbGen, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbGenColor, Source={StaticResource dObj}}"></Label>
                             <Label Grid.Row="2" Grid.Column="3" Style="{StaticResource lblProperty}">DoB</Label>
                             <Label Grid.Row="2" Grid.Column="4" Style="{StaticResource doubleDot}"> : </Label>
-                            <Label Grid.Row="2" Grid.Column="5" Content="{Binding TxbDob, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbDobColor, Source={StaticResource dObj}}"></Label>
+                            <Label Grid.Row="2" Grid.Column="5" Content="{Binding Dob, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource DateConverter1}}" Style="{StaticResource lblValue}" Foreground="{Binding DobColor, Source={StaticResource dObj}}"></Label>
                             <Label Grid.Row="3" Grid.Column="3" Style="{StaticResource lblProperty}">Age</Label>
                             <Label Grid.Row="3" Grid.Column="4" Style="{StaticResource doubleDot}"> : </Label>
                             <Label Grid.Row="3" Grid.Column="5" Content="{Binding TxbAge, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}"  Foreground="{Binding TxbAgeColor, Source={StaticResource dObj}}"></Label>
@@ -687,7 +620,9 @@
                             <Label Grid.Row="5" Grid.Column="1" Content="{Binding TxbGrdEpic, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbGrdEpicColor, Source={StaticResource dObj}}"></Label>
                             <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource lblProperty}">Father (or Guardian) Occupation :</Label>
                             <Label Grid.Row="6" Grid.Column="1" Content="{Binding TxbGrdOcc, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbGrdOccColor, Source={StaticResource dObj}}"></Label>
-
+                            <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource lblProperty}">Blood group :</Label>
+                            <Label Grid.Row="7" Grid.Column="1" Style="{StaticResource lblValue}" Content="{Binding BloodGrp, Source={StaticResource dObj}}"></Label>
+                            
                             <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource lblProperty}">Student's Aadhar :</Label>
                             <Label Grid.Row="0" Grid.Column="3" Content="{Binding TxbAadhar, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbAadharColor, Source={StaticResource dObj}}"></Label>
                             <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource lblProperty}">Social Category :</Label>
@@ -695,11 +630,11 @@
                             <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource lblProperty}">Sub Category :</Label>
                             <Label Grid.Row="2" Grid.Column="3" Content="{Binding TxbSbCat, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbSbCatColor, Source={StaticResource dObj}}"></Label>
                             <Label Grid.Row="3" Grid.Column="2" Style="{StaticResource lblProperty}">Is PH :</Label>
-                            <Label Grid.Row="3" Grid.Column="3" Content="{Binding TxbIsPh, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbIsPhColor, Source={StaticResource dObj}}"></Label>
+                            <Label Grid.Row="3" Grid.Column="3" Content="{Binding TxbIsPh, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource Bool1Converter}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbIsPhColor, Source={StaticResource dObj}}"></Label>
                             <Label Grid.Row="4" Grid.Column="2" Style="{StaticResource lblProperty}">PH Detail :</Label>
                             <Label Grid.Row="4" Grid.Column="3" Content="{Binding TxbPhType, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbPhTypeColor, Source={StaticResource dObj}}"></Label>
                             <Label Grid.Row="5" Grid.Column="2" Style="{StaticResource lblProperty}">Is BPL :</Label>
-                            <Label Grid.Row="5" Grid.Column="3" Content="{Binding TxbIsBpl, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbIsBplColor, Source={StaticResource dObj}}"></Label>
+                            <Label Grid.Row="5" Grid.Column="3" Content="{Binding TxbIsBpl, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource Bool1Converter}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbIsBplColor, Source={StaticResource dObj}}"></Label>
                             <Label Grid.Row="6" Grid.Column="2" Style="{StaticResource lblProperty}">BPL No. :</Label>
                             <Label Grid.Row="6" Grid.Column="3" Content="{Binding TxbBplNo, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbBplNoColor, Source={StaticResource dObj}}"></Label>
                             <Label Grid.Row="7" Grid.Column="2" Style="{StaticResource lblProperty}">Religion :</Label>
@@ -726,11 +661,19 @@
                             <TextBox Grid.Row="1" Grid.Column="1" Background="#313b55" BorderThickness="0" Foreground="{Binding PermanentAddrColor, Source={StaticResource dObj}}"
                                      Text="{Binding PermanentAddr, Source={StaticResource dObj}, Mode=OneWay}" 
                                      Height="80" Width="250" HorizontalAlignment="Left" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
-                            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
-                                <Label Style="{StaticResource lblProperty}">Mobile No. :</Label>
-                                <Label Content="{Binding TxbMobile, Source={StaticResource dObj}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbMobileColor, Source={StaticResource dObj}}"></Label>
-                                <Label Style="{StaticResource lblProperty}">Email Id :</Label>
-                                <Label Content="{Binding TxbEmail, Source={StaticResource dObj}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbEmailColor, Source={StaticResource dObj}}"></Label>
+                            <StackPanel Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="2">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Style="{StaticResource lblProperty}" Width="160">Mobile No. :</Label>
+                                    <Label Content="{Binding TxbMobile, Source={StaticResource dObj}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbMobileColor, Source={StaticResource dObj}}"></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Style="{StaticResource lblProperty}" Width="160">Guardian's Mobile No. :</Label>
+                                    <Label Content="{Binding GrdMobile, Source={StaticResource dObj}}" Style="{StaticResource lblValue}" Foreground="{Binding GrdMobileColor, Source={StaticResource dObj}}"></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Style="{StaticResource lblProperty}" Width="160">Email Id :</Label>
+                                    <Label Content="{Binding TxbEmail, Source={StaticResource dObj}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbEmailColor, Source={StaticResource dObj}}"></Label>
+                                </StackPanel>  
                             </StackPanel>
                         </Grid>
 
@@ -779,13 +722,13 @@
                             <Label Grid.Row="0" Style="{StaticResource lblProperty}">Admission No.</Label>
                             <Label Grid.Row="0" Grid.Column="1" Content="{Binding AdmissionNo, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding AdmissionNoColor, Source={StaticResource dObj}}"></Label>
                             <Label Grid.Row="1" Style="{StaticResource lblProperty}">Admission Date</Label>
-                            <Label Grid.Row="1" Grid.Column="1" Content="{Binding AdmissionDate, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding AdmissionDateColor, Source={StaticResource dObj}}"></Label>
+                            <Label Grid.Row="1" Grid.Column="1" Content="{Binding AdmissionDate, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource DateConverter1}}" Style="{StaticResource lblValue}" Foreground="{Binding AdmissionDateColor, Source={StaticResource dObj}}"></Label>
                             <Label Grid.Row="2" Style="{StaticResource lblProperty}">Admitted in Class</Label>
                             <Label Grid.Row="2" Grid.Column="1" Content="{Binding AdmittedClass, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding AdmittedClassColor, Source={StaticResource dObj}}"></Label>
                             <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource lblProperty}">Last School</Label>
                             <Label Grid.Row="0" Grid.Column="3" Content="{Binding LastSchool, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding LastSchoolColor, Source={StaticResource dObj}}"></Label>
                             <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource lblProperty}">Date of Leaving</Label>
-                            <Label Grid.Row="1" Grid.Column="3" Content="{Binding DateOfLeaving, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding DateOfLeavingColor, Source={StaticResource dObj}}"></Label>
+                            <Label Grid.Row="1" Grid.Column="3" Content="{Binding DateOfLeaving, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource DateConverter1}}" Style="{StaticResource lblValue}" Foreground="{Binding DateOfLeavingColor, Source={StaticResource dObj}}"></Label>
                             <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource lblProperty}">TC</Label>
                             <Label Grid.Row="2" Grid.Column="3" 
                                        Content="{Binding Tc, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}"
@@ -797,11 +740,44 @@
                             <TextBlock Style="{StaticResource groupHeader}">Other</TextBlock>
                         </Border>
                         <Grid Grid.Row="11" Margin="10,3,3,3">
-
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label Style="{StaticResource lblProperty}">Madhyamic Roll</Label>
+                            <Label Grid.Column="1" Style="{StaticResource doubleDot}"> : </Label>
+                            <Label Grid.Column="2" Style="{StaticResource lblValue}" 
+                                   Content="{Binding TxbMadhyamicRoll, Source={StaticResource dObj}}"
+                                   Foreground="{Binding TxbMadhyamicRollColor, Source={StaticResource dObj}}">
+                            </Label>
+                            <Label Grid.Row="1" Style="{StaticResource lblProperty}">Madhyamic No</Label>
+                            <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
+                            <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource lblValue}" 
+                                   Content="{Binding TxbMadhyamicNo, Source={StaticResource dObj}}"
+                                   Foreground="{Binding TxbMadhyamicNoColor, Source={StaticResource dObj}}">
+                            </Label>
+                            <Label Grid.Row="2" Style="{StaticResource lblProperty}">Council Roll</Label>
+                            <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
+                            <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource lblValue}" 
+                                   Content="{Binding TxbCouncilRoll, Source={StaticResource dObj}}"
+                                   Foreground="{Binding TxbCouncilRollColor, Source={StaticResource dObj}}">
+                            </Label>
+                            <Label Grid.Row="3" Style="{StaticResource lblProperty}">Council No</Label>
+                            <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
+                            <Label Grid.Row="3" Grid.Column="2" Style="{StaticResource lblValue}" 
+                                   Content="{Binding TxbCouncilNo, Source={StaticResource dObj}}"
+                                   Foreground="{Binding TxbCouncilNoColor, Source={StaticResource dObj}}">
+                            </Label>
                         </Grid>
                     </Grid>
                 </ScrollViewer>
-
             </Grid>
         </Grid>     
     </DockPanel>

@@ -108,9 +108,11 @@
     <Compile Include="Models\Utility\SubjectCombo.cs" />
     <Compile Include="Models\Utility\SubjectGroup.cs" />
     <Compile Include="ViewModels\ClassConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\Converters\Bool1Converter.cs" />
     <Compile Include="ViewModels\Converters\BoolConverter.cs" />
     <Compile Include="ViewModels\Converters\CheckboxConverter.cs" />
     <Compile Include="ViewModels\Converters\DateConverter.cs" />
+    <Compile Include="ViewModels\Converters\DateConverter1.cs" />
     <Compile Include="ViewModels\Converters\GenderConverter.cs" />
     <Compile Include="ViewModels\Converters\GenderFilterConverter.cs" />
     <Compile Include="ViewModels\Converters\IntConverter.cs" />
