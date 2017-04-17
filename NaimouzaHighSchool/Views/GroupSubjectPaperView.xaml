@@ -13,12 +13,16 @@
         <Style TargetType="Button" x:Key="grpBtn">
             <Setter Property="Margin" Value="1" />
         </Style>
+        <Style TargetType="Button" x:Key="sbBtn">
+            <Setter Property="Margin" Value="1" />
+            <Setter Property="Width" Value="80"/>
+        </Style>
     </Window.Resources>
     <DockPanel LastChildFill="True">
         <Border DockPanel.Dock="Top" Background="#FFDC1744">
-            <Border.Effect>
+            <!--<Border.Effect>
                 <DropShadowEffect ShadowDepth="1" />
-            </Border.Effect>
+            </Border.Effect>-->
             <Label FontWeight="Thin" FontSize="18" Foreground="White">Subjects &amp; their belonging Group</Label>
         </Border>
         <Grid>
@@ -152,10 +156,10 @@
                         </Grid>
                         <Border Grid.Row="1">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Style="{StaticResource grpBtn}" Command="{Binding CommandAddSub, Source={StaticResource subObj}}">Add</Button>
-                                <Button Style="{StaticResource grpBtn}" Command="{Binding CommandEditSub, Source={StaticResource subObj}}">Edit</Button>
-                                <Button Style="{StaticResource grpBtn}" Command="{Binding CommandSaveSub, Source={StaticResource subObj}}">Save</Button>
-                                <Button Style="{StaticResource grpBtn}" Command="{Binding CommandDeleteSub, Source={StaticResource subObj}}">Delete</Button>
+                                <Button Style="{StaticResource sbBtn}" Command="{Binding CommandAddSub, Source={StaticResource subObj}}">Add</Button>
+                                <Button Style="{StaticResource sbBtn}" Command="{Binding CommandEditSub, Source={StaticResource subObj}}">Edit</Button>
+                                <Button Style="{StaticResource sbBtn}" Command="{Binding CommandSaveSub, Source={StaticResource subObj}}">Save</Button>
+                                <Button Style="{StaticResource sbBtn}" Command="{Binding CommandDeleteSub, Source={StaticResource subObj}}">Delete</Button>
                             </StackPanel>
                         </Border>
                     </Grid>

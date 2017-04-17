@@ -61,6 +61,7 @@ namespace NaimouzaHighSchool.Models.Utility
         private string _admissionNo;
         private DateTime _admDate;
         private string _lastSchool;
+        
         private string _admittedClass;
         private DateTime _dateOfLeaving;
         private string _tc;
