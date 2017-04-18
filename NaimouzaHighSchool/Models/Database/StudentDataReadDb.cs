@@ -486,7 +486,7 @@ namespace NaimouzaHighSchool.Models.Database
             string cls = "'" + s.StudyingClass + "'";
             string section = string.IsNullOrEmpty(s.Section) ? "NULL" : "'" + s.Section + "'";
             string roll = s.Roll.ToString();
-            string comboId = s.SubjectComboId;
+            string comboId = string.IsNullOrEmpty(s.SubjectComboId) ? "NULL" : "'" + s.SubjectComboId + "'";
 
             string admissionNo = string.IsNullOrEmpty(s.AdmissionNo) ? "NULL" : "'" + s.AdmissionNo + "'";
             string doa_temp = s.AdmDate.ToString("yyyy-MM-dd");
@@ -511,16 +511,15 @@ namespace NaimouzaHighSchool.Models.Database
                     cmd.CommandText = sql1;
                     cmd.ExecuteNonQuery();
 
-                    string sql2 = @"UPDATE student_class SET class=" + cls + ", section=" + section + ", roll=" + roll + ", SubjectCombo_id=" + comboId+ " WHERE studetn_basic_id="+s.Id;
+                    string sql2 = @"UPDATE student_class SET class=" + cls + ", section=" + section + ", roll=" + roll + ", SubjectCombo_id=" + comboId+ " WHERE student_basic_id="+s.Id;
                     cmd.CommandText = sql2;
                     cmd.ExecuteNonQuery();
 
                     string sql3 = @"UPDATE Admission SET admissionNo=" + admissionNo + ", dateOfAdmission=" + doa + ", admittedClass=" + admittedClass + ", lastSchool=" + lastSchool + ", dateOfLeaving=" + dol + ", TC=" + tc + " WHERE student_basic_id=" + s.Id;
-                    cmd.CommandText = sql2;
-                    
+                    cmd.CommandText = sql3;
                     cmd.ExecuteNonQuery();
-                    myTrans.Commit();
-                    
+
+                    myTrans.Commit();  
                     rs = true;
                 }
                 catch(Exception ex5)

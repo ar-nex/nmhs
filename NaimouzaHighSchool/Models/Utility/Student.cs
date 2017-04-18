@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NaimouzaHighSchool.Models.Utility
 {
-    public class Student
+    public class Student : BaseModel
     {
         public Student()
         {
@@ -74,7 +74,7 @@ namespace NaimouzaHighSchool.Models.Utility
             get { return _name; }
             set 
             {
-                _name = (string.IsNullOrEmpty(value)) ? value : value.ToUpper();
+                _name = (string.IsNullOrEmpty(value)) ? value : value.ToUpper(); this.OnPropertyChanged("Name");
             }
         }
         public string FatherName
@@ -267,17 +267,17 @@ namespace NaimouzaHighSchool.Models.Utility
         public string StudyingClass
         {
             get { return _studyingClass; }
-            set { _studyingClass = value; }
+            set { _studyingClass = value; this.OnPropertyChanged("StudyingClass"); }
         }
         public string Section
         {
             get { return _section; }
-            set { _section = value; }
+            set { _section = value; this.OnPropertyChanged("Section"); }
         }
         public int Roll
         {
             get { return _roll; }
-            set { _roll = value; }
+            set { _roll = value; this.OnPropertyChanged("Roll"); }
         }
         public string SubjectComboId
         {

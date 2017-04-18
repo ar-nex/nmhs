@@ -21,6 +21,7 @@ namespace NaimouzaHighSchool.ViewModels
         #region property field
         private const string fontcolor1 = "Yellow";
         private const string fontcolor0 = "Black";
+        private const string defaultEntry = "Not found";
         #region search bar
         private string _searchText;
         public string SearchText
@@ -511,6 +512,7 @@ namespace NaimouzaHighSchool.ViewModels
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand EditCommand { get; set; }
+        public RelayCommand SaveEditCommand { get; set; }
         #endregion
 
         #region method
@@ -546,6 +548,7 @@ namespace NaimouzaHighSchool.ViewModels
 
             this.DeleteCommand = new RelayCommand(this.Delete, this.CanDelete);
             this.EditCommand = new RelayCommand(this.Edit, this.CanEdit);
+            this.SaveEditCommand = new RelayCommand(this.SaveEdit, this.CanSaveEdit);
 
             
         }
@@ -646,34 +649,34 @@ namespace NaimouzaHighSchool.ViewModels
             string sdob_temp = s.Dob.ToString("dd-MM-yyyy");
             this.Dob = s.Dob;
             this.DobColor = (sdob_temp == "01-01-0001") ? fontcolor0 : fontcolor1;
-            this.TxbGen = (string.IsNullOrEmpty(s.Sex)) ? "Not found" : s.Sex;
+            this.TxbGen = (string.IsNullOrEmpty(s.Sex)) ? defaultEntry : s.Sex;
             this.TxbGenColor = (string.IsNullOrEmpty(s.Sex)) ? fontcolor0 : fontcolor1;
             //not implemented yet
             this.TxbAge = "Not implemented yet.";
             this.TxbAgeColor = (sdob_temp == "01-01-0001") ? fontcolor0 : fontcolor1;
 
-            this.TxbFather = (string.IsNullOrEmpty(s.FatherName)) ? "Not found" : s.FatherName;
+            this.TxbFather = (string.IsNullOrEmpty(s.FatherName)) ? defaultEntry : s.FatherName;
             this.TxbFatherColor = (string.IsNullOrEmpty(s.FatherName)) ? fontcolor0 : fontcolor1;
-            this.TxbMother = (string.IsNullOrEmpty(s.MotherName)) ? "Not found" : s.MotherName;
+            this.TxbMother = (string.IsNullOrEmpty(s.MotherName)) ? defaultEntry : s.MotherName;
             this.TxbMotherColor = (string.IsNullOrEmpty(s.MotherName)) ? fontcolor0 : fontcolor1;
-            this.TxbGrd = (string.IsNullOrEmpty(s.GuardianName)) ? "Not found" : s.GuardianName;
+            this.TxbGrd = (string.IsNullOrEmpty(s.GuardianName)) ? defaultEntry : s.GuardianName;
             this.TxbGrdColor = (string.IsNullOrEmpty(s.GuardianName)) ? fontcolor0 : fontcolor1;
-            this.TxbGrdRel = (string.IsNullOrEmpty(s.GuardianRelation)) ? "Not found" : s.GuardianRelation;
+            this.TxbGrdRel = (string.IsNullOrEmpty(s.GuardianRelation)) ? defaultEntry : s.GuardianRelation;
             this.TxbGrdRelColor = (string.IsNullOrEmpty(s.GuardianRelation)) ? fontcolor0 : fontcolor1;
-            this.TxbGrdAadhar= (string.IsNullOrEmpty(s.GuardianAadhar)) ? "Not found" : s.GuardianAadhar;
+            this.TxbGrdAadhar= (string.IsNullOrEmpty(s.GuardianAadhar)) ? defaultEntry : s.GuardianAadhar;
             this.TxbGrdAadharColor = (string.IsNullOrEmpty(s.GuardianAadhar)) ? fontcolor0 : fontcolor1;
-            this.TxbGrdEpic = (string.IsNullOrEmpty(s.GuardianEpic)) ? "Not found" : s.GuardianEpic;
+            this.TxbGrdEpic = (string.IsNullOrEmpty(s.GuardianEpic)) ? defaultEntry : s.GuardianEpic;
             this.TxbGrdEpicColor = (string.IsNullOrEmpty(s.GuardianEpic)) ? fontcolor0 : fontcolor1;
-            this.TxbGrdOcc = (string.IsNullOrEmpty(s.GuardianOccupation)) ? "Not found" : s.GuardianOccupation;
+            this.TxbGrdOcc = (string.IsNullOrEmpty(s.GuardianOccupation)) ? defaultEntry : s.GuardianOccupation;
             this.TxbGrdOccColor = (string.IsNullOrEmpty(s.GuardianOccupation)) ? fontcolor0 : fontcolor1;
-            this.BloodGrp = (string.IsNullOrEmpty(s.BloodGroup)) ? "Not found" : s.BloodGroup;
+            this.BloodGrp = (string.IsNullOrEmpty(s.BloodGroup)) ? defaultEntry : s.BloodGroup;
             this.BloodGrpColor = (string.IsNullOrEmpty(s.BloodGroup)) ? fontcolor0 : fontcolor1;
 
-            this.TxbAadhar = (string.IsNullOrEmpty(s.Aadhar)) ? "Not found" : s.Aadhar;
+            this.TxbAadhar = (string.IsNullOrEmpty(s.Aadhar)) ? defaultEntry : s.Aadhar;
             this.TxbAadharColor = (string.IsNullOrEmpty(s.Aadhar)) ? fontcolor0 : fontcolor1;
-            this.TxbSocCat = (string.IsNullOrEmpty(s.SocialCategory)) ? "Not found" : s.SocialCategory;
+            this.TxbSocCat = (string.IsNullOrEmpty(s.SocialCategory)) ? defaultEntry : s.SocialCategory;
             this.TxbSocCatColor = (string.IsNullOrEmpty(s.SocialCategory)) ? fontcolor0 : fontcolor1;
-            this.TxbSbCat = (string.IsNullOrEmpty(s.SubCast)) ? "Not found" : s.SubCast;
+            this.TxbSbCat = (string.IsNullOrEmpty(s.SubCast)) ? defaultEntry : s.SubCast;
             this.TxbSbCatColor = (string.IsNullOrEmpty(s.SubCast)) ? fontcolor0 : fontcolor1;
             this.TxbIsPh = s.IsPH;
             this.TxbIsPhColor = fontcolor1;
@@ -683,53 +686,53 @@ namespace NaimouzaHighSchool.ViewModels
             this.TxbIsBplColor = fontcolor1;
             this.TxbBplNo = s.BplNo;
             this.TxbBplNoColor = fontcolor1;
-            this.TxbReligion = (string.IsNullOrEmpty(s.Religion)) ? "Not found" : s.Religion;
+            this.TxbReligion = (string.IsNullOrEmpty(s.Religion)) ? defaultEntry : s.Religion;
             this.TxbReligionColor = (string.IsNullOrEmpty(s.Religion)) ? fontcolor0 : fontcolor1;
 
-            this.PresentAddr = (string.IsNullOrEmpty(s.PresentAdrress)) ? "Not found" : s.PresentAdrress;
+            this.PresentAddr = (string.IsNullOrEmpty(s.PresentAdrress)) ? defaultEntry : s.PresentAdrress;
             this.PresentAddrColor = (string.IsNullOrEmpty(s.PresentAdrress)) ? fontcolor0 : fontcolor1;
-            this.PermanentAddr = (string.IsNullOrEmpty(s.PermanentAddress)) ? "Not found" : s.PermanentAddress;
+            this.PermanentAddr = (string.IsNullOrEmpty(s.PermanentAddress)) ? defaultEntry : s.PermanentAddress;
             this.PermanentAddrColor = (string.IsNullOrEmpty(s.PermanentAddress)) ? fontcolor0 : fontcolor1;
-            this.TxbMobile = (string.IsNullOrEmpty(s.Mobile)) ? "Not found" : s.Mobile;
+            this.TxbMobile = (string.IsNullOrEmpty(s.Mobile)) ? defaultEntry : s.Mobile;
             this.TxbMobileColor = (string.IsNullOrEmpty(s.Mobile)) ? fontcolor0 : fontcolor1;
-            this.GrdMobile = (string.IsNullOrEmpty(s.GuardianMobile)) ? "Not found" : s.GuardianMobile;
+            this.GrdMobile = (string.IsNullOrEmpty(s.GuardianMobile)) ? defaultEntry : s.GuardianMobile;
             this.GrdMobileColor = (string.IsNullOrEmpty(s.GuardianMobile)) ? fontcolor0 : fontcolor1;
-            this.TxbEmail = (string.IsNullOrEmpty(s.Email)) ? "Not found" : s.Email;
+            this.TxbEmail = (string.IsNullOrEmpty(s.Email)) ? defaultEntry : s.Email;
             this.TxbEmailColor = (string.IsNullOrEmpty(s.Email)) ? fontcolor0 : fontcolor1;
 
-            this.BankAcc = (string.IsNullOrEmpty(s.BankAcc)) ? "Not found" : s.BankAcc;
+            this.BankAcc = (string.IsNullOrEmpty(s.BankAcc)) ? defaultEntry : s.BankAcc;
             this.BankAccColor = (string.IsNullOrEmpty(s.BankAcc)) ? fontcolor0 : fontcolor1;
-            this.BankName = (string.IsNullOrEmpty(s.BankName)) ? "Not found" : s.BankName;
+            this.BankName = (string.IsNullOrEmpty(s.BankName)) ? defaultEntry : s.BankName;
             this.BankNameColor = (string.IsNullOrEmpty(s.BankName)) ? fontcolor0 : fontcolor1;
-            this.BankBranch = (string.IsNullOrEmpty(s.BankBranch)) ? "Not found" : s.BankBranch;
+            this.BankBranch = (string.IsNullOrEmpty(s.BankBranch)) ? defaultEntry : s.BankBranch;
             this.BankBranchColor = (string.IsNullOrEmpty(s.BankBranch)) ? fontcolor0 : fontcolor1;
-            this.BankIfsc = (string.IsNullOrEmpty(s.Ifsc)) ? "Not found" : s.Ifsc;
+            this.BankIfsc = (string.IsNullOrEmpty(s.Ifsc)) ? defaultEntry : s.Ifsc;
             this.BankIfscColor = (string.IsNullOrEmpty(s.Ifsc)) ? fontcolor0 : fontcolor1;
-            this.BankMicr = (string.IsNullOrEmpty(s.MICR)) ? "Not found" : s.MICR;
-            this.BankMicrColor = (string.IsNullOrEmpty(s.MICR)) ? "Not found" : fontcolor1;
+            this.BankMicr = (string.IsNullOrEmpty(s.MICR)) ? defaultEntry : s.MICR;
+            this.BankMicrColor = (string.IsNullOrEmpty(s.MICR)) ? defaultEntry : fontcolor1;
 
-            this.AdmissionNo = (string.IsNullOrEmpty(s.AdmissionNo)) ? "Not found" : s.AdmissionNo;
+            this.AdmissionNo = (string.IsNullOrEmpty(s.AdmissionNo)) ? defaultEntry : s.AdmissionNo;
             this.AdmissionNoColor = (string.IsNullOrEmpty(s.AdmissionNo)) ? fontcolor0 : fontcolor1;
             string doa_temp = s.AdmDate.ToString("dd-MM-yyyy");
             this.AdmissionDate = s.AdmDate;
             this.AdmissionDateColor = (doa_temp == "01-01-0001") ? fontcolor0 : fontcolor1;
-            this.AdmittedClass = (string.IsNullOrEmpty(s.AdmittedClass)) ? "Not found" : s.AdmittedClass;
+            this.AdmittedClass = (string.IsNullOrEmpty(s.AdmittedClass)) ? defaultEntry : s.AdmittedClass;
             this.AdmittedClassColor = (string.IsNullOrEmpty(s.AdmittedClass)) ? fontcolor0 : fontcolor1;
-            this.LastSchool = (string.IsNullOrEmpty(s.LastSchool)) ? "Not found" : s.LastSchool;
+            this.LastSchool = (string.IsNullOrEmpty(s.LastSchool)) ? defaultEntry : s.LastSchool;
             this.LastSchoolColor = (string.IsNullOrEmpty(s.LastSchool)) ? fontcolor0 : fontcolor1;
             string dol_temp = s.DateOfLeaving.ToString("dd-MM-yyyy");
             this.DateOfLeavingColor = (dol_temp == "01-01-0001") ? fontcolor0 : fontcolor1;
             this.DateOfLeaving = s.DateOfLeaving;
-            this.Tc = (string.IsNullOrEmpty(s.TC)) ? "Not found" : s.TC;
+            this.Tc = (string.IsNullOrEmpty(s.TC)) ? defaultEntry : s.TC;
             this.TcColor = (string.IsNullOrEmpty(s.TC)) ? fontcolor0 : fontcolor1;
 
-            this.TxbMadhyamicRoll = (string.IsNullOrEmpty(s.BoardRoll)) ? "Not found" : s.BoardRoll;
+            this.TxbMadhyamicRoll = (string.IsNullOrEmpty(s.BoardRoll)) ? defaultEntry : s.BoardRoll;
             this.TxbMadhyamicRollColor = (string.IsNullOrEmpty(s.BoardRoll)) ? fontcolor0 : fontcolor1;
-            this.TxbMadhyamicNo = (string.IsNullOrEmpty(s.BoardNo)) ? "Not found" : s.BoardNo;
+            this.TxbMadhyamicNo = (string.IsNullOrEmpty(s.BoardNo)) ? defaultEntry : s.BoardNo;
             this.TxbMadhyamicNoColor = (string.IsNullOrEmpty(s.BoardNo)) ? fontcolor0 : fontcolor1;
-            this.TxbCouncilRoll = (string.IsNullOrEmpty(s.CouncilRoll)) ? "Not found" : s.CouncilRoll;
+            this.TxbCouncilRoll = (string.IsNullOrEmpty(s.CouncilRoll)) ? defaultEntry : s.CouncilRoll;
             this.TxbCouncilRollColor = (string.IsNullOrEmpty(s.CouncilRoll)) ? fontcolor0 : fontcolor1;
-            this.TxbCouncilNo = (string.IsNullOrEmpty(s.CouncilNo)) ? "Not found" : s.CouncilNo;
+            this.TxbCouncilNo = (string.IsNullOrEmpty(s.CouncilNo)) ? defaultEntry : s.CouncilNo;
             this.TxbCouncilNoColor = (string.IsNullOrEmpty(s.CouncilNo)) ? fontcolor0 : fontcolor1;         
 
         }
@@ -766,6 +769,25 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanEdit()
         {
             //return (this.SelectedStudentListIndex > -1);
+            return true;
+        }
+
+        private void SaveEdit()
+        {
+            Student EditedStudent = this.BuildNewStudent();
+            if (db.UpdateStudentInfo(EditedStudent))
+            {
+                System.Windows.MessageBox.Show("Saved");
+                this.StudentList[this.SelectedStudentListIndex] = EditedStudent;
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Filed :(");
+            }
+        }
+
+        public bool CanSaveEdit()
+        {
             return true;
         }
 
@@ -845,6 +867,72 @@ namespace NaimouzaHighSchool.ViewModels
                     this.TakenSubjects.Add(item);
                 }
             }
+        }
+
+        private Student BuildNewStudent()
+        {
+            Student ns = new Student();
+            ns.Id = this.StudentList[this.SelectedStudentListIndex].Id;
+
+            ns.Name = this.getVal(this.TxbName);
+            ns.FatherName = this.getVal(this.TxbFather);
+            ns.MotherName = this.getVal(this.TxbMother);
+            ns.GuardianName = this.getVal(this.TxbGrd);
+            ns.GuardianRelation = this.getVal(this.TxbGrdRel);
+            ns.GuardianOccupation = this.getVal(this.TxbGrdOcc);
+            ns.Dob = this.Dob;
+            ns.Sex = this.getVal(this.TxbGen);
+            ns.BloodGroup = this.getVal(this.BloodGrp);
+            ns.Religion = this.getVal(this.TxbReligion);
+            ns.SocialCategory = this.getVal(this.TxbSocCat);
+            ns.SubCast = this.getVal(this.TxbSbCat);
+            ns.IsPH = this.TxbIsPh;
+            ns.PhType = this.getVal(this.TxbPhType);
+            ns.IsBpl = this.TxbIsBpl;
+            ns.BplNo = this.getVal(this.TxbBplNo);
+            ns.PresentAdrress = this.getVal(this.PresentAddr);
+            ns.PermanentAddress = this.getVal(this.PermanentAddr);
+            ns.Mobile = this.getVal(this.TxbMobile);
+            ns.GuardianMobile = this.getVal(this.GrdMobile);
+            ns.Email = this.getVal(this.TxbEmail);
+            ns.Aadhar = this.getVal(this.TxbAadhar);
+            ns.GuardianAadhar = this.getVal(this.TxbGrdAadhar);
+            ns.GuardianEpic = this.getVal(this.TxbGrdEpic);
+            ns.BankAcc = this.getVal(this.BankAcc);
+            ns.BankName = this.getVal(this.BankName);
+            ns.BankBranch = this.getVal(this.BankBranch);
+            ns.Ifsc = this.getVal(this.BankIfsc);
+            ns.MICR = this.getVal(this.BankMicr);
+            ns.StudyingClass = this.getVal(this.TxbCls);
+            ns.Section = this.getVal(this.TxbSection);
+            ns.Roll = this.TxbRoll;
+            //ns.SubjectComboId
+            foreach (SubjectCombo item in this.ComboCodeList)
+            {
+                if (item.Code == this.SelectedComboCode)
+                {
+                    ns.SubjectComboId = item.Id;
+                    break;
+                }
+            }
+            
+            ns.BoardRoll = this.getVal(this.TxbMadhyamicRoll);
+            ns.BoardNo = this.getVal(this.TxbMadhyamicNo);
+            ns.CouncilRoll = this.getVal(this.TxbCouncilRoll);
+            ns.CouncilNo = this.getVal(this.TxbCouncilNo);
+            ns.AdmissionNo = this.getVal(this.AdmissionNo);
+            ns.AdmDate = this.AdmissionDate;
+            ns.LastSchool = this.getVal(this.LastSchool);
+            ns.AdmittedClass = this.getVal(this.AdmittedClass);
+            ns.DateOfLeaving = this.DateOfLeaving;
+            ns.TC = this.getVal(this.Tc);
+            
+            return ns;
+        }
+
+        private string getVal(string valInp)
+        {
+            return (valInp == defaultEntry) ? string.Empty : valInp;
         }
 
         #endregion
