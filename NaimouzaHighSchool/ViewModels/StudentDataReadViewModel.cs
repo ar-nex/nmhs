@@ -142,6 +142,15 @@ namespace NaimouzaHighSchool.ViewModels
                     {
                         this.SetSubjects(this.StudentList[value].SubjectComboId);
                     }
+                    // set selectedCombocode
+                    foreach (SubjectCombo item in this.ComboCodeList)
+                    {
+                        if (item.Id == this.StudentList[value].SubjectComboId)
+                        {
+                            this.SelectedComboCode = item.Code;
+                            break;
+                        }
+                    }
                 }
                 this.OnPropertyChanged("SelectedStudentListIndex");
             }
@@ -166,7 +175,28 @@ namespace NaimouzaHighSchool.ViewModels
         public string TxbNameColor { get { return this._txbNameColor; } set { this._txbNameColor = value; this.OnPropertyChanged("TxbNameColor"); } }
 
         private string _txbCls;
-        public string TxbCls { get { return this._txbCls; } set { this._txbCls = value; this.OnPropertyChanged("TxbCls"); } }
+        public string TxbCls 
+        { 
+            get { return this._txbCls; } 
+            set 
+            { 
+                this._txbCls = value;
+                if (Array.IndexOf(this.SchoolClasses, value) > -1)
+                {
+                    var cmbList = from n in this.ComboCodeList
+                                  where n.BelongingClass == value
+                                  select n.Code;
+                    this.FilteredComboCode.Clear();
+                    foreach (string item in cmbList)
+                    {
+                        this.FilteredComboCode.Add(item);
+                    }
+                    
+                }
+                this.OnPropertyChanged("TxbCls"); 
+            } 
+        }
+
         private string _txbClsColor;
         public string TxbClsColor { get { return this._txbClsColor; } set { this._txbClsColor = value; this.OnPropertyChanged("TxbClsColor"); } }
 
@@ -220,6 +250,8 @@ namespace NaimouzaHighSchool.ViewModels
             get { return this._subDictionary; }
             set { this._subDictionary = value; this.OnPropertyChanged("SubDictionary"); }
         }
+
+      
         #endregion
 
         #region personal
@@ -442,6 +474,39 @@ namespace NaimouzaHighSchool.ViewModels
 
         #region edit
         public string[] SocialCatList { get; set; }
+        public List<SubjectCombo> ComboCodeList { get; set; }
+
+        private ObservableCollection<string> _filteredComboCode;
+        public ObservableCollection<string> FilteredComboCode
+        {
+            get { return this._filteredComboCode; }
+            set { this._filteredComboCode = value; this.OnPropertyChanged("FilteredComboCode"); }
+        }
+
+        private string _selectedComboCode;
+        public string SelectedComboCode
+        {
+            get { return this._selectedComboCode; }
+            set 
+            { 
+                this._selectedComboCode = value;
+                string cmbId = string.Empty;
+                foreach (SubjectCombo item in this.ComboCodeList)
+                {
+                    if (item.Code == value)
+                    {
+                        cmbId = item.Id;
+                        break;
+                    }
+                }
+                if (!string.IsNullOrEmpty(cmbId))
+                {
+                    this.TakenSubjects.Clear();
+                    this.SetSubjects(cmbId);
+                }
+                this.OnPropertyChanged("SelectedComboCode"); 
+            }
+        }
         #endregion
 
         public RelayCommand DeleteCommand { get; set; }
@@ -467,7 +532,11 @@ namespace NaimouzaHighSchool.ViewModels
             this.SelectedClassIndex = -1;
             this.SelectedSectionIndex = -1;
             this.SelectedStudentListIndex = -1;
-            
+
+
+            this.ComboCodeList = new List<SubjectCombo>();
+            this.ComboCodeList = db.GetComobCodeList();
+            this.FilteredComboCode = new ObservableCollection<string>();
 
             this.TakenSubjects = new ObservableCollection<string>();
             this.ArrayOfSubs = new System.Collections.ArrayList();
