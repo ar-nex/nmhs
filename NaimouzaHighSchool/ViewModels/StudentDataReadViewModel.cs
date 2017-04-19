@@ -768,8 +768,7 @@ namespace NaimouzaHighSchool.ViewModels
 
         private bool CanEdit()
         {
-            //return (this.SelectedStudentListIndex > -1);
-            return true;
+            return (this.SelectedStudentListIndex > -1);
         }
 
         private void SaveEdit()
@@ -788,7 +787,7 @@ namespace NaimouzaHighSchool.ViewModels
 
         public bool CanSaveEdit()
         {
-            return true;
+            return (this.SelectedStudentListIndex > -1);
         }
 
         private void EnableDisableSearchControl()
