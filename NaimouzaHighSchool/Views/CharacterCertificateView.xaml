@@ -24,6 +24,10 @@
         <Style TargetType="StackPanel" x:Key="rightStackPanel">
             <Setter Property="Margin" Value="2,5,2,5" />
         </Style>
+        <Style TargetType="Label" x:Key="BulkStatics">
+            <Setter Property="Foreground" Value="#fff"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
 
         <ControlTemplate x:Key="buttonTemplate" TargetType="{x:Type Button}">
             <Border Name="TemBorder" TextBlock.Foreground="Black" CornerRadius="0" Background="#FFD1F7F9">
@@ -50,8 +54,8 @@
         <Border DockPanel.Dock="Bottom" Style="{StaticResource BottomTopBorder}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Padding="5" Width="80" Margin="2" Template="{StaticResource buttonTemplate}" Command="{Binding GenerateCertificateCommand, Source={StaticResource CharacVm}}">Generate</Button>
-                <Button Padding="5" Width="80" Margin="2" Template="{StaticResource buttonTemplate}">Reset</Button>
-                <Button Padding="5" Width="80" Margin="2" Template="{StaticResource buttonTemplate}">Exit</Button>
+                <Button Padding="5" Width="80" Margin="2" Template="{StaticResource buttonTemplate}" Command="{Binding ResetCommand, Source={StaticResource CharacVm}}">Reset</Button>
+                <!--<Button Padding="5" Width="80" Margin="2" Template="{StaticResource buttonTemplate}">Exit</Button>-->
             </StackPanel>           
         </Border>
         <Grid>
@@ -129,6 +133,39 @@
                             Text="{Binding Dob, Source={StaticResource CharacVm}}">
                 </DatePicker>
             </Grid>
+            <Border Grid.Row="1" Visibility="{Binding VisibilityBulk, Source={StaticResource CharacVm}}" Background="#064860">
+                <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="Auto">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Style="{StaticResource BulkStatics}">Class</Label>
+                    <Label Style="{StaticResource BulkStatics}" Grid.Column="1"> : </Label>
+                    <Label Style="{StaticResource BulkStatics}" Grid.Column="2"
+                           Content="{Binding SelectedClass, Source={StaticResource CharacVm}}">
+                    </Label>
+                    <Label Style="{StaticResource BulkStatics}" Grid.Row="1">Section</Label>
+                    <Label Style="{StaticResource BulkStatics}" Grid.Row="1" Grid.Column="1"> : </Label>
+                    <Label Style="{StaticResource BulkStatics}" Grid.Row="1" Grid.Column="2"
+                           Content="{Binding SelectedSection, Source={StaticResource CharacVm}}">
+                    </Label>
+                    <Label Style="{StaticResource BulkStatics}" Grid.Row="2">Total Students</Label>
+                    <Label Style="{StaticResource BulkStatics}" Grid.Row="2" Grid.Column="1"> : </Label>
+                    <Label Style="{StaticResource BulkStatics}" Grid.Row="2" Grid.Column="2"
+                           Content="{Binding TotalStudent, Source={StaticResource CharacVm}}">
+                    </Label>
+                    <Label Style="{StaticResource BulkStatics}" Grid.Row="3">Progress</Label>
+                    <Label Style="{StaticResource BulkStatics}" Grid.Row="3" Grid.Column="1"> : </Label>
+                    <Label Style="{StaticResource BulkStatics}" Grid.Row="3" Grid.Column="2"></Label>
+                </Grid>
+            </Border>
             <Grid Grid.Column="1" Margin="5,57,-5,3" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

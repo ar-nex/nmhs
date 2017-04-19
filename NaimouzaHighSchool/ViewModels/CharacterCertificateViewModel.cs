@@ -25,6 +25,8 @@ namespace NaimouzaHighSchool.ViewModels
         {
             this.GenerateCertificateCommand = new RelayCommand(GenerateCertificate, CanGenerateCertificate);
             this.GetStudentDataCommand = new RelayCommand(this.GetBtnClicked, this.CanGetBtnClicked);
+            this.ResetCommand = new RelayCommand(this.Reset, this.CanReset);
+
             this.CertifHelper = new CertificateHelper();
             this.Session = DateTime.Today.Year.ToString();
             this.SessionEnd = DateTime.Today.Year.ToString();
@@ -37,13 +39,14 @@ namespace NaimouzaHighSchool.ViewModels
             this.GenderIndex = -1;
             this.GetBtnContent = "?";
             this.PreviewText = string.Empty;
+            this.Slist = new List<string[]>();
+
         }
 
         #region fields
         private Visibility _visibilityAddhoc;
         private Visibility _visibilityUniqueIndividual;
-        private Visibility _visibilityClassList;
-        private Visibility _visibilityNameList;
+        private Visibility _visibilityBulk;
         private List<string> _searchType;
 
         private CertificateHelper CertifHelper { get; set; }
@@ -63,7 +66,12 @@ namespace NaimouzaHighSchool.ViewModels
         private string _roll;
         private string _session;
         private string _dob;
-        
+        private int _totalStudent;
+
+        private string _admNo;
+        private int _admYear;
+        private List<string[]> _slist;
+
         #endregion
 
         #region property
@@ -77,15 +85,10 @@ namespace NaimouzaHighSchool.ViewModels
             get { return _visibilityUniqueIndividual; }
             set { _visibilityUniqueIndividual = value; this.OnPropertyChanged("VisibilityUniqueIndividual"); }
         }
-        public Visibility VisibilityClassList
+        public Visibility VisibilityBulk
         {
-            get { return _visibilityClassList; }
-            set { _visibilityClassList = value; this.OnPropertyChanged("VisibilityClassList"); }
-        }
-        public Visibility VisibilityNameList
-        {
-            get { return _visibilityNameList; }
-            set { _visibilityNameList = value; this.OnPropertyChanged("VisibilityNameList"); }
+            get { return _visibilityBulk; }
+            set { _visibilityBulk = value; this.OnPropertyChanged("VisibilityBulk"); }
         }
         public List<string> SearchType
         {
@@ -124,21 +127,26 @@ namespace NaimouzaHighSchool.ViewModels
                 {
                     case "Add hoc":
                         this.VisibilityUniqueIndividual = Visibility.Collapsed;
-                        this.VisibilityClassList = Visibility.Collapsed;
-                        this.VisibilityNameList = Visibility.Collapsed;
+                        this.VisibilityBulk = Visibility.Collapsed;
                         this.VisibilityAddhoc = Visibility.Visible;
                         this._searchTypeFlag = 1;
                         this.GetBtnContent = "Preview";
                         break;
                     case "By Class, Section and Roll":
-                        this.VisibilityClassList = Visibility.Collapsed;
-                        this.VisibilityNameList = Visibility.Collapsed;
+                        this.VisibilityBulk = Visibility.Collapsed;
                         this.VisibilityAddhoc = Visibility.Collapsed;
                         this.VisibilityUniqueIndividual = Visibility.Visible;
                         this._searchTypeFlag = 2;
                         this.GetBtnContent = "Get";
                         break;
 
+                    case "Bulk":
+                        this.VisibilityUniqueIndividual = Visibility.Collapsed;
+                        this.VisibilityAddhoc = Visibility.Collapsed;
+                        this.VisibilityBulk = Visibility.Visible;
+                        this.GetBtnContent = "Get";
+                        this._searchTypeFlag = 3;
+                        break;
                     default:
                         this._searchTypeFlag = 0;
                         break;
@@ -154,6 +162,12 @@ namespace NaimouzaHighSchool.ViewModels
         public List<string> Gender { get; set; }
         public List<string> SchoolClass { get; set; }
         public List<string> SchoolSection { get; set; }
+
+        public List<string[]> Slist
+        {
+            get { return this._slist; }
+            set { this._slist = value; this.OnPropertyChanged("Slist"); }
+        }
 
         public string StdName
         {
@@ -315,6 +329,14 @@ namespace NaimouzaHighSchool.ViewModels
             set { _roll = value; this.OnPropertyChanged("Roll"); }
         }
 
+        public int TotalStudent
+        {
+            get { return this._totalStudent; }
+            set { this._totalStudent = value; this.OnPropertyChanged("TotalStudent"); }
+        }
+
+
+
         public string Session
         {
             get { return _session; }
@@ -392,6 +414,7 @@ namespace NaimouzaHighSchool.ViewModels
         }
         public RelayCommand GenerateCertificateCommand { get; set; }
         public RelayCommand GetStudentDataCommand { get; set; }
+        public RelayCommand ResetCommand { get; set; }
         #endregion
 
 
@@ -413,7 +436,7 @@ namespace NaimouzaHighSchool.ViewModels
 
                     try
                     {
-                        CertifHelper.CreateCharacterCertificatePDF(certificateData);
+                        CertifHelper.CreateCharacterCertificatePDF(certificateData, "NIL", 0);
                         this.Reset();
                     }
                     catch (Exception em)
@@ -433,7 +456,7 @@ namespace NaimouzaHighSchool.ViewModels
                     certificateData2[4] = this.StdName;
                     try
                     {                       
-                        CertifHelper.CreateCharacterCertificatePDF(certificateData2);
+                        CertifHelper.CreateCharacterCertificatePDF(certificateData2, this._admNo, this._admYear);
                         this.Reset();
                     }
                     catch (Exception em)
@@ -442,6 +465,19 @@ namespace NaimouzaHighSchool.ViewModels
                     }
 
                     break;
+
+                case 3:
+                    try
+                    {
+                        CertifHelper.CreateCharacterCertificatePDF(this.Slist, this.SelectedClass+this.SelectedSection);
+                    }
+                    catch (Exception ex7)
+                    {
+                        MessageBox.Show("ex7 : "+ex7.Message);
+                    }
+                    
+                    break;
+
                 default:
                     break;
             }
@@ -460,6 +496,9 @@ namespace NaimouzaHighSchool.ViewModels
                 case 2:
                     r = (string.IsNullOrEmpty(this.Roll) || (this.SelectedClassIndex == -1) || (this.SelectedSectionIndex == -1) || (string.IsNullOrEmpty(this.Session)) || (string.IsNullOrEmpty(this.SessionEnd))) ? false : true;
                     break;
+                case 3:
+                    r = this.TotalStudent > 0;
+                    break;
                 default:
                     r = false;
                     break;
@@ -470,14 +509,14 @@ namespace NaimouzaHighSchool.ViewModels
         {
             this.VisibilityAddhoc = Visibility.Collapsed;
             this.VisibilityUniqueIndividual = Visibility.Collapsed;
-            this.VisibilityClassList = Visibility.Collapsed;
-            this.VisibilityNameList = Visibility.Collapsed;
+            this.VisibilityBulk = Visibility.Collapsed;
         }
         private void InitializeStartUpComboList()
         {
             this.SearchType = new List<string>();
             this.SearchType.Add("Add hoc");
             this.SearchType.Add("By Class, Section and Roll");
+            this.SearchType.Add("Bulk");
 
             this.VillList = new List<string>();
             VillList.Add("Bakharpur");
@@ -569,8 +608,18 @@ namespace NaimouzaHighSchool.ViewModels
                             this.GenderIndex = -1;
                         }
                         this.Dob = s.Dob.ToString("dd-MM-yyyy");
+                        this._admNo = string.IsNullOrEmpty(s.AdmissionNo) ? "NIL" : s.AdmissionNo;
+                        this._admYear = (s.AdmDate.Year == 1) ? 0 : s.AdmDate.Year;
                         this.BuildPreview();      
                      }
+                    break;
+                case 3:
+                    string[] searchData3 = new string[] { this.SelectedClass, this.SelectedSection, this.Session, this.SessionEnd};
+                    CharacterCertificateDb db3 = new CharacterCertificateDb();
+                    this.Slist.Clear();
+                    this.Slist = db3.GetDataList(searchData3);
+                    this.Slist = this.GenerateChrData(this.Slist);
+                    this.TotalStudent = this.Slist.Count();
                     break;
                 default:
                     break;
@@ -588,6 +637,9 @@ namespace NaimouzaHighSchool.ViewModels
                     break;
                 case 2:
                     r = (string.IsNullOrEmpty(this.Roll) || (this.SelectedClassIndex == -1) || (this.SelectedSectionIndex == -1) || (string.IsNullOrEmpty(this.Session)) || (string.IsNullOrEmpty(this.SessionEnd))) ? false : true;
+                    break;
+                case 3:
+                    r = (this.SelectedClassIndex == -1) || (this.SelectedSectionIndex == -1) || (string.IsNullOrEmpty(this.Session)) || (string.IsNullOrEmpty(this.SessionEnd)) ? false : true;
                     break;
                 default:
                     r = false;
@@ -632,11 +684,55 @@ namespace NaimouzaHighSchool.ViewModels
             this.PreviewText = preview1 + "\n  " + preview2 + "\n  " + preview3 + "\n  "+preview4;
         }
 
+        private List<string[]> GenerateChrData(List<string[]> slist)
+        {
+            List<string[]> rSlist = new List<string[]>();
+            foreach (string[] item in slist)
+            {
+                string xchild = (item[2] == "M") ? "son" : "daughter";
+                string xhe = (item[2] == "M") ? "he" : "she";
+                string Xhe = (item[2] == "M") ? "He" : "She";
+                string Hir = (item[2] == "M") ? "His" : "Her";
+                string hir = (item[2] == "M") ? "his" : "her";
+
+                int currentYear = DateTime.Today.Year;
+                int sessStart = 0;
+                int sessEnd = 0;
+                try
+                {
+                    sessStart = Int32.Parse(this.Session);
+                    sessEnd = Int32.Parse(this.SessionEnd);
+                }
+                catch (Exception year)
+                {
+                    MessageBox.Show("Year conversion : " + year.Message);
+                }
+                string wis = (sessStart == currentYear || sessEnd == currentYear) ? "is" : "was";
+                string preview1 = string.Empty;
+                preview1 = "  This is to certify that " + item[0] + ", " + xchild + " of " + item[1] + ", " + item[4] + ", is personally known to me.";
+                string preview2 = Xhe + " comes of a respectable family. " + Xhe + " " + wis + " reading in Class " + this.SelectedClass + ", Sec. " + this.SelectedSection + ", Roll " + item[7] + ", Session " + this.Session + "-" + this.SessionEnd + ".";
+                string preview3 = Hir + " date of birth as per School records is " + DateTime.Parse(item[3]).ToString("dd-MM-yyyy") +".";
+                string preview4 = "So far I know, " + xhe + " bears a good moral character. I wish " + hir + " every success in life.";
+                string admNo = string.IsNullOrEmpty(item[8].ToString()) ? "NIL" : item[8].ToString();
+                DateTime adD = (string.IsNullOrEmpty(item[9].ToString())) ? default(DateTime) : DateTime.Parse(item[9].ToString());
+                string admD = (adD.Year == 1) ? "0000" : adD.Year.ToString();
+                rSlist.Add(new string[] {preview1, preview2, preview3, preview4, admNo, admD});
+            }
+            return rSlist;
+        }
+
         private void Reset()
         {
             this.StdName = this.FatherName = this.Vill = this.PO = this.Ps = this.Dist = this.Pin = this.Address = this.Roll = this.PreviewText = string.Empty;
             this.GenderIndex = this.SelectedClassIndex = this.SelectedSectionIndex = -1;
+            this.TotalStudent = 0;
         }
+
+        private bool CanReset()
+        {
+            return true;
+        }
+
 
         #endregion   
     }
