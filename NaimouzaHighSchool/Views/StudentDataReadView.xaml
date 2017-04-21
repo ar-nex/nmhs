@@ -61,9 +61,6 @@
                 <ContentPresenter Name="buttonConPresenter" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}">
 
                 </ContentPresenter>
-                <!--<Border.Effect>
-                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Color="#666"></DropShadowEffect>
-                </Border.Effect>-->
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">

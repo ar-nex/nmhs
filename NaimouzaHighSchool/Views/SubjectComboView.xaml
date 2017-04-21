@@ -5,44 +5,165 @@
         Title="SubjectComboView" Height="450" Width="750">
     <Window.Resources>
         <vm:SubjectComboViewModel x:Key="sCom"></vm:SubjectComboViewModel>
+        <Style TargetType="Button" x:Key="crudButton">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="35"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition />
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2.5*"/>
         </Grid.ColumnDefinitions>
-        <Border>
-            <Grid>
+        <Border Background="#3f51b5">
+            <Grid Margin="10,30" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid Margin="0,5,0,30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label>Class</Label>
+                    <ComboBox Grid.Column="1" ItemsSource="{Binding ClassNames, Source={StaticResource sCom}}"
+                          SelectedItem="{Binding ClassOfCombo, Source={StaticResource sCom}}">
+                    </ComboBox>
+                </Grid>
+                <DockPanel LastChildFill="True" Background="#c5cae9" Margin="0,0,0,5" Height="0" Name="TextBoxContainer" Grid.Row="1">
+                    <TextBox DockPanel.Dock="Bottom" IsReadOnly="{Binding IsTxbComboReadOnly, Source={StaticResource sCom}}"
+                         Text="{Binding TxbComboText, Source={StaticResource sCom}, UpdateSourceTrigger=PropertyChanged}">
+                    </TextBox>
+                    <Label Name="TextBoxTitle"></Label>
+                </DockPanel>
+                <Grid Grid.Row="2" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Button Command="{Binding CommandSaveCombo, Source={StaticResource sCom}}"
+                            Style="{StaticResource crudButton}"
+                            Grid.Column="1" Grid.Row="0" Content="Save" Name="SaveButton">
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Click" SourceName="SaveButton">
+                                <BeginStoryboard Name="hideMyStoryBoard">
+                                    <Storyboard>
+                                        <DoubleAnimation 
+                                             Storyboard.TargetName="TextBoxContainer"
+                                              Storyboard.TargetProperty="Height"
+                                              To="0" Duration="0:0:0.1" 
+                                              />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Command="{Binding CommandAddCombo, Source={StaticResource sCom}}" 
+                            Grid.Row="1" Style="{StaticResource crudButton}" Content="Add" Name="AddButton">
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Click" SourceName="AddButton">
+                                <BeginStoryboard Name="myStoryBoardClose">
+                                    <Storyboard>
+                                        <DoubleAnimation 
+                                              Storyboard.TargetName="TextBoxContainer"
+                                              Storyboard.TargetProperty="Height"
+                                              To="60" Duration="0:0:0.1" 
+                                              />
+                                        <StringAnimationUsingKeyFrames 
+                                            Storyboard.TargetName="TextBoxTitle"
+                                            Storyboard.TargetProperty="Content"
+                                            Duration="0:0:0.85"
+                                            FillBehavior="HoldEnd">
+                                            <DiscreteStringKeyFrame Value="" KeyTime="0:0:0.1" />
+                                            <DiscreteStringKeyFrame Value="E" KeyTime="0:0:0.15" />
+                                            <DiscreteStringKeyFrame Value="En" KeyTime="0:0:0.2" />
+                                            <DiscreteStringKeyFrame Value="Ent" KeyTime="0:0:0.25" />
+                                            <DiscreteStringKeyFrame Value="Ente" KeyTime="0:0:0.3" />
+                                            <DiscreteStringKeyFrame Value="Enter" KeyTime="0:0:0.35" />
+                                            <DiscreteStringKeyFrame Value="Enter " KeyTime="0:0:0.4" />
+                                            <DiscreteStringKeyFrame Value="Enter N" KeyTime="0:0:0.45" />
+                                            <DiscreteStringKeyFrame Value="Enter Ne" KeyTime="0:0:0.5" />
+                                            <DiscreteStringKeyFrame Value="Enter New" KeyTime="0:0:0.56" />
+                                            <DiscreteStringKeyFrame Value="Enter New " KeyTime="0:0:0.6" />
+                                            <DiscreteStringKeyFrame Value="Enter New C" KeyTime="0:0:0.65" />
+                                            <DiscreteStringKeyFrame Value="Enter New Co" KeyTime="0:0:0.7" />
+                                            <DiscreteStringKeyFrame Value="Enter New Com" KeyTime="0:0:0.75" />
+                                            <DiscreteStringKeyFrame Value="Enter New Comb" KeyTime="0:0:0.8" />
+                                            <DiscreteStringKeyFrame Value="Enter New Combo" KeyTime="0:0:0.85" />
+                                        </StringAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Command="{Binding CommandEditCombo, Source={StaticResource sCom}}" 
+                            Grid.Row="1" Grid.Column="2" Style="{StaticResource crudButton}" Content="Edit" Name="EditButton">
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Click" SourceName="EditButton">
+                                <BeginStoryboard Name="myStoryBoardEdit">
+                                    <Storyboard>
+                                        <DoubleAnimation 
+                                              Storyboard.TargetName="TextBoxContainer"
+                                              Storyboard.TargetProperty="Height"
+                                              To="60" Duration="0:0:0.1" 
+                                              />
+                                        <StringAnimationUsingKeyFrames 
+                                            Storyboard.TargetName="TextBoxTitle"
+                                            Storyboard.TargetProperty="Content"
+                                            Duration="0:0:0.8"
+                                            FillBehavior="HoldEnd">
+                                            <DiscreteStringKeyFrame Value="" KeyTime="0:0:0.1" />
+                                            <DiscreteStringKeyFrame Value="E" KeyTime="0:0:0.15" />
+                                            <DiscreteStringKeyFrame Value="Ed" KeyTime="0:0:0.2" />
+                                            <DiscreteStringKeyFrame Value="Edi" KeyTime="0:0:0.25" />
+                                            <DiscreteStringKeyFrame Value="Edit " KeyTime="0:0:0.3" />
+                                            <DiscreteStringKeyFrame Value="Edit T" KeyTime="0:0:0.35" />
+                                            <DiscreteStringKeyFrame Value="Edit Th" KeyTime="0:0:0.4" />
+                                            <DiscreteStringKeyFrame Value="Edit The" KeyTime="0:0:0.45" />
+                                            <DiscreteStringKeyFrame Value="Edit The " KeyTime="0:0:0.5" />
+                                            <DiscreteStringKeyFrame Value="Edit The C" KeyTime="0:0:0.56" />
+                                            <DiscreteStringKeyFrame Value="Edit The Co" KeyTime="0:0:0.6" />
+                                            <DiscreteStringKeyFrame Value="Edit The Com" KeyTime="0:0:0.65" />
+                                            <DiscreteStringKeyFrame Value="Edit The Comb" KeyTime="0:0:0.7" />
+                                            <DiscreteStringKeyFrame Value="Edit The Combo" KeyTime="0:0:0.75" />
+                                        </StringAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Command="{Binding CommandDeleteCombo, Source={StaticResource sCom}}"
+                            Style="{StaticResource crudButton}"
+                            Grid.Row="2" Grid.Column="1">
+                        Delete</Button>
+                </Grid>
+            </Grid>
+            <!--<Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Vertical">
-                    <Label>Class</Label>
-                    <ComboBox ItemsSource="{Binding ClassNames, Source={StaticResource sCom}}"
-                          SelectedItem="{Binding ClassOfCombo, Source={StaticResource sCom}}">
-                    </ComboBox>
-                    <Label>Combo Name</Label>
-                    <TextBox IsReadOnly="{Binding IsTxbComboReadOnly, Source={StaticResource sCom}}"
-                         Text="{Binding TxbComboText, Source={StaticResource sCom}, UpdateSourceTrigger=PropertyChanged}">
-                    </TextBox>
-
-                    <Button Command="{Binding CommandAddCombo, Source={StaticResource sCom}}">Add</Button>
-                    <Button Command="{Binding CommandEditCombo, Source={StaticResource sCom}}">Edit</Button>
-                    <Button Command="{Binding CommandSaveCombo, Source={StaticResource sCom}}">Save</Button>
-                    <Button Command="{Binding CommandDeleteCombo, Source={StaticResource sCom}}">Delete</Button>
-                </StackPanel>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1">
-                    <ListBox ItemsSource="{Binding ScomboByClass, Source={StaticResource sCom}}" 
-                             DisplayMemberPath="Code" 
-                             SelectedIndex="{Binding SelectedComboIndex, Source={StaticResource sCom}}">
-                    </ListBox>
-                </ScrollViewer>
-            </Grid>
+               
+            </Grid>-->
             
         </Border>
-        <Grid Grid.Column="1">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1">
+            <ListBox ItemsSource="{Binding ScomboByClass, Source={StaticResource sCom}}" 
+                             DisplayMemberPath="Code" 
+                             SelectedIndex="{Binding SelectedComboIndex, Source={StaticResource sCom}}">
+            </ListBox>
+        </ScrollViewer>
+        <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>

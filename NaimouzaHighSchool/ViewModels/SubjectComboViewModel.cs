@@ -360,7 +360,8 @@ namespace NaimouzaHighSchool.ViewModels
         }
         private bool CanEditCombo()
         {
-            return (this.SelectedComboIndex > -1) ? true : false;
+           // return (this.SelectedComboIndex > -1) ? true : false;
+            return true;
         }
 
         private void SaveCombo()
@@ -381,13 +382,13 @@ namespace NaimouzaHighSchool.ViewModels
                     }
                     break;
                 case _saveIndicator.Edit:
-                    if (db.UpdateComboCode(new SubjectCombo(this.ScomboByClass[this.SelectedComboIndex].Id, this.TxbComboText, this.ClassOfCombo)))
-                    {
-                        this.ScomboByClass[this.SelectedComboIndex].Code = this.TxbComboText;
-                        System.Windows.MessageBox.Show("Updated.");
-                        this._sindi = _saveIndicator.None;
-                        this.IsTxbComboReadOnly = true;
-                    }
+                    //if (db.UpdateComboCode(new SubjectCombo(this.ScomboByClass[this.SelectedComboIndex].Id, this.TxbComboText, this.ClassOfCombo)))
+                    //{
+                    //    this.ScomboByClass[this.SelectedComboIndex].Code = this.TxbComboText;
+                    //    System.Windows.MessageBox.Show("Updated.");
+                    //    this._sindi = _saveIndicator.None;
+                    //    this.IsTxbComboReadOnly = true;
+                    //}
                     break;
                 default:
                     break;
@@ -428,7 +429,8 @@ namespace NaimouzaHighSchool.ViewModels
                 default:
                     break;
             }
-            return rs;
+            //return rs;
+            return true;
         }
 
         private void DeleteCombo()
