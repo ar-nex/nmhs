@@ -41,20 +41,28 @@
             <Setter Property="Margin" Value="5,0,0,0"/>
         </Style>
         <Style TargetType="TextBlock" x:Key="groupHeader">
-            <Setter Property="Foreground" Value="YellowGreen" />
+            <Setter Property="Foreground" Value="#053646" />
             <Setter Property="Margin" Value="10,3,3,3"/>
             <Setter Property="FontSize" Value="20"/>
-            <Setter Property="TextDecorations" Value="Underline" />
         </Style>
         <Style TargetType="Label" x:Key="lblProperty">
-            <Setter Property="Foreground" Value="#ccc"/>
+            <Setter Property="Foreground" Value="#222"/>
             <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="10,0,0,0" />
         </Style>
         <Style TargetType="Label" x:Key="lblValue">
-            <Setter Property="FontSize" Value="13"/>            
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Black"/>
+        </Style>
+        <Style TargetType="Grid" x:Key="CategoryGrid">
+            <Setter Property="Margin" Value="10"/>
         </Style>
         <Style TargetType="Label" x:Key="doubleDot">
-            <Setter Property="Foreground" Value="Salmon"/>
+            <Setter Property="Foreground" Value="Green"/>
+            <Setter Property="FontWeight" Value="Black"/>
+        </Style>
+        <Style TargetType="Border" x:Key="CategoryHeading">
+            <Setter Property="Background" Value="#0facdf"/>
         </Style>
         <ControlTemplate x:Key="buttonTemplate" TargetType="{x:Type Button}">
             <Border Name="TemBorder" TextBlock.Foreground="#fb0f4c" CornerRadius="1" Background="Transparent" BorderBrush="#fb0f4c" BorderThickness="2">
@@ -378,17 +386,13 @@
                                     </Label>
                                     <Label Grid.Row="1" Margin="1">Last School Name</Label>
                                     <TextBox Grid.Row="1" Grid.Column="1" Margin="1" Text="{Binding LastSchool, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                    <Label Grid.Row="2" Margin="1">Year of passing of last class</Label>
-                                    <ComboBox Grid.Column="1" Margin="1" Width="80" HorizontalAlignment="Left" Grid.Row="2" ItemsSource="{Binding YearOfPassingArray, Source={StaticResource dObj}}" SelectedIndex="{Binding IndexOfLastClassYear, Source={StaticResource dObj}}"></ComboBox>
+                                    <!--<Label Grid.Row="2" Margin="1">Year of passing of last class</Label>
+                                    <ComboBox Grid.Column="1" Margin="1" Width="80" HorizontalAlignment="Left" Grid.Row="2" ItemsSource="{Binding YearOfPassingArray, Source={StaticResource dObj}}" SelectedIndex="{Binding IndexOfLastClassYear, Source={StaticResource dObj}}"></ComboBox>-->
                                     <Label Grid.Row="3">TC details</Label>
                                     <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Tc, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                                     <Label Grid.Row="4">Date of leaving</Label>
                                     <DatePicker Grid.Row="4" Grid.Column="1" Width="150" HorizontalAlignment="Left"  Text="{Binding DateOfLeaving, Source={StaticResource dObj}, Converter={StaticResource DateConverter}}"></DatePicker>
                                 </Grid>
-                                <StackPanel Grid.Column="1" Orientation="Vertical">
-                                   
-                                    
-                                </StackPanel>
                             </Grid>
                         </TabItem>
                         <TabItem Header="Bank">
@@ -495,7 +499,7 @@
                                 </RadioButton>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Label>Name</Label>
+                                <Label>Search Text</Label>
                                 <TextBox Width="200" Text="{Binding SearchText, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                                 <Label>Class</Label>
                                 <ComboBox Width="60"
@@ -579,7 +583,7 @@
                     </ScrollViewer>
                 </Grid>
                 <ScrollViewer Grid.Column="1" Visibility="{Binding StdDetailVisibility, Source={StaticResource dObj}}">
-                    <Grid Background="#313b55">
+                    <Grid Background="#eee">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -587,253 +591,303 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Border>
-                            <TextBlock Style="{StaticResource groupHeader}">General Info</TextBlock>
-                        </Border>
-                        <Grid Grid.Row="1" Margin="10,3,3,3">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.ColumnSpan="6" Content="{Binding TxbName, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="White" FontSize="16" FontWeight="Black"></Label>
-                            <Label Grid.Row="1" Style="{StaticResource lblProperty}">Class</Label>
-                            <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource doubleDot}"> : </Label>
-                            <Label Grid.Row="1" Grid.Column="2" Content="{Binding TxbCls, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbClsColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="2" Style="{StaticResource lblProperty}">Section</Label>
-                            <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource doubleDot}"> : </Label>
-                            <Label Grid.Row="2" Grid.Column="2" Content="{Binding TxbSection, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbSectionColor, Source={StaticResource dObj}}"></Label>
-             
-                            <Label Grid.Row="3" Style="{StaticResource lblProperty}">Roll</Label>
-                            <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource doubleDot}"> : </Label>
-                            <Label Grid.Row="3" Grid.Column="2" Content="{Binding TxbRoll, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource IntConverter}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbRollColor, Source={StaticResource dObj}}"></Label>
+                        <Grid Style="{StaticResource CategoryGrid}">
+                            <Border Background="white">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2.5" Direction="270" Color="#BBBBBB"/>
+                                </Border.Effect>
+                            </Border>
+                            <Grid UseLayoutRounding = "True">
 
-                            <Label Grid.Row="4" Style="{StaticResource lblProperty}">Subjects</Label>
-                            <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource doubleDot}"> : </Label>
-                            <ListBox Grid.Row="4" Grid.Column="2" ItemsSource="{Binding TakenSubjects, Source={StaticResource dObj}}" Background="#313b55" Foreground="White" BorderBrush="Black">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.ColumnSpan="6" Style="{StaticResource CategoryHeading}">
+                                    <TextBlock Style="{StaticResource groupHeader}">General Info</TextBlock>
+                                </Border>
+
+                                <Label Grid.Row="1" Grid.ColumnSpan="6" Content="{Binding TxbName, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="DarkBlue" FontSize="16" FontWeight="Black"></Label>
+                                <Label Grid.Row="2" Style="{StaticResource lblProperty}">Class</Label>
+                                <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
+                                <Label Grid.Row="2" Grid.Column="2" Content="{Binding TxbCls, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbClsColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="3" Style="{StaticResource lblProperty}">Section</Label>
+                                <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
+                                <Label Grid.Row="3" Grid.Column="2" Content="{Binding TxbSection, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbSectionColor, Source={StaticResource dObj}}"></Label>
+
+                                <Label Grid.Row="4" Style="{StaticResource lblProperty}">Roll</Label>
+                                <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
+                                <Label Grid.Row="4" Grid.Column="2" Content="{Binding TxbRoll, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource IntConverter}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbRollColor, Source={StaticResource dObj}}"></Label>
+
+                                <Label Grid.Row="5" Style="{StaticResource lblProperty}" Margin="10,0,0,10">Subjects</Label>
+                                <Label Grid.Row="5" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
+                                <ListBox Grid.Row="5" Grid.Column="2" ItemsSource="{Binding TakenSubjects, Source={StaticResource dObj}}" BorderBrush="White" Padding="5">
+
+                                </ListBox>
+
+                                <Label Grid.Row="2" Grid.Column="3" Style="{StaticResource lblProperty}">Gender</Label>
+                                <Label Grid.Row="2" Grid.Column="4" Style="{StaticResource doubleDot}">:</Label>
+                                <Label Grid.Row="2" Grid.Column="5" Content="{Binding TxbGen, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbGenColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="3" Grid.Column="3" Style="{StaticResource lblProperty}">DoB</Label>
+                                <Label Grid.Row="3" Grid.Column="4" Style="{StaticResource doubleDot}">:</Label>
+                                <Label Grid.Row="3" Grid.Column="5" Content="{Binding Dob, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource DateConverter1}}" Style="{StaticResource lblValue}" Foreground="{Binding DobColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="4" Grid.Column="3" Style="{StaticResource lblProperty}">Age</Label>
+                                <Label Grid.Row="4" Grid.Column="4" Style="{StaticResource doubleDot}">:</Label>
+                                <Label Grid.Row="4" Grid.Column="5" Content="{Binding TxbAge, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}"  Foreground="{Binding TxbAgeColor, Source={StaticResource dObj}}"></Label>
                                 
-                            </ListBox>
-                            
-                            <Label Grid.Row="1" Grid.Column="3" Style="{StaticResource lblProperty}">Gender</Label>
-                            <Label Grid.Row="1" Grid.Column="4" Style="{StaticResource doubleDot}"> : </Label>
-                            <Label Grid.Row="1" Grid.Column="5" Content="{Binding TxbGen, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbGenColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="2" Grid.Column="3" Style="{StaticResource lblProperty}">DoB</Label>
-                            <Label Grid.Row="2" Grid.Column="4" Style="{StaticResource doubleDot}"> : </Label>
-                            <Label Grid.Row="2" Grid.Column="5" Content="{Binding Dob, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource DateConverter1}}" Style="{StaticResource lblValue}" Foreground="{Binding DobColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="3" Grid.Column="3" Style="{StaticResource lblProperty}">Age</Label>
-                            <Label Grid.Row="3" Grid.Column="4" Style="{StaticResource doubleDot}"> : </Label>
-                            <Label Grid.Row="3" Grid.Column="5" Content="{Binding TxbAge, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}"  Foreground="{Binding TxbAgeColor, Source={StaticResource dObj}}"></Label>
+                            </Grid>
+                        </Grid>
+                                                
+                        <Grid Grid.Row="1" Style="{StaticResource CategoryGrid}">
+                            <Border Background="white">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2.5" Direction="270" Color="#BBBBBB"/>
+                                </Border.Effect>
+                            </Border>
+                            <Grid UseLayoutRounding="True">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Border Grid.ColumnSpan="4" Style="{StaticResource CategoryHeading}">
+                                    <TextBlock Style="{StaticResource groupHeader}">Personal</TextBlock>
+                                </Border>
+                                <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource lblProperty}">Father Name :</Label>
+                                <Label Grid.Row="1" Grid.Column="1" Content="{Binding TxbFather, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbFatherColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource lblProperty}">Mother Name :</Label>
+                                <Label Grid.Row="2" Grid.Column="1" Content="{Binding TxbMother, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbMotherColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource lblProperty}">Guardian Name :</Label>
+                                <Label Grid.Row="3" Grid.Column="1" Content="{Binding TxbGrd, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbGrdColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource lblProperty}">Relation with Guardian :</Label>
+                                <Label Grid.Row="4" Grid.Column="1" Content="{Binding TxbGrdRel, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbGrdRelColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource lblProperty}">Father (or Guardian) Aadhar :</Label>
+                                <Label Grid.Row="5" Grid.Column="1" Content="{Binding TxbGrdAadhar, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbGrdAadharColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource lblProperty}">Father (or Guardian) Epic :</Label>
+                                <Label Grid.Row="6" Grid.Column="1" Content="{Binding TxbGrdEpic, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbGrdEpicColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource lblProperty}">Father (or Guardian) Occupation :</Label>
+                                <Label Grid.Row="7" Grid.Column="1" Content="{Binding TxbGrdOcc, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbGrdOccColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource lblProperty}">Blood group :</Label>
+                                <Label Grid.Row="8" Grid.Column="1" Style="{StaticResource lblValue}" Content="{Binding BloodGrp, Source={StaticResource dObj}}"></Label>
+
+                                <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource lblProperty}">Student's Aadhar :</Label>
+                                <Label Grid.Row="1" Grid.Column="3" Content="{Binding TxbAadhar, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbAadharColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource lblProperty}">Social Category :</Label>
+                                <Label Grid.Row="2" Grid.Column="3" Content="{Binding TxbSocCat, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbSocCatColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="3" Grid.Column="2" Style="{StaticResource lblProperty}">Sub Category :</Label>
+                                <Label Grid.Row="3" Grid.Column="3" Content="{Binding TxbSbCat, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbSbCatColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="4" Grid.Column="2" Style="{StaticResource lblProperty}">Is PH :</Label>
+                                <Label Grid.Row="4" Grid.Column="3" Content="{Binding TxbIsPh, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource Bool1Converter}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbIsPhColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="5" Grid.Column="2" Style="{StaticResource lblProperty}">PH Detail :</Label>
+                                <Label Grid.Row="5" Grid.Column="3" Content="{Binding TxbPhType, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbPhTypeColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="6" Grid.Column="2" Style="{StaticResource lblProperty}">Is BPL :</Label>
+                                <Label Grid.Row="6" Grid.Column="3" Content="{Binding TxbIsBpl, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource Bool1Converter}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbIsBplColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="7" Grid.Column="2" Style="{StaticResource lblProperty}">BPL No. :</Label>
+                                <Label Grid.Row="7" Grid.Column="3" Content="{Binding TxbBplNo, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbBplNoColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="8" Grid.Column="2" Style="{StaticResource lblProperty}" Margin="10,0,0,10">Religion :</Label>
+                                <Label Grid.Row="8" Grid.Column="3" Content="{Binding TxbReligion, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbReligionColor, Source={StaticResource dObj}}"></Label>
+                            </Grid>
                         </Grid>
 
-                        <Border Grid.Row="2">
-                            <!--<Label FontSize="20" Foreground="YellowGreen">Personal</Label>-->
-                            <TextBlock Style="{StaticResource groupHeader}">Personal</TextBlock>
-                        </Border>
-                        <Grid Grid.Row="3" Margin="10,3,3,3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-
-                            </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource lblProperty}">Father Name :</Label>
-                            <Label Grid.Row="0" Grid.Column="1" Content="{Binding TxbFather, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbFatherColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource lblProperty}">Mother Name :</Label>
-                            <Label Grid.Row="1" Grid.Column="1" Content="{Binding TxbMother, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbMotherColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource lblProperty}">Guardian Name :</Label>
-                            <Label Grid.Row="2" Grid.Column="1" Content="{Binding TxbGrd, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbGrdColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource lblProperty}">Relation with Guardian :</Label>
-                            <Label Grid.Row="3" Grid.Column="1" Content="{Binding TxbGrdRel, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbGrdRelColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource lblProperty}">Father (or Guardian) Aadhar :</Label>
-                            <Label Grid.Row="4" Grid.Column="1" Content="{Binding TxbGrdAadhar, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbGrdAadharColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource lblProperty}">Father (or Guardian) Epic :</Label>
-                            <Label Grid.Row="5" Grid.Column="1" Content="{Binding TxbGrdEpic, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbGrdEpicColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource lblProperty}">Father (or Guardian) Occupation :</Label>
-                            <Label Grid.Row="6" Grid.Column="1" Content="{Binding TxbGrdOcc, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbGrdOccColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource lblProperty}">Blood group :</Label>
-                            <Label Grid.Row="7" Grid.Column="1" Style="{StaticResource lblValue}" Content="{Binding BloodGrp, Source={StaticResource dObj}}"></Label>
-                            
-                            <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource lblProperty}">Student's Aadhar :</Label>
-                            <Label Grid.Row="0" Grid.Column="3" Content="{Binding TxbAadhar, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbAadharColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource lblProperty}">Social Category :</Label>
-                            <Label Grid.Row="1" Grid.Column="3" Content="{Binding TxbSocCat, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbSocCatColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource lblProperty}">Sub Category :</Label>
-                            <Label Grid.Row="2" Grid.Column="3" Content="{Binding TxbSbCat, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbSbCatColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="3" Grid.Column="2" Style="{StaticResource lblProperty}">Is PH :</Label>
-                            <Label Grid.Row="3" Grid.Column="3" Content="{Binding TxbIsPh, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource Bool1Converter}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbIsPhColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="4" Grid.Column="2" Style="{StaticResource lblProperty}">PH Detail :</Label>
-                            <Label Grid.Row="4" Grid.Column="3" Content="{Binding TxbPhType, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbPhTypeColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="5" Grid.Column="2" Style="{StaticResource lblProperty}">Is BPL :</Label>
-                            <Label Grid.Row="5" Grid.Column="3" Content="{Binding TxbIsBpl, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource Bool1Converter}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbIsBplColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="6" Grid.Column="2" Style="{StaticResource lblProperty}">BPL No. :</Label>
-                            <Label Grid.Row="6" Grid.Column="3" Content="{Binding TxbBplNo, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbBplNoColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="7" Grid.Column="2" Style="{StaticResource lblProperty}">Religion :</Label>
-                            <Label Grid.Row="7" Grid.Column="3" Content="{Binding TxbReligion, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding TxbReligionColor, Source={StaticResource dObj}}"></Label>
-                        </Grid>
-
-                        <Border Grid.Row="4">
-                            <TextBlock Style="{StaticResource groupHeader}">Address &amp; Contact</TextBlock>
-                        </Border>
-                        <Grid Grid.Row="5" Margin="10,3,3,3">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Label Style="{StaticResource lblProperty}">Present Address :</Label>
-                            <TextBox Grid.Row="1" Text="{Binding PresentAddr, Source={StaticResource dObj}, Mode=OneWay}" Background="#313b55" BorderThickness="0" Foreground="{Binding PermanentAddrColor, Source={StaticResource dObj}}"
+                        <Grid Grid.Row="2" Style="{StaticResource CategoryGrid}">
+                            <Border Background="white">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2.5" Direction="270" Color="#BBBBBB"/>
+                                </Border.Effect>
+                            </Border>
+                            <Grid  UseLayoutRounding="True">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.ColumnSpan="2" Style="{StaticResource CategoryHeading}">
+                                    <TextBlock Style="{StaticResource groupHeader}">Address &amp; Contact</TextBlock>
+                                </Border>
+                                <Label Grid.Row="1" Style="{StaticResource lblProperty}">Present Address :</Label>
+                                <TextBox Grid.Row="2" Margin="10,0,0,0"
+                                     Text="{Binding PresentAddr, Source={StaticResource dObj}, Mode=OneWay}" Background="WhiteSmoke" BorderThickness="0" Foreground="{Binding PermanentAddrColor, Source={StaticResource dObj}}"
                                      Height="80" Width="250" HorizontalAlignment="Left" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
-                            <Label Grid.Column="1" Style="{StaticResource lblProperty}">Permanent Address :</Label>
-                            <TextBox Grid.Row="1" Grid.Column="1" Background="#313b55" BorderThickness="0" Foreground="{Binding PermanentAddrColor, Source={StaticResource dObj}}"
+                                <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource lblProperty}">Permanent Address :</Label>
+                                <TextBox Grid.Row="2" Grid.Column="1" Background="WhiteSmoke" BorderThickness="0" Margin="10,0,0,0"
+                                     Foreground="{Binding PermanentAddrColor, Source={StaticResource dObj}}"
                                      Text="{Binding PermanentAddr, Source={StaticResource dObj}, Mode=OneWay}" 
                                      Height="80" Width="250" HorizontalAlignment="Left" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
-                            <StackPanel Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="2">
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Style="{StaticResource lblProperty}" Width="160">Mobile No. :</Label>
-                                    <Label Content="{Binding TxbMobile, Source={StaticResource dObj}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbMobileColor, Source={StaticResource dObj}}"></Label>
+                                <StackPanel Orientation="Vertical" Grid.Row="3" Grid.ColumnSpan="2" Margin="10,0,0,10">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Style="{StaticResource lblProperty}" Width="160">Mobile No. :</Label>
+                                        <Label Content="{Binding TxbMobile, Source={StaticResource dObj}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbMobileColor, Source={StaticResource dObj}}"></Label>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Style="{StaticResource lblProperty}" Width="160">Guardian's Mobile No. :</Label>
+                                        <Label Content="{Binding GrdMobile, Source={StaticResource dObj}}" Style="{StaticResource lblValue}" Foreground="{Binding GrdMobileColor, Source={StaticResource dObj}}"></Label>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Style="{StaticResource lblProperty}" Width="160">Email Id :</Label>
+                                        <Label Content="{Binding TxbEmail, Source={StaticResource dObj}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbEmailColor, Source={StaticResource dObj}}"></Label>
+                                    </StackPanel>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Style="{StaticResource lblProperty}" Width="160">Guardian's Mobile No. :</Label>
-                                    <Label Content="{Binding GrdMobile, Source={StaticResource dObj}}" Style="{StaticResource lblValue}" Foreground="{Binding GrdMobileColor, Source={StaticResource dObj}}"></Label>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Style="{StaticResource lblProperty}" Width="160">Email Id :</Label>
-                                    <Label Content="{Binding TxbEmail, Source={StaticResource dObj}}" Style="{StaticResource lblValue}" Foreground="{Binding TxbEmailColor, Source={StaticResource dObj}}"></Label>
-                                </StackPanel>  
-                            </StackPanel>
-                        </Grid>
+                            </Grid>
 
-                        <Border Grid.Row="6">
-                            <TextBlock Style="{StaticResource groupHeader}">Bank</TextBlock>
-                        </Border>
-                        <Grid Grid.Row="7" Margin="10,3,3,3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Label Style="{StaticResource lblProperty}">Bank Account No. :</Label>
-                            <Label Grid.Row="0" Grid.Column="1" Content="{Binding BankAcc, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding BankAccColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="1" Style="{StaticResource lblProperty}">Bank Name :</Label>
-                            <Label Grid.Row="1" Grid.Column="1" Content="{Binding BankName, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding BankNameColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="2" Style="{StaticResource lblProperty}">Branch :</Label>
-                            <Label Grid.Row="2" Grid.Column="1" Content="{Binding BankBranch, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding BankBranchColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="3" Style="{StaticResource lblProperty}">IFSC :</Label>
-                            <Label Grid.Row="3" Grid.Column="1" Content="{Binding BankIfsc, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding BankIfscColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="4" Style="{StaticResource lblProperty}">MICR</Label>
-                            <Label Grid.Row="4" Grid.Column="1" Content="{Binding BankMicr, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding BankMicrColor, Source={StaticResource dObj}}"></Label>
                         </Grid>
-
-                        <Border Grid.Row="8">
-                            <TextBlock Style="{StaticResource groupHeader}">Admission</TextBlock>
-                        </Border>
-                        <Grid Grid.Row="9" Margin="10,3,3,3">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Style="{StaticResource lblProperty}">Admission No.</Label>
-                            <Label Grid.Row="0" Grid.Column="1" Content="{Binding AdmissionNo, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding AdmissionNoColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="1" Style="{StaticResource lblProperty}">Admission Date</Label>
-                            <Label Grid.Row="1" Grid.Column="1" Content="{Binding AdmissionDate, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource DateConverter1}}" Style="{StaticResource lblValue}" Foreground="{Binding AdmissionDateColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="2" Style="{StaticResource lblProperty}">Admitted in Class</Label>
-                            <Label Grid.Row="2" Grid.Column="1" Content="{Binding AdmittedClass, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding AdmittedClassColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource lblProperty}">Last School</Label>
-                            <Label Grid.Row="0" Grid.Column="3" Content="{Binding LastSchool, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding LastSchoolColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource lblProperty}">Date of Leaving</Label>
-                            <Label Grid.Row="1" Grid.Column="3" Content="{Binding DateOfLeaving, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource DateConverter1}}" Style="{StaticResource lblValue}" Foreground="{Binding DateOfLeavingColor, Source={StaticResource dObj}}"></Label>
-                            <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource lblProperty}">TC</Label>
-                            <Label Grid.Row="2" Grid.Column="3" 
+                       
+                        <Grid Grid.Row="3" Style="{StaticResource CategoryGrid}">
+                            <Border Background="white">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2.5" Direction="270" Color="#BBBBBB"/>
+                                </Border.Effect>
+                            </Border>
+                            <Grid UseLayoutRounding="True">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Border Grid.ColumnSpan="4" Style="{StaticResource CategoryHeading}">
+                                    <TextBlock Style="{StaticResource groupHeader}">Bank</TextBlock>
+                                </Border>
+                                <Label Grid.Row="1" Style="{StaticResource lblProperty}">Bank Account No. :</Label>
+                                <Label Grid.Row="1" Grid.Column="1" Content="{Binding BankAcc, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding BankAccColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource lblProperty}">Bank Name :</Label>
+                                <Label Grid.Row="1" Grid.Column="3" Content="{Binding BankName, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding BankNameColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource lblProperty}">Branch :</Label>
+                                <Label Grid.Row="2" Grid.Column="3" Content="{Binding BankBranch, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding BankBranchColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="2" Style="{StaticResource lblProperty}">IFSC :</Label>
+                                <Label Grid.Row="2" Grid.Column="1" Content="{Binding BankIfsc, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding BankIfscColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="3" Margin="10,0,0,10" Style="{StaticResource lblProperty}">MICR</Label>
+                                <Label Grid.Row="3" Grid.Column="1" Content="{Binding BankMicr, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding BankMicrColor, Source={StaticResource dObj}}"></Label>
+                            </Grid>
+                        </Grid>
+                        
+                        <Grid Grid.Row="4" Style="{StaticResource CategoryGrid}">
+                            <Border Background="white">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2.5" Direction="270" Color="#BBBBBB"/>
+                                </Border.Effect>
+                            </Border>
+                            <Grid UseLayoutRounding="True">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.ColumnSpan="4" Style="{StaticResource CategoryHeading}">
+                                    <TextBlock Style="{StaticResource groupHeader}">Admission</TextBlock>
+                                </Border>
+                                <Label Grid.Row="1" Style="{StaticResource lblProperty}">Admission No.</Label>
+                                <Label Grid.Row="1" Grid.Column="1" Content="{Binding AdmissionNo, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding AdmissionNoColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="2" Style="{StaticResource lblProperty}">Admission Date</Label>
+                                <Label Grid.Row="2" Grid.Column="1" Content="{Binding AdmissionDate, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource DateConverter1}}" Style="{StaticResource lblValue}" Foreground="{Binding AdmissionDateColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="3" Style="{StaticResource lblProperty}">Admitted in Class</Label>
+                                <Label Grid.Row="3" Grid.Column="1" Content="{Binding AdmittedClass, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding AdmittedClassColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource lblProperty}">Last School</Label>
+                                <Label Grid.Row="1" Grid.Column="3" Content="{Binding LastSchool, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="{Binding LastSchoolColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource lblProperty}">Date of Leaving</Label>
+                                <Label Grid.Row="2" Grid.Column="3" Content="{Binding DateOfLeaving, Source={StaticResource dObj}, Mode=OneWay, Converter={StaticResource DateConverter1}}" Style="{StaticResource lblValue}" Foreground="{Binding DateOfLeavingColor, Source={StaticResource dObj}}"></Label>
+                                <Label Grid.Row="3" Grid.Column="2" Margin="10,0,0,10" Style="{StaticResource lblProperty}">TC</Label>
+                                <Label Grid.Row="3" Grid.Column="3" 
                                        Content="{Binding Tc, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}"
-                                       Foreground="{Binding TcColor, Source={StaticResource dObj}}">                               
-                            </Label>
+                                       Foreground="{Binding TcColor, Source={StaticResource dObj}}">
+                                </Label>
+                            </Grid>
                         </Grid>
-
-                        <Border Grid.Row="10">
-                            <TextBlock Style="{StaticResource groupHeader}">Other</TextBlock>
-                        </Border>
-                        <Grid Grid.Row="11" Margin="10,3,3,3">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Label Style="{StaticResource lblProperty}">Madhyamic Roll</Label>
-                            <Label Grid.Column="1" Style="{StaticResource doubleDot}"> : </Label>
-                            <Label Grid.Column="2" Style="{StaticResource lblValue}" 
+                           
+                        <Grid Grid.Row="5" Style="{StaticResource CategoryGrid}">
+                            <Border Background="white">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2.5" Direction="270" Color="#BBBBBB"/>
+                                </Border.Effect>
+                            </Border>
+                            <Grid UseLayoutRounding="True">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.ColumnSpan="6" Style="{StaticResource CategoryHeading}">
+                                    <TextBlock Style="{StaticResource groupHeader}">Other</TextBlock>
+                                </Border>
+                                <Label Grid.Row="1" Style="{StaticResource lblProperty}">Madhyamic Roll</Label>
+                                <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
+                                <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource lblValue}" 
                                    Content="{Binding TxbMadhyamicRoll, Source={StaticResource dObj}}"
                                    Foreground="{Binding TxbMadhyamicRollColor, Source={StaticResource dObj}}">
-                            </Label>
-                            <Label Grid.Row="1" Style="{StaticResource lblProperty}">Madhyamic No</Label>
-                            <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
-                            <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource lblValue}" 
+                                </Label>
+                                <Label Grid.Row="2" Style="{StaticResource lblProperty}">Madhyamic No</Label>
+                                <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
+                                <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource lblValue}" 
                                    Content="{Binding TxbMadhyamicNo, Source={StaticResource dObj}}"
                                    Foreground="{Binding TxbMadhyamicNoColor, Source={StaticResource dObj}}">
-                            </Label>
-                            <Label Grid.Row="2" Style="{StaticResource lblProperty}">Council Roll</Label>
-                            <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
-                            <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource lblValue}" 
+                                </Label>
+                                <Label Grid.Row="1" Grid.Column="3" Style="{StaticResource lblProperty}">Council Roll</Label>
+                                <Label Grid.Row="1" Grid.Column="4" Style="{StaticResource doubleDot}">:</Label>
+                                <Label Grid.Row="1" Grid.Column="5" Style="{StaticResource lblValue}" 
                                    Content="{Binding TxbCouncilRoll, Source={StaticResource dObj}}"
                                    Foreground="{Binding TxbCouncilRollColor, Source={StaticResource dObj}}">
-                            </Label>
-                            <Label Grid.Row="3" Style="{StaticResource lblProperty}">Council No</Label>
-                            <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
-                            <Label Grid.Row="3" Grid.Column="2" Style="{StaticResource lblValue}" 
+                                </Label>
+                                <Label Grid.Row="2" Grid.Column="3" Margin="10,0,0,10" Style="{StaticResource lblProperty}">Council No</Label>
+                                <Label Grid.Row="2" Grid.Column="4" Style="{StaticResource doubleDot}">:</Label>
+                                <Label Grid.Row="2" Grid.Column="5" Style="{StaticResource lblValue}" 
                                    Content="{Binding TxbCouncilNo, Source={StaticResource dObj}}"
                                    Foreground="{Binding TxbCouncilNoColor, Source={StaticResource dObj}}">
-                            </Label>
-                        </Grid>
+                                </Label>
+                            </Grid>
+                        </Grid>    
+                        
                     </Grid>
                 </ScrollViewer>
             </Grid>

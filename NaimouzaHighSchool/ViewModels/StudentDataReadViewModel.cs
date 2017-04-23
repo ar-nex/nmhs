@@ -15,12 +15,20 @@ namespace NaimouzaHighSchool.ViewModels
         public StudentDataReadViewModel()
         : base()
         {
-            this.StartUpInitializer();
+            try
+            {
+                 this.StartUpInitializer();
+            }
+            catch (Exception nm2)
+            {
+
+                System.Windows.MessageBox.Show("nm2 : "+nm2.Message);
+            }
         }
 
         #region property field
-        private const string fontcolor1 = "Yellow";
-        private const string fontcolor0 = "Black";
+        private const string fontcolor1 = "Black";
+        private const string fontcolor0 = "LightGray";
         private const string defaultEntry = "Not found";
         #region search bar
         private string _searchText;
@@ -404,8 +412,8 @@ namespace NaimouzaHighSchool.ViewModels
         private System.Windows.Visibility _stdDetailVisibility;
         public System.Windows.Visibility StdDetailVisibility
         {
-            get { return this._stdDetailVisibility; }
-            //get { return System.Windows.Visibility.Visible; }
+            //get { return this._stdDetailVisibility; }
+            get { return System.Windows.Visibility.Visible; }
             set { this._stdDetailVisibility = value; this.OnPropertyChanged("StdDetailVisibility"); }
         }
         #region Admission

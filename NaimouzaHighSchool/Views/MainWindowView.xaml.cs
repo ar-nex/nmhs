@@ -57,8 +57,16 @@ namespace NaimouzaHighSchool
 
         private void MenuItem_Click_6(object sender, RoutedEventArgs e)
         {
-            StudentDataReadView stdR = new StudentDataReadView();
-            stdR.Show();
+            try
+            {
+                 StudentDataReadView stdR = new StudentDataReadView();
+                 stdR.Show();
+            }
+            catch (Exception nm1)
+            {
+
+                MessageBox.Show("nm1 : "+nm1.Message);
+            }
         }
     }
 }
