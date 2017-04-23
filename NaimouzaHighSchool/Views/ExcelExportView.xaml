@@ -1,0 +1,13 @@
+﻿<Window x:Class="NaimouzaHighSchool.Views.ExcelExportView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ExVm="clr-namespace:NaimouzaHighSchool.ViewModels"
+        Title="Export into Excel" Height="500" Width="750" Closing="Window_Closing_1">
+    <Window.Resources>
+        <ExVm:ExcelExportViewModel x:Key="xxvm"></ExVm:ExcelExportViewModel>
+    </Window.Resources>
+    
+    <Grid>
+        
+    </Grid>
+</Window>

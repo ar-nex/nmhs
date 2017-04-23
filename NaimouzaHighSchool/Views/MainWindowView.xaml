@@ -1,8 +1,10 @@
 ﻿<Window x:Class="NaimouzaHighSchool.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:MainVm="clr-namespace:NaimouzaHighSchool.ViewModels"
         Title="Naimouza High School" Height="500" Width="825" Icon="/NaimouzaHighSchool;component/icon.ico">
     <Window.Resources>
+        <MainVm:MainWindowViewModel x:Key="vm"></MainVm:MainWindowViewModel>
         <Style x:Key="borderSchoolHeading" TargetType="Border">
             <Setter Property="Padding" Value="30"/>
             <Setter Property="Background" Value="#FF212136">
@@ -35,8 +37,7 @@
                 <MenuItem Header="Student">
                     <MenuItem Header="Add" Click="MenuItem_Click_3" />
                     <MenuItem Header="View" Click="MenuItem_Click_6"></MenuItem>
-                    <Separator />
-                    <MenuItem Header="Import from Excel" Click="MenuItem_Click_2"/>
+                   
                     </MenuItem>
                 <MenuItem Header="Marksheet">
 
@@ -48,6 +49,10 @@
                 </MenuItem>
                 <MenuItem Header="Report">
                     
+                </MenuItem>
+                <MenuItem Header="Excel">
+                    <MenuItem Header="Import" Click="MenuItem_Click_2"/>
+                    <MenuItem Header="Export" Command="{Binding ShowExcelExportCommand, Source={StaticResource vm}}"/>
                 </MenuItem>
                 <MenuItem Header="Backup">
                     
