@@ -785,7 +785,9 @@ namespace NaimouzaHighSchool.ViewModels
             if (db.UpdateStudentInfo(EditedStudent))
             {
                 System.Windows.MessageBox.Show("Saved");
-                this.StudentList[this.SelectedStudentListIndex] = EditedStudent;
+                //this.StudentList[this.SelectedStudentListIndex] = EditedStudent;
+                this.UpdateEditedStd(this.StudentList[this.SelectedStudentListIndex], EditedStudent);
+                
             }
             else
             {
@@ -940,6 +942,53 @@ namespace NaimouzaHighSchool.ViewModels
         private string getVal(string valInp)
         {
             return (valInp == defaultEntry) ? string.Empty : valInp;
+        }
+
+        private void UpdateEditedStd(Student taker, Student giver)
+        {
+            taker.Name = giver.Name;
+            taker.StudyingClass = giver.StudyingClass;
+            taker.Section = giver.Section;
+            taker.Roll = giver.Roll;
+            taker.Dob = giver.Dob;
+            taker.Sex = giver.Sex;
+            taker.FatherName = giver.FatherName;
+            taker.MotherName = giver.MotherName;
+            taker.GuardianName = giver.GuardianName;
+            taker.GuardianRelation = giver.GuardianRelation;
+            taker.GuardianAadhar = giver.GuardianAadhar;
+            taker.GuardianEpic = giver.GuardianEpic;
+            taker.GuardianOccupation = giver.GuardianOccupation;
+            taker.BloodGroup = giver.BloodGroup;
+            taker.Aadhar = giver.Aadhar;
+            taker.SocialCategory = giver.SocialCategory;
+            taker.SubCast = giver.SubCast;
+            taker.IsPH = giver.IsPH;
+            taker.PhType = giver.PhType;
+            taker.IsBpl = giver.IsBpl;
+            taker.BplNo = giver.BplNo;
+            taker.Religion = giver.Religion;
+            taker.PresentAdrress = giver.PresentAdrress;
+            taker.PermanentAddress = giver.PermanentAddress;
+            taker.Mobile = giver.Mobile;
+            taker.GuardianMobile = giver.GuardianMobile;
+            taker.Email = giver.Email;
+            taker.BankAcc = giver.BankAcc;
+            taker.BankName = giver.BankName;
+            taker.BankBranch = giver.BankBranch;
+            taker.Ifsc = giver.Ifsc;
+            taker.MICR = giver.MICR;
+            taker.AdmissionNo = giver.AdmissionNo;
+            taker.AdmDate = giver.AdmDate;
+            taker.AdmittedClass = giver.AdmittedClass;
+            taker.LastSchool = giver.LastSchool;
+            taker.DateOfLeaving = giver.DateOfLeaving;
+            taker.TC = giver.TC;
+            taker.BoardNo = giver.BoardNo;
+            taker.BoardRoll = giver.BoardRoll;
+            taker.CouncilNo = giver.CouncilNo;
+            taker.CouncilRoll = giver.CouncilRoll;
+            
         }
 
         #endregion

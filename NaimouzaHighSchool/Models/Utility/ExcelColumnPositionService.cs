@@ -60,5 +60,62 @@ namespace NaimouzaHighSchool.Models.Utility
         {
             return this.ListCol;
         }
+
+        public List<string> GetColListForExport()
+        {
+            List<string> cl = new List<string>();
+            cl.Add("Student Name");
+            cl.Add("Father Name");
+            cl.Add("Mother Name");
+            cl.Add("Guardian Name");
+
+            cl.Add("Guardian Relation");
+            cl.Add("Guardian Occupation");
+            cl.Add("Date of birth");
+            cl.Add("Sex");
+            cl.Add("Roll");
+            cl.Add("SubjectComboId");
+            cl.Add("Sex");
+            cl.Add("Present Address");
+            cl.Add("Permanent Address");
+
+            cl.Add("Mobile");
+            cl.Add("Guardian Mobile");
+            cl.Add("Email");
+            cl.Add("Religion");
+            cl.Add("Social Category");
+
+            cl.Add("Sub Cast");
+            cl.Add("Is PH");
+            cl.Add("PH type");
+            cl.Add("Is BPL");
+            cl.Add("BPL Number");
+
+            cl.Add("Aadhar");
+            cl.Add("Guardian Aadhar");
+            cl.Add("Guardian Epic");
+            cl.Add("Blood Group");
+            cl.Add("Board No");
+
+            cl.Add("Board Roll");
+            cl.Add("Council No");
+            cl.Add("Council Roll");
+            cl.Add("Admission No.");
+            cl.Add("Admitted Class");
+
+            cl.Add("Date of Admission");
+            cl.Add("Last School");
+            cl.Add("Date of Leaving");
+            cl.Add("TC detail.");
+            cl.Add("Bank Acc. No.");
+
+            cl.Add("Bank Name");
+            cl.Add("Branch Name");
+            cl.Add("Branch IFSC");
+            cl.Add("MICR code");
+
+
+            return cl;
+        }
     }
 }

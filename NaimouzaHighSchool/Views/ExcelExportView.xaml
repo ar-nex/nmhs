@@ -6,8 +6,60 @@
     <Window.Resources>
         <ExVm:ExcelExportViewModel x:Key="xxvm"></ExVm:ExcelExportViewModel>
     </Window.Resources>
-    
-    <Grid>
-        
-    </Grid>
+    <DockPanel LastChildFill="True">
+        <Border DockPanel.Dock="Top">
+            <StackPanel Orientation="Horizontal">
+                <Label>Class</Label>
+                <ComboBox Width="60" 
+                          ItemsSource="{Binding SchoolClasses, Source={StaticResource xxvm}}"
+                          SelectedIndex="{Binding ClsIndex, Source={StaticResource xxvm}}">
+                </ComboBox>
+                <Label>Section</Label>
+                <ComboBox Width="60" 
+                          ItemsSource="{Binding Section, Source={StaticResource xxvm}}"
+                          SelectedIndex="{Binding SectionIndex, Source={StaticResource xxvm}}">
+                </ComboBox>
+                <Label>Session start year</Label>
+                <TextBox Width="60" Text="{Binding SYear, Source={StaticResource xxvm}, Mode=TwoWay}"></TextBox>
+                <Label>Session end year</Label>
+                <TextBox Width="60" Text="{Binding EYear, Source={StaticResource xxvm}, Mode=TwoWay}"></TextBox>
+                <Button Width="70">Get</Button>
+                <Button Width="70">Export</Button>
+            </StackPanel>
+        </Border>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Button Command="{Binding MoveRightAllCommand, Source={StaticResource xxvm}}"> &gt;&gt; </Button>
+                <Button Grid.Column="1" Command="{Binding MoveLeftAllCommand, Source={StaticResource xxvm}}"> &lt;&lt; </Button>
+                <Button Grid.Row="1" Command="{Binding MoveRightCommand, Source={StaticResource xxvm}}"> &gt; </Button>
+                <Button Grid.Row="1" Grid.Column="1" Command="{Binding MoveLeftCommand, Source={StaticResource xxvm}}"> &lt;</Button>
+                <ScrollViewer Grid.Row="2">
+                    <ListView SelectionMode="Multiple"
+                        ItemsSource="{Binding UnSelectedColumns, Source={StaticResource xxvm}}"
+                        
+                        SelectedIndex="{Binding UnSelectedColumnIndex, Source={StaticResource xxvm}}">                      
+                    </ListView>
+                </ScrollViewer>
+                <ScrollViewer Grid.Row="2" Grid.Column="1">
+                    <ListView ItemsSource="{Binding SelectedColumns, Source={StaticResource xxvm}}"
+                              SelectedIndex="{Binding SelectedColumnIndex, Source={StaticResource xxvm}}">
+                        
+                    </ListView>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </DockPanel>
 </Window>
