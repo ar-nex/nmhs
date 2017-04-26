@@ -782,6 +782,29 @@ namespace NaimouzaHighSchool.ViewModels
         private void SaveEdit()
         {
             Student EditedStudent = this.BuildNewStudent();
+            if (EditedStudent.Roll > 0 && (!string.IsNullOrEmpty(EditedStudent.StudyingClass)) && (!string.IsNullOrEmpty(EditedStudent.Section)))
+            {
+                //change the code specially for session
+                int syear = DateTime.Today.Year;
+                int eyear = DateTime.Today.Year;
+                string [] rdata = new string[2];
+                rdata = db.IsRollExists(syear, eyear, EditedStudent.StudyingClass, EditedStudent.Section, EditedStudent.Roll, EditedStudent.Id);
+                if (rdata[0] != "0")
+                {
+                    string msg = string.Empty;
+                    if (rdata[0] == "1")
+                    {
+                        msg = "This roll no. already assigned to "+rdata[1];
+                    }
+                    else
+                    {
+                        msg = "This roll no. already assigned to " + rdata[1] + " and other " + rdata[0].ToString() + " student(s)";
+                    }
+                    System.Windows.MessageBox.Show("Error msg : "+msg);
+                    return;
+                }
+               
+            }
             if (db.UpdateStudentInfo(EditedStudent))
             {
                 System.Windows.MessageBox.Show("Saved");
@@ -791,7 +814,7 @@ namespace NaimouzaHighSchool.ViewModels
             }
             else
             {
-                System.Windows.MessageBox.Show("Filed :(");
+                System.Windows.MessageBox.Show("Failed :(");
             }
         }
 

@@ -549,6 +549,42 @@ namespace NaimouzaHighSchool.Models.Database
             return rs;
         }
 
+        public string[] IsRollExists(int syear, int eyear, string cls, string section, int roll, string stdId)
+        {
+            string[] rdata = new string[2];
+            try
+            {
+                string sql = "SELECT b.id, b.name FROM student_basic b INNER JOIN student_class c ON c.student_basic_id = b.id WHERE c.startYear = '"+syear.ToString()+"' AND c.endYear = '"+eyear.ToString()+"' AND c.class = '"+cls+"' AND c.section = '"+section+"' AND c.roll='"+roll.ToString()+"'";
+                this.conn.Open();
+                MySqlCommand cmd = new MySqlCommand(sql, this.conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                string dupName = string.Empty;
+                int i = 0;
+                while (rdr.Read())
+                {
+                    if (rdr[0].ToString() != stdId)
+                    {
+                        i++;
+                        dupName = rdr[1].ToString();
+                    }
+                }
+                rdata[0] = i.ToString();
+                rdata[1] = dupName;
+            }
+            catch (Exception exr)
+            {
+
+                System.Windows.MessageBox.Show("exr : "+exr.Message);
+            }
+            finally
+            {
+                this.conn.Close();
+            }
+
+            return rdata;
+        
+        }
+
         public List<SubjectCombo> GetComobCodeList()
         {
             List<SubjectCombo> comboList = new List<SubjectCombo>();

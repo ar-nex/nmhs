@@ -33,6 +33,8 @@
                 <MenuItem Header="Configuration">
                     <MenuItem Header="Group &amp; Subject" Click="MenuItem_Click_1"/>
                     <MenuItem Header="Subject Combo" Click="MenuItem_Click_5" />
+                    <Separator />
+                    <MenuItem Header="Session" Command="{Binding ShowSessionWindowCommand, Source={StaticResource vm}}"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="Student">
                     <MenuItem Header="Add" Click="MenuItem_Click_3" />

@@ -121,6 +121,7 @@
     <Compile Include="ViewModels\ExcelExportViewModel.cs" />
     <Compile Include="ViewModels\GroupSubjectPaperViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="ViewModels\StudentDataReadViewModel.cs" />
     <Compile Include="ViewModels\StudentDataWriteViewModel.cs" />
     <Compile Include="ViewModels\SubjectComboViewModel.cs" />
@@ -135,6 +136,9 @@
     </Compile>
     <Compile Include="Views\GroupSubjectPaperView.xaml.cs">
       <DependentUpon>GroupSubjectPaperView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SessionView.xaml.cs">
+      <DependentUpon>SessionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StudentDataReadView.xaml.cs">
       <DependentUpon>StudentDataReadView.xaml</DependentUpon>
@@ -203,6 +207,10 @@
       <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\SessionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\StudentDataReadView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

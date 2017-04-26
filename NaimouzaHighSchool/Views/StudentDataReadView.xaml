@@ -37,7 +37,7 @@
             <Setter Property="Margin" Value="10,2,2,2"/>
         </Style>
         <Style TargetType="Button" x:Key="searchbarButton">
-            <Setter Property="Width" Value="80"/>
+            <Setter Property="Width" Value="55"/>
             <Setter Property="Margin" Value="5,0,0,0"/>
         </Style>
         <Style TargetType="TextBlock" x:Key="groupHeader">
@@ -64,6 +64,16 @@
         <Style TargetType="Border" x:Key="CategoryHeading">
             <Setter Property="Background" Value="#0facdf"/>
         </Style>
+
+        <Style TargetType="DataGridRow">
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FFFF008B"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="White"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#FFFF008B" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="White"/>
+            </Style.Resources>
+        </Style>
+
         <ControlTemplate x:Key="buttonTemplate" TargetType="{x:Type Button}">
             <Border Name="TemBorder" TextBlock.Foreground="#fb0f4c" CornerRadius="1" Background="Transparent" BorderBrush="#fb0f4c" BorderThickness="2">
                 <ContentPresenter Name="buttonConPresenter" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}">
@@ -500,20 +510,24 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <Label>Search Text</Label>
-                                <TextBox Width="200" Text="{Binding SearchText, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Width="180" Text="{Binding SearchText, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                                 <Label>Class</Label>
-                                <ComboBox Width="60"
+                                <ComboBox Width="40"
                              ItemsSource="{Binding SchoolClasses, Source={StaticResource dObj}}" 
                              SelectedIndex="{Binding SelectedClassIndex, Source={StaticResource dObj}}" >
                                 </ComboBox>
                                 <Label>Section</Label>
-                                <ComboBox Width="60"
+                                <ComboBox Width="40"
                               ItemsSource="{Binding SchoolSections, Source={StaticResource dObj}}" 
                               SelectedIndex="{Binding SelectedSectionIndex, Source={StaticResource dObj}}">
                                 </ComboBox>
                                 <Label>Roll</Label>
-                                <TextBox Width="50" Text="{Binding Roll, Source={StaticResource dObj}, Mode=TwoWay, Converter={StaticResource IntConverter}}"></TextBox>
-                        <Button Margin="15,0,0,0" Command="{Binding SearchCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}" Content="Search"/>
+                                <TextBox Width="45" Text="{Binding Roll, Source={StaticResource dObj}, Mode=TwoWay, Converter={StaticResource IntConverter}}"></TextBox>
+                        <Label>Session :</Label>
+                        <TextBox Width="45"></TextBox>
+                        <Label>-</Label>
+                        <TextBox Width="45"></TextBox>
+                            <Button Margin="15,0,0,0" Command="{Binding SearchCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}" Content="Search"/>
                         <Button Name="EditBtn" Content="Edit" Command="{Binding EditCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}">
                                     <Button.Triggers>
                                         <EventTrigger RoutedEvent="Button.Click" SourceName="EditBtn">
@@ -572,6 +586,7 @@
                               AutoGenerateColumns="False" SelectionMode="Single"
                               IsReadOnly="True"
                               GridLinesVisibility="None"
+                              
                               AlternatingRowBackground="#eee">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Student" Binding="{Binding Path=Name}"></DataGridTextColumn>
@@ -579,6 +594,7 @@
                                 <DataGridTextColumn Header="Section" Binding="{Binding Path=Section}"></DataGridTextColumn>
                                 <DataGridTextColumn Header="Roll" Binding="{Binding Path=Roll}"></DataGridTextColumn>
                             </DataGrid.Columns>
+                            
                         </DataGrid>
                     </ScrollViewer>
                 </Grid>

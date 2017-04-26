@@ -25,14 +25,35 @@ namespace NaimouzaHighSchool.Models.Database
             {
                 this.connStr = "server=127.0.0.1;uid=delphinium_admin;" + "pwd=dark.d@tura;database=nmhs_desktop;Convert Zero Datetime=True";
 
-           // this.connStr = "server=192.168.0.102;uid=delphinium_admin;" + "pwd=dark.d@tura;database=nmhs_desktop;Convert Zero Datetime=True";
-           
-            this.conn = new MySqlConnection();
-            this.conn.ConnectionString = this.connStr;
+               // this.connStr = "server=192.168.0.102;uid=delphinium_admin;" + "pwd=dark.d@tura;database=nmhs_desktop;Convert Zero Datetime=True";         
+                this.conn = new MySqlConnection();
+                this.conn.ConnectionString = this.connStr;
+
             }
             catch (Exception)
             {
-                
+
+                //try
+                //{
+                //    this.connStr = "server=192.168.0.101;uid=delphinium_admin;" + "pwd=dark.d@tura;database=nmhs_desktop;Convert Zero Datetime=True";
+                //    this.conn = new MySqlConnection();
+                //    this.conn.ConnectionString = this.connStr;
+                //}
+                //catch (Exception)
+                //{
+
+                //    try
+                //    {
+                //        this.connStr = "server=192.168.0.103;uid=delphinium_admin;" + "pwd=dark.d@tura;database=nmhs_desktop;Convert Zero Datetime=True";
+                //        this.conn = new MySqlConnection();
+                //        this.conn.ConnectionString = this.connStr;
+                //    }
+                //    catch (Exception)
+                //    {
+
+                //        throw;
+                //    }
+                //}
                 throw;
             }
         }

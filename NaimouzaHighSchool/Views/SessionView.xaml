@@ -1,0 +1,46 @@
+﻿<Window x:Class="NaimouzaHighSchool.Views.SessionView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:NaimouzaHighSchool.ViewModels"
+        Title="Session" Height="300" Width="500" Closing="Window_Closing_1">
+    <Window.Resources>
+        <vm:SessionViewModel x:Key="sessvm"></vm:SessionViewModel>
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <Border DockPanel.Dock="Bottom">
+            <Button Width="80" HorizontalAlignment="Right">Update</Button>
+        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+            <Border Height="0" Background="PaleGreen">
+
+            </Border>
+            <Label Grid.Row="1" Padding="10" Background="Fuchsia">
+                <TextBlock FontSize="24">Current Session</TextBlock>
+            </Label>
+            <Border Grid.Row="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontSize="30">2017</TextBlock>
+                    <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="15">-</TextBlock>
+                    <TextBlock Grid.Column="2" FontSize="30">2017</TextBlock>
+                </Grid>
+
+            </Border>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" Visibility="{Binding MsgVisibility, Source={StaticResource sessvm}}">
+                <Label>Session entries are not found. Please set session.</Label>
+                <Button>Set session</Button>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</Window>
