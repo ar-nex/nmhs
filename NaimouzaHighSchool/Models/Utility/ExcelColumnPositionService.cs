@@ -75,7 +75,6 @@ namespace NaimouzaHighSchool.Models.Utility
             cl.Add("Sex");
             cl.Add("Roll");
             cl.Add("SubjectComboId");
-            cl.Add("Sex");
             cl.Add("Present Address");
             cl.Add("Permanent Address");
 
@@ -98,7 +97,7 @@ namespace NaimouzaHighSchool.Models.Utility
             cl.Add("Board No");
 
             cl.Add("Board Roll");
-            cl.Add("Council No");
+            cl.Add("Council No.");
             cl.Add("Council Roll");
             cl.Add("Admission No.");
             cl.Add("Admitted Class");
@@ -106,8 +105,8 @@ namespace NaimouzaHighSchool.Models.Utility
             cl.Add("Date of Admission");
             cl.Add("Last School");
             cl.Add("Date of Leaving");
-            cl.Add("TC detail.");
-            cl.Add("Bank Acc. No.");
+            cl.Add("TC detail");
+            cl.Add("Bank Acc. No");
 
             cl.Add("Bank Name");
             cl.Add("Branch Name");

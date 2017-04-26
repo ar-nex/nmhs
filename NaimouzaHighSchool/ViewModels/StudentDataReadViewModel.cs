@@ -964,7 +964,7 @@ namespace NaimouzaHighSchool.ViewModels
 
         private string getVal(string valInp)
         {
-            return (valInp == defaultEntry) ? string.Empty : valInp;
+            return (valInp == defaultEntry || valInp == defaultEntry.ToUpper()) ? string.Empty : valInp;
         }
 
         private void UpdateEditedStd(Student taker, Student giver)

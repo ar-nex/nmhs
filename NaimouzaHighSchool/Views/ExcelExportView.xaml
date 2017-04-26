@@ -5,6 +5,14 @@
         Title="Export into Excel" Height="500" Width="750" Closing="Window_Closing_1">
     <Window.Resources>
         <ExVm:ExcelExportViewModel x:Key="xxvm"></ExVm:ExcelExportViewModel>
+        <Style TargetType="DataGridRow">
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FFFF008B"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="White"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#FFFF008B" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="White"/>
+            </Style.Resources>
+        </Style>
     </Window.Resources>
     <DockPanel LastChildFill="True">
         <Border DockPanel.Dock="Top">
@@ -23,8 +31,8 @@
                 <TextBox Width="60" Text="{Binding SYear, Source={StaticResource xxvm}, Mode=TwoWay}"></TextBox>
                 <Label>Session end year</Label>
                 <TextBox Width="60" Text="{Binding EYear, Source={StaticResource xxvm}, Mode=TwoWay}"></TextBox>
-                <Button Width="70">Get</Button>
-                <Button Width="70">Export</Button>
+                <Button Width="70" Command="{Binding BuildGridViewCommand, Source={StaticResource xxvm}}">Get</Button>
+                <Button Width="70" Command="{Binding ExportCommand, Source={StaticResource xxvm}}">Export</Button>
             </StackPanel>
         </Border>
         <Grid>
@@ -47,18 +55,22 @@
                 <Button Grid.Row="1" Command="{Binding MoveRightCommand, Source={StaticResource xxvm}}"> &gt; </Button>
                 <Button Grid.Row="1" Grid.Column="1" Command="{Binding MoveLeftCommand, Source={StaticResource xxvm}}"> &lt;</Button>
                 <ScrollViewer Grid.Row="2">
-                    <ListView SelectionMode="Multiple"
-                        ItemsSource="{Binding UnSelectedColumns, Source={StaticResource xxvm}}"
-                        
-                        SelectedIndex="{Binding UnSelectedColumnIndex, Source={StaticResource xxvm}}">                      
+                    <ListView SelectionMode="Single"
+                        ItemsSource="{Binding UnSelectedColumns, Source={StaticResource xxvm}}"                       
+                        SelectedIndex="{Binding UnSelectedColumnIndex, Source={StaticResource xxvm}}"> 
+         
                     </ListView>
                 </ScrollViewer>
                 <ScrollViewer Grid.Row="2" Grid.Column="1">
                     <ListView ItemsSource="{Binding SelectedColumns, Source={StaticResource xxvm}}"
-                              SelectedIndex="{Binding SelectedColumnIndex, Source={StaticResource xxvm}}">
-                        
+                              SelectedIndex="{Binding SelectedColumnIndex, Source={StaticResource xxvm}}">                        
                     </ListView>
                 </ScrollViewer>
+            </Grid>
+            <Grid Grid.Column="1">
+                <DataGrid ItemsSource="{Binding Dtable, Source={StaticResource xxvm}}">
+                    
+                </DataGrid>
             </Grid>
         </Grid>
     </DockPanel>
