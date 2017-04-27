@@ -79,6 +79,13 @@ namespace NaimouzaHighSchool.ViewModels
             set { this._slist = value; this.OnPropertyChanged("Slist"); }
         }
 
+        private List<Student> _filteredList;
+        public List<Student> FilteredList
+        {
+            get { return this._filteredList; }
+            set { this._filteredList = value; this.OnPropertyChanged("FilteredList"); }
+        }
+
         private ObservableCollection<string> _unSelectedColumns;
         public ObservableCollection<string> UnSelectedColumns
         {
@@ -114,7 +121,7 @@ namespace NaimouzaHighSchool.ViewModels
             set
             {
                 this._filterCategory = value;
-              //  this.FilterStdList();
+                this.DoFilterStdList();
                 this.OnPropertyChanged("FilterCategory");
             }
         }
@@ -143,19 +150,21 @@ namespace NaimouzaHighSchool.ViewModels
             this.SYear = DateTime.Today.Year;
             this.EYear = DateTime.Today.Year;
             this.Slist = new List<Student>();
+            this.FilteredList = new List<Student>();
+
             ExcelColumnPositionService exService = new ExcelColumnPositionService();
             this.UnSelectedColumns = new ObservableCollection<string>(exService.GetColListForExport());
             this.SelectedColumns = new ObservableCollection<string>();
             this.db = new ExcelExportDb();
             this._flagCanExport = true;
-
+            this.FilterCategory = "none";
+         
             this.MoveRightCommand = new RelayCommand(this.MoveRight, this.CanMoveRight);
             this.MoveRightAllCommand = new RelayCommand(this.MoveRightAll, this.CanMoveRightAll);
             this.MoveLeftCommand = new RelayCommand(this.MoveLeft, this.CanMoveLeft);
             this.MoveLeftAllCommand = new RelayCommand(this.MoveLeftAll, this.CanMoveLeftAll);
             this.BuildGridViewCommand = new RelayCommand(this.BuildGridView, this.CanBuildGridView);
             this.ExportCommand = new RelayCommand(this.Export, this.CanExport);
-
            
         }
 
@@ -225,11 +234,11 @@ namespace NaimouzaHighSchool.ViewModels
         private void BuildGridView()
         {
             // get the student list.
-            List<Student> slist = new List<Student>();
+            
             int syear = DateTime.Today.Year;
             int eyear = DateTime.Today.Year;
-            slist = this.db.GetStudentListByClass(this.SchoolClasses[this.ClsIndex], this.Section[this.SectionIndex], syear, eyear);
-
+            this.Slist = this.db.GetStudentListByClass(this.SchoolClasses[this.ClsIndex], this.Section[this.SectionIndex], syear, eyear);
+            this.DoFilterStdList();
 
             DataTable dt = new DataTable();
             foreach (string item in this.SelectedColumns)
@@ -237,7 +246,7 @@ namespace NaimouzaHighSchool.ViewModels
                 dt.Columns.Add(item);
             }
 
-            foreach (Student s in slist)
+            foreach (Student s in this.FilteredList)
             {
                 Object[] obj = new Object[this.SelectedColumns.Count];
                 int i = 0;
@@ -409,14 +418,11 @@ namespace NaimouzaHighSchool.ViewModels
             return rstr;
         }
 
-
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
            // this._flagCanInsert = false;
             this.ExportToExcel();
         }
-
-
 
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -424,10 +430,6 @@ namespace NaimouzaHighSchool.ViewModels
             //this.statusText.Text = "Scaning rows. completed " + e.ProgressPercentage.ToString() + e.UserState;
            // this.ProgressbarValue = e.ProgressPercentage.ToString() + e.UserState;
         }
-
-
-
-
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -514,6 +516,49 @@ namespace NaimouzaHighSchool.ViewModels
                 System.Windows.MessageBox.Show("exl : " + exl.Message);
             }
         }
+
+        private void DoFilterStdList()
+        {
+            if (this.FilteredList.Count > 0)
+            {
+                this.FilteredList.Clear();
+            }
+            if (this.Slist.Count > 0)
+            {
+
+
+                switch (this.FilterCategory)
+                {
+                    case "none":
+                        this.FilteredList = this.Slist;
+                        break;
+                    case "male":
+                        var stdlst = from std in this.Slist
+                                     where std.Sex == "M"
+                                     select std;
+                        foreach (Student item in stdlst)
+                        {
+                            this.FilteredList.Add(item);
+                        }
+                        break;
+                    case "female":
+                        var stdlst2 = from std in this.Slist
+                                      where std.Sex == "F"
+                                      select std;
+                        foreach (Student item in stdlst2)
+                        {
+                            this.FilteredList.Add(item);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+
+           
+        }
+
 
         #endregion
     }
