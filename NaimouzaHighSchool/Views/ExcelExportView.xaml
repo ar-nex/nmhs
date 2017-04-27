@@ -17,29 +17,38 @@
         </Style>
         <Style TargetType="RadioButton" x:Key="filterRadio">
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Foreground" Value="#bbb"/>
+            <Setter Property="Foreground" Value="#FF020004"/>
+            <Setter Property="Margin" Value="13,0,0,0"/>
+        </Style>
+        <Style TargetType="Border" x:Key="searchBorder">
+            <Setter Property="Background" Value="#FFB5C3E8"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        <Style TargetType="Button" x:Key="moveButton">
+            <Setter Property="Margin" Value="5,2,5,2"/>
+            <Setter Property="Width" Value="100"/>
         </Style>
     </Window.Resources>
     <DockPanel LastChildFill="True">
-        <Border DockPanel.Dock="Top">
+        <Border DockPanel.Dock="Top" Style="{StaticResource searchBorder}">
             <StackPanel Orientation="Horizontal">
                 <Label>Class</Label>
                 <ComboBox Width="60" 
                           ItemsSource="{Binding SchoolClasses, Source={StaticResource xxvm}}"
                           SelectedIndex="{Binding ClsIndex, Source={StaticResource xxvm}}">
                 </ComboBox>
-                <Label>Section</Label>
+                <Label Margin="10,0,2,0">Section</Label>
                 <ComboBox Width="60" 
                           ItemsSource="{Binding Section, Source={StaticResource xxvm}}"
                           SelectedIndex="{Binding SectionIndex, Source={StaticResource xxvm}}">
                 </ComboBox>
-                <Label>Session</Label>
+                <Label Margin="10,0,2,0">Session</Label>
                 <TextBox Width="60" Text="{Binding SYear, Source={StaticResource xxvm}, Mode=TwoWay}"></TextBox>
                 <Label>-</Label>
                 <TextBox Width="60" Text="{Binding EYear, Source={StaticResource xxvm}, Mode=TwoWay}"></TextBox>
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <Label Foreground="#bbb">Filter by :</Label>
+                        <Label Foreground="Black" Margin="10,0,2,0">Filter by :</Label>
                         <RadioButton GroupName="filter" Style="{StaticResource filterRadio}"
                                     IsChecked="{Binding FilterCategory, Source={StaticResource xxvm}, Converter={StaticResource GenFilterConverter}, ConverterParameter=none}" >
                             None
@@ -55,8 +64,7 @@
                     </StackPanel>
                  
                 </StackPanel>
-                <Button Width="70" Command="{Binding BuildGridViewCommand, Source={StaticResource xxvm}}">Get</Button>
-                <Button Width="70" Command="{Binding ExportCommand, Source={StaticResource xxvm}}">Export</Button>
+                
             </StackPanel>
         </Border>
         <Grid>
@@ -64,7 +72,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <Grid>
+            <Grid Background="#ddd">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -74,10 +82,10 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Button Command="{Binding MoveRightAllCommand, Source={StaticResource xxvm}}"> &gt;&gt; </Button>
-                <Button Grid.Column="1" Command="{Binding MoveLeftAllCommand, Source={StaticResource xxvm}}"> &lt;&lt; </Button>
-                <Button Grid.Row="1" Command="{Binding MoveRightCommand, Source={StaticResource xxvm}}"> &gt; </Button>
-                <Button Grid.Row="1" Grid.Column="1" Command="{Binding MoveLeftCommand, Source={StaticResource xxvm}}"> &lt;</Button>
+                <Button Style="{StaticResource moveButton}" Command="{Binding MoveRightAllCommand, Source={StaticResource xxvm}}"> &gt;&gt; </Button>
+                <Button Style="{StaticResource moveButton}" Grid.Column="1" Command="{Binding MoveLeftAllCommand, Source={StaticResource xxvm}}"> &lt;&lt; </Button>
+                <Button Style="{StaticResource moveButton}" Grid.Row="1" Command="{Binding MoveRightCommand, Source={StaticResource xxvm}}"> &gt; </Button>
+                <Button Style="{StaticResource moveButton}" Grid.Row="1" Grid.Column="1" Command="{Binding MoveLeftCommand, Source={StaticResource xxvm}}"> &lt;</Button>
                 <ScrollViewer Grid.Row="2">
                     <ListView SelectionMode="Single"
                         ItemsSource="{Binding UnSelectedColumns, Source={StaticResource xxvm}}"                       
@@ -92,9 +100,30 @@
                 </ScrollViewer>
             </Grid>
             <Grid Grid.Column="1">
-                <DataGrid ItemsSource="{Binding Dtable, Source={StaticResource xxvm}}">
-                    
-                </DataGrid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <!--<ProgressBar IsIndeterminate="False" Minimum="0" Maximum="100" Value="{Binding ProgressbarValue, StringFormat={}{0:0}%, Source={StaticResource xxvm}}"></ProgressBar>-->
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Progress : </Label>
+                        <Label Content="{Binding ProgressbarValue, StringFormat=P2, Source={StaticResource xxvm}}"></Label>
+                    </StackPanel>  
+                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                            <Button Width="70" Command="{Binding BuildGridViewCommand, Source={StaticResource xxvm}}">Get</Button>
+                            <Button Width="70" Command="{Binding ExportCommand, Source={StaticResource xxvm}}">Export</Button>
+                        </StackPanel>
+                   
+                    <DataGrid Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Dtable, Source={StaticResource xxvm}}">
+
+                    </DataGrid>
+                </Grid>
+                
             </Grid>
         </Grid>
     </DockPanel>

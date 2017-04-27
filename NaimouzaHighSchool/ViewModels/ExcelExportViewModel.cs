@@ -44,6 +44,7 @@ namespace NaimouzaHighSchool.ViewModels
             { 
                 this._clsIndex = value;
                 this.Dtable = new DataTable();
+                this.ProgressbarValue = "0/0";
                 this.OnPropertyChanged("ClsIndex"); 
             }
         }
@@ -126,6 +127,13 @@ namespace NaimouzaHighSchool.ViewModels
             }
         }
 
+        private string _progressbarValue;
+        public string ProgressbarValue
+        {
+            get { return _progressbarValue; }
+            set { _progressbarValue = value; this.OnPropertyChanged("ProgressbarValue"); }
+        }
+
         // For reading, validating etc of time consuming excel file
         private BackgroundWorker bw = new BackgroundWorker();
 
@@ -151,6 +159,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.EYear = DateTime.Today.Year;
             this.Slist = new List<Student>();
             this.FilteredList = new List<Student>();
+            this.ProgressbarValue = "0/0";
 
             ExcelColumnPositionService exService = new ExcelColumnPositionService();
             this.UnSelectedColumns = new ObservableCollection<string>(exService.GetColListForExport());
@@ -166,16 +175,6 @@ namespace NaimouzaHighSchool.ViewModels
             this.BuildGridViewCommand = new RelayCommand(this.BuildGridView, this.CanBuildGridView);
             this.ExportCommand = new RelayCommand(this.Export, this.CanExport);
            
-        }
-
-        private void Test()
-        {
-            
-        }
-
-        private bool CanTest()
-        {
-            return true;
         }
 
         private void MoveRight()
@@ -429,6 +428,7 @@ namespace NaimouzaHighSchool.ViewModels
             // this.excelProgressbar.Value = e.ProgressPercentage;
             //this.statusText.Text = "Scaning rows. completed " + e.ProgressPercentage.ToString() + e.UserState;
            // this.ProgressbarValue = e.ProgressPercentage.ToString() + e.UserState;
+           // this.ProgressbarValue = e.ProgressPercentage.ToString() + e.UserState + "%";
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -471,6 +471,8 @@ namespace NaimouzaHighSchool.ViewModels
                 // insert rows:
 
                 int row = 1;
+                int totalRow = this.Dtable.Rows.Count;
+                this.ProgressbarValue = "0" + "/" + totalRow.ToString();
                 foreach (DataRow RowItem in this.Dtable.Rows)
                 {
                     row++;
@@ -480,6 +482,8 @@ namespace NaimouzaHighSchool.ViewModels
                         col++;
                         workSheet.Cells[row, col] = RowItem[ColItem];
                     }
+                   // float prgPercentage = (row / totalRow) * 100;
+                    this.ProgressbarValue = (row-1).ToString() + "/" + totalRow.ToString();
                 }
 
 
