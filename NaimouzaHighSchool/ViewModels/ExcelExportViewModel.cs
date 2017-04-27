@@ -27,6 +27,7 @@ namespace NaimouzaHighSchool.ViewModels
         #region property
         private ExcelExportDb db;
         private DataTable _dtable;
+        private bool _flagCanExport;
         public DataTable Dtable
         {
             get { return _dtable; }
@@ -106,7 +107,20 @@ namespace NaimouzaHighSchool.ViewModels
             set { this._selectedColumnIndex = value; this.OnPropertyChanged("SelectedColumnIndex"); }
         }
 
-      
+        private string _filterCategory;
+        public string FilterCategory
+        {
+            get { return this._filterCategory; }
+            set
+            {
+                this._filterCategory = value;
+              //  this.FilterStdList();
+                this.OnPropertyChanged("FilterCategory");
+            }
+        }
+
+        // For reading, validating etc of time consuming excel file
+        private BackgroundWorker bw = new BackgroundWorker();
 
         public RelayCommand TestCommand { get; set; }
         public RelayCommand MoveRightCommand { get; set; }
@@ -120,13 +134,6 @@ namespace NaimouzaHighSchool.ViewModels
         #region Methods
         private void StartUpInitializer()
         {
-            //this.Dt = new DataTable();
-            //Dt.Columns.Add("Name");
-            //Dt.Columns.Add("Age");
-
-            //Dt.Rows.Add(new Object[] {"Amrin", "9"});
-            //this.TestCommand = new RelayCommand(this.Test, this.CanTest);
-            //this.db = new ExcelExportDb();
             this.SchoolClasses = new string[] { "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII" };
             this.Section = new string[] { "A", "B", "C", "D", "E" };
             this.ClsIndex = -1;
@@ -140,7 +147,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.UnSelectedColumns = new ObservableCollection<string>(exService.GetColListForExport());
             this.SelectedColumns = new ObservableCollection<string>();
             this.db = new ExcelExportDb();
-           
+            this._flagCanExport = true;
 
             this.MoveRightCommand = new RelayCommand(this.MoveRight, this.CanMoveRight);
             this.MoveRightAllCommand = new RelayCommand(this.MoveRightAll, this.CanMoveRightAll);
@@ -251,84 +258,20 @@ namespace NaimouzaHighSchool.ViewModels
 
         private void Export()
         {
-            try
-            {
-                
-                Excel.Application xlApp = new Excel.Application();
-               // xlApp.Visible = true;
-                var oWB = xlApp.Workbooks.Add();
 
-                Excel._Worksheet workSheet = (Excel.Worksheet)xlApp.ActiveSheet;
+            bw.WorkerReportsProgress = true;
+            bw.WorkerSupportsCancellation = true;
+            bw.RunWorkerAsync();
+            bw.DoWork += bw_DoWork;
+            bw.ProgressChanged += bw_ProgressChanged;
+            bw.RunWorkerCompleted += bw_RunWorkerCompleted;
 
-                //add column title
-                int cl = 0;
-                foreach (string colname in this.SelectedColumns)
-                {
-                    cl++;
-                    workSheet.Cells[1, cl] = colname;
-                }
-                // insert rows:
-
-                int row = 1;
-                foreach (DataRow RowItem in this.Dtable.Rows)
-                {
-                    row++;
-                    int col = 0;
-                    foreach (DataColumn ColItem in this.Dtable.Columns)
-                    {
-                        col++;
-                        workSheet.Cells[row, col] = RowItem[ColItem];
-                    }
-                }
-               
-
-                workSheet.Columns[1].AutoFit();
-                workSheet.Columns[2].AutoFit();
-
-                SaveFileDialog saveDialog = new SaveFileDialog();
-                string mydocumentDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                saveDialog.Filter = "Excel Files|*.xlsx;*.xls";
-                saveDialog.InitialDirectory = mydocumentDirectory;
-                saveDialog.FileName = this.SchoolClasses[this.ClsIndex]+Section[this.SectionIndex]+".xlsx";
-                if (saveDialog.ShowDialog() == true)
-                {
-                   
-                    string fname = saveDialog.FileName;
-                    oWB.SaveAs(fname, AccessMode: Excel.XlSaveAsAccessMode.xlShared);
-                }
-
-
-                //cleanup
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-
-                //rule of thumb for releasing com objects:
-                //  never use two dots, all COM objects must be referenced and released individually
-                //  ex: [somthing].[something].[something] is bad
-
-                //release com objects to fully kill excel process from running in the background
-               // Marshal.ReleaseComObject(xlRange);
-               // Marshal.ReleaseComObject(xlWorksheet);
-
-                //close and release
-                oWB.Close();
-                Marshal.ReleaseComObject(oWB);
-
-                //quit and release
-                xlApp.Quit();
-                Marshal.ReleaseComObject(xlApp);
-
-
-            }
-            catch (Exception exl)
-            {
-                System.Windows.MessageBox.Show("exl : "+exl.Message);
-            }
+           
         }
 
         private bool CanExport()
         {
-            return this.Dtable.Columns.Count > 0;
+            return ((this.Dtable.Columns.Count > 0) && (this._flagCanExport));
         }
 
         private string GetCellVal(Student s, string col)
@@ -465,6 +408,113 @@ namespace NaimouzaHighSchool.ViewModels
             }
             return rstr;
         }
+
+
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+           // this._flagCanInsert = false;
+            this.ExportToExcel();
+        }
+
+
+
+        private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            // this.excelProgressbar.Value = e.ProgressPercentage;
+            //this.statusText.Text = "Scaning rows. completed " + e.ProgressPercentage.ToString() + e.UserState;
+           // this.ProgressbarValue = e.ProgressPercentage.ToString() + e.UserState;
+        }
+
+
+
+
+
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+              this._flagCanExport = true;
+           // MessageBox.Show("Data inserted");
+           // this.Reset();
+        }
+
+        private void ExportToExcel()
+        {
+            try
+            {
+                SaveFileDialog saveDialog = new SaveFileDialog();
+                string mydocumentDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                saveDialog.Filter = "Excel Files|*.xlsx;*.xls";
+                saveDialog.InitialDirectory = mydocumentDirectory;
+                saveDialog.FileName = this.SchoolClasses[this.ClsIndex] + Section[this.SectionIndex] + ".xlsx";
+                string fname = "nmhs.xlsx";
+                if (saveDialog.ShowDialog() == true)
+                {
+
+                    fname = saveDialog.FileName;
+
+                }
+                this._flagCanExport = false;
+                Excel.Application xlApp = new Excel.Application();
+                // xlApp.Visible = true;
+                var oWB = xlApp.Workbooks.Add();
+
+                Excel._Worksheet workSheet = (Excel.Worksheet)xlApp.ActiveSheet;
+
+                //add column title
+                int cl = 0;
+                foreach (string colname in this.SelectedColumns)
+                {
+                    cl++;
+                    workSheet.Cells[1, cl] = colname;
+                }
+                // insert rows:
+
+                int row = 1;
+                foreach (DataRow RowItem in this.Dtable.Rows)
+                {
+                    row++;
+                    int col = 0;
+                    foreach (DataColumn ColItem in this.Dtable.Columns)
+                    {
+                        col++;
+                        workSheet.Cells[row, col] = RowItem[ColItem];
+                    }
+                }
+
+
+                workSheet.Columns[1].AutoFit();
+                workSheet.Columns[2].AutoFit();
+
+               
+                oWB.SaveAs(fname, AccessMode: Excel.XlSaveAsAccessMode.xlShared);
+
+                //cleanup
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+
+                //rule of thumb for releasing com objects:
+                //  never use two dots, all COM objects must be referenced and released individually
+                //  ex: [somthing].[something].[something] is bad
+
+                //release com objects to fully kill excel process from running in the background
+                // Marshal.ReleaseComObject(xlRange);
+                // Marshal.ReleaseComObject(xlWorksheet);
+
+                //close and release
+                oWB.Close();
+                Marshal.ReleaseComObject(oWB);
+
+                //quit and release
+                xlApp.Quit();
+                Marshal.ReleaseComObject(xlApp);
+
+
+            }
+            catch (Exception exl)
+            {
+                System.Windows.MessageBox.Show("exl : " + exl.Message);
+            }
+        }
+
         #endregion
     }
 }

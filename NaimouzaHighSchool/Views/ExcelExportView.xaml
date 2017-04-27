@@ -2,9 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ExVm="clr-namespace:NaimouzaHighSchool.ViewModels"
+        xmlns:conv="clr-namespace:NaimouzaHighSchool.ViewModels.Converters"
         Title="Export into Excel" Height="500" Width="750" Closing="Window_Closing_1">
     <Window.Resources>
         <ExVm:ExcelExportViewModel x:Key="xxvm"></ExVm:ExcelExportViewModel>
+        <conv:GenderFilterConverter x:Key="GenFilterConverter"></conv:GenderFilterConverter>
         <Style TargetType="DataGridRow">
             <Style.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FFFF008B"/>
@@ -12,6 +14,10 @@
                 <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#FFFF008B" />
                 <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="White"/>
             </Style.Resources>
+        </Style>
+        <Style TargetType="RadioButton" x:Key="filterRadio">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#bbb"/>
         </Style>
     </Window.Resources>
     <DockPanel LastChildFill="True">
@@ -27,10 +33,28 @@
                           ItemsSource="{Binding Section, Source={StaticResource xxvm}}"
                           SelectedIndex="{Binding SectionIndex, Source={StaticResource xxvm}}">
                 </ComboBox>
-                <Label>Session start year</Label>
+                <Label>Session</Label>
                 <TextBox Width="60" Text="{Binding SYear, Source={StaticResource xxvm}, Mode=TwoWay}"></TextBox>
-                <Label>Session end year</Label>
+                <Label>-</Label>
                 <TextBox Width="60" Text="{Binding EYear, Source={StaticResource xxvm}, Mode=TwoWay}"></TextBox>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Foreground="#bbb">Filter by :</Label>
+                        <RadioButton GroupName="filter" Style="{StaticResource filterRadio}"
+                                    IsChecked="{Binding FilterCategory, Source={StaticResource xxvm}, Converter={StaticResource GenFilterConverter}, ConverterParameter=none}" >
+                            None
+                        </RadioButton>
+                        <RadioButton GroupName="filter" Style="{StaticResource filterRadio}"
+                                    IsChecked="{Binding FilterCategory, Source={StaticResource xxvm}, Converter={StaticResource GenFilterConverter}, ConverterParameter=male}" >
+                            Boys
+                        </RadioButton>
+                        <RadioButton GroupName="filter" Style="{StaticResource filterRadio}"
+                                    IsChecked="{Binding FilterCategory, Source={StaticResource xxvm}, Converter={StaticResource GenFilterConverter}, ConverterParameter=female}" >
+                            Girls
+                        </RadioButton>
+                    </StackPanel>
+                 
+                </StackPanel>
                 <Button Width="70" Command="{Binding BuildGridViewCommand, Source={StaticResource xxvm}}">Get</Button>
                 <Button Width="70" Command="{Binding ExportCommand, Source={StaticResource xxvm}}">Export</Button>
             </StackPanel>
