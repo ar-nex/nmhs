@@ -77,6 +77,7 @@
       <HintPath>..\packages\PDFsharp-MigraDoc-WPF.1.32.2608.0\lib\net20\de\PdfSharp.Charting-WPF.resources.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
@@ -96,6 +97,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Database\BoardExamDb.cs" />
     <Compile Include="Models\Database\CharacterCertificateDb.cs" />
     <Compile Include="Models\Database\ExcelExportDb.cs" />
     <Compile Include="Models\Database\StudentDataReadDb.cs" />
@@ -104,14 +106,17 @@
     <Compile Include="Models\Database\SubjectGroupDb.cs" />
     <Compile Include="Models\StudentDataWriteModel.cs" />
     <Compile Include="Models\Utility\AdmissionInfo.cs" />
+    <Compile Include="Models\Utility\BoardStudent.cs" />
     <Compile Include="Models\Utility\CombSubPair.cs" />
     <Compile Include="Models\Utility\Subject.cs" />
     <Compile Include="Models\Utility\SubjectCombo.cs" />
     <Compile Include="Models\Utility\SubjectGroup.cs" />
+    <Compile Include="ViewModels\BoardExamViewModel.cs" />
     <Compile Include="ViewModels\ClassConfigurationViewModel.cs" />
     <Compile Include="ViewModels\Converters\Bool1Converter.cs" />
     <Compile Include="ViewModels\Converters\BoolConverter.cs" />
     <Compile Include="ViewModels\Converters\CheckboxConverter.cs" />
+    <Compile Include="ViewModels\Converters\CheckBoxVisibilityConverter.cs" />
     <Compile Include="ViewModels\Converters\DateConverter.cs" />
     <Compile Include="ViewModels\Converters\DateConverter1.cs" />
     <Compile Include="ViewModels\Converters\GenderConverter.cs" />
@@ -127,6 +132,9 @@
     <Compile Include="ViewModels\SubjectComboViewModel.cs" />
     <Compile Include="Views\AcademicConfigurationView.xaml.cs">
       <DependentUpon>AcademicConfigurationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BoardExamView.xaml.cs">
+      <DependentUpon>BoardExamView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ClassConfigurationView.xaml.cs">
       <DependentUpon>ClassConfigurationView.xaml</DependentUpon>
@@ -153,6 +161,10 @@
       <DependentUpon>SubjectComboView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AcademicConfigurationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BoardExamView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -246,6 +258,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Models\Database\App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

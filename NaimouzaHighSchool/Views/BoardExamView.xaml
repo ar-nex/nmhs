@@ -1,0 +1,71 @@
+﻿<Window x:Class="NaimouzaHighSchool.Views.BoardExamView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:bvmns="clr-namespace:NaimouzaHighSchool.ViewModels"
+        xmlns:conv="clr-namespace:NaimouzaHighSchool.ViewModels.Converters"
+        Title="Board/Council Exam" Height="430" Width="660" Closing="Window_Closing_1">
+    <Window.Resources>
+        <bvmns:BoardExamViewModel x:Key="bvm"></bvmns:BoardExamViewModel>
+        <conv:IntConverter x:Key="IntConverter"></conv:IntConverter>
+        <Style TargetType="CheckBox" x:Key="Check4Visibility">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="22,0,0,0"/>
+        </Style>
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <Border DockPanel.Dock="Bottom">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Command="{Binding SaveUpdatesCommand, Source={StaticResource bvm}}">Save</Button>
+            </StackPanel>
+        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto"/>                   
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Label>Class</Label>
+                    <ComboBox Width="60"></ComboBox>
+                    <Label>Session </Label>
+                    <TextBox Width="50"></TextBox>
+                    <Label>-</Label>
+                    <TextBox Width="50"></TextBox>
+                    <Label>Total Marks</Label>
+                    <TextBox Width="50" Text="{Binding TxbTotalMarks, Source={StaticResource bvm}}"></TextBox>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <Label>Select extra visible rows </Label>
+                    <CheckBox IsChecked="{Binding IsClsVisible, Source={StaticResource bvm}}" Style="{StaticResource Check4Visibility}">Class</CheckBox>
+                    <CheckBox IsChecked="{Binding IsSectionVisible, Source={StaticResource bvm}}" Style="{StaticResource Check4Visibility}">Section</CheckBox>
+                    <CheckBox IsChecked="{Binding IsRollVisible,Source={StaticResource bvm}}" Style="{StaticResource Check4Visibility}">Roll</CheckBox>
+                    <CheckBox IsChecked="{Binding IsBoardRollVisible, Source={StaticResource bvm}}" Style="{StaticResource Check4Visibility}">Board/Council Roll</CheckBox>
+                    <CheckBox IsChecked="{Binding IsBoardNoVisible, Source={StaticResource bvm}}" Style="{StaticResource Check4Visibility}">Board/Council No.</CheckBox>
+                </StackPanel>
+            </Grid>
+            <DataGrid Grid.Row="1" ItemsSource="{Binding Lbs, Source={StaticResource bvm}}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Path=Name}"/>
+                    <DataGridTextColumn Header="Class" Binding="{Binding Path=Cls}" Visibility="{Binding ClsVisibility, Source={StaticResource bvm}}"/>
+                    <DataGridTextColumn Header="Section" Binding="{Binding Path=Section}" Visibility="{Binding SectionVisibility, Source={StaticResource bvm}}"/>
+                    <DataGridTextColumn Header="Roll" Binding="{Binding Path=Roll, Converter={StaticResource IntConverter}}" Visibility="{Binding RollVisibility, Source={StaticResource bvm}}"/>
+                    <DataGridTextColumn Header="Exam Roll" Binding="{Binding Path=BoardRoll}" Visibility="{Binding BoardRollVisibility, Source={StaticResource bvm}}"/>
+                    <DataGridTextColumn Header="Exam No" Binding="{Binding Path=BoardNo}" Visibility="{Binding BoardNoVisibility, Source={StaticResource bvm}}"/>
+                    <DataGridTextColumn Header="Obtained Marks" Binding="{Binding Path=ObtainedMarks, Converter={StaticResource IntConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="Total Marks" Binding="{Binding Path=TotalMarks, Converter={StaticResource IntConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="Percentage" Binding="{Binding Path=Percentage}"/>
+                    <DataGridTextColumn Header="Grade" Binding="{Binding Path=Grade}"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+</Window>

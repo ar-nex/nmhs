@@ -16,11 +16,13 @@ namespace NaimouzaHighSchool.ViewModels
 
         public RelayCommand ShowExcelExportCommand { get; set; }
         public RelayCommand ShowSessionWindowCommand { get; set; }
+        public RelayCommand ShowBoardExamViewCommand { get; set; }
 
         private void StartUpInitializer()
         {
             this.ShowExcelExportCommand = new RelayCommand(this.ShowExcelExport, this.CanShowExcelExport);
             this.ShowSessionWindowCommand = new RelayCommand(this.ShowSessionWindow, this.CanShowSessoinWindow);
+            this.ShowBoardExamViewCommand = new RelayCommand(this.ShowBoardExamView, this.CanShowBoardExamView);
         }
 
         private void ShowExcelExport()
@@ -59,6 +61,25 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanShowSessoinWindow()
         {
             return !NaimouzaHighSchool.Views.SessionView.IsOpen;
+        }
+
+        private void ShowBoardExamView()
+        {
+            if (NaimouzaHighSchool.Views.BoardExamView.IsOpen)
+            {
+                return;
+            }
+            else
+            {
+                NaimouzaHighSchool.Views.BoardExamView bexam = new Views.BoardExamView();
+                NaimouzaHighSchool.Views.BoardExamView.IsOpen = true;
+                bexam.Show();
+            }
+        }
+
+        private bool CanShowBoardExamView()
+        {
+            return !NaimouzaHighSchool.Views.BoardExamView.IsOpen;
         }
     }
 }

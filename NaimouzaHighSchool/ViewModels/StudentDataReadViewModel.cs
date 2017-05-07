@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows.Data;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -27,9 +29,9 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         #region property field
-        private const string fontcolor1 = "Black";
+        private const string fontcolor1 = "#053646";
         private const string fontcolor0 = "LightGray";
-        private const string defaultEntry = "Not found";
+        private const string defaultEntry = "";
         #region search bar
         private string _searchText;
         public string SearchText
@@ -115,6 +117,8 @@ namespace NaimouzaHighSchool.ViewModels
                 this.OnPropertyChanged("FilterCategory");
             }
         }
+
+
 
         public RelayCommand SearchCommand { get; set; }
         #endregion
@@ -204,6 +208,58 @@ namespace NaimouzaHighSchool.ViewModels
                 }
                 this.OnPropertyChanged("TxbCls"); 
             } 
+        }
+
+        private int _schoolClassessIndex;
+        public int SchoolClassessIndex
+        {
+            get { return this._schoolClassessIndex; }
+            set
+            {
+                this._schoolClassessIndex = value;
+              
+                this.OnPropertyChanged("SchoolClassessIndex");
+            }
+        }
+
+        private int _schoolSectionIndex;
+        public int SchoolSectionIndex
+        {
+            get { return this._schoolSectionIndex; }
+            set 
+            {
+                this._schoolSectionIndex = value;
+                this.OnPropertyChanged("SchoolSectionIndex");
+            }
+        }
+
+        private int _socialCatListIndex;
+        public int SocialCatListIndex
+        {
+            get { return this._socialCatListIndex; }
+            set
+            {
+                this._socialCatListIndex = value;
+                this.OnPropertyChanged("SocialCatListIndex");
+            }
+        }
+
+        private int _bloodGroupIndex;
+        public int BloodGroupIndex
+        {
+            get { return this._bloodGroupIndex; }
+            set
+            {
+                this._bloodGroupIndex = value;
+                this.OnPropertyChanged("BloodGroupIndex");
+            }
+        }
+
+        private int _classessForAdmissionIndex;
+        public int ClassessForAdmissionIndex
+        {
+            get { return this._classessForAdmissionIndex; }
+            set { this._classessForAdmissionIndex = value; this.OnPropertyChanged("ClassessForAdmissionIndex"); }
         }
 
         private string _txbClsColor;
@@ -413,7 +469,7 @@ namespace NaimouzaHighSchool.ViewModels
         public System.Windows.Visibility StdDetailVisibility
         {
             get { return this._stdDetailVisibility; }
-            //get { return System.Windows.Visibility.Visible; }
+           // get { return System.Windows.Visibility.Visible; }
             set { this._stdDetailVisibility = value; this.OnPropertyChanged("StdDetailVisibility"); }
         }
         #region Admission
@@ -521,6 +577,11 @@ namespace NaimouzaHighSchool.ViewModels
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand EditCommand { get; set; }
         public RelayCommand SaveEditCommand { get; set; }
+
+        public RelayCommand SortByNameCommand { get; set; }
+        public RelayCommand SortByClassCommand { get; set; }
+        public RelayCommand SortBySectionCommand { get; set; }
+        public RelayCommand SortByRollCommand { get; set; }
         #endregion
 
         #region method
@@ -539,8 +600,12 @@ namespace NaimouzaHighSchool.ViewModels
 
             this.SearchCategory = "name";
             this.FilterCategory = "none";
-            this.SelectedClassIndex = -1;
-            this.SelectedSectionIndex = -1;
+           // this.SelectedClassIndex = -1;
+           // this.SelectedSectionIndex = -1;
+            this.SchoolClassessIndex = -1;
+            this.SchoolSectionIndex = -1;
+            this.SocialCatListIndex = -1;
+            this.BloodGroupIndex = -1;
             this.SelectedStudentListIndex = -1;
 
 
@@ -558,7 +623,10 @@ namespace NaimouzaHighSchool.ViewModels
             this.EditCommand = new RelayCommand(this.Edit, this.CanEdit);
             this.SaveEditCommand = new RelayCommand(this.SaveEdit, this.CanSaveEdit);
 
-            
+            this.SortByNameCommand = new RelayCommand(this.SortByName, this.CanSortByName);
+            this.SortByClassCommand = new RelayCommand(this.SortByClass, this.CanSortByClass);
+            this.SortBySectionCommand = new RelayCommand(this.SortBySection, this.CanSortBySection);
+            this.SortByRollCommand = new RelayCommand(this.SortByRoll, this.CanSortByRoll);
         }
 
         private void Search()
@@ -587,6 +655,13 @@ namespace NaimouzaHighSchool.ViewModels
                 {
                     this.Slist = db.GetStudentListByClass(this.SelectedClass, this.SelectedSection, this.Roll);
                 }
+
+                // seach by class and roll
+                else if (this.SelectedClassIndex > -1 && this.Roll > 0)
+                {
+                    this.Slist = db.GetStudentListByClass(this.SelectedClass, this.Roll);
+                }
+
             }
 
             this.UpdateLeftpaneList();
@@ -649,8 +724,10 @@ namespace NaimouzaHighSchool.ViewModels
             this.TxbName = s.Name;
             this.TxbNameColor = fontcolor1;
             this.TxbCls = s.StudyingClass;
+            this.SchoolClassessIndex = Array.IndexOf(this.SchoolClasses, s.StudyingClass);
             this.TxbClsColor = fontcolor1;
             this.TxbSection = s.Section;
+            this.SchoolSectionIndex = Array.IndexOf(this.SchoolSections, s.Section);
             this.TxbSectionColor = fontcolor1;
             this.TxbRoll = s.Roll;
             this.TxbRollColor = (s.Roll != 0) ? fontcolor1 : fontcolor0; 
@@ -678,11 +755,13 @@ namespace NaimouzaHighSchool.ViewModels
             this.TxbGrdOcc = (string.IsNullOrEmpty(s.GuardianOccupation)) ? defaultEntry : s.GuardianOccupation;
             this.TxbGrdOccColor = (string.IsNullOrEmpty(s.GuardianOccupation)) ? fontcolor0 : fontcolor1;
             this.BloodGrp = (string.IsNullOrEmpty(s.BloodGroup)) ? defaultEntry : s.BloodGroup;
+            this.BloodGroupIndex = Array.IndexOf(this.BloodGroups, s.BloodGroup);
             this.BloodGrpColor = (string.IsNullOrEmpty(s.BloodGroup)) ? fontcolor0 : fontcolor1;
 
             this.TxbAadhar = (string.IsNullOrEmpty(s.Aadhar)) ? defaultEntry : s.Aadhar;
             this.TxbAadharColor = (string.IsNullOrEmpty(s.Aadhar)) ? fontcolor0 : fontcolor1;
             this.TxbSocCat = (string.IsNullOrEmpty(s.SocialCategory)) ? defaultEntry : s.SocialCategory;
+            this.SocialCatListIndex = Array.IndexOf(this.SocialCatList, s.SocialCategory);
             this.TxbSocCatColor = (string.IsNullOrEmpty(s.SocialCategory)) ? fontcolor0 : fontcolor1;
             this.TxbSbCat = (string.IsNullOrEmpty(s.SubCast)) ? defaultEntry : s.SubCast;
             this.TxbSbCatColor = (string.IsNullOrEmpty(s.SubCast)) ? fontcolor0 : fontcolor1;
@@ -725,6 +804,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.AdmissionDate = s.AdmDate;
             this.AdmissionDateColor = (doa_temp == "01-01-0001") ? fontcolor0 : fontcolor1;
             this.AdmittedClass = (string.IsNullOrEmpty(s.AdmittedClass)) ? defaultEntry : s.AdmittedClass;
+            this.ClassessForAdmissionIndex = Array.IndexOf(this.ClassesForAdmission, s.AdmittedClass);
             this.AdmittedClassColor = (string.IsNullOrEmpty(s.AdmittedClass)) ? fontcolor0 : fontcolor1;
             this.LastSchool = (string.IsNullOrEmpty(s.LastSchool)) ? defaultEntry : s.LastSchool;
             this.LastSchoolColor = (string.IsNullOrEmpty(s.LastSchool)) ? fontcolor0 : fontcolor1;
@@ -860,7 +940,7 @@ namespace NaimouzaHighSchool.ViewModels
                     default:
                         break;
                 }
-
+                
                 this.NumberOfMatches = this.StudentList.Count;
                 this.ResetSearchEntry();
                 this.SelectedStudentListIndex = -1;
@@ -916,12 +996,14 @@ namespace NaimouzaHighSchool.ViewModels
             ns.Sex = this.getVal(this.TxbGen);
             ns.BloodGroup = this.getVal(this.BloodGrp);
             ns.Religion = this.getVal(this.TxbReligion);
-            ns.SocialCategory = this.getVal(this.TxbSocCat);
+           // ns.SocialCategory = this.getVal(this.TxbSocCat);
+            ns.SocialCategory =(this.SocialCatListIndex > -1) ? this.SocialCatList[this.SocialCatListIndex] : string.Empty;
             ns.SubCast = this.getVal(this.TxbSbCat);
             ns.IsPH = this.TxbIsPh;
             ns.PhType = this.getVal(this.TxbPhType);
             ns.IsBpl = this.TxbIsBpl;
             ns.BplNo = this.getVal(this.TxbBplNo);
+            ns.BloodGroup = (this.BloodGroupIndex > -1) ? this.BloodGroups[this.BloodGroupIndex] : string.Empty;
             ns.PresentAdrress = this.getVal(this.PresentAddr);
             ns.PermanentAddress = this.getVal(this.PermanentAddr);
             ns.Mobile = this.getVal(this.TxbMobile);
@@ -935,8 +1017,10 @@ namespace NaimouzaHighSchool.ViewModels
             ns.BankBranch = this.getVal(this.BankBranch);
             ns.Ifsc = this.getVal(this.BankIfsc);
             ns.MICR = this.getVal(this.BankMicr);
-            ns.StudyingClass = this.getVal(this.TxbCls);
-            ns.Section = this.getVal(this.TxbSection);
+            //ns.StudyingClass = this.getVal(this.TxbCls);
+            ns.StudyingClass = (this.SchoolClassessIndex > -1) ? this.SchoolClasses[this.SchoolClassessIndex] : string.Empty;
+           // ns.Section = this.getVal(this.TxbSection);
+            ns.Section = (this.SchoolSectionIndex > -1) ? this.SchoolSections[this.SchoolSectionIndex] : string.Empty;
             ns.Roll = this.TxbRoll;
             //ns.SubjectComboId
             foreach (SubjectCombo item in this.ComboCodeList)
@@ -955,7 +1039,8 @@ namespace NaimouzaHighSchool.ViewModels
             ns.AdmissionNo = this.getVal(this.AdmissionNo);
             ns.AdmDate = this.AdmissionDate;
             ns.LastSchool = this.getVal(this.LastSchool);
-            ns.AdmittedClass = this.getVal(this.AdmittedClass);
+           // ns.AdmittedClass = this.getVal(this.AdmittedClass);
+            ns.AdmittedClass = (this.ClassessForAdmissionIndex > -1) ? this.ClassesForAdmission[this.ClassessForAdmissionIndex] : string.Empty;
             ns.DateOfLeaving = this.DateOfLeaving;
             ns.TC = this.getVal(this.Tc);
             
@@ -1011,8 +1096,84 @@ namespace NaimouzaHighSchool.ViewModels
             taker.BoardRoll = giver.BoardRoll;
             taker.CouncilNo = giver.CouncilNo;
             taker.CouncilRoll = giver.CouncilRoll;
-            
+
         }
+
+        #region sort
+        private void SortByName()
+        {
+            ObservableCollection<Student> tobj = new ObservableCollection<Student>(this.StudentList.ToList<Student>());
+            var tempStdList = from s in tobj
+                              orderby s.Name
+                              select s;
+            this.StudentList.Clear();
+            foreach (Student item in tempStdList)
+            {
+                this.StudentList.Add(item);
+            }    
+        }
+
+        private bool CanSortByName()
+        {
+            return this.StudentList.Count > 0;
+        }
+
+        private void SortByClass()
+        {
+            ObservableCollection<Student> tobj = new ObservableCollection<Student>(this.StudentList.ToList<Student>());
+            var tempStdList = from s in tobj
+                              orderby s.StudyingClass
+                              select s;
+            this.StudentList.Clear();
+            foreach (Student item in tempStdList)
+            {
+                this.StudentList.Add(item);
+            }    
+        }
+
+        private bool CanSortByClass()
+        {
+            return this.StudentList.Count > 0;
+        }
+
+        private void SortBySection()
+        {
+            ObservableCollection<Student> tobj = new ObservableCollection<Student>(this.StudentList.ToList<Student>());
+            var tempStdList = from s in tobj
+                              orderby s.Section
+                              select s;
+            this.StudentList.Clear();
+            foreach (Student item in tempStdList)
+            {
+                this.StudentList.Add(item);
+            }
+        }
+
+        private bool CanSortBySection()
+        {
+            return this.StudentList.Count > 0;
+        }
+
+
+        private void SortByRoll()
+        {
+            ObservableCollection<Student> tobj = new ObservableCollection<Student>(this.StudentList.ToList<Student>());
+            var tempStdList = from s in tobj
+                              orderby s.Roll
+                              select s;
+            this.StudentList.Clear();
+            foreach (Student item in tempStdList)
+            {
+                this.StudentList.Add(item);
+            }
+        }
+
+        private bool CanSortByRoll()
+        {
+            return this.StudentList.Count > 0;
+        }
+        #endregion
+
 
         #endregion
     }
