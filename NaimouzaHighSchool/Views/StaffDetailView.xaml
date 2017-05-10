@@ -1,0 +1,14 @@
+﻿<Window x:Class="NaimouzaHighSchool.Views.StaffDetailView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sns="clr-namespace:NaimouzaHighSchool.ViewModels"
+        xmlns:conv="clr-namespace:NaimouzaHighSchool.ViewModels.Converters"
+        Title="Staff" Height="550" Width="800" Closing="Window_Closing_1">
+    <Window.Resources>
+        <sns:StaffDetailViewModel x:Key="svm"></sns:StaffDetailViewModel>
+        <conv:DateConverter1 x:Key="DateConverter"></conv:DateConverter1>
+    </Window.Resources>
+    <Grid>
+        
+    </Grid>
+</Window>

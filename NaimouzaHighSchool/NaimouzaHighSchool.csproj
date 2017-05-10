@@ -101,6 +101,7 @@
     <Compile Include="Models\Database\CharacterCertificateDb.cs" />
     <Compile Include="Models\Database\DeleteDb.cs" />
     <Compile Include="Models\Database\ExcelExportDb.cs" />
+    <Compile Include="Models\Database\StaffDetailDb.cs" />
     <Compile Include="Models\Database\StudentDataReadDb.cs" />
     <Compile Include="Models\Database\StudentDataWriteDb.cs" />
     <Compile Include="Models\Database\SubjectComboDb.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="ViewModels\GroupSubjectPaperViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
+    <Compile Include="ViewModels\StaffDetailViewModel.cs" />
     <Compile Include="ViewModels\StudentDataReadViewModel.cs" />
     <Compile Include="ViewModels\StudentDataWriteViewModel.cs" />
     <Compile Include="ViewModels\SubjectComboViewModel.cs" />
@@ -152,6 +154,9 @@
     </Compile>
     <Compile Include="Views\SessionView.xaml.cs">
       <DependentUpon>SessionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StaffDetailView.xaml.cs">
+      <DependentUpon>StaffDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StudentDataReadView.xaml.cs">
       <DependentUpon>StudentDataReadView.xaml</DependentUpon>
@@ -229,6 +234,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\SessionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StaffDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -18,6 +18,7 @@ namespace NaimouzaHighSchool.ViewModels
         public RelayCommand ShowSessionWindowCommand { get; set; }
         public RelayCommand ShowBoardExamViewCommand { get; set; }
         public RelayCommand ShowDeleteViewCommand { get; set; }
+        public RelayCommand ShowStaffDetailViewCommand { get; set; }
 
         private void StartUpInitializer()
         {
@@ -25,6 +26,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.ShowSessionWindowCommand = new RelayCommand(this.ShowSessionWindow, this.CanShowSessoinWindow);
             this.ShowBoardExamViewCommand = new RelayCommand(this.ShowBoardExamView, this.CanShowBoardExamView);
             this.ShowDeleteViewCommand = new RelayCommand(this.ShowDeleteView, this.CanShowDeleteView);
+            this.ShowStaffDetailViewCommand = new RelayCommand(this.ShowStaffDetailView, this.CanShowStaffDetailView);
         }
 
         private void ShowExcelExport()
@@ -101,6 +103,25 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanShowDeleteView()
         {
             return !NaimouzaHighSchool.Views.DeleteView.IsOpen;
+        }
+
+        private void ShowStaffDetailView()
+        {
+            if (NaimouzaHighSchool.Views.StaffDetailView.IsOpen)
+            {
+                return;
+            }
+            else
+            {
+                NaimouzaHighSchool.Views.StaffDetailView Staff = new Views.StaffDetailView();
+                NaimouzaHighSchool.Views.StaffDetailView.IsOpen = true;
+                Staff.Show();
+            }
+        }
+
+        private bool CanShowStaffDetailView()
+        {
+            return !NaimouzaHighSchool.Views.StaffDetailView.IsOpen;
         }
     }
 }
