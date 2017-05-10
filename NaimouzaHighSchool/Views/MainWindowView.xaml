@@ -39,6 +39,7 @@
                 <MenuItem Header="Student">
                     <MenuItem Header="Add" Click="MenuItem_Click_3" />
                     <MenuItem Header="View" Click="MenuItem_Click_6"></MenuItem>
+                    <MenuItem Header="Delete" Command="{Binding ShowDeleteViewCommand, Source={StaticResource vm}}"></MenuItem>
                     <Separator />
                     <MenuItem Header="Import" Click="MenuItem_Click_2"/>
                 </MenuItem>

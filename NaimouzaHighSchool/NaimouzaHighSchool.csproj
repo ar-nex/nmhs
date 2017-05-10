@@ -99,6 +99,7 @@
     </ApplicationDefinition>
     <Compile Include="Models\Database\BoardExamDb.cs" />
     <Compile Include="Models\Database\CharacterCertificateDb.cs" />
+    <Compile Include="Models\Database\DeleteDb.cs" />
     <Compile Include="Models\Database\ExcelExportDb.cs" />
     <Compile Include="Models\Database\StudentDataReadDb.cs" />
     <Compile Include="Models\Database\StudentDataWriteDb.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="ViewModels\Converters\GenderFilterConverter.cs" />
     <Compile Include="ViewModels\Converters\IntConverter.cs" />
     <Compile Include="ViewModels\Converters\SearchConverter.cs" />
+    <Compile Include="ViewModels\DeleteViewModel.cs" />
     <Compile Include="ViewModels\ExcelExportViewModel.cs" />
     <Compile Include="ViewModels\GroupSubjectPaperViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -138,6 +140,9 @@
     </Compile>
     <Compile Include="Views\ClassConfigurationView.xaml.cs">
       <DependentUpon>ClassConfigurationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeleteView.xaml.cs">
+      <DependentUpon>DeleteView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExcelExportView.xaml.cs">
       <DependentUpon>ExcelExportView.xaml</DependentUpon>
@@ -173,6 +178,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ClassConfigurationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeleteView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
