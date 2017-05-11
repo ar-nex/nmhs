@@ -110,6 +110,7 @@
     <Compile Include="Models\Utility\AdmissionInfo.cs" />
     <Compile Include="Models\Utility\BoardStudent.cs" />
     <Compile Include="Models\Utility\CombSubPair.cs" />
+    <Compile Include="Models\Utility\Staff.cs" />
     <Compile Include="Models\Utility\Subject.cs" />
     <Compile Include="Models\Utility\SubjectCombo.cs" />
     <Compile Include="Models\Utility\SubjectGroup.cs" />

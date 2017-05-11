@@ -8,7 +8,61 @@
         <sns:StaffDetailViewModel x:Key="svm"></sns:StaffDetailViewModel>
         <conv:DateConverter1 x:Key="DateConverter"></conv:DateConverter1>
     </Window.Resources>
-    <Grid>
-        
-    </Grid>
+    <DockPanel LastChildFill="True">
+        <Border DockPanel.Dock="Bottom" Background="Maroon">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button>Add New</Button>
+                <Button>Save</Button>
+                <Button>Delete</Button>
+            </StackPanel>
+        </Border>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Vertical">
+                    <Label>Filter by</Label>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Label>Name :</Label>
+                        <TextBox Width="200"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Label>Category</Label>
+                        <ComboBox Width="150"></ComboBox>
+                        <Label>Criteria</Label>
+                        <ComboBox Width="150"></ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Label>Total Staff : </Label>
+                        <Label>0</Label>
+                    </StackPanel>
+                </StackPanel>
+                <ScrollViewer Grid.Row="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Header="General Info">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Grid.Row="1" Header="Bank Details">
+                            
+                        </GroupBox>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </DockPanel>
 </Window>

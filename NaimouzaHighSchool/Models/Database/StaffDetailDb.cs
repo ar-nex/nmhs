@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows.Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
-using NaimouzaHighSchool;
+using NaimouzaHighSchool.Models.Utility;
 
 namespace NaimouzaHighSchool.Models.Database
 {
@@ -17,5 +17,10 @@ namespace NaimouzaHighSchool.Models.Database
         {
 
         }
+
+        //public List<Staff> GetStaffList()
+        //{ 
+            
+        //}
     }
 }
