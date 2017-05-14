@@ -125,7 +125,7 @@ namespace NaimouzaHighSchool.Models.Utility
                 {
                     _sex = string.Empty;
                 }
-              
+                this.OnPropertyChanged("Sex");
             }
         }
         public string BloodGroup

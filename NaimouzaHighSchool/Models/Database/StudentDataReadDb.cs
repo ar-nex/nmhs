@@ -509,9 +509,14 @@ namespace NaimouzaHighSchool.Models.Database
                 MySqlCommand cmd2 = new MySqlCommand(sql2, this.conn);
                 r = cmd2.ExecuteNonQuery();
 
+                string sql2a = @"DELETE FROM BoardExam WHERE student_basic_id = " + StdId;
+                MySqlCommand cmd2a = new MySqlCommand(sql2a, this.conn);
+                r = cmd2a.ExecuteNonQuery();
+
                 string sql3 = @"DELETE FROM student_basic WHERE id = " + StdId;
                 MySqlCommand cmd3 = new MySqlCommand(sql3, this.conn);
                 r = cmd3.ExecuteNonQuery();
+
             }
 
             catch (Exception e)

@@ -14,20 +14,13 @@ using System.Windows.Shapes;
 namespace NaimouzaHighSchool.Views
 {
     /// <summary>
-    /// Interaction logic for StudentDataReadView.xaml
+    /// Interaction logic for MaxMarksView.xaml
     /// </summary>
-    public partial class StudentDataReadView : Window
+    public partial class MaxMarksView : Window
     {
-        public StudentDataReadView()
+        public MaxMarksView()
         {
             InitializeComponent();
-        }
-
-        static public bool IsOpen;
-
-        private void Window_Closing_1(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            IsOpen = false;
         }
     }
 }

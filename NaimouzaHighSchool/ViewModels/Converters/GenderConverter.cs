@@ -10,12 +10,8 @@ namespace NaimouzaHighSchool.ViewModels.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-
-            if ((string)value == "M" && (string)parameter == "M")
-            {
-                return true;
-            }
-            else if ((string)value == "F" && (string)parameter == "F")
+           
+            if (parameter.Equals(value))
             {
                 return true;
             }
@@ -28,13 +24,13 @@ namespace NaimouzaHighSchool.ViewModels.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if ((bool)value && (string)parameter == "M")
+            if ((bool)value)
             {
-                return "M";
+                return (string)parameter;
             }
             else
             {
-                return "F";
+                return Binding.DoNothing;
             }
         }
     }

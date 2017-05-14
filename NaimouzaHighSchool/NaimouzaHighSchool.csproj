@@ -100,6 +100,7 @@
     <Compile Include="Models\Database\BoardExamDb.cs" />
     <Compile Include="Models\Database\CharacterCertificateDb.cs" />
     <Compile Include="Models\Database\DeleteDb.cs" />
+    <Compile Include="Models\Database\ExamDb.cs" />
     <Compile Include="Models\Database\ExcelExportDb.cs" />
     <Compile Include="Models\Database\StaffDetailDb.cs" />
     <Compile Include="Models\Database\StudentDataReadDb.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="ViewModels\Converters\IntConverter.cs" />
     <Compile Include="ViewModels\Converters\SearchConverter.cs" />
     <Compile Include="ViewModels\DeleteViewModel.cs" />
+    <Compile Include="ViewModels\ExamViewModel.cs" />
     <Compile Include="ViewModels\ExcelExportViewModel.cs" />
     <Compile Include="ViewModels\GroupSubjectPaperViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -147,11 +149,17 @@
     <Compile Include="Views\DeleteView.xaml.cs">
       <DependentUpon>DeleteView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ExamView.xaml.cs">
+      <DependentUpon>ExamView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ExcelExportView.xaml.cs">
       <DependentUpon>ExcelExportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GroupSubjectPaperView.xaml.cs">
       <DependentUpon>GroupSubjectPaperView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MaxMarksView.xaml.cs">
+      <DependentUpon>MaxMarksView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SessionView.xaml.cs">
       <DependentUpon>SessionView.xaml</DependentUpon>
@@ -188,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DeleteView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExamView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -234,6 +246,10 @@
       <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\MaxMarksView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SessionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

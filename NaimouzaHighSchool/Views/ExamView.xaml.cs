@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace NaimouzaHighSchool.Views
 {
     /// <summary>
-    /// Interaction logic for StudentDataReadView.xaml
+    /// Interaction logic for ExamView.xaml
     /// </summary>
-    public partial class StudentDataReadView : Window
+    public partial class ExamView : Window
     {
-        public StudentDataReadView()
+        public ExamView()
         {
             InitializeComponent();
         }
@@ -29,5 +29,6 @@ namespace NaimouzaHighSchool.Views
         {
             IsOpen = false;
         }
+
     }
 }

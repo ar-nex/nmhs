@@ -55,18 +55,18 @@ namespace NaimouzaHighSchool
             scom.Show();
         }
 
-        private void MenuItem_Click_6(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                 StudentDataReadView stdR = new StudentDataReadView();
-                 stdR.Show();
-            }
-            catch (Exception nm1)
-            {
+        //private void MenuItem_Click_6(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //         StudentDataReadView stdR = new StudentDataReadView();
+        //         stdR.Show();
+        //    }
+        //    catch (Exception nm1)
+        //    {
 
-                MessageBox.Show("nm1 : "+nm1.Message);
-            }
-        }
+        //        MessageBox.Show("nm1 : "+nm1.Message);
+        //    }
+        //}
     }
 }

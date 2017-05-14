@@ -3,10 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:sns="clr-namespace:NaimouzaHighSchool.ViewModels"
         xmlns:conv="clr-namespace:NaimouzaHighSchool.ViewModels.Converters"
+        xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
         Title="Staff" Height="550" Width="800" Closing="Window_Closing_1">
     <Window.Resources>
         <sns:StaffDetailViewModel x:Key="svm"></sns:StaffDetailViewModel>
         <conv:DateConverter1 x:Key="DateConverter"></conv:DateConverter1>
+        
     </Window.Resources>
     <DockPanel LastChildFill="True">
         <Border DockPanel.Dock="Bottom" Background="Maroon">

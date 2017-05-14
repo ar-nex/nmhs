@@ -19,6 +19,8 @@ namespace NaimouzaHighSchool.ViewModels
         public RelayCommand ShowBoardExamViewCommand { get; set; }
         public RelayCommand ShowDeleteViewCommand { get; set; }
         public RelayCommand ShowStaffDetailViewCommand { get; set; }
+        public RelayCommand ShowExamViewCommand { get; set; }
+        public RelayCommand ShowStudentDetailViewCommand { get; set; }
 
         private void StartUpInitializer()
         {
@@ -27,6 +29,8 @@ namespace NaimouzaHighSchool.ViewModels
             this.ShowBoardExamViewCommand = new RelayCommand(this.ShowBoardExamView, this.CanShowBoardExamView);
             this.ShowDeleteViewCommand = new RelayCommand(this.ShowDeleteView, this.CanShowDeleteView);
             this.ShowStaffDetailViewCommand = new RelayCommand(this.ShowStaffDetailView, this.CanShowStaffDetailView);
+            this.ShowExamViewCommand = new RelayCommand(this.ShowExamView, this.CanShowExamView);
+            this.ShowStudentDetailViewCommand = new RelayCommand(this.ShowStudentDetailView, this.CanShowStudentDetailView);
         }
 
         private void ShowExcelExport()
@@ -122,6 +126,53 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanShowStaffDetailView()
         {
             return !NaimouzaHighSchool.Views.StaffDetailView.IsOpen;
+        }
+
+        private void ShowExamView()
+        {
+            if (NaimouzaHighSchool.Views.ExamView.IsOpen)
+            {
+                return;
+            }
+            else
+            {
+                NaimouzaHighSchool.Views.ExamView examView = new Views.ExamView();
+                examView.Show();
+                NaimouzaHighSchool.Views.ExamView.IsOpen = true;
+            }
+        }
+
+        private bool CanShowExamView()
+        {
+            return !NaimouzaHighSchool.Views.ExamView.IsOpen;
+        }
+
+        private void ShowStudentDetailView()
+        {
+            if (NaimouzaHighSchool.Views.StudentDataReadView.IsOpen)
+            {
+                return;
+            }
+            else
+            {
+                NaimouzaHighSchool.Views.StudentDataReadView stdView;
+                try
+                {
+                    stdView = new Views.StudentDataReadView();
+                    stdView.Show();
+                    NaimouzaHighSchool.Views.StudentDataReadView.IsOpen = true;
+                }
+                catch (Exception sview)
+                {
+                    System.Windows.MessageBox.Show("sview : "+sview.Message);
+                }
+                
+            }
+        }
+
+        private bool CanShowStudentDetailView()
+        {
+            return !NaimouzaHighSchool.Views.StudentDataReadView.IsOpen;
         }
     }
 }

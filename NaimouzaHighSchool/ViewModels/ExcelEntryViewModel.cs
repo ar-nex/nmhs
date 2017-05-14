@@ -188,7 +188,6 @@ namespace NaimouzaHighSchool.ViewModels
 
         public void Reset()
         {
-            this.TxbFileName = null;
             this.IgnoredRow = -1;
             ExcelColumnPositionService ExServiceNew = new ExcelColumnPositionService();
             this.ListExCol = ExServiceNew.getListCol();
@@ -207,7 +206,10 @@ namespace NaimouzaHighSchool.ViewModels
             Excel.Application xlApp = new Excel.Application();
             try
             {
-                Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(this.TxbFileName);
+                //Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(this.TxbFileName);
+                var xlWorkbooks = xlApp.Workbooks;
+                
+                Excel.Workbook xlWorkbook = xlWorkbooks.Open(this.TxbFileName);
                 Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
                 Excel.Range xlRange = xlWorksheet.UsedRange;
 
@@ -271,11 +273,12 @@ namespace NaimouzaHighSchool.ViewModels
                 //close and release
                 xlWorkbook.Close();
                 Marshal.ReleaseComObject(xlWorkbook);
+                Marshal.ReleaseComObject(xlWorkbooks);
 
                 //quit and release
                 xlApp.Quit();
                 Marshal.ReleaseComObject(xlApp);
-
+                this.TxbFileName = string.Empty;
             }
             catch (Exception e)
             {

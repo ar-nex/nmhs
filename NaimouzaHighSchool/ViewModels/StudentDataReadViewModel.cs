@@ -37,7 +37,11 @@ namespace NaimouzaHighSchool.ViewModels
         public string SearchText
         {
             get { return this._searchText; }
-            set { this._searchText = value.ToUpper(); this.OnPropertyChanged("SearchText"); }
+            set 
+            { 
+                this._searchText = value.ToUpper(); 
+                this.OnPropertyChanged("SearchText"); 
+            }
         }
 
         private string _searchTextBoxLabel;
@@ -101,6 +105,14 @@ namespace NaimouzaHighSchool.ViewModels
             set 
             { 
                 this._searchCategory = value;
+                if (value == "cls")
+                {
+                    this.SearchTextBoxLabel = "Roll ";
+                }
+                else
+                {
+                    this.SearchTextBoxLabel = "Name ";
+                }
                 this.ResetSearchEntry();
                 this.OnPropertyChanged("SearchCategory"); 
             }
@@ -145,6 +157,7 @@ namespace NaimouzaHighSchool.ViewModels
             set
             {
                 this._selectedStudentListIndex = value;
+                this.OnPropertyChanged("SelectedStudentListIndex");
                 this.StdDetailVisibility = (value > -1) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
                 if (value > -1)
                 {
@@ -164,8 +177,9 @@ namespace NaimouzaHighSchool.ViewModels
                             break;
                         }
                     }
+                   
                 }
-                this.OnPropertyChanged("SelectedStudentListIndex");
+                
             }
         }
 
@@ -276,7 +290,16 @@ namespace NaimouzaHighSchool.ViewModels
         public string TxbRollColor { get { return this._txbRollColor; } set { this._txbRollColor = value; this.OnPropertyChanged("TxbRollColor"); } }
 
         private string _txbGen;
-        public string TxbGen { get { return this._txbGen; } set { this._txbGen = value; this.OnPropertyChanged("TxbGen"); } }
+        public string TxbGen 
+        { 
+            get { return this._txbGen; } 
+            set 
+            { 
+                this._txbGen = value;
+                this.OnPropertyChanged("TxbGen"); 
+            } 
+        }
+        
         private string _txbGenColor;
         public string TxbGenColor { get { return this._txbGenColor; } set { this._txbGenColor = value; this.OnPropertyChanged("TxbGenColor"); } }
 
@@ -599,9 +622,8 @@ namespace NaimouzaHighSchool.ViewModels
             this.db = new StudentDataReadDb();
 
             this.SearchCategory = "name";
+            this.SearchTextBoxLabel = "Name ";
             this.FilterCategory = "none";
-           // this.SelectedClassIndex = -1;
-           // this.SelectedSectionIndex = -1;
             this.SchoolClassessIndex = -1;
             this.SchoolSectionIndex = -1;
             this.SocialCatListIndex = -1;
@@ -640,27 +662,43 @@ namespace NaimouzaHighSchool.ViewModels
             }
             else if(this.SearchCategory == "cls")
             { 
-                //search only by class
-                if (this.SelectedClassIndex > -1 && this.SelectedSectionIndex == -1 && this.Roll == 0)
+                
+                //if roll not exist.
+                if (string.IsNullOrEmpty(this.SearchText))
                 {
-                    this.Slist = db.GetStudentListByClass(this.SelectedClass);
+                    if (this.SelectedClassIndex > -1 && this.SelectedSectionIndex == -1)
+                    {
+                        this.Slist = db.GetStudentListByClass(this.SelectedClass);
+                    }
+                    else if (this.SelectedClassIndex > -1 && this.SelectedSectionIndex > -1)
+                    {
+                        this.Slist = db.GetStudentListByClass(this.SelectedClass, this.SelectedSection);
+                    }
                 }
-                // search by class and section
-                else if(this.SelectedClassIndex > -1 && this.SelectedSectionIndex > -1 && this.Roll == 0)
+                    // if roll exist verify it.
+                else 
                 {
-                    this.Slist = db.GetStudentListByClass(this.SelectedClass, this.SelectedSection);
+                    int rl;
+                    bool bl = Int32.TryParse(this.SearchText, out rl);
+                    if (bl)
+                    {
+                        if (this.SelectedClassIndex > -1 && this.SelectedSectionIndex > -1)
+                        {
+                            this.Slist = db.GetStudentListByClass(this.SelectedClass, this.SelectedSection, rl);
+                        }
+                        else if (this.SelectedClassIndex > -1 && this.SelectedSectionIndex == -1)
+                        {
+                            this.Slist = db.GetStudentListByClass(this.SelectedClass, rl);
+                        }
+                    }
+                    else 
+                    {
+                        System.Windows.MessageBox.Show("Only digits are allowed in roll number.");
+                        return;
+                    }
                 }
-                    // serach by class, section and roll
-                else if(this.SelectedClassIndex > -1 && this.SelectedSectionIndex > -1 && this.Roll > 0)
-                {
-                    this.Slist = db.GetStudentListByClass(this.SelectedClass, this.SelectedSection, this.Roll);
-                }
-
-                // seach by class and roll
-                else if (this.SelectedClassIndex > -1 && this.Roll > 0)
-                {
-                    this.Slist = db.GetStudentListByClass(this.SelectedClass, this.Roll);
-                }
+                
+               
 
             }
 
@@ -721,7 +759,9 @@ namespace NaimouzaHighSchool.ViewModels
 
         private void BuildStdDetailView(Student s)
         {
+            this.TxbGen = s.Sex;
             this.TxbName = s.Name;
+            
             this.TxbNameColor = fontcolor1;
             this.TxbCls = s.StudyingClass;
             this.SchoolClassessIndex = Array.IndexOf(this.SchoolClasses, s.StudyingClass);
@@ -734,7 +774,8 @@ namespace NaimouzaHighSchool.ViewModels
             string sdob_temp = s.Dob.ToString("dd-MM-yyyy");
             this.Dob = s.Dob;
             this.DobColor = (sdob_temp == "01-01-0001") ? fontcolor0 : fontcolor1;
-            this.TxbGen = (string.IsNullOrEmpty(s.Sex)) ? defaultEntry : s.Sex;
+           
+
             this.TxbGenColor = (string.IsNullOrEmpty(s.Sex)) ? fontcolor0 : fontcolor1;
             //not implemented yet
             this.TxbAge = "Not implemented yet.";
