@@ -30,7 +30,7 @@ namespace NaimouzaHighSchool.ViewModels
 
         #region property field
         private const string fontcolor1 = "#053646";
-        private const string fontcolor0 = "LightGray";
+        private const string fontcolor0 = "#053646";
         private const string defaultEntry = "";
         #region search bar
         private string _searchText;
@@ -491,8 +491,8 @@ namespace NaimouzaHighSchool.ViewModels
         private System.Windows.Visibility _stdDetailVisibility;
         public System.Windows.Visibility StdDetailVisibility
         {
-            get { return this._stdDetailVisibility; }
-           // get { return System.Windows.Visibility.Visible; }
+           // get { return this._stdDetailVisibility; }
+            get { return System.Windows.Visibility.Visible; }
             set { this._stdDetailVisibility = value; this.OnPropertyChanged("StdDetailVisibility"); }
         }
         #region Admission
@@ -595,6 +595,132 @@ namespace NaimouzaHighSchool.ViewModels
                 this.OnPropertyChanged("SelectedComboCode"); 
             }
         }
+
+        private string _headerBackground;
+        public string HeaderBackground
+        {
+            get { return this._headerBackground; }
+            set { this._headerBackground = value; this.OnPropertyChanged("HeaderBackground"); }
+        }
+
+        private string _headerBGgen;
+        public string HeaderBGgen
+        {
+            get { return _headerBGgen; }
+            set { this._headerBGgen = value; this.OnPropertyChanged("HeaderBGgen"); }
+        }
+
+        private string _headerBGpar;
+        public string HeaderBGpar
+        {
+            get { return _headerBGpar; }
+            set { this._headerBGpar = value; this.OnPropertyChanged("HeaderBGpar"); }
+        }
+
+        private string _headerBGsoc;
+        public string HeaderBGsoc
+        {
+            get { return _headerBGsoc; }
+            set { this._headerBGsoc = value; this.OnPropertyChanged("HeaderBGsoc"); }
+        }
+
+        private string _headerBGadd;
+        public string HeaderBGadd
+        {
+            get { return _headerBGadd; }
+            set { this._headerBGadd = value; this.OnPropertyChanged("HeaderBGadd"); }
+        }
+
+        private string _headerBGbnk;
+        public string HeaderBGbnk
+        {
+            get { return _headerBGbnk; }
+            set { this._headerBGbnk = value; this.OnPropertyChanged("HeaderBGbnk"); }
+        }
+
+        private string _headerBGadm;
+        public string HeaderBGadm
+        {
+            get { return _headerBGadm; }
+            set { this._headerBGadm = value; this.OnPropertyChanged("HeaderBGadm"); }
+        }
+
+        private string _headerBGoth;
+        public string HeaderBGoth
+        {
+            get { return _headerBGoth; }
+            set { this._headerBGoth = value; this.OnPropertyChanged("HeaderBGoth"); }
+        }
+        private bool _hitTestGeneral;
+        public bool HitTestGeneral
+        {
+            get { return this._hitTestGeneral; }
+            set { this._hitTestGeneral = value; this.OnPropertyChanged("HitTestGeneral"); }
+        }
+
+        private bool _isReadOnlyGen;
+        public bool IsReadOnlyGen
+        {
+            get { return this._isReadOnlyGen; }
+            set { this._isReadOnlyGen = value; this.OnPropertyChanged("IsReadOnlyGen"); }
+        }
+
+        private bool _isReadOnlyPar;
+        public bool IsReadOnlyPar
+        {
+            get { return this._isReadOnlyPar; }
+            set { this._isReadOnlyPar = value; this.OnPropertyChanged("IsReadOnlyPar"); }
+        }
+
+        private bool _hitTestSoc;
+        public bool HitTestSoc
+        {
+            get { return this._hitTestSoc; }
+            set { this._hitTestSoc = value; this.OnPropertyChanged("HitTestSoc"); }
+        }
+
+        private bool _isReadOnlySoc;
+        public bool IsReadOnlySoc
+        {
+            get { return this._isReadOnlySoc; }
+            set { this._isReadOnlySoc = value; this.OnPropertyChanged("IsReadOnlySoc"); }
+        }
+
+      
+        private bool _isReadOnlyAdd;
+        public bool IsReadOnlyAdd
+        {
+            get { return this._isReadOnlyAdd; }
+            set { this._isReadOnlyAdd = value; this.OnPropertyChanged("IsReadOnlyAdd"); }
+        }
+
+        private bool _isReadOnlyBnk;
+        public bool IsReadOnlyBnk
+        {
+            get { return this._isReadOnlyBnk; }
+            set { this._isReadOnlyBnk = value; this.OnPropertyChanged("IsReadOnlyBnk"); }
+        }
+
+        private bool _hitTestAdm;
+        public bool HitTestAdm
+        {
+            get { return this._hitTestAdm; }
+            set { this._hitTestAdm = value; this.OnPropertyChanged("HitTestAdm"); }
+        }
+
+        private bool _isReadOnlyAdm;
+        public bool IsReadOnlyAdm
+        {
+            get { return this._isReadOnlyAdm; }
+            set { this._isReadOnlyAdm = value; this.OnPropertyChanged("IsReadOnlyAdm"); }
+        }
+
+        private bool _isReadOnlyOth;
+        public bool IsReadOnlyOth
+        {
+            get { return this._isReadOnlyOth; }
+            set { this._isReadOnlyOth = value; this.OnPropertyChanged("IsReadOnlyOth"); }
+        }
         #endregion
 
         public RelayCommand DeleteCommand { get; set; }
@@ -605,6 +731,14 @@ namespace NaimouzaHighSchool.ViewModels
         public RelayCommand SortByClassCommand { get; set; }
         public RelayCommand SortBySectionCommand { get; set; }
         public RelayCommand SortByRollCommand { get; set; }
+
+        public RelayCommand GenEditBtnCommand { get; set; }
+        public RelayCommand ParEditBtnCommand { get; set; }
+        public RelayCommand SocEditBtnCommand { get; set; }
+        public RelayCommand AddrEditBtnCommand { get; set; }
+        public RelayCommand BnkEditBtnCommand { get; set; }
+        public RelayCommand AdmEditBtnCommand { get; set; }
+        public RelayCommand OthEditBtnCommand { get; set; }
         #endregion
 
         #region method
@@ -629,6 +763,9 @@ namespace NaimouzaHighSchool.ViewModels
             this.SocialCatListIndex = -1;
             this.BloodGroupIndex = -1;
             this.SelectedStudentListIndex = -1;
+            this.ClassessForAdmissionIndex = -1;
+
+            this.MakeReadOnly();
 
 
             this.ComboCodeList = new List<SubjectCombo>();
@@ -639,6 +776,12 @@ namespace NaimouzaHighSchool.ViewModels
             this.ArrayOfSubs = new System.Collections.ArrayList();
             this.SubDictionary = new Dictionary<string, System.Collections.ArrayList>();
 
+            this.CommandInitializer();
+           
+        }
+
+        private void CommandInitializer()
+        {
             this.SearchCommand = new RelayCommand(this.Search, this.CanSearch);
 
             this.DeleteCommand = new RelayCommand(this.Delete, this.CanDelete);
@@ -649,6 +792,14 @@ namespace NaimouzaHighSchool.ViewModels
             this.SortByClassCommand = new RelayCommand(this.SortByClass, this.CanSortByClass);
             this.SortBySectionCommand = new RelayCommand(this.SortBySection, this.CanSortBySection);
             this.SortByRollCommand = new RelayCommand(this.SortByRoll, this.CanSortByRoll);
+
+            this.GenEditBtnCommand = new RelayCommand(this.GenEditBtnClicked, this.CanEditBtnClicked);
+            this.ParEditBtnCommand = new RelayCommand(this.ParEditBtnClicked, this.CanEditBtnClicked);
+            this.SocEditBtnCommand = new RelayCommand(this.SocEditBtnClicked, this.CanEditBtnClicked);
+            this.AddrEditBtnCommand = new RelayCommand(this.AddEditBtnClicked, this.CanEditBtnClicked);
+            this.BnkEditBtnCommand = new RelayCommand(this.BnkEditBtnClicked, this.CanEditBtnClicked);
+            this.AdmEditBtnCommand = new RelayCommand(this.AdmEditBtnClicked, this.CanEditBtnClicked);
+            this.OthEditBtnCommand = new RelayCommand(this.OthEditBtnClicked, this.CanEditBtnClicked);
         }
 
         private void Search()
@@ -929,7 +1080,7 @@ namespace NaimouzaHighSchool.ViewModels
             if (db.UpdateStudentInfo(EditedStudent))
             {
                 System.Windows.MessageBox.Show("Saved");
-                //this.StudentList[this.SelectedStudentListIndex] = EditedStudent;
+                this.MakeReadOnly();
                 this.UpdateEditedStd(this.StudentList[this.SelectedStudentListIndex], EditedStudent);
                 
             }
@@ -1215,7 +1366,77 @@ namespace NaimouzaHighSchool.ViewModels
         }
         #endregion
 
+        #region editbtns
+        private void GenEditBtnClicked()
+        {
+            this.HitTestGeneral = true;
+            this.HeaderBGgen = "#f22550";
+            this.IsReadOnlyGen = false;
+        }
 
+        private void ParEditBtnClicked()
+        {
+            this.IsReadOnlyPar = false;
+            this.HeaderBGpar = "#f22550";
+        }
+
+        private void SocEditBtnClicked()
+        {
+            this.IsReadOnlySoc = false;
+            this.HeaderBGsoc = "#f22550";
+            this.HitTestSoc = true;
+        }
+
+        private void AddEditBtnClicked()
+        {
+            this.IsReadOnlyAdd = false;
+            this.HeaderBGadd = "#f22550";
+        }
+
+        private void BnkEditBtnClicked()
+        {
+            this.IsReadOnlyBnk = false;
+            this.HeaderBGbnk = "#f22550";
+        }
+
+        private void AdmEditBtnClicked()
+        {
+            this.IsReadOnlyAdm = false;
+            this.HeaderBGadm = "#f22550";
+            this.HitTestAdm = true;
+        }
+
+        private void OthEditBtnClicked()
+        {
+            this.IsReadOnlyOth = false;
+            this.HeaderBGoth = "#f22550";
+        }
+
+        private bool CanEditBtnClicked()
+        {
+            return true;
+        }
+
+        private void MakeReadOnly()
+        {
+            this.HeaderBGgen = this.HeaderBGpar = this.HeaderBGsoc = this.HeaderBGadd = this.HeaderBGbnk = this.HeaderBGadm = this.HeaderBGoth = "#FFD3EEDD";            
+            this.HitTestGeneral = false;
+            this.IsReadOnlyGen = true;
+            this.IsReadOnlyPar = true;
+
+            this.HitTestSoc = false;
+            this.IsReadOnlySoc = true;
+
+            this.IsReadOnlyAdd = true;
+
+            this.IsReadOnlyBnk = true;
+
+            this.IsReadOnlyAdm = true;
+            this.HitTestAdm = false;
+
+            this.IsReadOnlyOth = true;
+        }
+        #endregion
         #endregion
     }
 }
