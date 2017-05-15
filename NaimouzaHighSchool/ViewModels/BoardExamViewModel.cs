@@ -19,6 +19,7 @@ namespace NaimouzaHighSchool.ViewModels
 
         #region properties
 
+        #region visibility
         private System.Windows.Visibility _clsVisibility;
         public System.Windows.Visibility ClsVisibility
         {
@@ -121,14 +122,73 @@ namespace NaimouzaHighSchool.ViewModels
             }
         }
 
-        private int _txbTotalMarks;
-        public int TxbTotalMarks
+        #endregion
+        private int _txbFullMarks;
+        public int TxbFullMarks
         {
-            get { return this._txbTotalMarks; }
+            get { return this._txbFullMarks; }
             set 
             { 
-                this._txbTotalMarks = value; 
-                this.OnPropertyChanged("TxbTotalMarks"); 
+                this._txbFullMarks = value;
+                this.SetFullMarks();
+                this.OnPropertyChanged("TxbFullMarks"); 
+            }
+        }
+
+        public string[] ExamList { get; set; }
+        private int _examListIndex;
+        public int ExamListIndex
+        {
+            get { return this._examListIndex; }
+            set 
+            {
+                if (value > -1 && value < this.ExamList.Length)
+                {
+                    this._examListIndex = value;
+                }
+                else
+                {
+                    this._examListIndex = -1;
+                }
+                this.OnPropertyChanged("ExamListIndex");
+            }
+        }
+
+        private int _sessionStartYear;
+        public int SessionStartYear
+        {
+            get { return this._sessionStartYear; }
+            set
+            {
+                int cYear = DateTime.Today.Year;
+                if (value > cYear || value < cYear - 15)
+                {
+                    this._sessionStartYear = 1;
+                }
+                else
+                {
+                    this._sessionStartYear = value;
+                }
+                this.OnPropertyChanged("SessionStartYear");
+            }
+        }
+
+        private int _sessionEndYear;
+        public int SessionEndYear
+        {
+            get { return this._sessionEndYear; }
+            set
+            {
+                int cYear = DateTime.Today.Year;
+                if (value > cYear || value < cYear - 15)
+                {
+                    this._sessionEndYear = 1;
+                }
+                else
+                {
+                    this._sessionEndYear = value;
+                }
+                this.OnPropertyChanged("SessionEndYear");
             }
         }
 
@@ -136,21 +196,27 @@ namespace NaimouzaHighSchool.ViewModels
         private BoardExamDb db { get; set; }
 
         public RelayCommand SaveUpdatesCommand { get; set; }
+        public RelayCommand GetCommand { get; set; }
         #endregion
 
         #region method
         private void StartUpInitializer()
         {
+            this.ExamList = new string[] { "Secondary", "Higher Secondary"};
             this.db = new BoardExamDb();
 
             this.Lbs = new List<BoardStudent>();
-            this.Lbs = db.GetData("XI", "2017", "2017");
+            this.SessionStartYear = DateTime.Today.Year;
+            this.SessionEndYear = DateTime.Today.Year;
+
+            this.Lbs = db.GetData("X", "2017", "2017");
             this.IsClsVisible = false;
             this.IsSectionVisible = false;
             this.IsRollVisible = false;
             this.IsBoardRollVisible = true;
             this.IsBoardNoVisible = true;
             this.SaveUpdatesCommand = new RelayCommand(this.SaveUpdates, this.CanSaveUpdates);
+            this.GetCommand = new RelayCommand(this.Get, this.CanGet);
             
         }
 
@@ -162,6 +228,23 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanSaveUpdates()
         {
             return true;
+        }
+
+        private void SetFullMarks()
+        {
+            foreach (BoardStudent bs in this.Lbs)
+            {
+                bs.TotalMarks = this.TxbFullMarks;
+            }
+        }
+
+        private void Get()
+        { 
+        
+        }
+        private bool CanGet()
+        {
+            return (this.ExamListIndex != -1 && this.SessionStartYear != 1 && this.SessionEndYear != 1);
         }
         #endregion
     }

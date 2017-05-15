@@ -311,7 +311,7 @@ namespace NaimouzaHighSchool.ViewModels
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             this._flagCanInsert = true;
-            MessageBox.Show("Data inserted");
+            this.LblProgress = "Inserted Successfully.";
             this.Reset();
         }
 

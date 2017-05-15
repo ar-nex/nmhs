@@ -30,14 +30,9 @@ namespace NaimouzaHighSchool.Models.Database
             List<BoardStudent> lbs = new List<BoardStudent>();
             try
             {
-                //string sql = "SELECT b.id, b.name, e.year, e.marksObtained, e.totalMarks, e.grade, e.status FROM student_basic b LEFT JOIN BoardExam e ON e.student_basic_id = b.id INNER JOIN student_class c ON c.student_basic_id = b.id WHERE c.class = 'XI' AND c.section = 'A' AND c.startYear = '2017' AND c.endYear = '2017'";
-                //this.da = new MySqlDataAdapter(sql, this.conn);
-                //MySqlCommandBuilder cb = new MySqlCommandBuilder(da);
-                //da.Fill(this.ds, "BoardExam");
-
+            
                 this.conn.Open();
-                string sql = "SELECT b.id, b.name, c.class, c.section, c.roll FROM student_basic b LEFT JOIN BoardExam e ON e.student_basic_id != b.id INNER JOIN student_class c ON c.student_basic_id = b.id WHERE c.class = '" + cls + "' AND c.startYear = '" + syear + "' AND c.endYear = '" + eyear + "'";               
-               // string sql = "SELECT b.id, b.name, c.class, c.section, c.roll, e.year, e.marksObtained, e.totalMarks, e.grade, e.status FROM student_basic b LEFT JOIN BoardExam e ON e.student_basic_id != b.id INNER JOIN student_class c ON c.student_basic_id = b.id WHERE c.class = '"+cls+"' AND c.startYear = '"+syear+"' AND c.endYear = '"+eyear+"'";
+                string sql = "SELECT b.id, b.name, c.class, c.section, c.roll FROM student_basic b LEFT JOIN BoardExam e ON e.student_basic_id = b.id INNER JOIN student_class c ON c.student_basic_id = b.id WHERE c.class = '" + cls + "' AND c.startYear = '" + syear + "' AND c.endYear = '" + eyear + "' AND e.marksObtained IS NULL";
                 MySqlCommand cmd = new MySqlCommand(sql, this.conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())

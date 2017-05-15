@@ -76,9 +76,23 @@ namespace NaimouzaHighSchool.Models.Utility
             get { return this._obtainedMarks; }
             set 
             {
-                this._obtainedMarks = value;             
-                this.OnPropertyChanged("ObtainedMarks");
-                this.UpdateMarksStatus();
+                if (this.TotalMarks <= 300)
+                {
+                    System.Windows.MessageBox.Show("Please enter valid Full marks");
+                    this._obtainedMarks = 0;
+                }
+                else if (value > this.TotalMarks)
+                {
+                    System.Windows.MessageBox.Show("Marks obtained should be less than full marks");
+                    this._obtainedMarks = 0;
+                }
+                else
+                {
+                    this._obtainedMarks = value;
+                    this.OnPropertyChanged("ObtainedMarks");
+                    this.UpdateMarksStatus();
+                }
+                
             }
         }
 
