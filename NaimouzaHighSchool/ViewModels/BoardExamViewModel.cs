@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using NaimouzaHighSchool.Models.Utility;
@@ -192,7 +193,14 @@ namespace NaimouzaHighSchool.ViewModels
             }
         }
 
-        public List<BoardStudent> Lbs { get; set; }
+
+        private ObservableCollection<BoardStudent> _lbs;
+        public ObservableCollection<BoardStudent> Lbs 
+        {
+            get { return this._lbs; }
+            set { this._lbs = value; this.OnPropertyChanged("Lbs"); }
+        }
+        
         private BoardExamDb db { get; set; }
 
         public RelayCommand SaveUpdatesCommand { get; set; }
@@ -205,11 +213,11 @@ namespace NaimouzaHighSchool.ViewModels
             this.ExamList = new string[] { "Secondary", "Higher Secondary"};
             this.db = new BoardExamDb();
 
-            this.Lbs = new List<BoardStudent>();
+            this.Lbs = new ObservableCollection<BoardStudent>();
             this.SessionStartYear = DateTime.Today.Year;
             this.SessionEndYear = DateTime.Today.Year;
+            this.ExamListIndex = -1;
 
-            this.Lbs = db.GetData("X", "2017", "2017");
             this.IsClsVisible = false;
             this.IsSectionVisible = false;
             this.IsRollVisible = false;
@@ -222,12 +230,78 @@ namespace NaimouzaHighSchool.ViewModels
 
         private void SaveUpdates()
         {
-           
-            //this.db.UpdateData();
+            foreach (BoardStudent item in this.Lbs)
+            {
+                if (item.Status == "PASS")
+                {
+                    item.Status = "P";
+                }
+
+                if (item.Status == "FAIL" )
+                {
+                    item.Status = "F";
+                }
+
+                if (!item.AppearedInExam)
+                {
+                    item.ObtainedMarks = 0;
+                    item.Status = "A";
+                }
+            }
+
+            string cls = string.Empty;
+            if (this.ExamListIndex == 0)
+            {
+                cls = "MP";
+            }
+            else if (this.ExamListIndex == 1)
+            {
+                cls = "HS";
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Please class.");
+                return;
+            }
+            var ListForDb = from n in this.Lbs
+                            where n.ObtainedMarks > 0
+                            select n;
+            List<BoardStudent> finalListForDb = new List<BoardStudent>();
+            foreach (BoardStudent item in ListForDb)
+            {
+                finalListForDb.Add(item);
+            }
+
+            if (finalListForDb.Count > 0)
+            {
+                int insertedRecords = this.db.InsertData(finalListForDb, cls, this.SessionEndYear);
+                if (insertedRecords > 0)
+                {
+                    System.Windows.MessageBox.Show(insertedRecords.ToString() + " record(s) inserted.");
+                    foreach (BoardStudent item in finalListForDb)
+                    {
+                        this.Lbs.Remove(item);
+                    }
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("No record inserted.");
+                }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Please enter obtained marks.");
+                return;
+            }
+
+            
         }
         private bool CanSaveUpdates()
         {
-            return true;
+            int len = (from n in this.Lbs
+                       where n.ObtainedMarks > 0
+                       select n).Count();
+            return (len > 0 && this.ExamListIndex > -1);
         }
 
         private void SetFullMarks()
@@ -239,8 +313,35 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private void Get()
-        { 
-        
+        {
+            
+            string cls;
+            if (this.ExamListIndex == 0)
+            {
+                cls = "X";
+            }
+            else
+            {
+                cls = "XII";
+            }
+            if (this.TxbFullMarks > 0)
+            {
+                List<BoardStudent> tempList = db.GetData(cls, this.SessionStartYear.ToString(), this.SessionEndYear.ToString());
+                if (tempList.Count > 0)
+                {
+                    foreach (BoardStudent item in tempList)
+                    {
+                        item.TotalMarks = this.TxbFullMarks;
+                    }
+                    this.Lbs = new ObservableCollection<BoardStudent>(tempList);
+                }
+            }
+            else
+            {
+                this.Lbs = new ObservableCollection<BoardStudent>(db.GetData(cls, this.SessionStartYear.ToString(), this.SessionEndYear.ToString()));
+            }
+            
+           
         }
         private bool CanGet()
         {

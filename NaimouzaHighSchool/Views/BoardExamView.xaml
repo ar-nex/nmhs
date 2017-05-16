@@ -36,9 +36,9 @@
                     <Label>Exam</Label>
                     <ComboBox Width="120" ItemsSource="{Binding ExamList, Source={StaticResource bvm}}" SelectedIndex="{Binding ExamListIndex, Source={StaticResource bvm}}"></ComboBox>
                     <Label>Session </Label>
-                    <TextBox Width="50"></TextBox>
+                    <TextBox Width="50" Text="{Binding SessionStartYear,Source={StaticResource bvm}, Converter={StaticResource IntConverter}}"></TextBox>
                     <Label>-</Label>
-                    <TextBox Width="50"></TextBox>
+                    <TextBox Width="50" Text="{Binding SessionEndYear, Source={StaticResource bvm}, Converter={StaticResource IntConverter}}"></TextBox>
                     <Label>Full Marks</Label>
                     <TextBox Width="50" Text="{Binding TxbFullMarks, Source={StaticResource bvm}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Button Width="80" Command="{Binding GetCommand, Source={StaticResource bvm}}">Get</Button>
@@ -55,17 +55,18 @@
             <DataGrid Grid.Row="1" ItemsSource="{Binding Lbs, Source={StaticResource bvm}}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Path=Name}"/>
-                    <DataGridTextColumn Header="Class" Binding="{Binding Path=Cls}" Visibility="{Binding ClsVisibility, Source={StaticResource bvm}}"/>
-                    <DataGridTextColumn Header="Section" Binding="{Binding Path=Section}" Visibility="{Binding SectionVisibility, Source={StaticResource bvm}}"/>
-                    <DataGridTextColumn Header="Roll" Binding="{Binding Path=Roll, Converter={StaticResource IntConverter}}" Visibility="{Binding RollVisibility, Source={StaticResource bvm}}"/>
-                    <DataGridTextColumn Header="Exam Roll" Binding="{Binding Path=BoardRoll}" Visibility="{Binding BoardRollVisibility, Source={StaticResource bvm}}"/>
-                    <DataGridTextColumn Header="Exam No" Binding="{Binding Path=BoardNo}" Visibility="{Binding BoardNoVisibility, Source={StaticResource bvm}}"/>
+                    <DataGridCheckBoxColumn Header="Present" Binding="{Binding Path=AppearedInExam}"/>
+                    <DataGridTextColumn Header="Class" IsReadOnly="True" Binding="{Binding Path=Cls}" Visibility="{Binding ClsVisibility, Source={StaticResource bvm}}"/>
+                    <DataGridTextColumn Header="Section" IsReadOnly="True" Binding="{Binding Path=Section}" Visibility="{Binding SectionVisibility, Source={StaticResource bvm}}"/>
+                    <DataGridTextColumn Header="Roll" IsReadOnly="True" Binding="{Binding Path=Roll, Converter={StaticResource IntConverter}}" Visibility="{Binding RollVisibility, Source={StaticResource bvm}}"/>
+                    <DataGridTextColumn Header="Exam Roll" IsReadOnly="True" Binding="{Binding Path=BoardRoll}" Visibility="{Binding BoardRollVisibility, Source={StaticResource bvm}}"/>
+                    <DataGridTextColumn Header="Exam No" IsReadOnly="True" Binding="{Binding Path=BoardNo}" Visibility="{Binding BoardNoVisibility, Source={StaticResource bvm}}"/>
                     <DataGridTextColumn Header="Obtained Marks" Binding="{Binding Path=ObtainedMarks, Converter={StaticResource IntConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="Full Marks" IsReadOnly="True"
                                         Binding="{Binding Path=TotalMarks, Converter={StaticResource IntConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Header="Percentage" Binding="{Binding Path=Percentage}"/>
-                    <DataGridTextColumn Header="Grade" Binding="{Binding Path=Grade}"/>
-                    <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}"/>
+                    <DataGridTextColumn Header="Percentage" Binding="{Binding Path=Percentage}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Grade" Binding="{Binding Path=Grade}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

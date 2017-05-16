@@ -11,7 +11,7 @@ namespace NaimouzaHighSchool.Models.Utility
         public BoardStudent()
         : base()
         {
-
+            this.AppearedInExam = true;
         }
 
         private string _id;
@@ -129,10 +129,24 @@ namespace NaimouzaHighSchool.Models.Utility
             set { this._status = value.ToUpper(); this.OnPropertyChanged("Status"); }
         }
 
+        private bool _appearedInExam;
+        public bool AppearedInExam
+        {
+            get { return this._appearedInExam; }
+            set 
+            { 
+                this._appearedInExam = value; 
+                this.OnPropertyChanged("AppearedInExam");
+                if (!value)
+                {
+                    this.Status = "Absent";
+                }
+            }
+        }
 
         private void UpdateMarksStatus()
         {
-            if (this.TotalMarks > 0)
+            if (this.TotalMarks > 0 && this.ObtainedMarks > 0)
             {
                 this.Percentage = (this.ObtainedMarks  * 100 ) / this.TotalMarks;
                 if (this.Percentage >= 90 && this.Percentage <= 100)
