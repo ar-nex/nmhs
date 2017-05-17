@@ -148,7 +148,7 @@
                                 <Label>Search by :</Label>
                                  <RadioButton GroupName="search" Style="{StaticResource searchRadio}"
                                     IsChecked="{Binding SearchCategory, Source={StaticResource dObj}, Converter={StaticResource SearchConverter}, ConverterParameter=cls}" >
-                                    Class info
+                                    Class / Roll
                                  </RadioButton>
                                  <RadioButton GroupName="search" Style="{StaticResource searchRadio}"
                                     IsChecked="{Binding SearchCategory, Source={StaticResource dObj}, Converter={StaticResource SearchConverter}, ConverterParameter=name}" >

@@ -861,6 +861,10 @@ namespace NaimouzaHighSchool.ViewModels
                         {
                             this.Slist = db.GetStudentListByClass(this.SelectedClass, rl);
                         }
+                        else if (this.SelectedClassIndex == -1 && this.SelectedSectionIndex == -1)
+                        {
+                            this.Slist = db.GetStudentListByClass(rl);
+                        }
                     }
                     else 
                     {
@@ -900,7 +904,9 @@ namespace NaimouzaHighSchool.ViewModels
                         rs = (string.IsNullOrEmpty(this.SearchText)) ? false : true;
                         break;
                     case "cls":
-                        rs = (this.SelectedClassIndex == -1) ? false : true;
+                         int rl;
+                         bool bl = Int32.TryParse(this.SearchText, out rl);
+                        rs = (this.SelectedClassIndex == -1 && this.SelectedSectionIndex == -1 && !bl) ? false : true;
                         break;
                     case "clsName":
                         rs = ((this.SelectedClassIndex == -1) || (string.IsNullOrEmpty(this.SearchText))) ? false : true;
