@@ -109,9 +109,29 @@ namespace NaimouzaHighSchool.ViewModels
                 {
                     this.SearchTextBoxLabel = "Roll ";
                 }
-                else
+                else if(value == "name")
                 {
                     this.SearchTextBoxLabel = "Name ";
+                }
+                else if (value == "aadhar")
+                {
+                    this.SearchTextBoxLabel = "Aadhaar";
+                }
+                else if (value == "admissionNo")
+                {
+                    this.SearchTextBoxLabel = "Admission No.";
+                }
+                else if(value == "madhyamicRoll")
+                {
+                    this.SearchTextBoxLabel = "Madhyamic Roll";
+                }
+                else if(value == "madhyamicNo")
+                {
+                    this.SearchTextBoxLabel = "Madhyamic No.";
+                }
+                else
+                {
+                    this.SearchTextBoxLabel = "Search Text";
                 }
                 this.ResetSearchEntry();
                 this.OnPropertyChanged("SearchCategory"); 
@@ -491,8 +511,8 @@ namespace NaimouzaHighSchool.ViewModels
         private System.Windows.Visibility _stdDetailVisibility;
         public System.Windows.Visibility StdDetailVisibility
         {
-           // get { return this._stdDetailVisibility; }
-            get { return System.Windows.Visibility.Visible; }
+            get { return this._stdDetailVisibility; }
+           // get { return System.Windows.Visibility.Visible; }
             set { this._stdDetailVisibility = value; this.OnPropertyChanged("StdDetailVisibility"); }
         }
         #region Admission
@@ -755,8 +775,8 @@ namespace NaimouzaHighSchool.ViewModels
             this.StudentList = new ObservableCollection<Student>();
             this.db = new StudentDataReadDb();
 
-            this.SearchCategory = "name";
-            this.SearchTextBoxLabel = "Name ";
+            this.SearchCategory = "cls";
+            this.SearchTextBoxLabel = "Roll ";
             this.FilterCategory = "none";
             this.SchoolClassessIndex = -1;
             this.SchoolSectionIndex = -1;

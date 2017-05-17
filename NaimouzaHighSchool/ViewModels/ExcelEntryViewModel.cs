@@ -193,6 +193,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.ListExCol = ExServiceNew.getListCol();
             this.ProgressbarValue = "0";
             this.LblProgress = "0/0";
+            this.TxbFileName = string.Empty;
         }
 
         public bool CanReset()
@@ -204,89 +205,97 @@ namespace NaimouzaHighSchool.ViewModels
         private void processExcel(DoWorkEventArgs e_dw)
         {
             Excel.Application xlApp = new Excel.Application();
-            try
+            if (string.IsNullOrEmpty(this.TxbFileName))
             {
-                //Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(this.TxbFileName);
-                var xlWorkbooks = xlApp.Workbooks;
-                
-                Excel.Workbook xlWorkbook = xlWorkbooks.Open(this.TxbFileName);
-                Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
-                Excel.Range xlRange = xlWorksheet.UsedRange;
-
-                int rowCount = xlRange.Rows.Count;
-                int colCount = xlRange.Columns.Count;
-
-                int scannableFirstRow = this.IgnoredRow + 1;
-                string[] rowValues = new string[colCount];
-                
-                ExcelColumnStudentBuilder stdBuild = new ExcelColumnStudentBuilder(this.ListExCol);
-
-                for (int i = scannableFirstRow; i <= rowCount; i++)
+                return;
+            }
+            else
+            {
+                try
                 {
-                    bool breakFlag = false;
-                    for (int j = 1; j <= colCount; j++)
+
+                    var xlWorkbooks = xlApp.Workbooks;
+                    Excel.Workbook xlWorkbook = xlWorkbooks.Open(this.TxbFileName);
+                    Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
+                    Excel.Range xlRange = xlWorksheet.UsedRange;
+
+                    int rowCount = xlRange.Rows.Count;
+                    int colCount = xlRange.Columns.Count;
+
+                    int scannableFirstRow = this.IgnoredRow + 1;
+                    string[] rowValues = new string[colCount];
+
+                    ExcelColumnStudentBuilder stdBuild = new ExcelColumnStudentBuilder(this.ListExCol);
+
+                    for (int i = scannableFirstRow; i <= rowCount; i++)
                     {
-                        if (bw != null && bw.CancellationPending)
+                        bool breakFlag = false;
+                        for (int j = 1; j <= colCount; j++)
                         {
-                            e_dw.Cancel = true;
-                            breakFlag = true;
+                            if (bw != null && bw.CancellationPending)
+                            {
+                                e_dw.Cancel = true;
+                                breakFlag = true;
+                                break;
+                            }
+                            if (xlRange.Cells[i, j] != null && xlRange.Cells[i, j].Value2 != null)
+                            {
+                                rowValues[j - 1] = xlRange.Cells[i, j].Value2.ToString();
+                            }
+                            else
+                            {
+                                rowValues[j - 1] = "";
+                            }
+
+                        }
+                        if (breakFlag)
+                        {
                             break;
                         }
-                        if (xlRange.Cells[i, j] != null && xlRange.Cells[i, j].Value2 != null)
-                        {
-                            rowValues[j - 1] = xlRange.Cells[i, j].Value2.ToString();
-                        }
-                        else
-                        {
-                            rowValues[j - 1] = "";
-                        }
 
-                    }
-                    if (breakFlag)
-                    {
-                        break;
+                        //build student object for each row
+                        Student s = stdBuild.BuildStudent(rowValues, this.SelectedClass, this.SelectedSection);
+                        // insert into database
+                        bool hasInserted = ExDb.InsertFromExcel(s, this.SessionStartYear, this.SessionEndYear);
+
+                        this.LblProgress = i.ToString() + "/" + rowCount.ToString();
+                        float progressPercent = (i * 100) / rowCount;
+                        this.ProgressbarValue = progressPercent.ToString();
                     }
 
-                    //build student object for each row
-                    Student s = stdBuild.BuildStudent(rowValues, this.SelectedClass, this.SelectedSection);
-                    // insert into database
-                    bool hasInserted = ExDb.InsertFromExcel(s, this.SessionStartYear, this.SessionEndYear);
-                    
-                    this.LblProgress = i.ToString() + "/" + rowCount.ToString();
-                    float progressPercent = (i * 100) / rowCount;
-                    this.ProgressbarValue = progressPercent.ToString();
+
+                    //cleanup
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+
+                    //rule of thumb for releasing com objects:
+                    //  never use two dots, all COM objects must be referenced and released individually
+                    //  ex: [somthing].[something].[something] is bad
+
+                    //release com objects to fully kill excel process from running in the background
+                    Marshal.ReleaseComObject(xlRange);
+                    Marshal.ReleaseComObject(xlWorksheet);
+
+                    //close and release
+                    xlWorkbook.Close();
+                    Marshal.ReleaseComObject(xlWorkbook);
+
+                    this.TxbFileName = null;
+
+                    Marshal.ReleaseComObject(xlWorkbooks);
+
+                    //quit and release
+                    xlApp.Quit();
+                    Marshal.ReleaseComObject(xlApp);
+
+                }
+                catch (Exception e)
+                {
+
+                    MessageBox.Show(e.Message);
                 }
 
-
-                //cleanup
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-
-                //rule of thumb for releasing com objects:
-                //  never use two dots, all COM objects must be referenced and released individually
-                //  ex: [somthing].[something].[something] is bad
-
-                //release com objects to fully kill excel process from running in the background
-                Marshal.ReleaseComObject(xlRange);
-                Marshal.ReleaseComObject(xlWorksheet);
-
-                //close and release
-                xlWorkbook.Close();
-                Marshal.ReleaseComObject(xlWorkbook);
-                Marshal.ReleaseComObject(xlWorkbooks);
-
-                //quit and release
-                xlApp.Quit();
-                Marshal.ReleaseComObject(xlApp);
-                this.TxbFileName = string.Empty;
             }
-            catch (Exception e)
-            {
-
-                MessageBox.Show(e.Message);
-            }
-
-        
         }
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
@@ -296,7 +305,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
 
-
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             // this.excelProgressbar.Value = e.ProgressPercentage;
@@ -304,12 +312,9 @@ namespace NaimouzaHighSchool.ViewModels
             this.ProgressbarValue = e.ProgressPercentage.ToString() + e.UserState;
         }
 
-
-
-
-
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            this.TxbFileName = string.Empty;
             this._flagCanInsert = true;
             this.LblProgress = "Inserted Successfully.";
             this.Reset();
