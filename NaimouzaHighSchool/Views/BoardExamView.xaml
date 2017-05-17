@@ -21,6 +21,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid>
@@ -52,7 +53,33 @@
                     <CheckBox IsChecked="{Binding IsBoardNoVisible, Source={StaticResource bvm}}" Style="{StaticResource Check4Visibility}">Board/Council No.</CheckBox>
                 </StackPanel>
             </Grid>
-            <DataGrid Grid.Row="1" ItemsSource="{Binding Lbs, Source={StaticResource bvm}}" AutoGenerateColumns="False">
+            <StackPanel Grid.Row="1">
+                <TextBlock Background="YellowGreen" Padding="5">
+                    Category : R = Regular, C = Continuing, S = Special
+                </TextBlock>
+            </StackPanel>
+            <DataGrid Grid.Row="2" ItemsSource="{Binding Lbs, Source={StaticResource bvm}}" AutoGenerateColumns="False" >
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CandidateCategory}" Value="C">
+                                <Setter Property="Background" Value="#c5cef7"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CandidateCategory}" Value="R">
+                                <Setter Property="Background" Value="#e8f7c5"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CandidateCategory}" Value="S">
+                                <Setter Property="Background" Value="#F4FF81"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Status}" Value="FAIL">
+                                <Setter Property="Background" Value="#EF5350"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Status}" Value="ABSENT">
+                                <Setter Property="Background" Value="#F06292"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Path=Name}"/>
                     <DataGridCheckBoxColumn Header="Present" Binding="{Binding Path=AppearedInExam}"/>
@@ -67,6 +94,9 @@
                     <DataGridTextColumn Header="Percentage" Binding="{Binding Path=Percentage}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Grade" Binding="{Binding Path=Grade}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}" IsReadOnly="True"/>
+                    <DataGridComboBoxColumn Header="Category" ItemsSource="{Binding CandidateCategory, Source={StaticResource bvm}}"
+                                            SelectedItemBinding="{Binding Path=CandidateCategory}">
+                    </DataGridComboBoxColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

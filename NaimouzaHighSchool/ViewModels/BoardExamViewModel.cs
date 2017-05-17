@@ -193,6 +193,7 @@ namespace NaimouzaHighSchool.ViewModels
             }
         }
 
+       
 
         private ObservableCollection<BoardStudent> _lbs;
         public ObservableCollection<BoardStudent> Lbs 
@@ -200,7 +201,9 @@ namespace NaimouzaHighSchool.ViewModels
             get { return this._lbs; }
             set { this._lbs = value; this.OnPropertyChanged("Lbs"); }
         }
-        
+
+        public string[] CandidateCategory { get; set; }
+
         private BoardExamDb db { get; set; }
 
         public RelayCommand SaveUpdatesCommand { get; set; }
@@ -211,6 +214,7 @@ namespace NaimouzaHighSchool.ViewModels
         private void StartUpInitializer()
         {
             this.ExamList = new string[] { "Secondary", "Higher Secondary"};
+            this.CandidateCategory = new string[] { "R", "C", "S"};
             this.db = new BoardExamDb();
 
             this.Lbs = new ObservableCollection<BoardStudent>();

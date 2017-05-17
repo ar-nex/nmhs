@@ -12,6 +12,7 @@ namespace NaimouzaHighSchool.Models.Utility
         : base()
         {
             this.AppearedInExam = true;
+            this.CandidateCategory = "R";
         }
 
         private string _id;
@@ -141,6 +142,17 @@ namespace NaimouzaHighSchool.Models.Utility
                 {
                     this.Status = "Absent";
                 }
+            }
+        }
+
+        private string _candidateCategory;
+        public string CandidateCategory
+        {
+            get { return this._candidateCategory; }
+            set 
+            { 
+                this._candidateCategory = value.ToUpper();
+                this.OnPropertyChanged("CandidateCategory"); 
             }
         }
 

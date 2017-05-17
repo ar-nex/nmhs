@@ -55,7 +55,7 @@
                 <MenuItem Header="Certificate">
                     <MenuItem Header="Character" Click="MenuItem_Click_4" />
                     <MenuItem Header="Transfer"/>
-                    <MenuItem Header="School Leaving"/>
+                    <MenuItem Header="School Leaving &amp; Character" Command="{Binding ShowLeavingCharacterCommand, Source={StaticResource vm}}"/>
                 </MenuItem>
                 <MenuItem Header="Report">
                     <MenuItem Header="Export to Excel" Command="{Binding ShowExcelExportCommand, Source={StaticResource vm}}"/>

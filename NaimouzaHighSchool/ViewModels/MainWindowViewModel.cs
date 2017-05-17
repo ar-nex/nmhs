@@ -21,6 +21,7 @@ namespace NaimouzaHighSchool.ViewModels
         public RelayCommand ShowStaffDetailViewCommand { get; set; }
         public RelayCommand ShowExamViewCommand { get; set; }
         public RelayCommand ShowStudentDetailViewCommand { get; set; }
+        public RelayCommand ShowLeavingCharacterCommand { get; set; }
 
         private void StartUpInitializer()
         {
@@ -31,6 +32,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.ShowStaffDetailViewCommand = new RelayCommand(this.ShowStaffDetailView, this.CanShowStaffDetailView);
             this.ShowExamViewCommand = new RelayCommand(this.ShowExamView, this.CanShowExamView);
             this.ShowStudentDetailViewCommand = new RelayCommand(this.ShowStudentDetailView, this.CanShowStudentDetailView);
+            this.ShowLeavingCharacterCommand = new RelayCommand(this.ShowLvngCharcWindow, this.CanShowLvngCharcWindow);
         }
 
         private void ShowExcelExport()
@@ -173,6 +175,25 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanShowStudentDetailView()
         {
             return !NaimouzaHighSchool.Views.StudentDataReadView.IsOpen;
+        }
+
+        private void ShowLvngCharcWindow()
+        {
+            if (NaimouzaHighSchool.Views.SchoolLeavingAndCharacterView.IsOpen)
+            {
+                return;
+            }
+            else
+            {
+                NaimouzaHighSchool.Views.SchoolLeavingAndCharacterView LvCh = new Views.SchoolLeavingAndCharacterView();
+                NaimouzaHighSchool.Views.SchoolLeavingAndCharacterView.IsOpen = true;
+                LvCh.Show();
+            }
+        }
+
+        private bool CanShowLvngCharcWindow()
+        {
+            return !NaimouzaHighSchool.Views.SchoolLeavingAndCharacterView.IsOpen;
         }
     }
 }
