@@ -1160,8 +1160,9 @@ namespace NaimouzaHighSchool.ViewModels
                 }
                 
                 this.NumberOfMatches = this.StudentList.Count;
-                this.ResetSearchEntry();
+               // this.ResetSearchEntry();
                 this.SelectedStudentListIndex = -1;
+
             }
             else
             {

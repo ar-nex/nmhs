@@ -88,8 +88,15 @@ namespace NaimouzaHighSchool.Models.Utility
                             }
                             else
                             {
-                                double d = double.Parse(rowValues[i]);
-                                s.Dob = DateTime.FromOADate(d);
+                                if (string.IsNullOrEmpty(dt))
+                                {
+                                    s.Dob = default(DateTime);
+                                }
+                                else
+                                {
+                                    double d = double.Parse(rowValues[i]);
+                                    s.Dob = DateTime.FromOADate(d);
+                                }
 
                             }
                             
@@ -146,7 +153,7 @@ namespace NaimouzaHighSchool.Models.Utility
                             break;
                         case "Is BPL":
                             string valBPL = rowValues[i].ToUpper();
-                            if (valBPL == "Y" || valBPL == "YES" || valBPL == "1")
+                            if (valBPL == "Y" || valBPL == "YES" || valBPL == "1" || valBPL == "BPL")
                             {
                                 s.IsBpl = true;
                             }
@@ -215,9 +222,17 @@ namespace NaimouzaHighSchool.Models.Utility
                                 }
                             }
                             else
-                            {  
-                                double d1 = double.Parse(rowValues[i]);
-                                s.AdmDate = DateTime.FromOADate(d1);
+                            {
+                                if (string.IsNullOrEmpty(dt_adm))
+                                {
+                                    s.AdmDate = default(DateTime);
+                                }
+                                else
+                                {
+                                    double d1 = double.Parse(rowValues[i]);
+                                    s.AdmDate = DateTime.FromOADate(d1);
+                                }
+                                
                                
                             }
                            
@@ -254,9 +269,17 @@ namespace NaimouzaHighSchool.Models.Utility
                                 }
                             }
                             else
-                            {  
-                                double d2 = double.Parse(rowValues[i]);
-                                s.DateOfLeaving = DateTime.FromOADate(d2);
+                            {
+                                if (string.IsNullOrEmpty(dt_leave))
+                                {
+                                    s.DateOfLeaving = default(DateTime);
+                                }
+                                else
+                                {
+                                    double d2 = double.Parse(rowValues[i]);
+                                    s.DateOfLeaving = DateTime.FromOADate(d2);
+                                }
+                                
                                
                             }
                             break;

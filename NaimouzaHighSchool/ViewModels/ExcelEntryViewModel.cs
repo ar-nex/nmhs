@@ -38,7 +38,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.IncrementIgnoredRowCommand = new RelayCommand(IncrementIgnoredRow, CanIncrementIgnoredRow);
             this.DecrementIgnoredRowCommand = new RelayCommand(DecrementIgnoredRow, CanDecrementIgnoredRow);
             this.InsertDataCommand = new RelayCommand(InsertData, CanInsertData);
-            this.ResetCommand = new RelayCommand(Reset, CanReset);
+            this.ResetCommand = new RelayCommand(ResetAll, CanReset);
             this.AbortCommand = new RelayCommand(this.Abort, this.CanAbort);
             
         }
@@ -187,6 +187,16 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         public void Reset()
+        {
+            this.IgnoredRow = -1;
+            //ExcelColumnPositionService ExServiceNew = new ExcelColumnPositionService();
+            //this.ListExCol = ExServiceNew.getListCol();
+            this.ProgressbarValue = "0";
+            this.LblProgress = "0/0";
+            this.TxbFileName = string.Empty;
+        }
+
+        public void ResetAll()
         {
             this.IgnoredRow = -1;
             ExcelColumnPositionService ExServiceNew = new ExcelColumnPositionService();

@@ -126,6 +126,7 @@
     <Compile Include="Models\Database\StudentDataWriteDb.cs" />
     <Compile Include="Models\Database\SubjectComboDb.cs" />
     <Compile Include="Models\Database\SubjectGroupDb.cs" />
+    <Compile Include="Models\GlobalVar.cs" />
     <Compile Include="Models\StudentDataWriteModel.cs" />
     <Compile Include="Models\Utility\AdmissionInfo.cs" />
     <Compile Include="Models\Utility\BoardStudent.cs" />
@@ -142,7 +143,6 @@
     <Compile Include="ViewModels\Converters\CheckboxConverter.cs" />
     <Compile Include="ViewModels\Converters\CheckBoxVisibilityConverter.cs" />
     <Compile Include="ViewModels\Converters\DateConverter.cs" />
-    <Compile Include="ViewModels\Converters\DateConverter1.cs" />
     <Compile Include="ViewModels\Converters\GenderConverter.cs" />
     <Compile Include="ViewModels\Converters\GenderFilterConverter.cs" />
     <Compile Include="ViewModels\Converters\IntConverter.cs" />
@@ -152,6 +152,7 @@
     <Compile Include="ViewModels\ExcelExportViewModel.cs" />
     <Compile Include="ViewModels\GroupSubjectPaperViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\SchoolLeavingAndCharacterViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="ViewModels\StaffDetailViewModel.cs" />
     <Compile Include="ViewModels\StudentDataReadViewModel.cs" />

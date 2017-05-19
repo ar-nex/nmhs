@@ -7,7 +7,7 @@
         Title="Staff" Height="550" Width="800" Closing="Window_Closing_1">
     <Window.Resources>
         <sns:StaffDetailViewModel x:Key="svm"></sns:StaffDetailViewModel>
-        <conv:DateConverter1 x:Key="DateConverter"></conv:DateConverter1>
+
         
     </Window.Resources>
     <DockPanel LastChildFill="True">

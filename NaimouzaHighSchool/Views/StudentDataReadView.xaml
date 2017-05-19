@@ -14,7 +14,6 @@
         <conv:BoolConverter x:Key="YesNoConverter"></conv:BoolConverter>
         <conv:Bool1Converter x:Key="Bool1Converter"></conv:Bool1Converter>
         <conv:DateConverter x:Key="DateConverter"></conv:DateConverter>
-        <conv:DateConverter1 x:Key="DateConverter1"></conv:DateConverter1>
         <Style TargetType="{x:Type DatePickerTextBox}">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -353,11 +352,8 @@
                                 
                                 <Label Grid.Row="3" Grid.Column="3" Style="{StaticResource lblProperty}">DoB</Label>
                                 <Label Grid.Row="3" Grid.Column="4" Style="{StaticResource doubleDot}">:</Label>
-                                <!--<DatePicker Grid.Row="3" Grid.Column="5" IsHitTestVisible="{Binding HitTestGeneral, Source={StaticResource dObj}}"
-                                            Text="{Binding Dob, Source={StaticResource dObj}, Mode=TwoWay, Converter={StaticResource DateConverter}}">
-                                </DatePicker>-->
                                 <xctk:DateTimeUpDown Grid.Row="3" Grid.Column="5" Width="150" IsReadOnly="{Binding IsReadOnlyGen, Source={StaticResource dObj}}"
-                                                     Text="{Binding Dob, Source={StaticResource dObj}, Converter={StaticResource DateConverter1}, UpdateSourceTrigger=LostFocus}" Format="ShortDate" TextAlignment="Left" />
+                                                     Value="{Binding Dob, Source={StaticResource dObj}}" Format="ShortDate" TextAlignment="Left" />
                                 <Label Grid.Row="4" Grid.Column="3" Style="{StaticResource lblProperty}">Age</Label>
                                 <Label Grid.Row="4" Grid.Column="4" Style="{StaticResource doubleDot}">:</Label>
                                 <Label Grid.Row="4" Grid.Column="5" Content="{Binding TxbAge, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}"  Foreground="{Binding TxbAgeColor, Source={StaticResource dObj}}"></Label>
@@ -701,21 +697,18 @@
                                 <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="{Binding IsReadOnlyAdm, Source={StaticResource dObj}}"
                                          Text="{Binding AdmissionNo, Source={StaticResource dObj}, Mode=TwoWay}" Style="{StaticResource TxbInDetail}" Foreground="{Binding AdmissionNoColor, Source={StaticResource dObj}}"></TextBox>
                                 <Label Grid.Row="2" Style="{StaticResource lblProperty}">Admission Date</Label>
-                                <!--<DatePicker Grid.Row="2" Grid.Column="1" Margin="1" Width="150" HorizontalAlignment="Left" IsHitTestVisible="{Binding HitTestAdm, Source={StaticResource dObj}}"
-                                            Text="{Binding AdmissionDate, Source={StaticResource dObj}, Converter={StaticResource DateConverter}, Mode=TwoWay}"></DatePicker>-->
+                              
                                 <xctk:DateTimeUpDown Grid.Row="2" Grid.Column="1" Width="150" IsReadOnly="{Binding IsReadOnlyAdm, Source={StaticResource dObj}}"
-                                                     Text="{Binding AdmissionDate, Source={StaticResource dObj}, Converter={StaticResource DateConverter1}, UpdateSourceTrigger=LostFocus}" Format="ShortDate" TextAlignment="Left" />
+                                                     Value="{Binding AdmissionDate, Source={StaticResource dObj}}" Format="ShortDate" TextAlignment="Left" />
                                 <Label Grid.Row="3" Style="{StaticResource lblProperty}">Admitted in Class</Label>
                                 <ComboBox Grid.Row="3" Grid.Column="1" Width="80" HorizontalAlignment="Left" Margin="0,0,0,20" IsHitTestVisible="{Binding HitTestAdm, Source={StaticResource dObj}}"
                                           ItemsSource="{Binding ClassesForAdmission, Source={StaticResource dObj}}" SelectedIndex="{Binding ClassessForAdmissionIndex, Source={StaticResource dObj}}"></ComboBox>
                                 <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource lblProperty}">Last School</Label>
                                 <TextBox Grid.Row="1" Grid.Column="3" IsReadOnly="{Binding IsReadOnlyAdm, Source={StaticResource dObj}}"
                                          Text="{Binding LastSchool, Source={StaticResource dObj}, Mode=TwoWay}" Style="{StaticResource TxbInDetail}" Foreground="{Binding LastSchoolColor, Source={StaticResource dObj}}"></TextBox>
-                                <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource lblProperty}">Date of Leaving</Label>
-                                <!--<DatePicker Grid.Row="2" Grid.Column="3" Width="150" HorizontalAlignment="Left" IsHitTestVisible="{Binding HitTestAdm, Source={StaticResource dObj}}"
-                                            Text="{Binding DateOfLeaving, Source={StaticResource dObj}, Converter={StaticResource DateConverter}}"></DatePicker>-->
+                                <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource lblProperty}">Date of Leaving</Label>           
                                 <xctk:DateTimeUpDown Grid.Row="2" Grid.Column="3" Width="150" IsReadOnly="{Binding IsReadOnlyAdm, Source={StaticResource dObj}}"
-                                                     Text="{Binding DateOfLeaving, Source={StaticResource dObj}, Converter={StaticResource DateConverter1}, UpdateSourceTrigger=LostFocus}" Format="ShortDate" TextAlignment="Left" />
+                                                     Value="{Binding DateOfLeaving, Source={StaticResource dObj}}" Format="ShortDate" TextAlignment="Left" UpdateValueOnEnterKey="True" />
                                 <Label Grid.Row="3" Grid.Column="2" Style="{StaticResource lblProperty}">TC</Label>
                                 <TextBox Grid.Row="3" Grid.Column="3" IsReadOnly="{Binding IsReadOnlyAdm, Source={StaticResource dObj}}"
                                        Text="{Binding Tc, Source={StaticResource dObj}, Mode=TwoWay}" Style="{StaticResource TxbInDetail}"

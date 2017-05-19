@@ -1,7 +1,11 @@
 ﻿<Window x:Class="NaimouzaHighSchool.Views.SchoolLeavingAndCharacterView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vmn="clr-namespace:NaimouzaHighSchool.ViewModels"
         Title="School Leaving and Character Certificate" Height="500" Width="800" Closing="Window_Closing_1">
+    <Window.Resources>
+        <vmn:SchoolLeavingAndCharacterViewModel x:Key="LeVm"></vmn:SchoolLeavingAndCharacterViewModel>
+    </Window.Resources>
     <DockPanel LastChildFill="True">
         <Border DockPanel.Dock="Bottom">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -9,7 +13,56 @@
             </StackPanel>
         </Border>
         <Grid>
-            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Visibility="{Binding NonePart, Source={StaticResource LeVm}}">
+                <Label>One</Label>
+            </Grid>
+            <Grid Grid.Column="0" Visibility="{Binding IndividualPart, Source={StaticResource LeVm}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label>Student Name</Label>
+                <TextBox Grid.Row="0" Grid.Column="1"
+                         Text="{Binding Name, Source={StaticResource LeVm}}">
+                </TextBox>
+                <Label Grid.Row="1">Father Name</Label>
+                <TextBox Grid.Row="1" Grid.Column="1"
+                         Text="{Binding Fname, Source={StaticResource LeVm}}">
+                </TextBox>
+            </Grid>
+            <Grid Grid.Column="0" Visibility="{Binding BulkPart, Source={StaticResource LeVm}}">
+
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Generate by</Label>
+                            <ComboBox Width="120" 
+                                      ItemsSource="{Binding GenerateType, Source={StaticResource LeVm}}"
+                                      SelectedIndex="{Binding GenerateTypeIndex, Source={StaticResource LeVm}}">
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
         </Grid>
     </DockPanel>
 </Window>
