@@ -46,6 +46,7 @@
                     <MenuItem Header="Add" Click="MenuItem_Click_3" />
                     <MenuItem Header="View" Command="{Binding ShowStudentDetailViewCommand, Source={StaticResource vm}}"></MenuItem>
                     <MenuItem Header="Delete" Command="{Binding ShowDeleteViewCommand, Source={StaticResource vm}}"></MenuItem>
+                    <MenuItem Header="Update Roll Numbers" Command="{Binding ShowRollUpdateWindowCommand, Source={StaticResource vm}}"></MenuItem>
                     <Separator />
                     <MenuItem Header="Import" Click="MenuItem_Click_2"/>
                 </MenuItem>

@@ -120,6 +120,7 @@
     <Compile Include="Models\Database\DeleteDb.cs" />
     <Compile Include="Models\Database\ExamDb.cs" />
     <Compile Include="Models\Database\ExcelExportDb.cs" />
+    <Compile Include="Models\Database\RollUpdateDb.cs" />
     <Compile Include="Models\Database\SchoolLeavingAndCharacterDb.cs" />
     <Compile Include="Models\Database\StaffDetailDb.cs" />
     <Compile Include="Models\Database\StudentDataReadDb.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Models\Utility\AdmissionInfo.cs" />
     <Compile Include="Models\Utility\BoardStudent.cs" />
     <Compile Include="Models\Utility\CombSubPair.cs" />
+    <Compile Include="Models\Utility\RollUpdater.cs" />
     <Compile Include="Models\Utility\SchoolLeavingStudent.cs" />
     <Compile Include="Models\Utility\Staff.cs" />
     <Compile Include="Models\Utility\Subject.cs" />
@@ -152,6 +154,7 @@
     <Compile Include="ViewModels\ExcelExportViewModel.cs" />
     <Compile Include="ViewModels\GroupSubjectPaperViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\RollUpdateViewModel.cs" />
     <Compile Include="ViewModels\SchoolLeavingAndCharacterViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="ViewModels\StaffDetailViewModel.cs" />
@@ -181,6 +184,9 @@
     </Compile>
     <Compile Include="Views\MaxMarksView.xaml.cs">
       <DependentUpon>MaxMarksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RollUpdateView.xaml.cs">
+      <DependentUpon>RollUpdateView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SchoolLeavingAndCharacterView.xaml.cs">
       <DependentUpon>SchoolLeavingAndCharacterView.xaml</DependentUpon>
@@ -271,6 +277,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\MaxMarksView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RollUpdateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

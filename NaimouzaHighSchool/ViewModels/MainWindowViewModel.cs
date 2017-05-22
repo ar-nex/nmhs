@@ -22,6 +22,7 @@ namespace NaimouzaHighSchool.ViewModels
         public RelayCommand ShowExamViewCommand { get; set; }
         public RelayCommand ShowStudentDetailViewCommand { get; set; }
         public RelayCommand ShowLeavingCharacterCommand { get; set; }
+        public RelayCommand ShowRollUpdateWindowCommand { get; set; }
 
         private void StartUpInitializer()
         {
@@ -33,6 +34,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.ShowExamViewCommand = new RelayCommand(this.ShowExamView, this.CanShowExamView);
             this.ShowStudentDetailViewCommand = new RelayCommand(this.ShowStudentDetailView, this.CanShowStudentDetailView);
             this.ShowLeavingCharacterCommand = new RelayCommand(this.ShowLvngCharcWindow, this.CanShowLvngCharcWindow);
+            this.ShowRollUpdateWindowCommand = new RelayCommand(this.ShowRollUpdateWindow, this.CanShowRollUpdateWindow);
         }
 
         private void ShowExcelExport()
@@ -194,6 +196,25 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanShowLvngCharcWindow()
         {
             return !NaimouzaHighSchool.Views.SchoolLeavingAndCharacterView.IsOpen;
+        }
+
+        private void ShowRollUpdateWindow()
+        {
+            if (NaimouzaHighSchool.Views.RollUpdateView.IsOpen)
+            {
+                return;
+            }
+            else
+            {
+                NaimouzaHighSchool.Views.RollUpdateView rollUpdate = new Views.RollUpdateView();
+                NaimouzaHighSchool.Views.RollUpdateView.IsOpen = true;
+                rollUpdate.Show();
+            }
+        }
+
+        private bool CanShowRollUpdateWindow()
+        { 
+            return !NaimouzaHighSchool.Views.RollUpdateView.IsOpen;
         }
     }
 }

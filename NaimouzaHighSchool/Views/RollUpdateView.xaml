@@ -1,0 +1,50 @@
+﻿<Window x:Class="NaimouzaHighSchool.Views.RollUpdateView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vmNameSpace="clr-namespace:NaimouzaHighSchool.ViewModels"
+        xmlns:conv="clr-namespace:NaimouzaHighSchool.ViewModels.Converters"
+        Title="Roll Update" Height="500" Width="550" Closing="Window_Closing_1">
+    <Window.Resources>
+        <vmNameSpace:RollUpdateViewModel x:Key="ruObj"></vmNameSpace:RollUpdateViewModel>
+        <conv:IntConverter x:Key="IntConverter"></conv:IntConverter>
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <Border DockPanel.Dock="Bottom">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Command="{Binding UpdateRollesCommand, Source={StaticResource ruObj}}">Update</Button>
+            </StackPanel>
+        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border>
+                <StackPanel Orientation="Horizontal">
+                    <Label>Class</Label>
+                    <ComboBox Width="60" ItemsSource="{Binding SchoolClasses, Source={StaticResource ruObj}}" SelectedIndex="{Binding SchoolClassesIndex, Source={StaticResource ruObj}}"></ComboBox>
+                    <Label>Section</Label>
+                    <ComboBox Width="60" ItemsSource="{Binding SchoolSection, Source={StaticResource ruObj}}" SelectedIndex="{Binding SchoolSectionIndex, Source={StaticResource ruObj}}"></ComboBox>
+                    <Label>Session </Label>
+                    <TextBox Width="60" Text="{Binding TxbStartYear, Source={StaticResource ruObj}, Converter={StaticResource IntConverter}}"></TextBox>
+                    <Label>-</Label>
+                    <TextBox Width="60" Text="{Binding TxbEndYear, Source={StaticResource ruObj}, Converter={StaticResource IntConverter}}"></TextBox>
+                    <Button Width="80" Command="{Binding GetRollUpdatersCommand, Source={StaticResource ruObj}}">Get</Button>
+                </StackPanel>
+            </Border>
+
+            <DataGrid Grid.Row="1" AutoGenerateColumns="False" AlternatingRowBackground="#eee" HorizontalGridLinesBrush="#ccc" VerticalGridLinesBrush="#ccc"
+                      ItemsSource="{Binding RollUpdaterList, Source={StaticResource ruObj}}"
+                      SelectedIndex="{Binding RollUpdaterListIndex, Source={StaticResource ruObj}}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Student" Binding="{Binding Path=Name}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Class" Binding="{Binding Path=Cls}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Section" Binding="{Binding Path=Section}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Old Roll" Binding="{Binding Path=OldRoll}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="New Roll" Binding="{Binding Path=NewRoll, Converter={StaticResource IntConverter}}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+    
+</Window>
