@@ -9,9 +9,9 @@
         <conv:IntConverter x:Key="IntConverter"></conv:IntConverter>
     </Window.Resources>
     <DockPanel LastChildFill="True">
-        <Border DockPanel.Dock="Bottom">
+        <Border DockPanel.Dock="Bottom" Background="Lavender">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Command="{Binding UpdateRollesCommand, Source={StaticResource ruObj}}">Update</Button>
+                <Button Margin="5,5,10,5" Command="{Binding UpdateRollesCommand, Source={StaticResource ruObj}}">Update</Button>
             </StackPanel>
         </Border>
         <Grid>

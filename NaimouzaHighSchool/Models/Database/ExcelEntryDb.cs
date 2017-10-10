@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Data;
-using MySql.Data;
 using MySql.Data.MySqlClient;
-using System.Configuration;
-using NaimouzaHighSchool;
 using NaimouzaHighSchool.Models.Utility;
 
 namespace NaimouzaHighSchool.Models.Database
@@ -51,8 +44,19 @@ namespace NaimouzaHighSchool.Models.Database
                     cmd.CommandText = sql;
                     cmd.ExecuteNonQuery();
                     long insertedId = cmd.LastInsertedId;
-                    string sql2 = @"INSERT INTO student_class (startYear, endYear, student_basic_id, class, section, roll, SubjectCombo_id)
-                    VALUES ('" +sessionStartYear+"', '"+sessionEndYear+"', '"+insertedId+"', '"+s.StudyingClass+"', '"+s.Section+"', '"+s.Roll+"', "+sbComboId+")";
+
+
+                    string strm = string.IsNullOrEmpty(s.Stream) ? "NULL" : "'" + s.Stream + "'";
+                    string thirdlang = string.IsNullOrEmpty(s.ThirdLang) ? "NULL" : "'" +s.ThirdLang+ "'";
+                    string roll = (s.Roll == 0) ? "NULL" : s.Roll.ToString();
+                    string sub1 = string.IsNullOrEmpty(s.HsSub1) ? "NULL" : "'" + s.HsSub1 + "'";
+                    string sub2 = string.IsNullOrEmpty(s.HsSub2) ? "NULL" : "'" + s.HsSub2 + "'";
+                    string sub3 = string.IsNullOrEmpty(s.HsSub3) ? "NULL" : "'" + s.HsSub3 + "'";
+                    string adl = string.IsNullOrEmpty(s.HsAdlSub) ? "NULL" : "'" + s.HsAdlSub + "'";
+
+
+                    string sql2 = @"INSERT INTO student_class (startYear, endYear, student_basic_id, class, section, roll, stream, thirdLanguage, hsElemSub1, hsElemSub2, hsElemSub3, hsAdlSub)
+                    VALUES ('" +sessionStartYear+"', '"+sessionEndYear+"', '"+insertedId+"', '"+s.StudyingClass+"', '"+s.Section+"', '"+s.Roll+"', "+strm+", '"+s.ThirdLang+"', '"+s.HsSub1+"', '"+s.HsSub2+"', '"+s.HsSub3+"', '"+s.HsAdlSub+"' )";
                     cmd.CommandText = sql2;
                     cmd.ExecuteNonQuery();
 

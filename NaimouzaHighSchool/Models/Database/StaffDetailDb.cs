@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Configuration;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Data;
-using MySql.Data;
 using MySql.Data.MySqlClient;
 using NaimouzaHighSchool.Models.Utility;
 
@@ -24,7 +19,7 @@ namespace NaimouzaHighSchool.Models.Database
             try
             {
                 this.conn.Open();
-                string sql = "SELECT * FROM staff WHERE status='ACTIVE'";
+                string sql = "SELECT s.id, s.name, s.designation, s.subjectName, s.eduQualification, s.profQualification, s.sex, s.joiningDate, s.retirementDate, s.mobileNo, s.altMobile, s.email, s.bankAcc, s.bank_ifsc_code, b.bankBranch, b.bankName, b.micr FROM staff s LEFT JOIN bank_ifsc b ON s.bank_ifsc_code = b.ifsc_code WHERE 1";
                 MySqlCommand cmd = new MySqlCommand(sql, this.conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
@@ -38,16 +33,16 @@ namespace NaimouzaHighSchool.Models.Database
                     s.ProfessionalQualification = rdr[5].ToString();
                     s.Sex = rdr[6].ToString();
                     s.DateOfJoining = (string.IsNullOrEmpty(rdr[7].ToString())) ? default(DateTime) : DateTime.Parse(rdr[7].ToString());
-                    s.Mobile = rdr[8].ToString();
-                    s.AltMobile = rdr[9].ToString();
-                    s.Email = rdr[10].ToString();
-                    s.BankAcc = rdr[11].ToString();
-                    s.Ifsc = rdr[12].ToString();
-                    s.BankName = rdr[13].ToString();
+                    s.RetireDate = (string.IsNullOrEmpty(rdr[8].ToString())) ? default(DateTime) : DateTime.Parse(rdr[8].ToString());
+                    s.Mobile = rdr[9].ToString();
+                    s.AltMobile = rdr[10].ToString();
+                    s.Email = rdr[11].ToString();
+                    s.BankAcc = rdr[12].ToString();
+                    s.Ifsc = rdr[13].ToString();
                     s.BankBranch = rdr[14].ToString();
-                    s.Micr = rdr[15].ToString();
-                    s.Status = rdr[16].ToString();
-                    s.RetireDate = (string.IsNullOrEmpty(rdr[17].ToString())) ? default(DateTime) : DateTime.Parse(rdr[17].ToString());
+                    s.BankName = rdr[15].ToString();
+                    s.Micr = rdr[16].ToString();
+                   
                     staffList.Add(s);
                 }
             }
@@ -73,7 +68,7 @@ namespace NaimouzaHighSchool.Models.Database
             string proQlf = this.GetDbCompatableVal(s.ProfessionalQualification);
             string gender = this.GetDbCompatableVal(s.Sex);
             int doj_temp = s.DateOfJoining.Year;
-            string doj = (doj_temp == 1) ? "NULL" : s.DateOfJoining.ToString("dd-MM-yyyy");
+            string doj = (doj_temp == 1) ? "NULL" : "'"+s.DateOfJoining.ToString("yyyy-MM-dd")+"'";
             string mob = this.GetDbCompatableVal(s.Mobile);
             string altMob = this.GetDbCompatableVal(s.AltMobile);
             string email = this.GetDbCompatableVal(s.Email);
@@ -82,65 +77,109 @@ namespace NaimouzaHighSchool.Models.Database
             string bank = this.GetDbCompatableVal(s.BankName);
             string branch = this.GetDbCompatableVal(s.BankBranch);
             string micr = this.GetDbCompatableVal(s.Micr);
-            string sts = "'"+s.Status+"'";
             int dor_temp = s.RetireDate.Year;
-            string dor = (dor_temp == 1) ? "NULL" : s.RetireDate.ToString("dd-MM-yyyy");
+            string dor = (dor_temp == 1) ? "NULL" : "'"+s.RetireDate.ToString("yyyy-MM-dd")+"'";
 
-            try
+            if (!string.IsNullOrEmpty(s.Ifsc))
             {
-                this.conn.Open();
-                string sql = @"INSERT INTO staff (
-                        name,
-                        designation,
-                        speciality,
-                        qualification,
-                        professionalQualification,
-                        gender,
-                        DateOfJoining,
-                        mobile,
-                        altMobile,
-                        email,
-                        bankAcc,
-                        ifsc,
-                        bankName,
-                        bankBranch,
-                        micr,
-                        status,
-                        retireDate)
+                string sql1 = @"INSERT IGNORE INTO bank_ifsc ( ifsc_code, bankBranch, bankName, micr) VALUES( "+ifsc+", "+branch+", "+bank+", "+micr+")";
+                string sql2 = @"INSERT INTO staff (
+                    name,
+                    designation,
+                    subjectName,
+                    eduQualification,
+                    profQualification,
+                    sex,
+                    joiningDate,
+                    retirementDate,
+                    bankAcc,
+                    bank_ifsc_code,
+                    mobileNo,
+                    altMobile,
+                    email)
                     VALUES(
-                            "+nm+", "
-                             +desig+", "
-                             +spc+", "
-                             +qlf+", "
-                             +proQlf+", "
-                             +gender+", "
-                             +doj+", "
-                             +mob+", "
-                             +altMob+", "
-                             +email+", "
-                             +acc+", "
-                             +ifsc+", "
-                             +bank+", "
-                             +branch+", "
-                             +micr+", "
-                             +sts+", "
-                             +dor+")";
+                            " + nm + ", "
+                                 + desig + ", "
+                                 + spc + ", "
+                                 + qlf + ", "
+                                 + proQlf + ", "
+                                 + gender + ", "
+                                 + doj + ", "
+                                 + dor + ", "
+                                 + acc + ", "
+                                 + ifsc + ", "
+                                 + mob + ", "
+                                 + altMob + ", "
+                                 + email + ")";
 
-                MySqlCommand cmd = new MySqlCommand(sql, this.conn);
-                cmd.ExecuteNonQuery();
-                inserted_id = cmd.LastInsertedId;
+                try
+                {
+                    this.conn.Open();
+                    MySqlCommand cmd1 = new MySqlCommand(sql1, conn);
+                    cmd1.ExecuteNonQuery();
+                    MySqlCommand cmd2 = new MySqlCommand(sql2, conn);
+                    cmd2.ExecuteNonQuery();
+                    inserted_id = cmd2.LastInsertedId;
+
+                }
+                catch (Exception ein)
+                {
+                    System.Windows.MessageBox.Show("Problem in inserting staff detail. Message : "+ein.Message);
+                }
+                finally
+                {
+                    this.conn.Close();
+                }
+
 
             }
-
-            catch (Exception stfex2)
+            else
             {
-                System.Windows.MessageBox.Show("stfex2 : " + stfex2.Message);
+                try
+                {
+                    this.conn.Open();
+                    string sql = @"INSERT INTO staff (
+                    name,
+                    designation,
+                    subjectName,
+                    eduQualification,
+                    profQualification,
+                    sex,
+                    joiningDate,
+                    retirementDate,
+                    mobileNo,
+                    altMobile,
+                    email)
+                    VALUES(
+                            " + nm + ", "
+                                 + desig + ", "
+                                 + spc + ", "
+                                 + qlf + ", "
+                                 + proQlf + ", "
+                                 + gender + ", "
+                                 + doj + ", "
+                                 + dor + ", "
+                                 + mob + ", "
+                                 + altMob + ", "
+                                 + email + ")";
 
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    cmd.ExecuteNonQuery();
+                    inserted_id = cmd.LastInsertedId;
+
+                }
+
+                catch (Exception stfex2)
+                {
+                    System.Windows.MessageBox.Show("stfex2 : " + stfex2.Message);
+
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
-            finally
-            {
-                this.conn.Close();
-            }
+
             rs = inserted_id > 0;
             return Convert.ToInt32(inserted_id);
         }
@@ -148,7 +187,7 @@ namespace NaimouzaHighSchool.Models.Database
         public bool UpdateStaff(Staff s)
         {
             bool rs = false;
-
+            
             string nm = "'" + s.Name + "'";
             string desig = this.GetDbCompatableVal(s.Designation);
             string spc = this.GetDbCompatableVal(s.Subject);
@@ -156,38 +195,91 @@ namespace NaimouzaHighSchool.Models.Database
             string proQlf = this.GetDbCompatableVal(s.ProfessionalQualification);
             string gender = this.GetDbCompatableVal(s.Sex);
             int doj_temp = s.DateOfJoining.Year;
-            string doj = (doj_temp == 1) ? "NULL" : s.DateOfJoining.ToString("dd-MM-yyyy");
+            string doj = (doj_temp == 1) ? "NULL" : "'"+s.DateOfJoining.ToString("yyyy-MM-dd")+"'";
+            int dor_temp = s.RetireDate.Year;
+            string dor = (dor_temp == 1) ? "NULL" : "'"+s.RetireDate.ToString("yyyy-MM-dd")+"'";
             string mob = this.GetDbCompatableVal(s.Mobile);
             string altMob = this.GetDbCompatableVal(s.AltMobile);
             string email = this.GetDbCompatableVal(s.Email);
+
             string acc = this.GetDbCompatableVal(s.BankAcc);
             string ifsc = this.GetDbCompatableVal(s.Ifsc);
             string bank = this.GetDbCompatableVal(s.BankName);
             string branch = this.GetDbCompatableVal(s.BankBranch);
             string micr = this.GetDbCompatableVal(s.Micr);
-            string sts = "'" + s.Status + "'";
-            int dor_temp = s.RetireDate.Year;
-            string dor = (dor_temp == 1) ? "NULL" : s.RetireDate.ToString("dd-MM-yyyy");
 
-            string sql = @"UPDATE staff SET
-                        name=" + nm + ", designation=" + desig + ", speciality=" + spc + ", qualification=" + qlf + ", professionalQualification=" + proQlf + ", gender=" + gender + ", DateOfJoining=" + doj + ", mobile=" + mob + ", altMobile=" + altMob + ", email=" + email + ", bankAcc=" + acc + ", ifsc=" + ifsc + ", bankName="+bank+", bankBranch="+branch+", micr="+micr+", status="+sts+", retireDate="+dor;
+            if (!string.IsNullOrEmpty(s.Ifsc))
+            {
+                string sql1 = @"INSERT IGNORE INTO bank_ifsc ( ifsc_code, bankBranch, bankName, micr) VALUES( " + ifsc + ", " + branch + ", " + bank + ", " + micr + ")";
+                string sql2 = @"UPDATE staff SET
+                        name=" + nm + ", designation=" + desig + ", subjectName=" + spc + ", eduQualification=" + qlf + ", profQualification=" + proQlf + ", sex=" + gender + ", joiningDate=" + doj + ", mobileNo=" + mob + ", altMobile=" + altMob + ", email=" + email + ", bankAcc=" + acc + ", bank_ifsc_code=" + ifsc + ", retirementDate=" + dor + " WHERE id = "+s.Id;
+                try
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    MySqlTransaction myTrans;
+                    myTrans = conn.BeginTransaction();
+                    cmd.Connection = conn;
+                    cmd.Transaction = myTrans;
+                    try
+                    {
+                        cmd.CommandText = sql1;
+                        cmd.ExecuteNonQuery();
 
-            try
-            {
-                this.conn.Open();
-                MySqlCommand cmd = new MySqlCommand(sql, this.conn);
-                cmd.ExecuteNonQuery();
-                rs = true;
+                        cmd.CommandText = sql2;
+                        cmd.ExecuteNonQuery();
+
+                        myTrans.Commit();
+                        rs = true;
+                    }
+                    catch (Exception)
+                    {
+                        try
+                        {
+                            myTrans.Rollback();
+                            rs = false;
+
+                        }
+                        catch (Exception ter)
+                        {
+                            System.Windows.MessageBox.Show("update transaction problem: ter : "+ter.Message);
+                            rs = false;
+                        }
+                    }
+                    
+                }
+                catch (Exception eup)
+                {
+                    System.Windows.MessageBox.Show("Problem at Staff Update. Message : "+eup.Message);
+                }
+                finally
+                {
+                    this.conn.Close();
+                }
             }
-            catch (Exception stfexp3)
+            else
             {
-                rs = false;
-                System.Windows.MessageBox.Show("stfexp3 : " + stfexp3);
+                string sql = @"UPDATE staff SET
+                        name=" + nm + ", designation=" + desig + ", subjectName=" + spc + ", eduQualification=" + qlf + ", profQualification=" + proQlf + ", sex=" + gender + ", joiningDate=" + doj + ", mobileNo=" + mob + ", altMobile=" + altMob + ", email=" + email + ", retirementDate=" + dor + " WHERE id = " + s.Id;
+
+                try
+                {
+                    this.conn.Open();
+                    MySqlCommand cmd = new MySqlCommand(sql, this.conn);
+                    cmd.ExecuteNonQuery();
+                    rs = true;
+                }
+                catch (Exception stfexp3)
+                {
+                    rs = false;
+                    System.Windows.MessageBox.Show("stfexp3 : " + stfexp3);
+                }
+                finally
+                {
+                    this.conn.Close();
+                }
             }
-            finally
-            {
-                this.conn.Close();
-            }
+            
             return rs;
         }
 
@@ -196,7 +288,7 @@ namespace NaimouzaHighSchool.Models.Database
             bool rs = false;
             try
             {
-                this.conn.Close();
+                this.conn.Open();
                 string sql = "DELETE FROM staff WHERE id = '" + id + "'";
                 MySqlCommand cmd = new MySqlCommand(sql, this.conn);
                 int r = cmd.ExecuteNonQuery();
@@ -220,16 +312,16 @@ namespace NaimouzaHighSchool.Models.Database
             switch (type)
             {
                 case "SUBJECT":
-                    sql = "SELECT DISTINCT speciality from staff";
+                    sql = "SELECT DISTINCT subjectName from staff";
                     break;
                 case "DESIGNATION":
                     sql = "SELECT DISTINCT designation from staff";
                     break;
                 case "QUALIFICATION":
-                    sql = "SELECT DISTINCT qualification from staff";
+                    sql = "SELECT DISTINCT eduQualification from staff";
                     break;
                 case "PROFFESIONALQ":
-                    sql = "SELECT DISTINCT professionalQualification from staff";
+                    sql = "SELECT DISTINCT profQualification from staff";
                     break;
                 default:
                     break;
@@ -253,6 +345,39 @@ namespace NaimouzaHighSchool.Models.Database
                 this.conn.Close();
             }
             return spList;
+        }
+
+        public List<BankBranch> getBankBranchList()
+        {
+            List<BankBranch> branchList = new List<BankBranch>();
+            string sql = "SELECT * FROM bank_ifsc";
+            try
+            {
+                this.conn.Open();
+                MySqlCommand cmd = new MySqlCommand(sql, this.conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    BankBranch b = new BankBranch();
+                    b.IFSC = rdr[0].ToString();
+                    b.BranchName = rdr[1].ToString();
+                    b.BankName = rdr[2].ToString();
+                    b.Micr = rdr[3].ToString();
+
+                    branchList.Add(b);
+                }
+
+            }
+            catch (Exception e1)
+            {
+                System.Windows.MessageBox.Show("Er. in StaffDetailDb->getBankBranchList :"+e1.Message);
+            }
+            finally
+            {
+                this.conn.Close();
+            }
+
+            return branchList;
         }
 
         private string GetDbCompatableVal(string inp)

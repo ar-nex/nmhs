@@ -48,7 +48,7 @@ namespace NaimouzaHighSchool.ViewModels.Converters
                 {
                     try
                     {
-                        dt = DateTime.ParseExact(dt_str, "dd-MM-yyyy", null);
+                        dt = DateTime.ParseExact(dt_str, "dd/MM/yyyy", null);
                     }
                     catch (Exception)
                     {

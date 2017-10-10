@@ -51,8 +51,9 @@
                     <MenuItem Header="Import" Click="MenuItem_Click_2"/>
                 </MenuItem>
                 <MenuItem Header="Marksheet">
-                    <MenuItem Header="Board / Council" Command="{Binding ShowBoardExamViewCommand, Source={StaticResource vm}}"></MenuItem>
-                    </MenuItem>
+                    <!--<MenuItem Header="Board / Council" Command="{Binding ShowBoardExamViewCommand, Source={StaticResource vm}}"></MenuItem>-->
+                    <MenuItem Header="Mark Entry" Command="{Binding ShowMarksEntryWindowCommand, Source={StaticResource vm}}"/>
+                </MenuItem>
                 <MenuItem Header="Certificate">
                     <MenuItem Header="Character" Click="MenuItem_Click_4" />
                     <MenuItem Header="Transfer"/>

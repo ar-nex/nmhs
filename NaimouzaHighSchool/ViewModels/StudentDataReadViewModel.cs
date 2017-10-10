@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Windows.Data;
-using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using NaimouzaHighSchool.ViewModels.Commands;
 using NaimouzaHighSchool.Models.Database;
-using NaimouzaHighSchool.Models;
 using NaimouzaHighSchool.Models.Utility;
 
 namespace NaimouzaHighSchool.ViewModels
@@ -32,6 +28,8 @@ namespace NaimouzaHighSchool.ViewModels
         private const string fontcolor1 = "#053646";
         private const string fontcolor0 = "#053646";
         private const string defaultEntry = "";
+
+       
         #region search bar
         private string _searchText;
         public string SearchText
@@ -189,6 +187,7 @@ namespace NaimouzaHighSchool.ViewModels
                         this.SetSubjects(this.StudentList[value].SubjectComboId);
                     }
                     // set selectedCombocode
+                    /*
                     foreach (SubjectCombo item in this.ComboCodeList)
                     {
                         if (item.Id == this.StudentList[value].SubjectComboId)
@@ -197,7 +196,7 @@ namespace NaimouzaHighSchool.ViewModels
                             break;
                         }
                     }
-                   
+                   */
                 }
                 
             }
@@ -217,7 +216,15 @@ namespace NaimouzaHighSchool.ViewModels
 
         #region gen
         private string _txbName;
-        public string TxbName { get { return this._txbName; } set { this._txbName = value; this.OnPropertyChanged("TxbName"); } }
+        public string TxbName 
+        { 
+            get { return this._txbName; } 
+            set 
+            { 
+                this._txbName = value.ToUpper(); 
+                this.OnPropertyChanged("TxbName"); 
+            } 
+        }
         private string _txbNameColor;
         public string TxbNameColor { get { return this._txbNameColor; } set { this._txbNameColor = value; this.OnPropertyChanged("TxbNameColor"); } }
 
@@ -228,6 +235,7 @@ namespace NaimouzaHighSchool.ViewModels
             set 
             { 
                 this._txbCls = value;
+                /*
                 if (Array.IndexOf(this.SchoolClasses, value) > -1)
                 {
                     var cmbList = from n in this.ComboCodeList
@@ -240,6 +248,8 @@ namespace NaimouzaHighSchool.ViewModels
                     }
                     
                 }
+                 */
+
                 this.OnPropertyChanged("TxbCls"); 
             } 
         }
@@ -323,6 +333,45 @@ namespace NaimouzaHighSchool.ViewModels
         private string _txbGenColor;
         public string TxbGenColor { get { return this._txbGenColor; } set { this._txbGenColor = value; this.OnPropertyChanged("TxbGenColor"); } }
 
+        public string[] DD { get; set; }
+        public string[] MM { get; set; }
+        public string[] YYYY { get; set; }
+
+        private int _dobDDIndex;
+        public int DobDDIndex
+        {
+            get => _dobDDIndex;
+            set
+            {
+                _dobDDIndex = value;
+                OnPropertyChanged("DobDDIndex");
+            }
+        }
+
+        private int _dobMMIndex;
+        public int DobMMIndex
+        {
+            get => _dobMMIndex;
+            set
+            {
+                _dobMMIndex = value;
+                OnPropertyChanged("DobMMIndex");
+            }
+        }
+
+        private int _dobYYIndex;
+        public int DobYYIndex
+        {
+            get => _dobYYIndex;
+            set
+            {
+                _dobYYIndex = value;
+                OnPropertyChanged("DobYYIndex");
+            }
+        }
+
+
+
         private DateTime _dob;
         public DateTime Dob { get { return this._dob; } set { this._dob = value; this.OnPropertyChanged("Dob"); } }
         private string _dobColor;
@@ -333,10 +382,54 @@ namespace NaimouzaHighSchool.ViewModels
         private string _txbAgeColor;
         public string TxbAgeColor { get { return this._txbAgeColor; } set { this._txbAgeColor = value; this.OnPropertyChanged("TxbAgeColor"); } }
 
+        /*
         private string _txbSubComboId;
         public string TxbSubComboId { get { return this._txbSubComboId; } set { this._txbSubComboId = value; this.OnPropertyChanged("TxbSubComboId"); } }
         private string _txbSubComboIdColor;
         public string TxbSubComboIdColor { get { return this._txbSubComboIdColor; } set { this._txbSubComboIdColor = value; this.OnPropertyChanged("TxbSubComboIdColor"); } }
+        */
+
+        private string _hsSub1;
+        public string HsSub1
+        {
+            get => _hsSub1;
+            set
+            {
+                _hsSub1 = value;
+                OnPropertyChanged("HsSub1");
+            }
+        }
+
+        private string _hsSub2;
+        public string HsSub2
+        {
+            get => _hsSub2;
+            set
+            {
+                _hsSub2 = value;
+                OnPropertyChanged("HsSub2");
+            }
+        }
+        private string _hsSub3;
+        public string HsSub3
+        {
+            get => _hsSub3;
+            set
+            {
+                _hsSub3 = value;
+                OnPropertyChanged("HsSub3");
+            }
+        }
+        private string _hsSub4;
+        public string HsSub4
+        {
+            get => _hsSub4;
+            set
+            {
+                _hsSub4 = value;
+                OnPropertyChanged("HsSub4");
+            }
+        }
 
         private ObservableCollection<string> _takenSubjects;
         public ObservableCollection<string> TakenSubjects
@@ -521,10 +614,45 @@ namespace NaimouzaHighSchool.ViewModels
         private string _admissionNoColor;
         public string AdmissionNoColor { get { return this._admissionNoColor; } set { this._admissionNoColor = value; this.OnPropertyChanged("AdmissionNoColor"); } }
 
+        /*
         private DateTime _admissionDate;
         public DateTime AdmissionDate { get { return this._admissionDate; } set { this._admissionDate = value; this.OnPropertyChanged("AdmissionDate"); } }
         private string _admissionDateColor;
         public string AdmissionDateColor { get { return this._admissionDateColor; } set { this._admissionDateColor = value; this.OnPropertyChanged("AdmissionDateColor"); } }
+        */
+
+        private int _doaDDIndex;
+        public int DoaDDIndex
+        {
+            get => _doaDDIndex;
+            set
+            {
+                _doaDDIndex = value;
+                OnPropertyChanged("DoaDDIndex");
+            }
+        }
+
+        private int _doaMMIndex;
+        public int DoaMMIndex
+        {
+            get => _doaMMIndex;
+            set
+            {
+                _doaMMIndex = value;
+                OnPropertyChanged("DoaMMIndex");
+            }
+        }
+
+        private int _doaYYIndex;
+        public int DoaYYIndex
+        {
+            get => _doaYYIndex;
+            set
+            {
+                _doaYYIndex = value;
+                OnPropertyChanged("DoaYYIndex");
+            }
+        }
 
         private string _admittedClass;
         public string AdmittedClass { get { return this._admittedClass; } set { this._admittedClass = value; this.OnPropertyChanged("AdmittedClass"); } }
@@ -536,10 +664,12 @@ namespace NaimouzaHighSchool.ViewModels
         private string _lastSchoolColor;
         public string LastSchoolColor { get { return this._lastSchoolColor; } set { this._lastSchoolColor = value; this.OnPropertyChanged("LastSchoolColor"); } }
 
+        /*
         private DateTime _dateOfLeaving;
         public DateTime DateOfLeaving { get { return this._dateOfLeaving; } set { this._dateOfLeaving = value; this.OnPropertyChanged("DateOfLeaving"); } }
         private string _dateOfLeavingColor;
         public string DateOfLeavingColor { get { return this._dateOfLeavingColor; } set { this._dateOfLeavingColor = value; this.OnPropertyChanged("DateOfLeavingColor"); } }
+        */
 
         private string _tc;
         public string Tc { get { return this._tc; } set { this._tc = value; this.OnPropertyChanged("Tc"); } }
@@ -771,6 +901,16 @@ namespace NaimouzaHighSchool.ViewModels
             this.SocialCatList = new string[] { "GEN", "SC", "ST", "OBC-A", "OBC-B" };
             this.ClassesForAdmission = new string[] { "V", "VI", "VII", "VIII", "IX", "XI" };
 
+            DD = new string[] { "DD", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
+            MM = new string[] { "MM", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
+            int yy = DateTime.Now.Year;
+            YYYY = new string[26];
+            YYYY[0] = "YYYY";
+            for (int i = 0; i < 25; i++)
+            {
+                YYYY[i+1] = (yy - i).ToString();
+            }
+
             this.Slist = new List<Student>();
             this.StudentList = new ObservableCollection<Student>();
             this.db = new StudentDataReadDb();
@@ -787,10 +927,14 @@ namespace NaimouzaHighSchool.ViewModels
 
             this.MakeReadOnly();
 
-
+            /*
+             * 
             this.ComboCodeList = new List<SubjectCombo>();
             this.ComboCodeList = db.GetComobCodeList();
             this.FilteredComboCode = new ObservableCollection<string>();
+
+            */
+
 
             this.TakenSubjects = new ObservableCollection<string>();
             this.ArrayOfSubs = new System.Collections.ArrayList();
@@ -947,16 +1091,30 @@ namespace NaimouzaHighSchool.ViewModels
             this.SchoolSectionIndex = Array.IndexOf(this.SchoolSections, s.Section);
             this.TxbSectionColor = fontcolor1;
             this.TxbRoll = s.Roll;
-            this.TxbRollColor = (s.Roll != 0) ? fontcolor1 : fontcolor0; 
-            string sdob_temp = s.Dob.ToString("dd-MM-yyyy");
-            this.Dob = s.Dob;
-            this.DobColor = (sdob_temp == "01-01-0001") ? fontcolor0 : fontcolor1;
+            this.TxbRollColor = (s.Roll != 0) ? fontcolor1 : fontcolor0;
+
+            if (s.Dob.Year == 1)
+            {
+                DobDDIndex = DobMMIndex = DobYYIndex = 0;
+            }
+            else
+            {
+                int dIndex = Array.IndexOf(DD, s.Dob.Day.ToString("00"));
+                DobDDIndex = (dIndex == -1) ? 0 : dIndex;
+                int mIndex = Array.IndexOf(MM, s.Dob.Month.ToString("00"));
+                DobMMIndex = (mIndex == -1) ? 0 : mIndex;
+                int yIndex = Array.IndexOf(YYYY, s.Dob.Year.ToString());
+                DobYYIndex = (yIndex == -1) ? 0 : yIndex;
+            }
+            
+            
+
            
 
             this.TxbGenColor = (string.IsNullOrEmpty(s.Sex)) ? fontcolor0 : fontcolor1;
             //not implemented yet
             this.TxbAge = "Not implemented yet.";
-            this.TxbAgeColor = (sdob_temp == "01-01-0001") ? fontcolor0 : fontcolor1;
+           // this.TxbAgeColor = (sdob_temp == "01-01-0001") ? fontcolor0 : fontcolor1;
 
             this.TxbFather = (string.IsNullOrEmpty(s.FatherName)) ? defaultEntry : s.FatherName;
             this.TxbFatherColor = (string.IsNullOrEmpty(s.FatherName)) ? fontcolor0 : fontcolor1;
@@ -975,6 +1133,12 @@ namespace NaimouzaHighSchool.ViewModels
             this.BloodGrp = (string.IsNullOrEmpty(s.BloodGroup)) ? defaultEntry : s.BloodGroup;
             this.BloodGroupIndex = Array.IndexOf(this.BloodGroups, s.BloodGroup);
             this.BloodGrpColor = (string.IsNullOrEmpty(s.BloodGroup)) ? fontcolor0 : fontcolor1;
+
+            this.HsSub1 = (string.IsNullOrEmpty(s.HsSub1)) ? string.Empty : "1. "+s.HsSub1;
+            this.HsSub2 = (string.IsNullOrEmpty(s.HsSub2)) ? string.Empty : "2. "+s.HsSub2;
+            this.HsSub3 = (string.IsNullOrEmpty(s.HsSub3)) ? string.Empty : "3. "+s.HsSub3;
+            this.HsSub4 = (string.IsNullOrEmpty(s.HsAdlSub)) ? string.Empty : "4. "+s.HsAdlSub;
+         //   System.Windows.MessageBox.Show(HsSub4);
 
             this.TxbAadhar = (string.IsNullOrEmpty(s.Aadhar)) ? defaultEntry : s.Aadhar;
             this.TxbAadharColor = (string.IsNullOrEmpty(s.Aadhar)) ? fontcolor0 : fontcolor1;
@@ -1018,17 +1182,31 @@ namespace NaimouzaHighSchool.ViewModels
 
             this.AdmissionNo = (string.IsNullOrEmpty(s.AdmissionNo)) ? defaultEntry : s.AdmissionNo;
             this.AdmissionNoColor = (string.IsNullOrEmpty(s.AdmissionNo)) ? fontcolor0 : fontcolor1;
-            string doa_temp = s.AdmDate.ToString("dd-MM-yyyy");
-            this.AdmissionDate = s.AdmDate;
-            this.AdmissionDateColor = (doa_temp == "01-01-0001") ? fontcolor0 : fontcolor1;
+
+            if (s.AdmDate.Year == 1)
+            {
+                DoaDDIndex = DoaMMIndex = DoaYYIndex = 0;
+            }
+            else
+            {
+                int dIndex = Array.IndexOf(DD, s.AdmDate.Day.ToString("00"));
+                DoaDDIndex = (dIndex == -1) ? 0 : dIndex;
+                int mIndex = Array.IndexOf(MM, s.AdmDate.Month.ToString("00"));
+                DoaMMIndex = (mIndex == -1) ? 0 : mIndex;
+                int yIndex = Array.IndexOf(YYYY, s.AdmDate.Year.ToString());
+                DoaYYIndex = (yIndex == -1) ? 0 : yIndex;
+            }
+
             this.AdmittedClass = (string.IsNullOrEmpty(s.AdmittedClass)) ? defaultEntry : s.AdmittedClass;
             this.ClassessForAdmissionIndex = Array.IndexOf(this.ClassesForAdmission, s.AdmittedClass);
             this.AdmittedClassColor = (string.IsNullOrEmpty(s.AdmittedClass)) ? fontcolor0 : fontcolor1;
             this.LastSchool = (string.IsNullOrEmpty(s.LastSchool)) ? defaultEntry : s.LastSchool;
             this.LastSchoolColor = (string.IsNullOrEmpty(s.LastSchool)) ? fontcolor0 : fontcolor1;
-            string dol_temp = s.DateOfLeaving.ToString("dd-MM-yyyy");
-            this.DateOfLeavingColor = (dol_temp == "01-01-0001") ? fontcolor0 : fontcolor1;
-            this.DateOfLeaving = s.DateOfLeaving;
+
+            //string dol_temp = s.DateOfLeaving.ToString("dd-MM-yyyy");
+            //this.DateOfLeavingColor = (dol_temp == "01-01-0001") ? fontcolor0 : fontcolor1;
+            //this.DateOfLeaving = s.DateOfLeaving;
+
             this.Tc = (string.IsNullOrEmpty(s.TC)) ? defaultEntry : s.TC;
             this.TcColor = (string.IsNullOrEmpty(s.TC)) ? fontcolor0 : fontcolor1;
 
@@ -1079,46 +1257,83 @@ namespace NaimouzaHighSchool.ViewModels
 
         private void SaveEdit()
         {
-            Student EditedStudent = this.BuildNewStudent();
-            if (EditedStudent.Roll > 0 && (!string.IsNullOrEmpty(EditedStudent.StudyingClass)) && (!string.IsNullOrEmpty(EditedStudent.Section)))
+            // if dates are valid go ahead or not
+            if (!isDatesValid())
             {
-                //change the code specially for session
-                int syear = DateTime.Today.Year;
-                int eyear = DateTime.Today.Year;
-                string [] rdata = new string[2];
-                rdata = db.IsRollExists(syear, eyear, EditedStudent.StudyingClass, EditedStudent.Section, EditedStudent.Roll, EditedStudent.Id);
-                if (rdata[0] != "0")
-                {
-                    string msg = string.Empty;
-                    if (rdata[0] == "1")
-                    {
-                        msg = "This roll no. already assigned to "+rdata[1];
-                    }
-                    else
-                    {
-                        msg = "This roll no. already assigned to " + rdata[1] + " and other " + rdata[0].ToString() + " student(s)";
-                    }
-                    System.Windows.MessageBox.Show("Error msg : "+msg);
-                    return;
-                }
-               
-            }
-            if (db.UpdateStudentInfo(EditedStudent))
-            {
-                System.Windows.MessageBox.Show("Saved");
-                this.MakeReadOnly();
-                this.UpdateEditedStd(this.StudentList[this.SelectedStudentListIndex], EditedStudent);
-                
+                System.Windows.MessageBox.Show("Please check the dates you have selected.");
+                return;
             }
             else
             {
-                System.Windows.MessageBox.Show("Failed :(");
+
+                Student EditedStudent = this.BuildNewStudent();
+                if (EditedStudent.Roll > 0 && (!string.IsNullOrEmpty(EditedStudent.StudyingClass)) && (!string.IsNullOrEmpty(EditedStudent.Section)))
+                {
+                    //change the code specially for session
+                    int syear = DateTime.Today.Year;
+                    int eyear = DateTime.Today.Year;
+                    string[] rdata = new string[2];
+                    rdata = db.IsRollExists(syear, eyear, EditedStudent.StudyingClass, EditedStudent.Section, EditedStudent.Roll, EditedStudent.Id);
+                    if (rdata[0] != "0")
+                    {
+                        string msg = string.Empty;
+                        if (rdata[0] == "1")
+                        {
+                            msg = "This roll no. already assigned to " + rdata[1];
+                        }
+                        else
+                        {
+                            msg = "This roll no. already assigned to " + rdata[1] + " and other " + rdata[0].ToString() + " student(s)";
+                        }
+                        System.Windows.MessageBox.Show("Error msg : " + msg);
+                        return;
+                    }
+
+                }
+                if (db.UpdateStudentInfo(EditedStudent))
+                {
+                    System.Windows.MessageBox.Show("Saved");
+                    this.MakeReadOnly();
+                    this.UpdateEditedStd(this.StudentList[this.SelectedStudentListIndex], EditedStudent);
+
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Failed :(");
+                }
             }
         }
 
         public bool CanSaveEdit()
         {
-            return (this.SelectedStudentListIndex > -1);
+            // check for valid date for date of birth and date of admission
+            bool allDobdtSelected = (DobDDIndex > 0 && DobMMIndex > 0 && DobYYIndex > 0);
+            bool allDoadtSelected = (DoaDDIndex > 0 && DoaMMIndex > 0 && DoaYYIndex > 0);
+
+            bool allDobdtNotSelected = (DobDDIndex == 0 && DobMMIndex == 0 && DobYYIndex == 0);
+            bool allDoadtNotSelected = (DoaDDIndex == 0 && DoaMMIndex == 0 && DoaYYIndex == 0);
+
+            bool dtSelectedOrNot = (allDobdtSelected || allDobdtNotSelected) && (allDoadtSelected || allDoadtNotSelected);
+
+            return (SelectedStudentListIndex > -1 && dtSelectedOrNot);
+        }
+
+        private bool isDatesValid()
+        {
+            bool valid = false;
+            if (DobDDIndex > 0 && DobMMIndex > 0 && DobYYIndex > 0)
+            {
+                string dt_str = YYYY[DobYYIndex].ToString()+MM[DobMMIndex].ToString()+DD[DobDDIndex];
+                DateTime dt;
+                valid = DateTime.TryParseExact(dt_str, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt);
+            }
+            if (DoaDDIndex > 0 && DoaMMIndex > 0 && DoaYYIndex > 0)
+            {
+                string dt_str2 = YYYY[DoaYYIndex].ToString() + MM[DoaMMIndex].ToString() + DD[DoaDDIndex];
+                DateTime dt2;
+                valid = DateTime.TryParseExact(dt_str2, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt2);
+            }
+            return valid;
         }
 
         private void EnableDisableSearchControl()
@@ -1202,6 +1417,7 @@ namespace NaimouzaHighSchool.ViewModels
 
         private Student BuildNewStudent()
         {
+
             Student ns = new Student();
             ns.Id = this.StudentList[this.SelectedStudentListIndex].Id;
 
@@ -1211,7 +1427,9 @@ namespace NaimouzaHighSchool.ViewModels
             ns.GuardianName = this.getVal(this.TxbGrd);
             ns.GuardianRelation = this.getVal(this.TxbGrdRel);
             ns.GuardianOccupation = this.getVal(this.TxbGrdOcc);
-            ns.Dob = this.Dob;
+
+
+            ns.Dob = getDate("dob");
             ns.Sex = this.getVal(this.TxbGen);
             ns.BloodGroup = this.getVal(this.BloodGrp);
             ns.Religion = this.getVal(this.TxbReligion);
@@ -1242,25 +1460,25 @@ namespace NaimouzaHighSchool.ViewModels
             ns.Section = (this.SchoolSectionIndex > -1) ? this.SchoolSections[this.SchoolSectionIndex] : string.Empty;
             ns.Roll = this.TxbRoll;
             //ns.SubjectComboId
-            foreach (SubjectCombo item in this.ComboCodeList)
-            {
-                if (item.Code == this.SelectedComboCode)
-                {
-                    ns.SubjectComboId = item.Id;
-                    break;
-                }
-            }
+            //foreach (SubjectCombo item in this.ComboCodeList)
+            //{
+            //    if (item.Code == this.SelectedComboCode)
+            //    {
+            //        ns.SubjectComboId = item.Id;
+            //        break;
+            //    }
+            //}
             
             ns.BoardRoll = this.getVal(this.TxbMadhyamicRoll);
             ns.BoardNo = this.getVal(this.TxbMadhyamicNo);
             ns.CouncilRoll = this.getVal(this.TxbCouncilRoll);
             ns.CouncilNo = this.getVal(this.TxbCouncilNo);
             ns.AdmissionNo = this.getVal(this.AdmissionNo);
-            ns.AdmDate = this.AdmissionDate;
+            ns.AdmDate = getDate("doa");
             ns.LastSchool = this.getVal(this.LastSchool);
            // ns.AdmittedClass = this.getVal(this.AdmittedClass);
             ns.AdmittedClass = (this.ClassessForAdmissionIndex > -1) ? this.ClassesForAdmission[this.ClassessForAdmissionIndex] : string.Empty;
-            ns.DateOfLeaving = this.DateOfLeaving;
+          //  ns.DateOfLeaving = this.DateOfLeaving;
             ns.TC = this.getVal(this.Tc);
             
             return ns;
@@ -1269,6 +1487,42 @@ namespace NaimouzaHighSchool.ViewModels
         private string getVal(string valInp)
         {
             return (valInp == defaultEntry || valInp == defaultEntry.ToUpper()) ? string.Empty : valInp;
+        }
+
+        private DateTime getDate(string propertyName)
+        {
+            if (propertyName == "dob")
+            {
+                if (DobDDIndex == 0 && DobMMIndex == 0 && DobYYIndex == 0)
+                {
+                    return DateTime.MinValue;
+                }
+                else
+                {
+                    string dt_str = YYYY[DobYYIndex].ToString() + MM[DobMMIndex].ToString() + DD[DobDDIndex];
+                    DateTime dt;
+                    bool valid = DateTime.TryParseExact(dt_str, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt);
+                    return dt;
+                }
+            }
+            else if (propertyName == "doa")
+            {
+                if (DoaDDIndex == 0 && DoaMMIndex == 0 && DoaYYIndex == 0)
+                {
+                    return DateTime.MinValue;
+                }
+                else
+                {
+                    string dt_str2 = YYYY[DoaYYIndex].ToString() + MM[DoaMMIndex].ToString() + DD[DoaDDIndex];
+                    DateTime dt2;
+                    bool valid = DateTime.TryParseExact(dt_str2, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt2);
+                    return dt2;
+                }
+            }
+            else
+            {
+                return DateTime.MinValue;
+            }
         }
 
         private void UpdateEditedStd(Student taker, Student giver)
@@ -1317,6 +1571,8 @@ namespace NaimouzaHighSchool.ViewModels
             taker.CouncilRoll = giver.CouncilRoll;
 
         }
+
+       
 
         #region sort
         private void SortByName()

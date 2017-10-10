@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace NaimouzaHighSchool.Models.Utility
 {
@@ -336,5 +333,50 @@ namespace NaimouzaHighSchool.Models.Utility
         }
 
         #endregion properties
+
+        #region newlyAdded
+
+        private string _stream;
+        public string Stream
+        {
+            get => _stream;
+            set => _stream = value;
+        }
+
+        private string _hsSub1;
+        public string HsSub1
+        {
+            get => _hsSub1;
+            set => _hsSub1 = value;
+        }
+
+        private string _hsSub2;
+        public string HsSub2
+        {
+            get => _hsSub2;
+            set => _hsSub2 = value;
+        }
+
+        private string _hsSub3;
+        public string HsSub3
+        {
+            get => _hsSub3;
+            set => _hsSub3 = value;
+        }
+
+        private string _hsAdlSub;
+        public string HsAdlSub
+        {
+            get => _hsAdlSub;
+            set => _hsAdlSub = value;
+        }
+
+        private string _thirdLang;
+        public string ThirdLang
+        {
+            get => _thirdLang;
+            set => _thirdLang = value;
+        }
+        #endregion
     }
 }

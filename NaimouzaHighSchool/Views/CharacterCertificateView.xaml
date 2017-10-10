@@ -53,7 +53,7 @@
     <DockPanel LastChildFill="True">
         <Border DockPanel.Dock="Bottom" Style="{StaticResource BottomTopBorder}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Padding="5" Width="80" Margin="2" Template="{StaticResource buttonTemplate}" Command="{Binding GenerateCertificateCommand, Source={StaticResource CharacVm}}">Generate</Button>
+                <Button Padding="5" Width="80" Margin="2" Command="{Binding GenerateCertificateCommand, Source={StaticResource CharacVm}}">Generate</Button>
                 <Button Padding="5" Width="80" Margin="2" Template="{StaticResource buttonTemplate}" Command="{Binding ResetCommand, Source={StaticResource CharacVm}}">Reset</Button>
                 <!--<Button Padding="5" Width="80" Margin="2" Template="{StaticResource buttonTemplate}">Exit</Button>-->
             </StackPanel>           
@@ -98,7 +98,12 @@
 
                 <TextBox Grid.Column="1" Style="{StaticResource AddhocTxb}" Text="{Binding StdName, Source={StaticResource CharacVm}, Mode=TwoWay}"></TextBox>
                 <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource AddhocTxb}" Text="{Binding FatherName, Source={StaticResource CharacVm}, Mode=TwoWay}"></TextBox>
-                <ComboBox Grid.Row="2" Grid.Column="1" IsEditable="True" Style="{StaticResource AddhocCombo}" ItemsSource="{Binding VillList, Source={StaticResource CharacVm}}" Text="{Binding Vill, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
+                <ComboBox Grid.Row="2" Grid.Column="1" 
+                          IsEditable="True" 
+                          Style="{StaticResource AddhocCombo}"
+                          IsTextSearchEnabled="True"
+                          ItemsSource="{Binding VillList, Source={StaticResource CharacVm}}" 
+                          Text="{Binding Vill, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
                 <ComboBox Grid.Row="3" Grid.Column="1" IsEditable="True" Style="{StaticResource AddhocCombo}" ItemsSource="{Binding POList, Source={StaticResource CharacVm}}" Text="{Binding PO, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
                 <ComboBox Grid.Row="4" Grid.Column="1" IsEditable="True" Style="{StaticResource AddhocCombo}" ItemsSource="{Binding PSList, Source={StaticResource CharacVm}}" Text="{Binding Ps, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>
                 <ComboBox Grid.Row="5" Grid.Column="1" IsEditable="True" Style="{StaticResource AddhocCombo}" ItemsSource="{Binding DistList, Source={StaticResource CharacVm}}" Text="{Binding Dist, Source={StaticResource CharacVm}, Mode=OneWayToSource}"></ComboBox>

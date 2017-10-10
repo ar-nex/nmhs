@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NaimouzaHighSchool.Models;
-using System.Windows;
 namespace NaimouzaHighSchool.Models.Utility
 {
     public class ExcelColumnStudentBuilder
     {
         public ExcelColumnStudentBuilder(List<ExcelColumnPosition> posList)
         {
-            this.listOfPosition = new List<ExcelColumnPosition>();
-            this.colIndex = new Dictionary<int, string>();
-            this.listOfPosition = posList;
-            this.setDictionary();
+            listOfPosition = new List<ExcelColumnPosition>();
+            colIndex = new Dictionary<int, string>();
+            listOfPosition = posList;
+            setDictionary();
            
         }
 
@@ -32,7 +28,7 @@ namespace NaimouzaHighSchool.Models.Utility
             {
                 int j = i+1;
                
-                if (this.colIndex.ContainsKey(j))
+                if (colIndex.ContainsKey(j))
                 {
                     string colHeader = colIndex[j];
                     switch (colHeader)
@@ -285,6 +281,30 @@ namespace NaimouzaHighSchool.Models.Utility
                             break;
                         case "TC detail":
                             s.TC = rowValues[i];
+                            break;
+
+                        case "Stream":
+                            s.Stream = rowValues[i];
+                            break;
+
+                        case "HS Sub1":
+                            s.HsSub1 = rowValues[i];
+                            break;
+
+                        case "HS Sub2":
+                            s.HsSub2 = rowValues[i];
+                            break;
+
+                        case "HS Sub3":
+                            s.HsSub3 = rowValues[i];
+                            break;
+
+                        case "HS Adl Sub":
+                            s.HsAdlSub = rowValues[i];
+                            break;
+
+                        case "Third Language":
+                            s.ThirdLang = rowValues[i];
                             break;
 
                         case "Bank Acc. No.":

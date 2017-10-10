@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Data;
-using MySql.Data;
 using MySql.Data.MySqlClient;
-using System.Configuration;
-using NaimouzaHighSchool;
 using NaimouzaHighSchool.Models.Utility;
 
 namespace NaimouzaHighSchool.Models.Database
@@ -22,6 +16,7 @@ namespace NaimouzaHighSchool.Models.Database
         public List<SubjectCombo> GetCombo()
         {
             List<SubjectCombo> cmbo = new List<SubjectCombo>();
+            /*
             try
             {
                 this.conn.Open();
@@ -42,6 +37,7 @@ namespace NaimouzaHighSchool.Models.Database
             {
                 this.conn.Close();
             }
+             */
             return cmbo;
         }
 
@@ -88,7 +84,7 @@ namespace NaimouzaHighSchool.Models.Database
             string cls ="'" + s.StudyingClass + "'";
             string section = string.IsNullOrEmpty(s.Section) ? "NULL" : "'" + s.Section + "'";
             string roll = s.Roll.ToString();
-            string comboId = s.SubjectComboId;
+           // string comboId = s.SubjectComboId;
 
             string admissionNo = string.IsNullOrEmpty(s.AdmissionNo) ? "NULL" : "'" + s.AdmissionNo + "'";
             string doa_temp = s.AdmDate.ToString("yyyy-MM-dd");
@@ -181,8 +177,8 @@ namespace NaimouzaHighSchool.Models.Database
                     cmd.ExecuteNonQuery();
                     long insertedId = cmd.LastInsertedId;
 
-                    string sql2 = @"INSERT INTO student_class (startYear, endYear, student_basic_id, class, section, roll, SubjectCombo_id)
-                    VALUES ('" + sessionStartYear + "', '" + sessionEndYear + "', " + insertedId + ", " + cls + ", " + section + ", " + roll + ", "+comboId+")";
+                    string sql2 = @"INSERT INTO student_class (startYear, endYear, student_basic_id, class, section, roll)
+                    VALUES ('" + sessionStartYear + "', '" + sessionEndYear + "', " + insertedId + ", " + cls + ", " + section + ", " + roll + ")";
                     cmd.CommandText = sql2;
                     cmd.ExecuteNonQuery();
 

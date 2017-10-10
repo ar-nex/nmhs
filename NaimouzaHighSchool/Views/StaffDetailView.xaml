@@ -4,67 +4,191 @@
         xmlns:sns="clr-namespace:NaimouzaHighSchool.ViewModels"
         xmlns:conv="clr-namespace:NaimouzaHighSchool.ViewModels.Converters"
         xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+        xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         Title="Staff" Height="550" Width="800" Closing="Window_Closing_1">
     <Window.Resources>
         <sns:StaffDetailViewModel x:Key="svm"></sns:StaffDetailViewModel>
-
+        <conv:GenderConverter x:Key="GenderConverter"></conv:GenderConverter>
         
     </Window.Resources>
     <DockPanel LastChildFill="True">
-        <Border DockPanel.Dock="Bottom" Background="Maroon">
+        <Border DockPanel.Dock="Bottom">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button>Add New</Button>
-                <Button>Save</Button>
-                <Button>Delete</Button>
+                <Button Command="{Binding AddStaffClickedCommand, Source={StaticResource svm}}">Add</Button>
+                <Button Command="{Binding EditBtnClickedCommand, Source={StaticResource svm}}">Edit</Button>
+                <Button Command="{Binding SaveBtnClickedCommand, Source={StaticResource svm}}">Save</Button>
+                <Button Command="{Binding CancelBtnClickedCommand, Source={StaticResource svm}}">Cancel</Button>
+                <Button Command="{Binding DeleteBtnClickedCommand, Source={StaticResource svm}}">Delete</Button>
             </StackPanel>
         </Border>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.2*"/>
-                <ColumnDefinition Width="3*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <StackPanel Orientation="Vertical">
-                    <Label>Filter by</Label>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Label>Name :</Label>
-                        <TextBox Width="200"></TextBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Label>Category</Label>
-                        <ComboBox Width="150"></ComboBox>
-                        <Label>Criteria</Label>
-                        <ComboBox Width="150"></ComboBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Label>Total Staff : </Label>
-                        <Label>0</Label>
-                    </StackPanel>
-                </StackPanel>
-                <ScrollViewer Grid.Row="1">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <GroupBox Header="General Info">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                            </Grid>
-                        </GroupBox>
-                        <GroupBox Grid.Row="1" Header="Bank Details">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2.5*"/>
+                </Grid.ColumnDefinitions>
+                <DataGrid AutoGenerateColumns="False"
+                    ItemsSource="{Binding StaffList, Source={StaticResource svm}}"
+                    SelectedItem="{Binding SelectedStaff, Source={StaticResource svm}}"
+                    SelectedIndex="{Binding StaffListIndex, Source={StaticResource svm}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
+                        <DataGridTextColumn Header="Subject" Binding="{Binding Path=Subject}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        
+                    </Grid.RowDefinitions>
+                   
+                    <GroupBox Header="Basic Info" Grid.Row="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label>Name</Label>
+                            <TextBox Grid.Column="1"
+                                     Text="{Binding TxbName, Source={StaticResource svm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            </TextBox>
+                            <Label Grid.Row="1">Designation</Label>
+                            <toolkit:AutoCompleteBox Grid.Row="1" Grid.Column="1"
+                                ItemsSource="{Binding UniqueDesignations, Source={StaticResource svm}}"
+                                Text="{Binding TxbDesignation, Source={StaticResource svm}, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                             ></toolkit:AutoCompleteBox>
+                            <Label Grid.Row="2">Subject</Label>
+                            <toolkit:AutoCompleteBox Grid.Row="2" Grid.Column="1"
+                                ItemsSource="{Binding UniqueSubjects, Source={StaticResource svm}}"
+                                Text="{Binding TxbSubject, Source={StaticResource svm}, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                            ></toolkit:AutoCompleteBox>
+                            <Label Grid.Row="3">Qualification</Label>
+                            <toolkit:AutoCompleteBox Grid.Row="3" Grid.Column="1"
+                                ItemsSource="{Binding UniqueQualifications, Source={StaticResource svm}}"
+                                Text="{Binding TxbQualification, Source={StaticResource svm}, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                            ></toolkit:AutoCompleteBox>
+                            <Label Grid.Row="4">Prof. Qualification</Label>
+                            <toolkit:AutoCompleteBox Grid.Row="4" Grid.Column="1"
+                                ItemsSource="{Binding UniqueProfQualifications, Source={StaticResource svm}}"
+                                Text="{Binding TxbProfQualification, Source={StaticResource svm}, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                            ></toolkit:AutoCompleteBox>
+                            <Label Grid.Row="5">Gender</Label>
+                            <StackPanel Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <RadioButton
+                                    GroupName="Gen"
+                                    IsChecked="{Binding Gender, Source={StaticResource svm}, Mode=TwoWay, ConverterParameter=M, Converter={StaticResource GenderConverter}}"
+                                    >Male
+                                </RadioButton>
+                                <RadioButton
+                                    GroupName="Gen"
+                                    IsChecked="{Binding Gender, Source={StaticResource svm}, Mode=TwoWay, ConverterParameter=F, Converter={StaticResource GenderConverter}}">Female
+                                </RadioButton>
+                            </StackPanel>
+                            <Label Grid.Row="6">Joining Date</Label>
+                            <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="5">
+                                <ComboBox
+                                        ItemsSource="{Binding DD, Source={StaticResource svm}}"
+                                        SelectedIndex="{Binding DojDDIndex, Source={StaticResource svm}}"
+                                    ></ComboBox>
+                                <Label Content="-"/>
+                                <ComboBox
+                                        ItemsSource="{Binding MM, Source={StaticResource svm}}"
+                                        SelectedIndex="{Binding DojMMIndex, Source={StaticResource svm}}"
+                                    ></ComboBox>
+                                <Label Content="-"/>
+                                <ComboBox
+                                        ItemsSource="{Binding YYYY, Source={StaticResource svm}}"
+                                        SelectedIndex="{Binding DojYYIndex, Source={StaticResource svm}}"
+                                    ></ComboBox>
+                            </StackPanel>
+                            <Label Grid.Row="7">Retirement Date</Label>
+                            <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="5">
+                                <ComboBox
+                                        ItemsSource="{Binding DD, Source={StaticResource svm}}"
+                                        SelectedIndex="{Binding DorDDIndex, Source={StaticResource svm}}" Height="26" VerticalAlignment="Bottom"
+                                    ></ComboBox>
+                                <Label Content="-"/>
+                                <ComboBox
+                                        ItemsSource="{Binding MM, Source={StaticResource svm}}"
+                                        SelectedIndex="{Binding DorMMIndex, Source={StaticResource svm}}"
+                                    ></ComboBox>
+                                <Label Content="-"/>
+                                <ComboBox
+                                        ItemsSource="{Binding YYYY, Source={StaticResource svm}}"
+                                        SelectedIndex="{Binding DorYYIndex, Source={StaticResource svm}}"
+                                    ></ComboBox>
+                            </StackPanel>
+                            <Label Grid.Row="8">Mobile</Label>
+                            <TextBox Grid.Row="8" Grid.Column="1"></TextBox>
+                            <Label Grid.Row="9">Alt. Mobile</Label>
+                            <TextBox Grid.Row="9" Grid.Column="1"></TextBox>
+                            <Label Grid.Row="10">Email</Label>
+                            <TextBox Grid.Row="10" Grid.Column="1"></TextBox>
                             
-                        </GroupBox>
-                    </Grid>
-                </ScrollViewer>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Row="1" Header="Bank Acc Info">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label>Bank Acc. No.</Label>
+                            <TextBox Grid.Column="1"
+                                     Text="{Binding BankAcc,Source={StaticResource svm}, Mode=TwoWay}">
+                            </TextBox>
+                            <Label Grid.Row="1">IFSC Code</Label>
+                            <toolkit:AutoCompleteBox Grid.Row="1" Grid.Column="1"
+                                ItemsSource="{Binding IfscList, Source={StaticResource svm}}"
+                                Text="{Binding Ifsc, Source={StaticResource svm}, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                            ></toolkit:AutoCompleteBox>
+                            <Label Grid.Row="2">Bank</Label>
+                            <TextBox Grid.Row="2" Grid.Column="1"
+                                 IsReadOnly="{Binding IsBankDetailReadOnly, Source={StaticResource svm}}"    
+                                 Text="{Binding BankName, Source={StaticResource svm}, Mode=TwoWay}"    
+                            ></TextBox>
+                            <Label Grid.Row="3">Branch</Label>
+                            <TextBox Grid.Row="3" Grid.Column="1"
+                                IsReadOnly="{Binding IsBankDetailReadOnly, Source={StaticResource svm}}"
+                                Text="{Binding BankBranch, Source={StaticResource svm}, Mode=TwoWay}"
+                            ></TextBox>
+                            <Label Grid.Row="4">MICR</Label>
+                            <TextBox Grid.Row="4" Grid.Column="1"
+                                IsReadOnly="{Binding IsBankDetailReadOnly, Source={StaticResource svm}}" 
+                                Text="{Binding Micr, Source={StaticResource svm}, Mode=TwoWay}"
+                            ></TextBox>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
             </Grid>
-        </Grid>
+            
+         </Grid>
     </DockPanel>
+    
 </Window>

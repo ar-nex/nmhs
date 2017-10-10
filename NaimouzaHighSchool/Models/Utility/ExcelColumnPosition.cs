@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NaimouzaHighSchool.Models;
-using System.Text.RegularExpressions;
-using System.Windows;
+﻿using System.Text.RegularExpressions;
 namespace NaimouzaHighSchool.Models.Utility
 {
     public class ExcelColumnPosition : BaseModel

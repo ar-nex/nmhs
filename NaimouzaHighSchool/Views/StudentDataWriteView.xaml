@@ -98,7 +98,7 @@
                             </StackPanel>
                             <Label Grid.Row="2">DoB</Label>
                             <DatePicker Grid.Row="2" Grid.Column="1"
-                                Text="{Binding Dob, Source={StaticResource Srvm}, Mode=TwoWay, Converter={StaticResource DateConverter}}">                               
+                                Text="{Binding Dob, Source={StaticResource Srvm}, Converter={StaticResource DateConverter}, Mode=TwoWay}">                               
                             </DatePicker>
                             <Label Grid.Row="3">Aadhar No.</Label>
                             <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TxbAadhar, Source={StaticResource Srvm}, Mode=TwoWay}"></TextBox>
@@ -181,7 +181,7 @@
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Image Source="/NaimouzaHighSchool;component/Asset/Images/home.ico" Width="20"></Image>
-                            <TextBlock>Address &amp; Contact</TextBlock>
+                            <TextBlock><Run Text="Address &amp; Contact"/></TextBlock>
                         </StackPanel>
                     </TabItem.Header>
                     <Grid>
@@ -324,7 +324,7 @@
                             <Label>TC details</Label>
                             <TextBox Text="{Binding Tc, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             <Label>Date of leaving</Label>
-                            <DatePicker Text="{Binding DateOfLeaving, Source={StaticResource Srvm}, Converter={StaticResource DateConverter}}"></DatePicker>
+                            <DatePicker Text="{Binding DateOfLeaving, Source={StaticResource Srvm}, Converter={StaticResource DateConverter}, Mode=TwoWay}"></DatePicker>
                         </StackPanel>
                     </Grid>
                 </TabItem>
@@ -374,8 +374,12 @@
                                   ItemsSource="{Binding IfcrList, Source={StaticResource Srvm}}"
                                   Text="{Binding Ifcr, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         </ComboBox>
-                        <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding Micr, Source={StaticResource Srvm}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        
+                       
+                        <ComboBox Grid.Row="5" Grid.Column="2"
+                                  IsEditable="True"
+                                  ItemsSource="{Binding MICRList, Source={StaticResource Srvm}}"
+                                  Text="{Binding Micr, Source={StaticResource Srvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        </ComboBox>
                     </Grid>
                 </TabItem>
                 <TabItem>

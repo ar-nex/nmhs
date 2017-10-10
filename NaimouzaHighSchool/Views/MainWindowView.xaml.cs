@@ -27,8 +27,8 @@ namespace NaimouzaHighSchool
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-            GroupSubjectPaperView sb = new GroupSubjectPaperView();
-            sb.Show();
+            //GroupSubjectPaperView sb = new GroupSubjectPaperView();
+            //sb.Show();
         }
 
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
@@ -51,8 +51,8 @@ namespace NaimouzaHighSchool
 
         private void MenuItem_Click_5(object sender, RoutedEventArgs e)
         {
-            SubjectComboView scom = new SubjectComboView();
-            scom.Show();
+            //SubjectComboView scom = new SubjectComboView();
+            //scom.Show();
         }
 
         //private void MenuItem_Click_6(object sender, RoutedEventArgs e)

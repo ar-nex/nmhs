@@ -1,64 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 namespace NaimouzaHighSchool.Models.Utility
 {
     public class ExcelColumnPositionService
     {
         public ExcelColumnPositionService()
         {
-            this.ListCol = new List<ExcelColumnPosition>();
-            this.ListCol.Add(new ExcelColumnPosition("Student Name"));
-            this.ListCol.Add(new ExcelColumnPosition("Father Name"));
-            this.ListCol.Add(new ExcelColumnPosition("Mother Name"));
-            this.ListCol.Add(new ExcelColumnPosition("Guardian Name"));
-            this.ListCol.Add(new ExcelColumnPosition("Guardian Relation"));
-            this.ListCol.Add(new ExcelColumnPosition("Guardian Occupation"));
-            this.ListCol.Add(new ExcelColumnPosition("Date of birth"));
-            this.ListCol.Add(new ExcelColumnPosition("Sex"));
-            this.ListCol.Add(new ExcelColumnPosition("Roll"));
-            this.ListCol.Add(new ExcelColumnPosition("SubjectComboId"));
-            this.ListCol.Add(new ExcelColumnPosition("Present Address"));
-            this.ListCol.Add(new ExcelColumnPosition("Permanent Address"));
-            this.ListCol.Add(new ExcelColumnPosition("Mobile"));
-            this.ListCol.Add(new ExcelColumnPosition("Guardian Mobile"));
-            this.ListCol.Add(new ExcelColumnPosition("Email"));
-            this.ListCol.Add(new ExcelColumnPosition("Religion"));
-            this.ListCol.Add(new ExcelColumnPosition("Social Category"));
-            this.ListCol.Add(new ExcelColumnPosition("Sub Cast"));
-            this.ListCol.Add(new ExcelColumnPosition("Is PH"));
-            this.ListCol.Add(new ExcelColumnPosition("PH type"));
-            this.ListCol.Add(new ExcelColumnPosition("Is BPL"));
-            this.ListCol.Add(new ExcelColumnPosition("BPL Number"));
-            this.ListCol.Add(new ExcelColumnPosition("Aadhar"));
-            this.ListCol.Add(new ExcelColumnPosition("Guardian Aadhar"));
-            this.ListCol.Add(new ExcelColumnPosition("Guardian Epic"));
-            this.ListCol.Add(new ExcelColumnPosition("Blood Group"));
+            ListCol = new List<ExcelColumnPosition>();
+            ListCol.Add(new ExcelColumnPosition("Student Name"));
+            ListCol.Add(new ExcelColumnPosition("Father Name"));
+            ListCol.Add(new ExcelColumnPosition("Mother Name"));
+            ListCol.Add(new ExcelColumnPosition("Guardian Name"));
+            ListCol.Add(new ExcelColumnPosition("Guardian Relation"));
+            ListCol.Add(new ExcelColumnPosition("Guardian Occupation"));
+            ListCol.Add(new ExcelColumnPosition("Date of birth"));
+            ListCol.Add(new ExcelColumnPosition("Sex"));
+            ListCol.Add(new ExcelColumnPosition("Roll"));
+            ListCol.Add(new ExcelColumnPosition("SubjectComboId"));
+            ListCol.Add(new ExcelColumnPosition("Present Address"));
+            ListCol.Add(new ExcelColumnPosition("Permanent Address"));
+            ListCol.Add(new ExcelColumnPosition("Mobile"));
+            ListCol.Add(new ExcelColumnPosition("Guardian Mobile"));
+            ListCol.Add(new ExcelColumnPosition("Email"));
+            ListCol.Add(new ExcelColumnPosition("Religion"));
+            ListCol.Add(new ExcelColumnPosition("Social Category"));
+            ListCol.Add(new ExcelColumnPosition("Sub Cast"));
+            ListCol.Add(new ExcelColumnPosition("Is PH"));
+            ListCol.Add(new ExcelColumnPosition("PH type"));
+            ListCol.Add(new ExcelColumnPosition("Is BPL"));
+            ListCol.Add(new ExcelColumnPosition("BPL Number"));
+            ListCol.Add(new ExcelColumnPosition("Aadhar"));
+            ListCol.Add(new ExcelColumnPosition("Guardian Aadhar"));
+            ListCol.Add(new ExcelColumnPosition("Guardian Epic"));
+            ListCol.Add(new ExcelColumnPosition("Blood Group"));
 
-            this.ListCol.Add(new ExcelColumnPosition("Board No"));
-            this.ListCol.Add(new ExcelColumnPosition("Board Roll"));
-            this.ListCol.Add(new ExcelColumnPosition("Council No"));
-            this.ListCol.Add(new ExcelColumnPosition("Council Roll"));
+            ListCol.Add(new ExcelColumnPosition("Board No"));
+            ListCol.Add(new ExcelColumnPosition("Board Roll"));
+            ListCol.Add(new ExcelColumnPosition("Council No"));
+            ListCol.Add(new ExcelColumnPosition("Council Roll"));
 
-            this.ListCol.Add(new ExcelColumnPosition("Admission No."));
-            this.ListCol.Add(new ExcelColumnPosition("Admitted Class"));
-            this.ListCol.Add(new ExcelColumnPosition("Date of Admission"));
-            this.ListCol.Add(new ExcelColumnPosition("Last School"));
-            this.ListCol.Add(new ExcelColumnPosition("Date of Leaving"));
-            this.ListCol.Add(new ExcelColumnPosition("TC detail"));
+            ListCol.Add(new ExcelColumnPosition("Admission No."));
+            ListCol.Add(new ExcelColumnPosition("Admitted Class"));
+            ListCol.Add(new ExcelColumnPosition("Date of Admission"));
+            ListCol.Add(new ExcelColumnPosition("Last School"));
+            ListCol.Add(new ExcelColumnPosition("Date of Leaving"));
+            ListCol.Add(new ExcelColumnPosition("TC detail"));
 
-            this.ListCol.Add(new ExcelColumnPosition("Bank Acc. No."));
-            this.ListCol.Add(new ExcelColumnPosition("Bank Name"));
-            this.ListCol.Add(new ExcelColumnPosition("Branch Name"));
-            this.ListCol.Add(new ExcelColumnPosition("Branch IFSC"));
-            this.ListCol.Add(new ExcelColumnPosition("MICR code"));
+            ListCol.Add(new ExcelColumnPosition("Stream"));
+            ListCol.Add(new ExcelColumnPosition("HS Sub1"));
+            ListCol.Add(new ExcelColumnPosition("HS Sub2"));
+            ListCol.Add(new ExcelColumnPosition("HS Sub3"));
+            ListCol.Add(new ExcelColumnPosition("HS Adl Sub"));
+            ListCol.Add(new ExcelColumnPosition("Third Language"));
+
+            ListCol.Add(new ExcelColumnPosition("Bank Acc. No."));
+            ListCol.Add(new ExcelColumnPosition("Bank Name"));
+            ListCol.Add(new ExcelColumnPosition("Branch Name"));
+            ListCol.Add(new ExcelColumnPosition("Branch IFSC"));
+            ListCol.Add(new ExcelColumnPosition("MICR code"));
         }
 
         public List<ExcelColumnPosition> ListCol { get; set; }
         public List<ExcelColumnPosition> getListCol()
         {
-            return this.ListCol;
+            return ListCol;
         }
 
         public List<string> GetColListForExport()

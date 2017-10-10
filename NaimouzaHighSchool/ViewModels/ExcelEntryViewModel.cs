@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NaimouzaHighSchool.Models.Database;
 using NaimouzaHighSchool.Models.Utility;
 using NaimouzaHighSchool.ViewModels.Commands;
@@ -10,7 +8,6 @@ using System.Windows;
 using Microsoft.Win32;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using System.ComponentModel;
 
 
@@ -21,25 +18,25 @@ namespace NaimouzaHighSchool.ViewModels
         public ExcelEntryViewModel()
         : base()
         {
-            this.ExService = new ExcelColumnPositionService();
-            this.ExcelEntryHelper = new ExcelEntryHelper();
-            this.ListExCol = ExService.getListCol();
-            this.IgnoredRow = 0;
-            this.LblProgress = "0/0";
-            this.ProgressbarValue = "0";
-            this.ClassesInSchool = new string[] {"V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"};
-            this.SectionsInClass = new string[] { "-not applicable-", "A", "B", "C", "D", "E" };
-            this.SessionStartYear = DateTime.Today.ToString("yyyy");
-            this.SessionEndYear = DateTime.Today.ToString("yyyy");
-            this.ExDb = new ExcelEntryDb();
-            this._flagCanInsert = true;
+            ExService = new ExcelColumnPositionService();
+            ExcelEntryHelper = new ExcelEntryHelper();
+            ListExCol = ExService.getListCol();
+            IgnoredRow = 0;
+            LblProgress = "0/0";
+            ProgressbarValue = "0";
+            ClassesInSchool = new string[] {"V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"};
+            SectionsInClass = new string[] { "-not applicable-", "A", "B", "C", "D", "E" };
+            SessionStartYear = DateTime.Today.ToString("yyyy");
+            SessionEndYear = DateTime.Today.ToString("yyyy");
+            ExDb = new ExcelEntryDb();
+            _flagCanInsert = true;
 
-            this.FileOpenCommand = new RelayCommand(getExcelFile, CanFileBrowse);
-            this.IncrementIgnoredRowCommand = new RelayCommand(IncrementIgnoredRow, CanIncrementIgnoredRow);
-            this.DecrementIgnoredRowCommand = new RelayCommand(DecrementIgnoredRow, CanDecrementIgnoredRow);
-            this.InsertDataCommand = new RelayCommand(InsertData, CanInsertData);
-            this.ResetCommand = new RelayCommand(ResetAll, CanReset);
-            this.AbortCommand = new RelayCommand(this.Abort, this.CanAbort);
+            FileOpenCommand = new RelayCommand(getExcelFile, CanFileBrowse);
+            IncrementIgnoredRowCommand = new RelayCommand(IncrementIgnoredRow, CanIncrementIgnoredRow);
+            DecrementIgnoredRowCommand = new RelayCommand(DecrementIgnoredRow, CanDecrementIgnoredRow);
+            InsertDataCommand = new RelayCommand(InsertData, CanInsertData);
+            ResetCommand = new RelayCommand(ResetAll, CanReset);
+            AbortCommand = new RelayCommand(Abort, CanAbort);
             
         }
 
@@ -64,27 +61,27 @@ namespace NaimouzaHighSchool.ViewModels
         public List<ExcelColumnPosition> ListExCol
         {
             get { return _listExCol; }
-            set { _listExCol = value; this.OnPropertyChanged("ListExCol"); }
+            set { _listExCol = value; OnPropertyChanged("ListExCol"); }
         }
         public string TxbFileName
         {
             get { return _txbFileName; }
-            set { this._txbFileName = value; this.OnPropertyChanged("TxbFileName"); }
+            set { _txbFileName = value; OnPropertyChanged("TxbFileName"); }
         }
         public int IgnoredRow
         {
-            get { return this._ignoredRow; }
-            set { this._ignoredRow = value; this.OnPropertyChanged("IgnoredRow"); }
+            get { return _ignoredRow; }
+            set { _ignoredRow = value; OnPropertyChanged("IgnoredRow"); }
         }
         public string LblProgress
         {
             get { return _lblProgress; }
-            set { _lblProgress = value; this.OnPropertyChanged("LblProgress"); }
+            set { _lblProgress = value; OnPropertyChanged("LblProgress"); }
         }
         public string ProgressbarValue
         {
             get { return _progressbarValue; }
-            set { _progressbarValue = value; this.OnPropertyChanged("ProgressbarValue"); }
+            set { _progressbarValue = value; OnPropertyChanged("ProgressbarValue"); }
         }
         public string[] ClassesInSchool { get; set; }
         public string[] SectionsInClass { get; set; }
@@ -92,12 +89,12 @@ namespace NaimouzaHighSchool.ViewModels
         public string SelectedClass
         {
             get { return _selectedClass; }
-            set { _selectedClass = value; this.OnPropertyChanged("SelectedClass"); }
+            set { _selectedClass = value; OnPropertyChanged("SelectedClass"); }
         }
         public string SelectedSection
         {
             get { return _selectedSection; }
-            set { _selectedSection = value; this.OnPropertyChanged("SelectedSection"); }
+            set { _selectedSection = value; OnPropertyChanged("SelectedSection"); }
         }
         public string SessionStartYear
         {
@@ -124,7 +121,7 @@ namespace NaimouzaHighSchool.ViewModels
             ofile.Filter = "Excel Files|*.xlsx;*.xls";
             if (ofile.ShowDialog() == true)
             {
-                this.TxbFileName = ofile.FileName;
+                TxbFileName = ofile.FileName;
             }
         
         }
@@ -137,33 +134,33 @@ namespace NaimouzaHighSchool.ViewModels
 
         public void IncrementIgnoredRow()
         {
-            this.IgnoredRow++;
+            IgnoredRow++;
         }
         public bool CanIncrementIgnoredRow()
         { 
-            return (this.IgnoredRow > 10) ? false : true;
+            return (IgnoredRow > 10) ? false : true;
         }
 
         public void DecrementIgnoredRow()
         {
-            this.IgnoredRow--;
+            IgnoredRow--;
         }
         public bool CanDecrementIgnoredRow()
         {
-            return (this.IgnoredRow < 1) ? false : true;
+            return (IgnoredRow < 1) ? false : true;
         }
 
         private void Abort()
         {
             bw.CancelAsync();
-            this._flagCanAbort = false;
-            this._flagCanInsert = true;
-            this.Reset();
+            _flagCanAbort = false;
+            _flagCanInsert = true;
+            Reset();
         }
 
         private bool CanAbort()
         {
-            return this._flagCanAbort;
+            return _flagCanAbort;
         }
 
         public void InsertData()
@@ -176,34 +173,34 @@ namespace NaimouzaHighSchool.ViewModels
             bw.ProgressChanged += bw_ProgressChanged;
             bw.RunWorkerCompleted += bw_RunWorkerCompleted;
 
-            this._flagCanAbort = true;
+            _flagCanAbort = true;
 
         }
 
 
         public bool CanInsertData()
         {
-            return (String.IsNullOrEmpty(this.TxbFileName) || this.IgnoredRow < 1 || !ExcelEntryHelper.isExcelColPositionUnique(this.ListExCol) || String.IsNullOrEmpty(this.SelectedClass) || !this._flagCanInsert) ? false : true;
+            return (String.IsNullOrEmpty(TxbFileName) || IgnoredRow < 1 || !ExcelEntryHelper.isExcelColPositionUnique(ListExCol) || String.IsNullOrEmpty(SelectedClass) || !_flagCanInsert) ? false : true;
         }
 
         public void Reset()
         {
-            this.IgnoredRow = -1;
+            IgnoredRow = -1;
             //ExcelColumnPositionService ExServiceNew = new ExcelColumnPositionService();
-            //this.ListExCol = ExServiceNew.getListCol();
-            this.ProgressbarValue = "0";
-            this.LblProgress = "0/0";
-            this.TxbFileName = string.Empty;
+            //ListExCol = ExServiceNew.getListCol();
+            ProgressbarValue = "0";
+            LblProgress = "0/0";
+            TxbFileName = string.Empty;
         }
 
         public void ResetAll()
         {
-            this.IgnoredRow = -1;
+            IgnoredRow = -1;
             ExcelColumnPositionService ExServiceNew = new ExcelColumnPositionService();
-            this.ListExCol = ExServiceNew.getListCol();
-            this.ProgressbarValue = "0";
-            this.LblProgress = "0/0";
-            this.TxbFileName = string.Empty;
+            ListExCol = ExServiceNew.getListCol();
+            ProgressbarValue = "0";
+            LblProgress = "0/0";
+            TxbFileName = string.Empty;
         }
 
         public bool CanReset()
@@ -215,7 +212,7 @@ namespace NaimouzaHighSchool.ViewModels
         private void processExcel(DoWorkEventArgs e_dw)
         {
             Excel.Application xlApp = new Excel.Application();
-            if (string.IsNullOrEmpty(this.TxbFileName))
+            if (string.IsNullOrEmpty(TxbFileName))
             {
                 return;
             }
@@ -225,17 +222,17 @@ namespace NaimouzaHighSchool.ViewModels
                 {
 
                     var xlWorkbooks = xlApp.Workbooks;
-                    Excel.Workbook xlWorkbook = xlWorkbooks.Open(this.TxbFileName);
+                    Excel.Workbook xlWorkbook = xlWorkbooks.Open(TxbFileName);
                     Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
                     Excel.Range xlRange = xlWorksheet.UsedRange;
 
                     int rowCount = xlRange.Rows.Count;
                     int colCount = xlRange.Columns.Count;
 
-                    int scannableFirstRow = this.IgnoredRow + 1;
+                    int scannableFirstRow = IgnoredRow + 1;
                     string[] rowValues = new string[colCount];
 
-                    ExcelColumnStudentBuilder stdBuild = new ExcelColumnStudentBuilder(this.ListExCol);
+                    ExcelColumnStudentBuilder stdBuild = new ExcelColumnStudentBuilder(ListExCol);
 
                     for (int i = scannableFirstRow; i <= rowCount; i++)
                     {
@@ -264,13 +261,13 @@ namespace NaimouzaHighSchool.ViewModels
                         }
 
                         //build student object for each row
-                        Student s = stdBuild.BuildStudent(rowValues, this.SelectedClass, this.SelectedSection);
+                        Student s = stdBuild.BuildStudent(rowValues, SelectedClass, SelectedSection);
                         // insert into database
-                        bool hasInserted = ExDb.InsertFromExcel(s, this.SessionStartYear, this.SessionEndYear);
+                        bool hasInserted = ExDb.InsertFromExcel(s, SessionStartYear, SessionEndYear);
 
-                        this.LblProgress = i.ToString() + "/" + rowCount.ToString();
+                        LblProgress = i.ToString() + "/" + rowCount.ToString();
                         float progressPercent = (i * 100) / rowCount;
-                        this.ProgressbarValue = progressPercent.ToString();
+                        ProgressbarValue = progressPercent.ToString();
                     }
 
 
@@ -290,7 +287,7 @@ namespace NaimouzaHighSchool.ViewModels
                     xlWorkbook.Close();
                     Marshal.ReleaseComObject(xlWorkbook);
 
-                    this.TxbFileName = null;
+                    TxbFileName = null;
 
                     Marshal.ReleaseComObject(xlWorkbooks);
 
@@ -310,24 +307,24 @@ namespace NaimouzaHighSchool.ViewModels
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
-            this._flagCanInsert = false;
-            this.processExcel(e);
+            _flagCanInsert = false;
+            processExcel(e);
         }
 
 
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            // this.excelProgressbar.Value = e.ProgressPercentage;
-            //this.statusText.Text = "Scaning rows. completed " + e.ProgressPercentage.ToString() + e.UserState;
-            this.ProgressbarValue = e.ProgressPercentage.ToString() + e.UserState;
+            // excelProgressbar.Value = e.ProgressPercentage;
+            //statusText.Text = "Scaning rows. completed " + e.ProgressPercentage.ToString() + e.UserState;
+            ProgressbarValue = e.ProgressPercentage.ToString() + e.UserState;
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            this.TxbFileName = string.Empty;
-            this._flagCanInsert = true;
-            this.LblProgress = "Inserted Successfully.";
-            this.Reset();
+            TxbFileName = string.Empty;
+            _flagCanInsert = true;
+            LblProgress = "Inserted Successfully.";
+            Reset();
         }
 
         #endregion method

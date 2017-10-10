@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:dvm="clr-namespace:NaimouzaHighSchool.ViewModels"
         xmlns:conv="clr-namespace:NaimouzaHighSchool.ViewModels.Converters"
+        xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="Student Info" Height="576.58" Width="985.874" Closing="Window_Closing_1">
     <Window.Resources>
@@ -13,7 +14,8 @@
         <conv:GenderConverter x:Key="GenConverter"></conv:GenderConverter>
         <conv:BoolConverter x:Key="YesNoConverter"></conv:BoolConverter>
         <conv:Bool1Converter x:Key="Bool1Converter"></conv:Bool1Converter>
-        <conv:DateConverter x:Key="DateConverter"></conv:DateConverter>
+        <!--<conv:DateConverter x:Key="DateConverter"></conv:DateConverter>
+        <conv:ExcdDateConverter x:Key="xDateConverter"></conv:ExcdDateConverter>-->
         <Style TargetType="{x:Type DatePickerTextBox}">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -314,7 +316,12 @@
                                                                
                                 </Border>
 
-                                <Label Grid.Row="1" Grid.ColumnSpan="6" Content="{Binding TxbName, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}" Foreground="DarkBlue" FontSize="16" FontWeight="Black"></Label>
+                                <Label Grid.Row="1" Style="{StaticResource lblProperty}" Content="Student Name"></Label>
+                                <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
+                                <TextBox Grid.Row="1" Grid.Column="2" IsReadOnly="{Binding IsReadOnlyGen, Source={StaticResource dObj}}"
+                                         Text="{Binding TxbName, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                         Style="{StaticResource TxbInDetail}" Foreground="DarkBlue" FontSize="16" FontWeight="Black">
+                                </TextBox>
                                 <Label Grid.Row="2" Style="{StaticResource lblProperty}">Class</Label>
                                 <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>                           
                                 <ComboBox Grid.Row="2" Grid.Column="2" ItemsSource="{Binding SchoolClasses, Source={StaticResource dObj}}"                                             
@@ -352,17 +359,44 @@
                                 
                                 <Label Grid.Row="3" Grid.Column="3" Style="{StaticResource lblProperty}">DoB</Label>
                                 <Label Grid.Row="3" Grid.Column="4" Style="{StaticResource doubleDot}">:</Label>
-                                <xctk:DateTimeUpDown Grid.Row="3" Grid.Column="5" Width="150" IsReadOnly="{Binding IsReadOnlyGen, Source={StaticResource dObj}}"
-                                                     Value="{Binding Dob, Source={StaticResource dObj}}" Format="ShortDate" TextAlignment="Left" />
+                                <!--<xctk:DateTimePicker Grid.Row="3" Grid.Column="5" Width="150" IsReadOnly="{Binding IsReadOnlyGen, Source={StaticResource dObj}}"
+                                                     Value="{Binding Dob, Source={StaticResource dObj}}" Format="ShortDate" TextAlignment="Left" />-->
+                                <!--<xctk:DateTimePicker Grid.Row="3" Grid.Column="5" Width="150" IsReadOnly="{Binding IsReadOnlyGen, Source={StaticResource dObj}}"
+                                                     Value="{Binding Dob, Source={StaticResource dObj}}" Format="ShortDate" TextAlignment="Left" />-->
+
+
+                                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="5">
+                                    <ComboBox
+                                        ItemsSource="{Binding DD, Source={StaticResource dObj}}"
+                                        SelectedIndex="{Binding DobDDIndex, Source={StaticResource dObj}}"
+                                    ></ComboBox>
+                                    <Label Content="-"/>
+                                    <ComboBox
+                                        ItemsSource="{Binding MM, Source={StaticResource dObj}}"
+                                        SelectedIndex="{Binding DobMMIndex, Source={StaticResource dObj}}"
+                                    ></ComboBox>
+                                    <Label Content="-"/>
+                                    <ComboBox
+                                        ItemsSource="{Binding YYYY, Source={StaticResource dObj}}"
+                                        SelectedIndex="{Binding DobYYIndex, Source={StaticResource dObj}}"
+                                    ></ComboBox>
+                                </StackPanel>
                                 <Label Grid.Row="4" Grid.Column="3" Style="{StaticResource lblProperty}">Age</Label>
                                 <Label Grid.Row="4" Grid.Column="4" Style="{StaticResource doubleDot}">:</Label>
                                 <Label Grid.Row="4" Grid.Column="5" Content="{Binding TxbAge, Source={StaticResource dObj}, Mode=OneWay}" Style="{StaticResource lblValue}"  Foreground="{Binding TxbAgeColor, Source={StaticResource dObj}}"></Label>
 
                                 <Label Grid.Row="5" Grid.Column="3" Style="{StaticResource lblProperty}" Margin="10,0,0,10">Subjects</Label>
                                 <Label Grid.Row="5" Grid.Column="4" Style="{StaticResource doubleDot}">:</Label>
-                                <ListBox Grid.Row="5" Grid.Column="5" BorderThickness="0" FontSize="13" 
+                                <!--<ListBox Grid.Row="5" Grid.Column="5" BorderThickness="0" FontSize="13" 
                                         ItemsSource="{Binding TakenSubjects, Source={StaticResource dObj}}">
-                                </ListBox>
+                                </ListBox>-->
+                                <StackPanel Orientation="Vertical" Grid.Row="5" Grid.Column="5">
+                                    <Label Content="{Binding HsSub1, Source={StaticResource dObj}}"/>
+                                    <Label Content="{Binding HsSub2, Source={StaticResource dObj}}"/>
+                                    <Label Content="{Binding HsSub3, Source={StaticResource dObj}}"/>
+                                    <Label Content="{Binding HsSub4, Source={StaticResource dObj}}"/>
+
+                                </StackPanel>
                                 <Border Grid.Row="6" Grid.ColumnSpan="6" Style="{StaticResource footerBorder}">
                                     
                                 </Border>
@@ -698,17 +732,41 @@
                                          Text="{Binding AdmissionNo, Source={StaticResource dObj}, Mode=TwoWay}" Style="{StaticResource TxbInDetail}" Foreground="{Binding AdmissionNoColor, Source={StaticResource dObj}}"></TextBox>
                                 <Label Grid.Row="2" Style="{StaticResource lblProperty}">Admission Date</Label>
                               
-                                <xctk:DateTimeUpDown Grid.Row="2" Grid.Column="1" Width="150" IsReadOnly="{Binding IsReadOnlyAdm, Source={StaticResource dObj}}"
-                                                     Value="{Binding AdmissionDate, Source={StaticResource dObj}}" Format="ShortDate" TextAlignment="Left" />
+                                <!--<xctk:DateTimePicker Grid.Row="2" Grid.Column="1" Width="150" IsReadOnly="{Binding IsReadOnlyAdm, Source={StaticResource dObj}}"
+                                                     Text="{Binding AdmissionDate, Source={StaticResource dObj}, TargetNullValue=''}" 
+                                                     Format="ShortDate" TextAlignment="Left" />-->
+                                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                                    <ComboBox
+                                        ItemsSource="{Binding DD, Source={StaticResource dObj}}"
+                                        SelectedIndex="{Binding DoaDDIndex, Source={StaticResource dObj}}"
+                                    ></ComboBox>
+                                    <Label>-</Label>
+                                    <ComboBox
+                                        ItemsSource="{Binding MM, Source={StaticResource dObj}}"
+                                        SelectedIndex="{Binding DoaMMIndex, Source={StaticResource dObj}}"
+                                    ></ComboBox>
+                                    <Label>-</Label>
+                                    <ComboBox
+                                        ItemsSource="{Binding YYYY, Source={StaticResource dObj}}"
+                                        SelectedIndex="{Binding DoaYYIndex, Source={StaticResource dObj}}"
+                                    ></ComboBox>
+                                </StackPanel>
+                                <!--<DatePickerTextBox Grid.Row="2" Grid.Column="1"
+                                    Text="{Binding AddmissionDate, Source={StaticResource dObj}}"></DatePickerTextBox>-->
                                 <Label Grid.Row="3" Style="{StaticResource lblProperty}">Admitted in Class</Label>
                                 <ComboBox Grid.Row="3" Grid.Column="1" Width="80" HorizontalAlignment="Left" Margin="0,0,0,20" IsHitTestVisible="{Binding HitTestAdm, Source={StaticResource dObj}}"
                                           ItemsSource="{Binding ClassesForAdmission, Source={StaticResource dObj}}" SelectedIndex="{Binding ClassessForAdmissionIndex, Source={StaticResource dObj}}"></ComboBox>
                                 <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource lblProperty}">Last School</Label>
                                 <TextBox Grid.Row="1" Grid.Column="3" IsReadOnly="{Binding IsReadOnlyAdm, Source={StaticResource dObj}}"
                                          Text="{Binding LastSchool, Source={StaticResource dObj}, Mode=TwoWay}" Style="{StaticResource TxbInDetail}" Foreground="{Binding LastSchoolColor, Source={StaticResource dObj}}"></TextBox>
-                                <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource lblProperty}">Date of Leaving</Label>           
-                                <xctk:DateTimeUpDown Grid.Row="2" Grid.Column="3" Width="150" IsReadOnly="{Binding IsReadOnlyAdm, Source={StaticResource dObj}}"
-                                                     Value="{Binding DateOfLeaving, Source={StaticResource dObj}}" Format="ShortDate" TextAlignment="Left" UpdateValueOnEnterKey="True" />
+                                <!--<Label Grid.Row="2" Grid.Column="2" Style="{StaticResource lblProperty}">Date of Leaving</Label>-->           
+                                <!--<xctk:DateTimePicker Grid.Row="2" Grid.Column="3" Width="150" IsReadOnly="{Binding IsReadOnlyAdm, Source={StaticResource dObj}}"
+                                                     Value="{Binding DateOfLeaving, Source={StaticResource dObj}, UpdateSourceTrigger=LostFocus}" 
+                                                     Format="ShortDate" TextAlignment="Left"
+                                                     
+                                                     UpdateValueOnEnterKey="True"
+                                                     CultureInfo="(Default)"
+                                                     />-->
                                 <Label Grid.Row="3" Grid.Column="2" Style="{StaticResource lblProperty}">TC</Label>
                                 <TextBox Grid.Row="3" Grid.Column="3" IsReadOnly="{Binding IsReadOnlyAdm, Source={StaticResource dObj}}"
                                        Text="{Binding Tc, Source={StaticResource dObj}, Mode=TwoWay}" Style="{StaticResource TxbInDetail}"

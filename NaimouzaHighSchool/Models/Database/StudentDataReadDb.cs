@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Data;
-using MySql.Data;
 using MySql.Data.MySqlClient;
-using System.Configuration;
-using NaimouzaHighSchool;
 using NaimouzaHighSchool.Models.Utility;
 
 namespace NaimouzaHighSchool.Models.Database
@@ -108,14 +102,18 @@ namespace NaimouzaHighSchool.Models.Database
                     s.StudyingClass = rdr[39].ToString();
                     s.Section = rdr[40].ToString();
                     s.Roll = Int32.Parse(rdr[41].ToString());
-                    s.SubjectComboId = rdr[44].ToString(); 
+                    // s.SubjectComboId = rdr[44].ToString(); 
+                    s.HsSub1 = rdr[44].ToString();
+                    s.HsSub2 = rdr[45].ToString();
+                    s.HsSub3 = rdr[46].ToString();
+                    s.HsAdlSub = rdr[47].ToString();
 
-                    s.AdmissionNo = rdr[46].ToString();
-                    s.AdmDate = (string.IsNullOrEmpty(rdr[47].ToString())) ? default(DateTime) : DateTime.Parse(rdr[47].ToString());
-                    s.AdmittedClass = rdr[48].ToString();
-                    s.LastSchool = rdr[49].ToString();
-                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[50].ToString())) ? default(DateTime) : DateTime.Parse(rdr[50].ToString());
-                    s.TC = rdr[51].ToString();
+                    s.AdmissionNo = rdr[50].ToString();
+                    s.AdmDate = (string.IsNullOrEmpty(rdr[51].ToString())) ? default(DateTime) : DateTime.Parse(rdr[51].ToString());
+                    s.AdmittedClass = rdr[52].ToString();
+                    s.LastSchool = rdr[53].ToString();
+                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[54].ToString())) ? default(DateTime) : DateTime.Parse(rdr[54].ToString());
+                    s.TC = rdr[55].ToString();
 
                     sList.Add(s);
                     
@@ -190,14 +188,19 @@ namespace NaimouzaHighSchool.Models.Database
                     s.StudyingClass = rdr[39].ToString();
                     s.Section = rdr[40].ToString();
                     s.Roll = Int32.Parse(rdr[41].ToString());
-                    s.SubjectComboId = rdr[44].ToString(); 
+                    // s.SubjectComboId = rdr[44].ToString(); 
+                    s.HsSub1 = rdr[44].ToString();
+                    s.HsSub2 = rdr[45].ToString();
+                    s.HsSub3 = rdr[46].ToString();
+                    s.HsAdlSub = rdr[47].ToString();
 
-                    s.AdmissionNo = rdr[46].ToString();
-                    s.AdmDate = (string.IsNullOrEmpty(rdr[47].ToString())) ? default(DateTime) : DateTime.Parse(rdr[47].ToString());
-                    s.AdmittedClass = rdr[48].ToString();
-                    s.LastSchool = rdr[49].ToString();
-                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[50].ToString())) ? default(DateTime) : DateTime.Parse(rdr[50].ToString());
-                    s.TC = rdr[51].ToString();
+
+                    s.AdmissionNo = rdr[50].ToString();
+                    s.AdmDate = (string.IsNullOrEmpty(rdr[51].ToString())) ? default(DateTime) : DateTime.Parse(rdr[51].ToString());
+                    s.AdmittedClass = rdr[52].ToString();
+                    s.LastSchool = rdr[53].ToString();
+                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[54].ToString())) ? default(DateTime) : DateTime.Parse(rdr[54].ToString());
+                    s.TC = rdr[55].ToString();
 
                     sList.Add(s);
 
@@ -272,14 +275,18 @@ namespace NaimouzaHighSchool.Models.Database
                     s.StudyingClass = rdr[39].ToString();
                     s.Section = rdr[40].ToString();
                     s.Roll = Int32.Parse(rdr[41].ToString());
-                    s.SubjectComboId = rdr[44].ToString(); 
+                    //  s.SubjectComboId = rdr[44].ToString(); 
+                    s.HsSub1 = rdr[44].ToString();
+                    s.HsSub2 = rdr[45].ToString();
+                    s.HsSub3 = rdr[46].ToString();
+                    s.HsAdlSub = rdr[47].ToString();
 
-                    s.AdmissionNo = rdr[46].ToString();
-                    s.AdmDate = (string.IsNullOrEmpty(rdr[47].ToString())) ? default(DateTime) : DateTime.Parse(rdr[47].ToString());
-                    s.AdmittedClass = rdr[48].ToString();
-                    s.LastSchool = rdr[49].ToString();
-                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[50].ToString())) ? default(DateTime) : DateTime.Parse(rdr[50].ToString());
-                    s.TC = rdr[51].ToString();
+                    s.AdmissionNo = rdr[50].ToString();
+                    s.AdmDate = (string.IsNullOrEmpty(rdr[51].ToString())) ? default(DateTime) : DateTime.Parse(rdr[51].ToString());
+                    s.AdmittedClass = rdr[52].ToString();
+                    s.LastSchool = rdr[53].ToString();
+                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[54].ToString())) ? default(DateTime) : DateTime.Parse(rdr[54].ToString());
+                    s.TC = rdr[55].ToString();
 
                     sList.Add(s);
 
@@ -354,14 +361,18 @@ namespace NaimouzaHighSchool.Models.Database
                     s.StudyingClass = rdr[39].ToString();
                     s.Section = rdr[40].ToString();
                     s.Roll = Int32.Parse(rdr[41].ToString());
-                    s.SubjectComboId = rdr[44].ToString(); 
+                    //  s.SubjectComboId = rdr[44].ToString(); 
+                    s.HsSub1 = rdr[44].ToString();
+                    s.HsSub2 = rdr[45].ToString();
+                    s.HsSub3 = rdr[46].ToString();
+                    s.HsAdlSub = rdr[47].ToString();
 
-                    s.AdmissionNo = rdr[46].ToString();
-                    s.AdmDate = (string.IsNullOrEmpty(rdr[47].ToString())) ? default(DateTime) : DateTime.Parse(rdr[47].ToString());
-                    s.AdmittedClass = rdr[48].ToString();
-                    s.LastSchool = rdr[49].ToString();
-                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[50].ToString())) ? default(DateTime) : DateTime.Parse(rdr[50].ToString());
-                    s.TC = rdr[51].ToString();
+                    s.AdmissionNo = rdr[50].ToString();
+                    s.AdmDate = (string.IsNullOrEmpty(rdr[51].ToString())) ? default(DateTime) : DateTime.Parse(rdr[51].ToString());
+                    s.AdmittedClass = rdr[52].ToString();
+                    s.LastSchool = rdr[53].ToString();
+                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[54].ToString())) ? default(DateTime) : DateTime.Parse(rdr[54].ToString());
+                    s.TC = rdr[55].ToString();
 
                     sList.Add(s);
 
@@ -437,14 +448,18 @@ namespace NaimouzaHighSchool.Models.Database
                     s.StudyingClass = rdr[39].ToString();
                     s.Section = rdr[40].ToString();
                     s.Roll = Int32.Parse(rdr[41].ToString());
-                    s.SubjectComboId = rdr[44].ToString();
+                    //  s.SubjectComboId = rdr[44].ToString();
+                    s.HsSub1 = rdr[44].ToString();
+                    s.HsSub2 = rdr[45].ToString();
+                    s.HsSub3 = rdr[46].ToString();
+                    s.HsAdlSub = rdr[47].ToString();
 
-                    s.AdmissionNo = rdr[46].ToString();
-                    s.AdmDate = (string.IsNullOrEmpty(rdr[47].ToString())) ? default(DateTime) : DateTime.Parse(rdr[47].ToString());
-                    s.AdmittedClass = rdr[48].ToString();
-                    s.LastSchool = rdr[49].ToString();
-                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[50].ToString())) ? default(DateTime) : DateTime.Parse(rdr[50].ToString());
-                    s.TC = rdr[51].ToString();
+                    s.AdmissionNo = rdr[50].ToString();
+                    s.AdmDate = (string.IsNullOrEmpty(rdr[51].ToString())) ? default(DateTime) : DateTime.Parse(rdr[51].ToString());
+                    s.AdmittedClass = rdr[52].ToString();
+                    s.LastSchool = rdr[53].ToString();
+                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[54].ToString())) ? default(DateTime) : DateTime.Parse(rdr[54].ToString());
+                    s.TC = rdr[55].ToString();
 
                     sList.Add(s);
 
@@ -520,14 +535,18 @@ namespace NaimouzaHighSchool.Models.Database
                     s.StudyingClass = rdr[39].ToString();
                     s.Section = rdr[40].ToString();
                     s.Roll = Int32.Parse(rdr[41].ToString());
-                    s.SubjectComboId = rdr[44].ToString();
+                    //  s.SubjectComboId = rdr[44].ToString();
+                    s.HsSub1 = rdr[44].ToString();
+                    s.HsSub2 = rdr[45].ToString();
+                    s.HsSub3 = rdr[46].ToString();
+                    s.HsAdlSub = rdr[47].ToString();
 
-                    s.AdmissionNo = rdr[46].ToString();
-                    s.AdmDate = (string.IsNullOrEmpty(rdr[47].ToString())) ? default(DateTime) : DateTime.Parse(rdr[47].ToString());
-                    s.AdmittedClass = rdr[48].ToString();
-                    s.LastSchool = rdr[49].ToString();
-                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[50].ToString())) ? default(DateTime) : DateTime.Parse(rdr[50].ToString());
-                    s.TC = rdr[51].ToString();
+                    s.AdmissionNo = rdr[50].ToString();
+                    s.AdmDate = (string.IsNullOrEmpty(rdr[51].ToString())) ? default(DateTime) : DateTime.Parse(rdr[51].ToString());
+                    s.AdmittedClass = rdr[52].ToString();
+                    s.LastSchool = rdr[53].ToString();
+                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[54].ToString())) ? default(DateTime) : DateTime.Parse(rdr[54].ToString());
+                    s.TC = rdr[55].ToString();
 
                     sList.Add(s);
 
@@ -657,7 +676,7 @@ namespace NaimouzaHighSchool.Models.Database
             string cls = "'" + s.StudyingClass + "'";
             string section = string.IsNullOrEmpty(s.Section) ? "NULL" : "'" + s.Section + "'";
             string roll = s.Roll.ToString();
-            string comboId = string.IsNullOrEmpty(s.SubjectComboId) ? "NULL" : "'" + s.SubjectComboId + "'";
+           // string comboId = string.IsNullOrEmpty(s.SubjectComboId) ? "NULL" : "'" + s.SubjectComboId + "'";
 
             string admissionNo = string.IsNullOrEmpty(s.AdmissionNo) ? "NULL" : "'" + s.AdmissionNo + "'";
             string doa_temp = s.AdmDate.ToString("yyyy-MM-dd");
@@ -682,7 +701,7 @@ namespace NaimouzaHighSchool.Models.Database
                     cmd.CommandText = sql1;
                     cmd.ExecuteNonQuery();
 
-                    string sql2 = @"UPDATE student_class SET class=" + cls + ", section=" + section + ", roll=" + roll + ", SubjectCombo_id=" + comboId+ " WHERE student_basic_id="+s.Id;
+                    string sql2 = @"UPDATE student_class SET class=" + cls + ", section=" + section + ", roll=" + roll + " WHERE student_basic_id="+s.Id;
                     cmd.CommandText = sql2;
                     cmd.ExecuteNonQuery();
 
@@ -759,6 +778,7 @@ namespace NaimouzaHighSchool.Models.Database
         public List<SubjectCombo> GetComobCodeList()
         {
             List<SubjectCombo> comboList = new List<SubjectCombo>();
+            /*
             string sql = "SELECT * FROM `subjectcombo`";
             try
             {
@@ -779,6 +799,7 @@ namespace NaimouzaHighSchool.Models.Database
             {
                 this.conn.Close();
             }
+             */
             return comboList;
         }
     }

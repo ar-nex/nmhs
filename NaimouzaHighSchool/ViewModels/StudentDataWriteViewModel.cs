@@ -61,12 +61,15 @@ namespace NaimouzaHighSchool.ViewModels
             {
                 _classSelectedIndex = value;
                 this.SelectedClass = (value > -1) ? this.SchoolClass[value] : string.Empty;
+                /*
                 if (value > -1)
                 {
                     this.UpdateComboList();
                 }
                 this.OnPropertyChanged("ClassSelectedIndex");
-            }
+
+                 */ 
+             }
         }
         
         
@@ -118,6 +121,7 @@ namespace NaimouzaHighSchool.ViewModels
             set
             {
                 _comboIndex = value;
+                /*
                 if (value > -1)
                 {
                     this.SetComboCode();
@@ -126,6 +130,7 @@ namespace NaimouzaHighSchool.ViewModels
                 {
                     this.SbComboCode = string.Empty;
                 }
+                */
                 this.OnPropertyChanged("ComboIndex");
             }
         }
@@ -713,7 +718,7 @@ namespace NaimouzaHighSchool.ViewModels
        
 
         private ObservableCollection<string> _banks;
-        private ObservableCollection<string> Banks
+        public ObservableCollection<string> Banks
         {
             get { return this._banks; }
             set { this._banks = value; this.OnPropertyChanged("Banks"); }
@@ -729,7 +734,7 @@ namespace NaimouzaHighSchool.ViewModels
 
 
         private ObservableCollection<string> _branchs;
-        private ObservableCollection<string> Branchs
+        public ObservableCollection<string> Branchs
         {
             get { return this._branchs; }
             set { this._branchs = value; this.OnPropertyChanged("Branchs"); }
@@ -750,7 +755,7 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private ObservableCollection<string> _ifcrList;
-        private ObservableCollection<string> IfcrList
+        public ObservableCollection<string> IfcrList
         {
             get { return this._ifcrList; }
             set { this._ifcrList = value; this.OnPropertyChanged("IfcrList"); }
@@ -768,6 +773,13 @@ namespace NaimouzaHighSchool.ViewModels
         {
             get { return this._micr; }
             set { this._micr = value; this.OnPropertyChanged("Micr"); }
+        }
+
+        private ObservableCollection<string> _micrList;
+        public ObservableCollection<string> MICRList
+        {
+            get { return this._micrList; }
+            set { this._micrList = value; this.OnPropertyChanged("MICRList"); }
         }
         #endregion
 
@@ -876,7 +888,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.StreamList = new string[] { "Arts", "Science" };
             this.SocialCatList = new string[] { "GEN", "SC", "ST", "OBC-A", "OBC-B"};
             this.BloodGroups = new string[] { "A +", "A -", "B +", "B -", "AB +", "AB -", "O +", "O -" };
-            this.VillList = new string[] { "BAKHARPUR", "BAMONGRAM", "CHAMAGRAM", "CHASPARA", "GOYESHBARI", "HARUGRAM", "JALALPUR", "MOSIMPUR", "NAZIRPUR", "PAHARPUR", "SUJAPUR" };
+            this.VillList = new string[] { "BAKHARPUR", "BAMONGRAM", "BROHMOTTOR", "CHAMAGRAM", "CHASPARA", "GOYESHBARI", "HARUGRAM", "JALALPUR", "MOSIMPUR", "NAZIRPUR", "PAHARPUR", "SUJAPUR" };
             this.PostOfficeList = new string[] { "BAKHARPUR", "BAMONGRAM", "CHASPARA", "CHHOTO SUJAPUR", "FATEHKHANI", "GAYESHBARI", "JALALPUR", "MOSIMPUR", "SUJAPUR" };
             this.PSList = new string[] { "KALIACHAK" };
             this.DistList = new string[] { "MALDA" };
@@ -898,12 +910,17 @@ namespace NaimouzaHighSchool.ViewModels
             
 
             this.db = new StudentDataWriteDb();
-            this.AllCombo = db.GetCombo();
+            //this.AllCombo = db.GetCombo();
             
             this.FilteredComboCode = new ObservableCollection<string>();
             this.Banks = new ObservableCollection<string>();
+            this.Banks.Add("STATE BANK OF INDIA");
             this.Branchs = new ObservableCollection<string>();
+            this.Branchs.Add("SUJAPUR");
             this.IfcrList = new ObservableCollection<string>();
+            this.IfcrList.Add("SBIN0006810");
+            this.MICRList = new ObservableCollection<string>();
+            this.MICRList.Add("732002506");
 
 
             this.SaveDataCommand = new RelayCommand(this.SaveData, this.CanSaveData);
@@ -913,6 +930,7 @@ namespace NaimouzaHighSchool.ViewModels
 
         private void UpdateComboList()
         {
+            /*
             if (this.FilteredComboCode.Count > 0)
             {
                 this.FilteredComboCode.Clear();
@@ -927,6 +945,7 @@ namespace NaimouzaHighSchool.ViewModels
                     this.FilteredComboCode.Add(item);
                 }
             }
+             */
         }
         
         private void SetComboCode()
@@ -971,10 +990,13 @@ namespace NaimouzaHighSchool.ViewModels
         public void SaveData()
         {
             Student std = this.buildStudentObject();
-            bool inserted = db.InsertStudentData(std, DateTime.Today.ToString("yyyy-MM-dd"), DateTime.Today.ToString("yyyy-MM-dd"));
+            string sYear = DateTime.Today.Year.ToString();
+            string eYear = DateTime.Today.Year.ToString();
+            bool inserted = db.InsertStudentData(std, sYear, eYear);
             if (inserted)
             {
                 System.Windows.MessageBox.Show("Inserted.");
+                this.ResetData();
             }
             else
             {
@@ -983,10 +1005,10 @@ namespace NaimouzaHighSchool.ViewModels
         }
         public bool CanSaveData()
         {
-           bool basicNotEntered = string.IsNullOrWhiteSpace(this.TxbFirstName) || (this.ClassSelectedIndex == -1) || (this.SectionSelectedIndex == -1) || (this.ComboIndex == -1) || string.IsNullOrEmpty(this.Sex);
+           bool basicNotEntered = string.IsNullOrWhiteSpace(this.TxbFirstName) || (this.ClassSelectedIndex == -1) || (this.SectionSelectedIndex == -1) || string.IsNullOrEmpty(this.Sex);
            bool FatherNameNotEntered = string.IsNullOrEmpty(this.TxbFatherName);
            return !basicNotEntered && !FatherNameNotEntered;
-           //return true;
+           
         }
 
         public void PreviewData()
@@ -1001,7 +1023,42 @@ namespace NaimouzaHighSchool.ViewModels
 
         public void ResetData()
         {
-            string s = "Hello world";
+            this.TxbFirstName = this.TxbMidName = this.TxbLastName = string.Empty;
+            this.TxbFatherName = string.Empty;
+            this.TxbMotherName = string.Empty;
+            this.GuardianName = string.Empty;
+            this.RelationWithGuardian = string.Empty;
+            this.Occupation = string.Empty;
+            this.Dob = default(DateTime);
+            this.Sex = string.Empty;
+            this.BloodGroupIndex = -1;
+            this.ReligionIndex = -1;
+            this.SocialCatIndex = -1;
+            this.SocialSubCat = string.Empty;
+            this.IsPh = false;
+            this.Isbpl = false;
+            this.PhDetail = string.Empty;
+            this.BplNo = string.Empty;
+            this.PresentAddr1 = string.Empty;
+            this.PresentAddr2 = string.Empty;
+            this.PresentPostOffice = string.Empty;
+            this.PresentPs = string.Empty;
+            this.PresentDist = string.Empty;
+            this.PresentPin = string.Empty;
+            this.PermAddr1 = this.PermAddr2 = this.PermPO = this.PermPs = this.PermDist = this.PermPin = string.Empty;
+            this.StdMobile = this.GrdMobile = string.Empty;
+            this.Email = string.Empty;
+            this.TxbAadhar = this.GuardianAadhar = this.VoterCardNo = string.Empty;
+            this.AccNo = this.BankName = this.BranchName = this.Micr = this.Ifcr = string.Empty;
+            this.ClassSelectedIndex = -1;
+            this.SectionSelectedIndex = -1;
+            this.Roll = 0;
+            this.BoardNo = this.BoardRoll = this.CouncilNo = this.CouncilRoll = string.Empty;
+            this.AdmissionDate = this.DateOfLeaving = default(DateTime);
+            this.LastClassIndex = -1;
+            this.LastSchool = string.Empty;
+            this.Tc = string.Empty;
+
         }
 
         public bool CanResetData()
@@ -1049,7 +1106,7 @@ namespace NaimouzaHighSchool.ViewModels
             std.StudyingClass = this.SelectedClass;
             std.Section = this.SelectedSection;
             std.Roll = this.Roll;
-            std.SubjectComboId = this.SbComboCode;
+           // std.SubjectComboId = this.SbComboCode;
             std.BoardNo = this.BoardNo;
             std.BoardRoll = this.BoardRoll;
             std.CouncilNo = this.CouncilNo;

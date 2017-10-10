@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NaimouzaHighSchool.ViewModels.Commands;
 
 namespace NaimouzaHighSchool.ViewModels
@@ -23,6 +20,7 @@ namespace NaimouzaHighSchool.ViewModels
         public RelayCommand ShowStudentDetailViewCommand { get; set; }
         public RelayCommand ShowLeavingCharacterCommand { get; set; }
         public RelayCommand ShowRollUpdateWindowCommand { get; set; }
+        public RelayCommand ShowMarksEntryWindowCommand { get; set; }
 
         private void StartUpInitializer()
         {
@@ -35,6 +33,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.ShowStudentDetailViewCommand = new RelayCommand(this.ShowStudentDetailView, this.CanShowStudentDetailView);
             this.ShowLeavingCharacterCommand = new RelayCommand(this.ShowLvngCharcWindow, this.CanShowLvngCharcWindow);
             this.ShowRollUpdateWindowCommand = new RelayCommand(this.ShowRollUpdateWindow, this.CanShowRollUpdateWindow);
+            ShowMarksEntryWindowCommand = new RelayCommand(ShowMarkEntryWindow, CanShowMarkEntryWindow);
         }
 
         private void ShowExcelExport()
@@ -215,6 +214,25 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanShowRollUpdateWindow()
         { 
             return !NaimouzaHighSchool.Views.RollUpdateView.IsOpen;
+        }
+
+        private void ShowMarkEntryWindow()
+        {
+            if (Views.MarkEntryView.IsOpen)
+            {
+                return;
+            }
+            else
+            {
+                Views.MarkEntryView markEntry = new Views.MarkEntryView();
+                Views.MarkEntryView.IsOpen = true;
+                markEntry.Show();
+            }
+        }
+
+        private bool CanShowMarkEntryWindow()
+        {
+            return !Views.MarkEntryView.IsOpen;
         }
     }
 }
