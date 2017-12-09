@@ -21,6 +21,7 @@ namespace NaimouzaHighSchool.ViewModels
         public RelayCommand ShowLeavingCharacterCommand { get; set; }
         public RelayCommand ShowRollUpdateWindowCommand { get; set; }
         public RelayCommand ShowMarksEntryWindowCommand { get; set; }
+        public RelayCommand ShowStaffExcelImportWindowCommand { get; set; }
 
         private void StartUpInitializer()
         {
@@ -33,6 +34,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.ShowStudentDetailViewCommand = new RelayCommand(this.ShowStudentDetailView, this.CanShowStudentDetailView);
             this.ShowLeavingCharacterCommand = new RelayCommand(this.ShowLvngCharcWindow, this.CanShowLvngCharcWindow);
             this.ShowRollUpdateWindowCommand = new RelayCommand(this.ShowRollUpdateWindow, this.CanShowRollUpdateWindow);
+            ShowStaffExcelImportWindowCommand = new RelayCommand(ShowStaffExcelImportView, CanShowStaffExcelImportView);
             ShowMarksEntryWindowCommand = new RelayCommand(ShowMarkEntryWindow, CanShowMarkEntryWindow);
         }
 
@@ -233,6 +235,25 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanShowMarkEntryWindow()
         {
             return !Views.MarkEntryView.IsOpen;
+        }
+
+        private void ShowStaffExcelImportView()
+        {
+            if (Views.ExcelEntryStaffView.IsOpen)
+            {
+                return;
+            }
+            else
+            {
+                Views.ExcelEntryStaffView exlstaff = new Views.ExcelEntryStaffView();
+                Views.ExcelEntryStaffView.IsOpen = true;
+                exlstaff.Show();
+            }
+        }
+
+        private bool CanShowStaffExcelImportView()
+        {
+            return !Views.ExcelEntryStaffView.IsOpen;
         }
     }
 }

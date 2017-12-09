@@ -19,6 +19,8 @@ namespace NaimouzaHighSchool.Models.Database
 
         }
 
+        /*
+
         public List<string> GetGroups()
         {
             List<string> GrpList = new List<string>();
@@ -221,5 +223,7 @@ namespace NaimouzaHighSchool.Models.Database
             }
             return sblist;       
         }
+
+        */
     }
 }

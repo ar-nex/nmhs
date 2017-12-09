@@ -40,7 +40,7 @@
                 <MenuItem Header="Staff">
                     <MenuItem Header="Detail" Command="{Binding ShowStaffDetailViewCommand, Source={StaticResource vm}}"/>
                     <Separator />
-                    <MenuItem Header="Import from excel"/>
+                    <MenuItem Header="Import from excel" Command="{Binding ShowStaffExcelImportWindowCommand, Source={StaticResource vm}}"/>
                 </MenuItem>
                 <MenuItem Header="Student">
                     <MenuItem Header="Add" Click="MenuItem_Click_3" />

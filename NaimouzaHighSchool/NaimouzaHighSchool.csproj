@@ -145,12 +145,16 @@
     <Compile Include="Models\Utility\BankBranch.cs" />
     <Compile Include="Models\Utility\BoardStudent.cs" />
     <Compile Include="Models\Utility\CombSubPair.cs" />
+    <Compile Include="Models\Utility\Constants.cs" />
+    <Compile Include="Models\Utility\ExcelColumnPositionServiceStaff.cs" />
+    <Compile Include="Models\Utility\ExcelColumnPositionStaff.cs" />
     <Compile Include="Models\Utility\RollUpdater.cs" />
     <Compile Include="Models\Utility\SchoolLeavingStudent.cs" />
     <Compile Include="Models\Utility\Staff.cs" />
     <Compile Include="Models\Utility\Subject.cs" />
     <Compile Include="Models\Utility\SubjectCombo.cs" />
     <Compile Include="Models\Utility\SubjectGroup.cs" />
+    <Compile Include="Models\Utility\SubjectUtility.cs" />
     <Compile Include="ViewModels\BoardExamViewModel.cs" />
     <Compile Include="ViewModels\ClassConfigurationViewModel.cs" />
     <Compile Include="ViewModels\Converters\Bool1Converter.cs" />
@@ -188,6 +192,9 @@
     </Compile>
     <Compile Include="Views\ExamView.xaml.cs">
       <DependentUpon>ExamView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExcelEntryStaffView.xaml.cs">
+      <DependentUpon>ExcelEntryStaffView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExcelExportView.xaml.cs">
       <DependentUpon>ExcelExportView.xaml</DependentUpon>
@@ -246,6 +253,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ExamView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExcelEntryStaffView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -386,6 +397,14 @@
     <Resource Include="Asset\Images\Delete.png" />
     <Resource Include="Asset\Images\Edit.png" />
     <Resource Include="Asset\Images\Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Asset\subject.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="subject.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

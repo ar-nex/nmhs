@@ -203,14 +203,14 @@ namespace NaimouzaHighSchool.ViewModels
             this.ClassNames = new string[] { "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"};
 
             db = new SubjectComboDb();
-            List<SubjectCombo> cmblist = db.GetCombo();
-            this.ParentScombo = new ObservableCollection<SubjectCombo>(cmblist);
+           // List<SubjectCombo> cmblist = db.GetCombo();
+          //  this.ParentScombo = new ObservableCollection<SubjectCombo>(cmblist);
 
             this.CsPair = new List<CombSubPair>();
-            CsPair = db.GetCombSubPair();
+           // CsPair = db.GetCombSubPair();
                       
             this.ScomboByClass = new ObservableCollection<SubjectCombo>();
-            this.SubList = new ObservableCollection<Subject>(db.GetSubjects());
+         //   this.SubList = new ObservableCollection<Subject>(db.GetSubjects());
             
             this.SelectedComboIndex = -1;
             this.IsTxbComboReadOnly = true;
@@ -299,13 +299,13 @@ namespace NaimouzaHighSchool.ViewModels
                 }
             }
             SubjectCombo SelectedCombo = this.ScomboByClass[this.SelectedComboIndex];
-            bool insertedCombo = db.InsertComboSub(SelectedCombo.Code, sbId);
-            if (insertedCombo)
-            {
-                this.SublistNotSelected.Remove(slSub);
-                this.SublistSelected.Add(slSub);
-                this.IndexNotSelected = -1;
-            }
+          //  bool insertedCombo = db.InsertComboSub(SelectedCombo.Code, sbId);
+            //if (insertedCombo)
+            //{
+            //    this.SublistNotSelected.Remove(slSub);
+            //    this.SublistSelected.Add(slSub);
+            //    this.IndexNotSelected = -1;
+            //}
             // remove that from notselected
             // add that to selected.
 
@@ -328,13 +328,13 @@ namespace NaimouzaHighSchool.ViewModels
                 }
             }
             SubjectCombo SelectedCombo = this.ScomboByClass[this.SelectedComboIndex];
-            bool deleted = db.RemoveComboSub(SelectedCombo.Code, sbId);
-            if (deleted)
-            {
-                this.SublistSelected.Remove(slSub);
-                this.SublistNotSelected.Add(slSub);
-                this.IndexSelected = -1;
-            }
+         //   bool deleted = db.RemoveComboSub(SelectedCombo.Code, sbId);
+            //if (deleted)
+            //{
+            //    this.SublistSelected.Remove(slSub);
+            //    this.SublistNotSelected.Add(slSub);
+            //    this.IndexSelected = -1;
+            //}
         }
         private bool CanRemoveFromSelected()
         {
@@ -371,15 +371,15 @@ namespace NaimouzaHighSchool.ViewModels
                 case _saveIndicator.None:
                     break;
                 case _saveIndicator.Add:
-                    long comboId = db.InsertCombo(this.TxbComboText, this.ClassOfCombo);
-                    if (comboId > 0)
-                    {
-                        this.ParentScombo.Add(new SubjectCombo(comboId.ToString(), this.TxbComboText, this.ClassOfCombo));
-                        this.UpdateComboByClass(this.ClassOfCombo);
-                        this._sindi = _saveIndicator.None;
-                        this.TxbComboText = string.Empty;
-                        this.IsTxbComboReadOnly = true;
-                    }
+               //     long comboId = db.InsertCombo(this.TxbComboText, this.ClassOfCombo);
+                    //if (comboId > 0)
+                    //{
+                    //    this.ParentScombo.Add(new SubjectCombo(comboId.ToString(), this.TxbComboText, this.ClassOfCombo));
+                    //    this.UpdateComboByClass(this.ClassOfCombo);
+                    //    this._sindi = _saveIndicator.None;
+                    //    this.TxbComboText = string.Empty;
+                    //    this.IsTxbComboReadOnly = true;
+                    //}
                     break;
                 case _saveIndicator.Edit:
                     //if (db.UpdateComboCode(new SubjectCombo(this.ScomboByClass[this.SelectedComboIndex].Id, this.TxbComboText, this.ClassOfCombo)))
@@ -436,14 +436,14 @@ namespace NaimouzaHighSchool.ViewModels
         private void DeleteCombo()
         {
             string selectedComboId = this.ScomboByClass[this.SelectedComboIndex].Id;
-            if (db.RemoveCombo(selectedComboId))
-            {
-                int tempIndex = this.SelectedComboIndex;
-                this.SelectedComboIndex = -1;
-                this.ScomboByClass.RemoveAt(tempIndex);
-                this._sindi = _saveIndicator.None;
-                this.TxbComboText = string.Empty;
-            }
+            //if (db.RemoveCombo(selectedComboId))
+            //{
+            //    int tempIndex = this.SelectedComboIndex;
+            //    this.SelectedComboIndex = -1;
+            //    this.ScomboByClass.RemoveAt(tempIndex);
+            //    this._sindi = _saveIndicator.None;
+            //    this.TxbComboText = string.Empty;
+            //}
         }
         private bool CanDeleteCombo()
         {

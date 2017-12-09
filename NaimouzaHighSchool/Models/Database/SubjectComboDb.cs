@@ -19,6 +19,7 @@ namespace NaimouzaHighSchool.Models.Database
 
         }
 
+        /*
         public List<SubjectCombo> GetCombo()
         {
             List<SubjectCombo> cmbo = new List<SubjectCombo>();
@@ -233,6 +234,7 @@ namespace NaimouzaHighSchool.Models.Database
             return rs;
 
         }
+        */
 
     }
 }

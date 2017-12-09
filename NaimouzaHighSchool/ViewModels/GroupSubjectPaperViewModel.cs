@@ -230,13 +230,13 @@ namespace NaimouzaHighSchool.ViewModels
            
             db = new SubjectGroupDb();
             List<string> grList = new List<string>();
-            grList = db.GetGroups();
+     //       grList = db.GetGroups();
             Groups = new ObservableCollection<string>(grList);
             
             SbGroups = new ObservableCollection<SubjectGroup>();
             List<Subject> sbListFromDb = new List<Subject>();
             
-            sbListFromDb = db.GetSubjects();
+       //     sbListFromDb = db.GetSubjects();
             SubList = new ObservableCollection<Subject>(sbListFromDb);
             SbGroups = this.CreateSubjectGroup(Groups, SubList);
           
@@ -350,15 +350,15 @@ namespace NaimouzaHighSchool.ViewModels
                 bool grpExist = this.Groups.Contains(this.TxbGroup);
                 if (grpIntered && !grpExist)
                 {
-                    bool inserted = db.InsertGroup(this.TxbGroup);
-                    if (inserted)
-                    {
-                        this.Groups.Add(this.TxbGroup);
-                        //update the subject container group
-                        SubjectGroup sgNew = new SubjectGroup();
-                        sgNew.GroupTitle = this.TxbGroup;
-                        SbGroups.Add(sgNew);
-                    }
+             //       bool inserted = db.InsertGroup(this.TxbGroup);
+                    //if (inserted)
+                    //{
+                    //    this.Groups.Add(this.TxbGroup);
+                    //    //update the subject container group
+                    //    SubjectGroup sgNew = new SubjectGroup();
+                    //    sgNew.GroupTitle = this.TxbGroup;
+                    //    SbGroups.Add(sgNew);
+                    //}
                 }
             }
             else if(Sindi == _saveIndicator.Edit)
@@ -366,26 +366,26 @@ namespace NaimouzaHighSchool.ViewModels
                 string newGrpName = TxbGroup;
                 if (_oldGrpName != newGrpName)
                 {
-                    bool updated = db.UpdateGroup(_oldGrpName, newGrpName);
-                    if (updated)
-                    {
-                        System.Windows.MessageBox.Show("Updated");
-                        int oldIndex = Groups.IndexOf(_oldGrpName);
-                        Groups.Remove(_oldGrpName);
-                        Groups.Insert(oldIndex, TxbGroup);                      
-                        //update the subject-group container
-                        foreach (SubjectGroup item in SbGroups)
-                        {
+              //      bool updated = db.UpdateGroup(_oldGrpName, newGrpName);
+                    //if (updated)
+                    //{
+                    //    System.Windows.MessageBox.Show("Updated");
+                    //    int oldIndex = Groups.IndexOf(_oldGrpName);
+                    //    Groups.Remove(_oldGrpName);
+                    //    Groups.Insert(oldIndex, TxbGroup);                      
+                    //    //update the subject-group container
+                    //    foreach (SubjectGroup item in SbGroups)
+                    //    {
                            
-                            if (item.GroupTitle == _oldGrpName)
-                            {
-                                item.GroupTitle = newGrpName;
-                                return;
-                            }
-                        }
-                        _oldGrpName = null;
+                    //        if (item.GroupTitle == _oldGrpName)
+                    //        {
+                    //            item.GroupTitle = newGrpName;
+                    //            return;
+                    //        }
+                    //    }
+                    //    _oldGrpName = null;
 
-                    }
+                    //}
                 }
             }
             this.Sindi = _saveIndicator.None;
@@ -419,11 +419,11 @@ namespace NaimouzaHighSchool.ViewModels
         {
             if (!String.IsNullOrWhiteSpace(TxbGroup))
             {
-                bool deleted = db.DeleteGroup(TxbGroup);
-                if (deleted)
-                {
-                    Groups.Remove(TxbGroup);
-                }
+              //  bool deleted = db.DeleteGroup(TxbGroup);
+                //if (deleted)
+                //{
+                //    Groups.Remove(TxbGroup);
+                //}
             }
             Sindi = _saveIndicator.None;
         }
@@ -500,23 +500,23 @@ namespace NaimouzaHighSchool.ViewModels
                 CloneSubject.ShortName = this.TxbShortName;
                 CloneSubject.BelongingGroup = this.ComboBelongingGroup;
 
-                bool inserted = db.InsertSubject(CloneSubject);
-                if (inserted)
-                {
-                    //update the subject in view
-                    var sbGrTemp = from s in this.SbGroups
-                                   where s.GroupTitle == CloneSubject.BelongingGroup
-                                   select s;
-                    foreach (SubjectGroup item in sbGrTemp)
-                    {
-                        item.SubsList.Add(CloneSubject);
-                    }
-                    CloneSubject = null;
-                    TxbSubName = String.Empty;
-                    TxbShortName = String.Empty;
-                    //ComboBelongingGroup = String.Empty;
-                    this.IsEntryEnable = false;
-                }
+                //bool inserted = db.InsertSubject(CloneSubject);
+                //if (inserted)
+                //{
+                //    //update the subject in view
+                //    var sbGrTemp = from s in this.SbGroups
+                //                   where s.GroupTitle == CloneSubject.BelongingGroup
+                //                   select s;
+                //    foreach (SubjectGroup item in sbGrTemp)
+                //    {
+                //        item.SubsList.Add(CloneSubject);
+                //    }
+                //    CloneSubject = null;
+                //    TxbSubName = String.Empty;
+                //    TxbShortName = String.Empty;
+                //    //ComboBelongingGroup = String.Empty;
+                //    this.IsEntryEnable = false;
+                //}
             }
             else if (SubSindi == subSaveIndicator.Edit)
             {
@@ -545,65 +545,65 @@ namespace NaimouzaHighSchool.ViewModels
                 CloneSubject.SubName = TxbSubName;
                 CloneSubject.ShortName = TxbShortName;
 
-                bool hasUpdated = db.UpdateSub(CloneSubject);
-                if (hasUpdated)
-                {
-                    // same grp or not
-                    if (this.CmbSelectedSubGroup1 == this.ComboBelongingGroup)
-                    {
-                        var sb = from s in this.SubList
-                                       where s.BelongingGroup == this.CmbSelectedSubGroup1
-                                       where s.SubName == this.TxbSelectedSub1
-                                       where s.ShortName == this.TxbShortName1
-                                       select s;
-                        foreach (Subject Sitem in sb)
-                        {
-                            Sitem.BelongingGroup = ComboBelongingGroup;
-                            Sitem.SubName = TxbSubName;
-                            Sitem.ShortName = TxbShortName;
-                        }
-                    }
-                    else 
-                    { 
-                     // remove old one
+                //bool hasUpdated = db.UpdateSub(CloneSubject);
+                //if (hasUpdated)
+                //{
+                //    // same grp or not
+                //    if (this.CmbSelectedSubGroup1 == this.ComboBelongingGroup)
+                //    {
+                //        var sb = from s in this.SubList
+                //                       where s.BelongingGroup == this.CmbSelectedSubGroup1
+                //                       where s.SubName == this.TxbSelectedSub1
+                //                       where s.ShortName == this.TxbShortName1
+                //                       select s;
+                //        foreach (Subject Sitem in sb)
+                //        {
+                //            Sitem.BelongingGroup = ComboBelongingGroup;
+                //            Sitem.SubName = TxbSubName;
+                //            Sitem.ShortName = TxbShortName;
+                //        }
+                //    }
+                //    else 
+                //    { 
+                //     // remove old one
                                                 
-                            foreach (SubjectGroup itemGr in SbGroups)
-                            {
-                                bool findFlag = false;
-                                foreach (Subject itemSb in itemGr.SubsList)
-                                {
-                                    if (itemSb.ID == CloneSubject.ID )
-                                    {
-                                        itemGr.SubsList.Remove(itemSb);
-                                        findFlag = true;
-                                        break;
-                                    }
-                                }
-                                if (findFlag)
-                                {
-                                    break;
-                                }
-                            }
+                //            foreach (SubjectGroup itemGr in SbGroups)
+                //            {
+                //                bool findFlag = false;
+                //                foreach (Subject itemSb in itemGr.SubsList)
+                //                {
+                //                    if (itemSb.ID == CloneSubject.ID )
+                //                    {
+                //                        itemGr.SubsList.Remove(itemSb);
+                //                        findFlag = true;
+                //                        break;
+                //                    }
+                //                }
+                //                if (findFlag)
+                //                {
+                //                    break;
+                //                }
+                //            }
                             
                         
 
-                     // insert new one
-                            foreach (SubjectGroup itemGr in SbGroups)
-                            {
+                //     // insert new one
+                //            foreach (SubjectGroup itemGr in SbGroups)
+                //            {
                                 
-                                if (itemGr.GroupTitle == CloneSubject.BelongingGroup)
-                                {
-                                    itemGr.SubsList.Add(CloneSubject);
-                                    break;
-                                }
+                //                if (itemGr.GroupTitle == CloneSubject.BelongingGroup)
+                //                {
+                //                    itemGr.SubsList.Add(CloneSubject);
+                //                    break;
+                //                }
                                
-                            }
+                //            }
 
-                    }
-                    this.ResetNewSubVal();
-                    this.ResetOldSubVal();
-                    this.SubSindi = subSaveIndicator.None;
-                }
+                //    }
+                //    this.ResetNewSubVal();
+                //    this.ResetOldSubVal();
+                //    this.SubSindi = subSaveIndicator.None;
+                //}
             }
         }
 
@@ -642,27 +642,27 @@ namespace NaimouzaHighSchool.ViewModels
             }
             if (!string.IsNullOrEmpty(sbjId))
             {
-                if (db.DeleteSubject(sbjId))
-                {
-                    foreach (SubjectGroup itemGr in SbGroups)
-                    {
-                        bool removeFlag = false;
-                        foreach (Subject itemSb in itemGr.SubsList)
-                        {
-                            if (itemSb.ID == sbjId)
-                            {
-                                itemGr.SubsList.Remove(itemSb);
-                                removeFlag = true;
-                                break;
-                            }
-                        }
-                        if (removeFlag)
-                        {
-                            break;
-                        }
-                    }
-                    this.ResetOldSubVal();
-                }    
+                //if (db.DeleteSubject(sbjId))
+                //{
+                //    foreach (SubjectGroup itemGr in SbGroups)
+                //    {
+                //        bool removeFlag = false;
+                //        foreach (Subject itemSb in itemGr.SubsList)
+                //        {
+                //            if (itemSb.ID == sbjId)
+                //            {
+                //                itemGr.SubsList.Remove(itemSb);
+                //                removeFlag = true;
+                //                break;
+                //            }
+                //        }
+                //        if (removeFlag)
+                //        {
+                //            break;
+                //        }
+                //    }
+                //    this.ResetOldSubVal();
+                //}    
             }
 
            

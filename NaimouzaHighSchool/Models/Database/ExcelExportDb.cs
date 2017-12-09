@@ -27,6 +27,7 @@ namespace NaimouzaHighSchool.Models.Database
             string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
                             INNER JOIN student_class c ON c.student_basic_id = s.id 
                             INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.startYear = '" +sYear.ToString()+"' AND c.endYear = '"+eYear.ToString()+"'";
+
             try
             {
                 this.conn.Open();
@@ -78,14 +79,14 @@ namespace NaimouzaHighSchool.Models.Database
                     s.StudyingClass = rdr[39].ToString();
                     s.Section = rdr[40].ToString();
                     s.Roll = Int32.Parse(rdr[41].ToString());
-                    s.SubjectComboId = rdr[44].ToString();
+                 //   s.SubjectComboId = rdr[44].ToString();
 
-                    s.AdmissionNo = rdr[46].ToString();
-                    s.AdmDate = (string.IsNullOrEmpty(rdr[47].ToString())) ? default(DateTime) : DateTime.Parse(rdr[47].ToString());
-                    s.AdmittedClass = rdr[48].ToString();
-                    s.LastSchool = rdr[49].ToString();
-                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[50].ToString())) ? default(DateTime) : DateTime.Parse(rdr[50].ToString());
-                    s.TC = rdr[51].ToString();
+                    s.AdmissionNo = rdr[50].ToString();
+                    s.AdmDate = (string.IsNullOrEmpty(rdr[51].ToString())) ? default(DateTime) : DateTime.Parse(rdr[51].ToString());
+                    s.AdmittedClass = rdr[52].ToString();
+                    s.LastSchool = rdr[53].ToString();
+                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[54].ToString())) ? default(DateTime) : DateTime.Parse(rdr[54].ToString());
+                    s.TC = rdr[55].ToString();
 
                     sList.Add(s);
 
@@ -160,23 +161,23 @@ namespace NaimouzaHighSchool.Models.Database
                     s.StudyingClass = rdr[39].ToString();
                     s.Section = rdr[40].ToString();
                     s.Roll = Int32.Parse(rdr[41].ToString());
-                    s.SubjectComboId = rdr[44].ToString();
+            //        s.SubjectComboId = rdr[44].ToString();
 
-                    s.AdmissionNo = rdr[46].ToString();
-                    s.AdmDate = (string.IsNullOrEmpty(rdr[47].ToString())) ? default(DateTime) : DateTime.Parse(rdr[47].ToString());
-                    s.AdmittedClass = rdr[48].ToString();
-                    s.LastSchool = rdr[49].ToString();
-                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[50].ToString())) ? default(DateTime) : DateTime.Parse(rdr[50].ToString());
-                    s.TC = rdr[51].ToString();
+                    s.AdmissionNo = rdr[50].ToString();
+                    s.AdmDate = (string.IsNullOrEmpty(rdr[51].ToString())) ? default(DateTime) : DateTime.Parse(rdr[51].ToString());
+                    s.AdmittedClass = rdr[52].ToString();
+                    s.LastSchool = rdr[53].ToString();
+                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[54].ToString())) ? default(DateTime) : DateTime.Parse(rdr[54].ToString());
+                    s.TC = rdr[55].ToString();
 
                     sList.Add(s);
 
                 }
             }
-            catch (Exception e1)
+            catch (Exception e1x)
             {
 
-                System.Windows.MessageBox.Show("e1 : " + e1.Message);
+                System.Windows.MessageBox.Show("e1x : " + e1x.Message);
             }
             finally
             {
