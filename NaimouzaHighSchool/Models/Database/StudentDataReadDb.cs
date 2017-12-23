@@ -99,21 +99,25 @@ namespace NaimouzaHighSchool.Models.Database
 
                     s.CouncilRoll = rdr[35].ToString();
                     s.CouncilNo = rdr[36].ToString();
-                    s.StudyingClass = rdr[39].ToString();
-                    s.Section = rdr[40].ToString();
-                    s.Roll = Int32.Parse(rdr[41].ToString());
-                    // s.SubjectComboId = rdr[44].ToString(); 
-                    s.HsSub1 = rdr[44].ToString();
-                    s.HsSub2 = rdr[45].ToString();
-                    s.HsSub3 = rdr[46].ToString();
-                    s.HsAdlSub = rdr[47].ToString();
 
-                    s.AdmissionNo = rdr[50].ToString();
-                    s.AdmDate = (string.IsNullOrEmpty(rdr[51].ToString())) ? default(DateTime) : DateTime.Parse(rdr[51].ToString());
-                    s.AdmittedClass = rdr[52].ToString();
-                    s.LastSchool = rdr[53].ToString();
-                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[54].ToString())) ? default(DateTime) : DateTime.Parse(rdr[54].ToString());
-                    s.TC = rdr[55].ToString();
+                    s.RegistrationNoMp = rdr[37].ToString();
+                    s.RegistrationNoHs = rdr[38].ToString();
+
+                    s.StudyingClass = rdr[41].ToString();
+                    s.Section = rdr[42].ToString();
+                    s.Roll = Int32.Parse(rdr[43].ToString());
+                    // s.SubjectComboId = rdr[44].ToString(); 
+                    s.HsSub1 = rdr[46].ToString();
+                    s.HsSub2 = rdr[47].ToString();
+                    s.HsSub3 = rdr[48].ToString();
+                    s.HsAdlSub = rdr[49].ToString();
+
+                    s.AdmissionNo = rdr[52].ToString();
+                    s.AdmDate = (string.IsNullOrEmpty(rdr[53].ToString())) ? default(DateTime) : DateTime.Parse(rdr[53].ToString());
+                    s.AdmittedClass = rdr[54].ToString();
+                    s.LastSchool = rdr[55].ToString();
+                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[56].ToString())) ? default(DateTime) : DateTime.Parse(rdr[56].ToString());
+                    s.TC = rdr[57].ToString();
 
                     sList.Add(s);
                     
@@ -185,22 +189,26 @@ namespace NaimouzaHighSchool.Models.Database
 
                     s.CouncilRoll = rdr[35].ToString();
                     s.CouncilNo = rdr[36].ToString();
-                    s.StudyingClass = rdr[39].ToString();
-                    s.Section = rdr[40].ToString();
-                    s.Roll = Int32.Parse(rdr[41].ToString());
+
+                    s.RegistrationNoMp = rdr[37].ToString();
+                    s.RegistrationNoHs = rdr[38].ToString();
+
+                    s.StudyingClass = rdr[41].ToString();
+                    s.Section = rdr[42].ToString();
+                    s.Roll = Int32.Parse(rdr[43].ToString());
                     // s.SubjectComboId = rdr[44].ToString(); 
-                    s.HsSub1 = rdr[44].ToString();
-                    s.HsSub2 = rdr[45].ToString();
-                    s.HsSub3 = rdr[46].ToString();
-                    s.HsAdlSub = rdr[47].ToString();
+                    s.HsSub1 = rdr[46].ToString();
+                    s.HsSub2 = rdr[47].ToString();
+                    s.HsSub3 = rdr[48].ToString();
+                    s.HsAdlSub = rdr[49].ToString();
 
 
-                    s.AdmissionNo = rdr[50].ToString();
-                    s.AdmDate = (string.IsNullOrEmpty(rdr[51].ToString())) ? default(DateTime) : DateTime.Parse(rdr[51].ToString());
-                    s.AdmittedClass = rdr[52].ToString();
-                    s.LastSchool = rdr[53].ToString();
-                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[54].ToString())) ? default(DateTime) : DateTime.Parse(rdr[54].ToString());
-                    s.TC = rdr[55].ToString();
+                    s.AdmissionNo = rdr[52].ToString();
+                    s.AdmDate = (string.IsNullOrEmpty(rdr[53].ToString())) ? default(DateTime) : DateTime.Parse(rdr[53].ToString());
+                    s.AdmittedClass = rdr[54].ToString();
+                    s.LastSchool = rdr[55].ToString();
+                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[56].ToString())) ? default(DateTime) : DateTime.Parse(rdr[56].ToString());
+                    s.TC = rdr[57].ToString();
 
                     sList.Add(s);
 

@@ -377,6 +377,28 @@ namespace NaimouzaHighSchool.Models.Utility
             get => _thirdLang;
             set => _thirdLang = value;
         }
+
+        private string _registrationNoMp;
+        public string RegistrationNoMp
+        {
+            get => _registrationNoMp;
+            set
+            {
+                _registrationNoMp = value;
+                OnPropertyChanged("RegistrationNoMp");
+            }
+        }
+
+        private string _registrationNoHs;
+        public string RegistrationNoHs
+        {
+            get => _registrationNoHs;
+            set
+            {
+                _registrationNoHs = value;
+                OnPropertyChanged("RegistrationNoHs");
+            }
+        }
         #endregion
     }
 }
