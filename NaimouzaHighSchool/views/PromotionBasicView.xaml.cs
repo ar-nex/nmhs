@@ -3,18 +3,18 @@
 namespace NaimouzaHighSchool.Views
 {
     /// <summary>
-    /// Interaction logic for RollUpdateView.xaml
+    /// Interaction logic for PromotionBasicView.xaml
     /// </summary>
-    public partial class RollUpdateView : Window
+    public partial class PromotionBasicView : Window
     {
-        public RollUpdateView()
+        public PromotionBasicView()
         {
             InitializeComponent();
         }
 
         public static bool IsOpen;
 
-        private void Window_Closing_1(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             IsOpen = false;
         }

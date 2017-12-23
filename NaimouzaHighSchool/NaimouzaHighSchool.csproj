@@ -132,6 +132,7 @@
     <Compile Include="Models\Database\DeleteDb.cs" />
     <Compile Include="Models\Database\ExamDb.cs" />
     <Compile Include="Models\Database\ExcelExportDb.cs" />
+    <Compile Include="Models\Database\PromotionBasicDb.cs" />
     <Compile Include="Models\Database\RollUpdateDb.cs" />
     <Compile Include="Models\Database\SchoolLeavingAndCharacterDb.cs" />
     <Compile Include="Models\Database\StaffDetailDb.cs" />
@@ -148,6 +149,8 @@
     <Compile Include="Models\Utility\Constants.cs" />
     <Compile Include="Models\Utility\ExcelColumnPositionServiceStaff.cs" />
     <Compile Include="Models\Utility\ExcelColumnPositionStaff.cs" />
+    <Compile Include="Models\Utility\PromotionBasic.cs" />
+    <Compile Include="Models\Utility\RollRegistrationUpdater.cs" />
     <Compile Include="Models\Utility\RollUpdater.cs" />
     <Compile Include="Models\Utility\SchoolLeavingStudent.cs" />
     <Compile Include="Models\Utility\Staff.cs" />
@@ -171,6 +174,7 @@
     <Compile Include="ViewModels\ExcelExportViewModel.cs" />
     <Compile Include="ViewModels\GroupSubjectPaperViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\PromotionBasicViewModel.cs" />
     <Compile Include="ViewModels\RollUpdateViewModel.cs" />
     <Compile Include="ViewModels\SchoolLeavingAndCharacterViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
@@ -207,6 +211,9 @@
     </Compile>
     <Compile Include="Views\MaxMarksView.xaml.cs">
       <DependentUpon>MaxMarksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PromotionBasicView.xaml.cs">
+      <DependentUpon>PromotionBasicView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RollUpdateView.xaml.cs">
       <DependentUpon>RollUpdateView.xaml</DependentUpon>
@@ -308,6 +315,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MaxMarksView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PromotionBasicView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

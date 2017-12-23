@@ -22,6 +22,7 @@ namespace NaimouzaHighSchool.ViewModels
         public RelayCommand ShowRollUpdateWindowCommand { get; set; }
         public RelayCommand ShowMarksEntryWindowCommand { get; set; }
         public RelayCommand ShowStaffExcelImportWindowCommand { get; set; }
+        public RelayCommand ShowPromotionBasicViewCommand { get; set; }
 
         private void StartUpInitializer()
         {
@@ -36,6 +37,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.ShowRollUpdateWindowCommand = new RelayCommand(this.ShowRollUpdateWindow, this.CanShowRollUpdateWindow);
             ShowStaffExcelImportWindowCommand = new RelayCommand(ShowStaffExcelImportView, CanShowStaffExcelImportView);
             ShowMarksEntryWindowCommand = new RelayCommand(ShowMarkEntryWindow, CanShowMarkEntryWindow);
+            ShowPromotionBasicViewCommand = new RelayCommand(ShowPromotionBasicView, CanShowPromotionBasicView);
         }
 
         private void ShowExcelExport()
@@ -254,6 +256,25 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanShowStaffExcelImportView()
         {
             return !Views.ExcelEntryStaffView.IsOpen;
+        }
+
+        private void ShowPromotionBasicView()
+        {
+            if (Views.PromotionBasicView.IsOpen)
+            {
+                return;
+            }
+            else
+            {
+                Views.PromotionBasicView promView = new Views.PromotionBasicView();
+                Views.PromotionBasicView.IsOpen = true;
+                promView.Show();
+            }
+        }
+
+        private bool CanShowPromotionBasicView()
+        {
+            return !Views.PromotionBasicView.IsOpen;
         }
     }
 }
