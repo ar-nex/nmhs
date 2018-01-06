@@ -42,6 +42,28 @@ namespace NaimouzaHighSchool.ViewModels
             }
         }
 
+        private int _startYear;
+        public int StartYear
+        {
+            get => _startYear;
+            set
+            {
+                _startYear = value;
+                OnPropertyChanged("StartYear");
+            }
+        }
+
+        private int _endYear;
+        public int EndYear
+        {
+            get => _endYear;
+            set
+            {
+                _endYear = value;
+                OnPropertyChanged("EndYear");
+            }
+        }
+
         private string _searchTextBoxLabel;
         public string SearchTextBoxLabel
         {
@@ -900,6 +922,9 @@ namespace NaimouzaHighSchool.ViewModels
             this.BloodGroups = new string[] { "A +", "A -", "B +", "B -", "AB +", "AB -", "O +", "O -" };
             this.SocialCatList = new string[] { "GEN", "SC", "ST", "OBC-A", "OBC-B" };
             this.ClassesForAdmission = new string[] { "V", "VI", "VII", "VIII", "IX", "XI" };
+            StartYear = DateTime.Today.Year;
+            EndYear = DateTime.Today.Year;
+
 
             DD = new string[] { "DD", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
             MM = new string[] { "MM", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
@@ -973,7 +998,7 @@ namespace NaimouzaHighSchool.ViewModels
           //  List<Student> slist = new List<Student>();
             if (this.SearchCategory == "name" || this.SearchCategory == "aadhar" || this.SearchCategory == "admissionNo" || this.SearchCategory == "madhyamicNo" || this.SearchCategory == "madhyamicRoll")
             {
-                this.Slist = db.GetStudentList(this.SearchCategory, this.SearchText);
+                this.Slist = db.GetStudentList(this.SearchCategory, this.SearchText, StartYear, EndYear);
             }
             else if(this.SearchCategory == "cls")
             { 
@@ -983,11 +1008,11 @@ namespace NaimouzaHighSchool.ViewModels
                 {
                     if (this.SelectedClassIndex > -1 && this.SelectedSectionIndex == -1)
                     {
-                        this.Slist = db.GetStudentListByClass(this.SelectedClass);
+                        this.Slist = db.GetStudentListByClass(SelectedClass, StartYear, EndYear);
                     }
                     else if (this.SelectedClassIndex > -1 && this.SelectedSectionIndex > -1)
                     {
-                        this.Slist = db.GetStudentListByClass(this.SelectedClass, this.SelectedSection);
+                        this.Slist = db.GetStudentListByClass(this.SelectedClass, this.SelectedSection, StartYear, EndYear);
                     }
                 }
                     // if roll exist verify it.
@@ -999,15 +1024,15 @@ namespace NaimouzaHighSchool.ViewModels
                     {
                         if (this.SelectedClassIndex > -1 && this.SelectedSectionIndex > -1)
                         {
-                            this.Slist = db.GetStudentListByClass(this.SelectedClass, this.SelectedSection, rl);
+                            this.Slist = db.GetStudentListByClass(this.SelectedClass, this.SelectedSection, rl, StartYear, EndYear);
                         }
                         else if (this.SelectedClassIndex > -1 && this.SelectedSectionIndex == -1)
                         {
-                            this.Slist = db.GetStudentListByClass(this.SelectedClass, rl);
+                            this.Slist = db.GetStudentListByClass(this.SelectedClass, rl, StartYear, EndYear);
                         }
                         else if (this.SelectedClassIndex == -1 && this.SelectedSectionIndex == -1)
                         {
-                            this.Slist = db.GetStudentListByClass(rl);
+                            this.Slist = db.GetStudentListByClass(rl, StartYear, EndYear);
                         }
                     }
                     else 

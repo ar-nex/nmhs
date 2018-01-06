@@ -14,37 +14,39 @@ namespace NaimouzaHighSchool.Models.Database
 
         }
 
-        public List<Student> GetStudentList(string type, string param)
+        public List<Student> GetStudentList(string type, string param, int startYear, int endYear)
         {
             List<Student> sList = new List<Student>();
+            string sYear = "'"+startYear.ToString()+"'";
+            string eYear = "'" + endYear.ToString() + "'";
             string sql;
             switch (type)
             {
                 case "name":
                     sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
                             INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.name LIKE '%"+param+"%'";
+                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.name LIKE '%"+param+"%' AND c.startYear = "+sYear+" AND c.endYear = "+eYear;
                     break;
                 case "aadhar":
                     sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
                             INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.aadhar = '" + param + "'";
+                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.aadhar = '" + param + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
                     break;
 
                 case "admissionNo":
                     sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
                             INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE a.admissionNo = '" + param + "'";
+                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE a.admissionNo = '" + param + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
                     break;
                 case "madhyamicNo":
                     sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
                             INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.BoardNo = '" + param + "'";
+                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.BoardNo = '" + param + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
                     break;
                 case "madhyamicRoll":
                     sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
                             INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.BoardRoll = '" + param + "'";
+                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.BoardRoll = '" + param + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
                     break;
                 default:
                     return sList;
@@ -58,69 +60,8 @@ namespace NaimouzaHighSchool.Models.Database
                 MySqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    Student s = new Student();
-                    s.Id = rdr[0].ToString();
-                    s.Aadhar = rdr[1].ToString();
-                    s.Name = rdr[2].ToString();
-                    s.FatherName = rdr[3].ToString();
-                    s.MotherName = rdr[4].ToString();
-                    s.GuardianName = rdr[5].ToString();
-                    s.GuardianRelation = rdr[6].ToString();
-
-                    s.GuardianOccupation = rdr[7].ToString();
-                    s.Dob = (string.IsNullOrEmpty(rdr[8].ToString())) ? default(DateTime) : DateTime.Parse(rdr[8].ToString());
-                    s.Sex = rdr[9].ToString();
-                    s.PresentAdrress = rdr[11].ToString();
-                    s.PermanentAddress = rdr[12].ToString();
-
-                    s.Mobile = rdr[13].ToString();
-                    s.GuardianMobile = rdr[14].ToString();
-                    s.Email = rdr[15].ToString();
-                    s.Religion = rdr[16].ToString();
-                    s.SocialCategory = rdr[17].ToString();
-
-                    s.SubCast = rdr[18].ToString();
-                    s.IsPH = (rdr[19].ToString() == "Y") ? true: false;
-                    s.PhType = rdr[20].ToString();
-                    s.IsBpl = (rdr[21].ToString() == "Y") ? true : false;
-                    s.BplNo = rdr[22].ToString();
-
-                    s.GuardianAadhar = rdr[23].ToString();
-                    s.GuardianEpic = rdr[24].ToString();
-                    s.BloodGroup = rdr[25].ToString();
-                    s.BankAcc = rdr[26].ToString();
-                    s.BankName = rdr[27].ToString();
-
-                    s.BankBranch = rdr[28].ToString();
-                    s.Ifsc = rdr[29].ToString();
-                    s.MICR = rdr[30].ToString();
-                    s.BoardRoll = rdr[33].ToString();
-                    s.BoardNo = rdr[34].ToString();
-
-                    s.CouncilRoll = rdr[35].ToString();
-                    s.CouncilNo = rdr[36].ToString();
-
-                    s.RegistrationNoMp = rdr[37].ToString();
-                    s.RegistrationNoHs = rdr[38].ToString();
-
-                    s.StudyingClass = rdr[41].ToString();
-                    s.Section = rdr[42].ToString();
-                    s.Roll = Int32.Parse(rdr[43].ToString());
-                    // s.SubjectComboId = rdr[44].ToString(); 
-                    s.HsSub1 = rdr[46].ToString();
-                    s.HsSub2 = rdr[47].ToString();
-                    s.HsSub3 = rdr[48].ToString();
-                    s.HsAdlSub = rdr[49].ToString();
-
-                    s.AdmissionNo = rdr[52].ToString();
-                    s.AdmDate = (string.IsNullOrEmpty(rdr[53].ToString())) ? default(DateTime) : DateTime.Parse(rdr[53].ToString());
-                    s.AdmittedClass = rdr[54].ToString();
-                    s.LastSchool = rdr[55].ToString();
-                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[56].ToString())) ? default(DateTime) : DateTime.Parse(rdr[56].ToString());
-                    s.TC = rdr[57].ToString();
-
+                    Student s = BuildObject(rdr);
                     sList.Add(s);
-                    
                 }
             }
             catch (Exception e1)
@@ -135,12 +76,14 @@ namespace NaimouzaHighSchool.Models.Database
             return sList;
         }
 
-        public List<Student> GetStudentListByClass(string cls)
+        public List<Student> GetStudentListByClass(string cls, int startYear, int endYear)
         {
             List<Student> sList = new List<Student>();
+            string sYear = "'"+startYear.ToString()+"'";
+            string eYear = "'" + endYear.ToString() + "'";
             string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
                             INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "'";
+                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
             try
             {
                 this.conn.Open();
@@ -148,70 +91,39 @@ namespace NaimouzaHighSchool.Models.Database
                 MySqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    Student s = new Student();
-                    s.Id = rdr[0].ToString();
-                    s.Aadhar = rdr[1].ToString();
-                    s.Name = rdr[2].ToString();
-                    s.FatherName = rdr[3].ToString();
-                    s.MotherName = rdr[4].ToString();
-                    s.GuardianName = rdr[5].ToString();
-                    s.GuardianRelation = rdr[6].ToString();
-
-                    s.GuardianOccupation = rdr[7].ToString();
-                    s.Dob = (string.IsNullOrEmpty(rdr[8].ToString())) ? default(DateTime) : DateTime.Parse(rdr[8].ToString());
-                    s.Sex = rdr[9].ToString();
-                    s.PresentAdrress = rdr[11].ToString();
-                    s.PermanentAddress = rdr[12].ToString();
-
-                    s.Mobile = rdr[13].ToString();
-                    s.GuardianMobile = rdr[14].ToString();
-                    s.Email = rdr[15].ToString();
-                    s.Religion = rdr[16].ToString();
-                    s.SocialCategory = rdr[17].ToString();
-
-                    s.SubCast = rdr[18].ToString();
-                    s.IsPH = (rdr[19].ToString() == "Y") ? true : false;
-                    s.PhType = rdr[20].ToString();
-                    s.IsBpl = (rdr[21].ToString() == "Y") ? true : false;
-                    s.BplNo = rdr[22].ToString();
-
-                    s.GuardianAadhar = rdr[23].ToString();
-                    s.GuardianEpic = rdr[24].ToString();
-                    s.BloodGroup = rdr[25].ToString();
-                    s.BankAcc = rdr[26].ToString();
-                    s.BankName = rdr[27].ToString();
-
-                    s.BankBranch = rdr[28].ToString();
-                    s.Ifsc = rdr[29].ToString();
-                    s.MICR = rdr[30].ToString();
-                    s.BoardRoll = rdr[33].ToString();
-                    s.BoardNo = rdr[34].ToString();
-
-                    s.CouncilRoll = rdr[35].ToString();
-                    s.CouncilNo = rdr[36].ToString();
-
-                    s.RegistrationNoMp = rdr[37].ToString();
-                    s.RegistrationNoHs = rdr[38].ToString();
-
-                    s.StudyingClass = rdr[41].ToString();
-                    s.Section = rdr[42].ToString();
-                    s.Roll = Int32.Parse(rdr[43].ToString());
-                    // s.SubjectComboId = rdr[44].ToString(); 
-                    s.HsSub1 = rdr[46].ToString();
-                    s.HsSub2 = rdr[47].ToString();
-                    s.HsSub3 = rdr[48].ToString();
-                    s.HsAdlSub = rdr[49].ToString();
-
-
-                    s.AdmissionNo = rdr[52].ToString();
-                    s.AdmDate = (string.IsNullOrEmpty(rdr[53].ToString())) ? default(DateTime) : DateTime.Parse(rdr[53].ToString());
-                    s.AdmittedClass = rdr[54].ToString();
-                    s.LastSchool = rdr[55].ToString();
-                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[56].ToString())) ? default(DateTime) : DateTime.Parse(rdr[56].ToString());
-                    s.TC = rdr[57].ToString();
-
+                    Student s = BuildObject(rdr);
                     sList.Add(s);
+                }
+            }
+            catch (Exception e1cl)
+            {
 
+                System.Windows.MessageBox.Show("e1cl : " + e1cl.Message);
+            }
+            finally
+            {
+                this.conn.Close();
+            }
+            return sList;
+        }
+
+        public List<Student> GetStudentListByClass(string cls, string sec, int startYear, int endYear)
+        {
+            List<Student> sList = new List<Student>();
+            string sYear = "'"+startYear.ToString()+"'";
+            string eYear = "'" + endYear.ToString() + "'";
+            string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
+                            INNER JOIN student_class c ON c.student_basic_id = s.id 
+                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.section='" + sec + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+            try
+            {
+                this.conn.Open();
+                MySqlCommand cmd = new MySqlCommand(sql, this.conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    Student s = BuildObject(rdr);
+                    sList.Add(s);
                 }
             }
             catch (Exception e1)
@@ -226,12 +138,14 @@ namespace NaimouzaHighSchool.Models.Database
             return sList;
         }
 
-        public List<Student> GetStudentListByClass(string cls, string sec)
+        public List<Student> GetStudentListByClass(string cls, string sec, int roll, int startYear, int endYear)
         {
             List<Student> sList = new List<Student>();
+            string sYear = startYear.ToString();
+            string eYear = endYear.ToString();
             string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
                             INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.section='" + sec + "'";
+                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.section='" + sec + "' AND c.roll = '" + roll + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
             try
             {
                 this.conn.Open();
@@ -239,151 +153,8 @@ namespace NaimouzaHighSchool.Models.Database
                 MySqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    Student s = new Student();
-                    s.Id = rdr[0].ToString();
-                    s.Aadhar = rdr[1].ToString();
-                    s.Name = rdr[2].ToString();
-                    s.FatherName = rdr[3].ToString();
-                    s.MotherName = rdr[4].ToString();
-                    s.GuardianName = rdr[5].ToString();
-                    s.GuardianRelation = rdr[6].ToString();
-
-                    s.GuardianOccupation = rdr[7].ToString();
-                    s.Dob = (string.IsNullOrEmpty(rdr[8].ToString())) ? default(DateTime) : DateTime.Parse(rdr[8].ToString());
-                    s.Sex = rdr[9].ToString();
-                    s.PresentAdrress = rdr[11].ToString();
-                    s.PermanentAddress = rdr[12].ToString();
-
-                    s.Mobile = rdr[13].ToString();
-                    s.GuardianMobile = rdr[14].ToString();
-                    s.Email = rdr[15].ToString();
-                    s.Religion = rdr[16].ToString();
-                    s.SocialCategory = rdr[17].ToString();
-
-                    s.SubCast = rdr[18].ToString();
-                    s.IsPH = (rdr[19].ToString() == "Y") ? true : false;
-                    s.PhType = rdr[20].ToString();
-                    s.IsBpl = (rdr[21].ToString() == "Y") ? true : false;
-                    s.BplNo = rdr[22].ToString();
-
-                    s.GuardianAadhar = rdr[23].ToString();
-                    s.GuardianEpic = rdr[24].ToString();
-                    s.BloodGroup = rdr[25].ToString();
-                    s.BankAcc = rdr[26].ToString();
-                    s.BankName = rdr[27].ToString();
-
-                    s.BankBranch = rdr[28].ToString();
-                    s.Ifsc = rdr[29].ToString();
-                    s.MICR = rdr[30].ToString();
-                    s.BoardRoll = rdr[33].ToString();
-                    s.BoardNo = rdr[34].ToString();
-
-                    s.CouncilRoll = rdr[35].ToString();
-                    s.CouncilNo = rdr[36].ToString();
-                    s.StudyingClass = rdr[39].ToString();
-                    s.Section = rdr[40].ToString();
-                    s.Roll = Int32.Parse(rdr[41].ToString());
-                    //  s.SubjectComboId = rdr[44].ToString(); 
-                    s.HsSub1 = rdr[44].ToString();
-                    s.HsSub2 = rdr[45].ToString();
-                    s.HsSub3 = rdr[46].ToString();
-                    s.HsAdlSub = rdr[47].ToString();
-
-                    s.AdmissionNo = rdr[50].ToString();
-                    s.AdmDate = (string.IsNullOrEmpty(rdr[51].ToString())) ? default(DateTime) : DateTime.Parse(rdr[51].ToString());
-                    s.AdmittedClass = rdr[52].ToString();
-                    s.LastSchool = rdr[53].ToString();
-                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[54].ToString())) ? default(DateTime) : DateTime.Parse(rdr[54].ToString());
-                    s.TC = rdr[55].ToString();
-
+                    Student s = BuildObject(rdr);
                     sList.Add(s);
-
-                }
-            }
-            catch (Exception e1)
-            {
-
-                System.Windows.MessageBox.Show("e1 : " + e1.Message);
-            }
-            finally
-            {
-                this.conn.Close();
-            }
-            return sList;
-        }
-
-        public List<Student> GetStudentListByClass(string cls, string sec, int roll)
-        {
-            List<Student> sList = new List<Student>();
-            string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
-                            INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.section='" + sec + "' AND c.roll = '" + roll + "'";
-            try
-            {
-                this.conn.Open();
-                MySqlCommand cmd = new MySqlCommand(sql, this.conn);
-                MySqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    Student s = new Student();
-                    s.Id = rdr[0].ToString();
-                    s.Aadhar = rdr[1].ToString();
-                    s.Name = rdr[2].ToString();
-                    s.FatherName = rdr[3].ToString();
-                    s.MotherName = rdr[4].ToString();
-                    s.GuardianName = rdr[5].ToString();
-                    s.GuardianRelation = rdr[6].ToString();
-
-                    s.GuardianOccupation = rdr[7].ToString();
-                    s.Dob = (string.IsNullOrEmpty(rdr[8].ToString())) ? default(DateTime) : DateTime.Parse(rdr[8].ToString());
-                    s.Sex = rdr[9].ToString();
-                    s.PresentAdrress = rdr[11].ToString();
-                    s.PermanentAddress = rdr[12].ToString();
-
-                    s.Mobile = rdr[13].ToString();
-                    s.GuardianMobile = rdr[14].ToString();
-                    s.Email = rdr[15].ToString();
-                    s.Religion = rdr[16].ToString();
-                    s.SocialCategory = rdr[17].ToString();
-
-                    s.SubCast = rdr[18].ToString();
-                    s.IsPH = (rdr[19].ToString() == "Y") ? true : false;
-                    s.PhType = rdr[20].ToString();
-                    s.IsBpl = (rdr[21].ToString() == "Y") ? true : false;
-                    s.BplNo = rdr[22].ToString();
-
-                    s.GuardianAadhar = rdr[23].ToString();
-                    s.GuardianEpic = rdr[24].ToString();
-                    s.BloodGroup = rdr[25].ToString();
-                    s.BankAcc = rdr[26].ToString();
-                    s.BankName = rdr[27].ToString();
-
-                    s.BankBranch = rdr[28].ToString();
-                    s.Ifsc = rdr[29].ToString();
-                    s.MICR = rdr[30].ToString();
-                    s.BoardRoll = rdr[33].ToString();
-                    s.BoardNo = rdr[34].ToString();
-
-                    s.CouncilRoll = rdr[35].ToString();
-                    s.CouncilNo = rdr[36].ToString();
-                    s.StudyingClass = rdr[39].ToString();
-                    s.Section = rdr[40].ToString();
-                    s.Roll = Int32.Parse(rdr[41].ToString());
-                    //  s.SubjectComboId = rdr[44].ToString(); 
-                    s.HsSub1 = rdr[44].ToString();
-                    s.HsSub2 = rdr[45].ToString();
-                    s.HsSub3 = rdr[46].ToString();
-                    s.HsAdlSub = rdr[47].ToString();
-
-                    s.AdmissionNo = rdr[50].ToString();
-                    s.AdmDate = (string.IsNullOrEmpty(rdr[51].ToString())) ? default(DateTime) : DateTime.Parse(rdr[51].ToString());
-                    s.AdmittedClass = rdr[52].ToString();
-                    s.LastSchool = rdr[53].ToString();
-                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[54].ToString())) ? default(DateTime) : DateTime.Parse(rdr[54].ToString());
-                    s.TC = rdr[55].ToString();
-
-                    sList.Add(s);
-
                 }
             }
             catch (Exception e1)
@@ -399,12 +170,14 @@ namespace NaimouzaHighSchool.Models.Database
         
         }
 
-        public List<Student> GetStudentListByClass(string cls, int roll)
+        public List<Student> GetStudentListByClass(string cls, int roll, int startYear, int endYear)
         {
             List<Student> sList = new List<Student>();
+            string sYear = startYear.ToString();
+            string eYear = endYear.ToString();
             string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
                             INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.roll = '" + roll + "'";
+                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.roll = '" + roll + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
             try
             {
                 this.conn.Open();
@@ -412,65 +185,8 @@ namespace NaimouzaHighSchool.Models.Database
                 MySqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    Student s = new Student();
-                    s.Id = rdr[0].ToString();
-                    s.Aadhar = rdr[1].ToString();
-                    s.Name = rdr[2].ToString();
-                    s.FatherName = rdr[3].ToString();
-                    s.MotherName = rdr[4].ToString();
-                    s.GuardianName = rdr[5].ToString();
-                    s.GuardianRelation = rdr[6].ToString();
-
-                    s.GuardianOccupation = rdr[7].ToString();
-                    s.Dob = (string.IsNullOrEmpty(rdr[8].ToString())) ? default(DateTime) : DateTime.Parse(rdr[8].ToString());
-                    s.Sex = rdr[9].ToString();
-                    s.PresentAdrress = rdr[11].ToString();
-                    s.PermanentAddress = rdr[12].ToString();
-
-                    s.Mobile = rdr[13].ToString();
-                    s.GuardianMobile = rdr[14].ToString();
-                    s.Email = rdr[15].ToString();
-                    s.Religion = rdr[16].ToString();
-                    s.SocialCategory = rdr[17].ToString();
-
-                    s.SubCast = rdr[18].ToString();
-                    s.IsPH = (rdr[19].ToString() == "Y") ? true : false;
-                    s.PhType = rdr[20].ToString();
-                    s.IsBpl = (rdr[21].ToString() == "Y") ? true : false;
-                    s.BplNo = rdr[22].ToString();
-
-                    s.GuardianAadhar = rdr[23].ToString();
-                    s.GuardianEpic = rdr[24].ToString();
-                    s.BloodGroup = rdr[25].ToString();
-                    s.BankAcc = rdr[26].ToString();
-                    s.BankName = rdr[27].ToString();
-
-                    s.BankBranch = rdr[28].ToString();
-                    s.Ifsc = rdr[29].ToString();
-                    s.MICR = rdr[30].ToString();
-                    s.BoardRoll = rdr[33].ToString();
-                    s.BoardNo = rdr[34].ToString();
-
-                    s.CouncilRoll = rdr[35].ToString();
-                    s.CouncilNo = rdr[36].ToString();
-                    s.StudyingClass = rdr[39].ToString();
-                    s.Section = rdr[40].ToString();
-                    s.Roll = Int32.Parse(rdr[41].ToString());
-                    //  s.SubjectComboId = rdr[44].ToString();
-                    s.HsSub1 = rdr[44].ToString();
-                    s.HsSub2 = rdr[45].ToString();
-                    s.HsSub3 = rdr[46].ToString();
-                    s.HsAdlSub = rdr[47].ToString();
-
-                    s.AdmissionNo = rdr[50].ToString();
-                    s.AdmDate = (string.IsNullOrEmpty(rdr[51].ToString())) ? default(DateTime) : DateTime.Parse(rdr[51].ToString());
-                    s.AdmittedClass = rdr[52].ToString();
-                    s.LastSchool = rdr[53].ToString();
-                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[54].ToString())) ? default(DateTime) : DateTime.Parse(rdr[54].ToString());
-                    s.TC = rdr[55].ToString();
-
+                    Student s = BuildObject(rdr);
                     sList.Add(s);
-
                 }
             }
             catch (Exception e1)
@@ -486,12 +202,14 @@ namespace NaimouzaHighSchool.Models.Database
 
         }
 
-        public List<Student> GetStudentListByClass(int roll)
+        public List<Student> GetStudentListByClass(int roll, int startYear, int endYear)
         {
             List<Student> sList = new List<Student>();
+            string sYear = startYear.ToString();
+            string eYear = endYear.ToString();
             string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
                             INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.roll = '" + roll + "'";
+                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.roll = '" + roll + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
             try
             {
                 this.conn.Open();
@@ -499,65 +217,8 @@ namespace NaimouzaHighSchool.Models.Database
                 MySqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    Student s = new Student();
-                    s.Id = rdr[0].ToString();
-                    s.Aadhar = rdr[1].ToString();
-                    s.Name = rdr[2].ToString();
-                    s.FatherName = rdr[3].ToString();
-                    s.MotherName = rdr[4].ToString();
-                    s.GuardianName = rdr[5].ToString();
-                    s.GuardianRelation = rdr[6].ToString();
-
-                    s.GuardianOccupation = rdr[7].ToString();
-                    s.Dob = (string.IsNullOrEmpty(rdr[8].ToString())) ? default(DateTime) : DateTime.Parse(rdr[8].ToString());
-                    s.Sex = rdr[9].ToString();
-                    s.PresentAdrress = rdr[11].ToString();
-                    s.PermanentAddress = rdr[12].ToString();
-
-                    s.Mobile = rdr[13].ToString();
-                    s.GuardianMobile = rdr[14].ToString();
-                    s.Email = rdr[15].ToString();
-                    s.Religion = rdr[16].ToString();
-                    s.SocialCategory = rdr[17].ToString();
-
-                    s.SubCast = rdr[18].ToString();
-                    s.IsPH = (rdr[19].ToString() == "Y") ? true : false;
-                    s.PhType = rdr[20].ToString();
-                    s.IsBpl = (rdr[21].ToString() == "Y") ? true : false;
-                    s.BplNo = rdr[22].ToString();
-
-                    s.GuardianAadhar = rdr[23].ToString();
-                    s.GuardianEpic = rdr[24].ToString();
-                    s.BloodGroup = rdr[25].ToString();
-                    s.BankAcc = rdr[26].ToString();
-                    s.BankName = rdr[27].ToString();
-
-                    s.BankBranch = rdr[28].ToString();
-                    s.Ifsc = rdr[29].ToString();
-                    s.MICR = rdr[30].ToString();
-                    s.BoardRoll = rdr[33].ToString();
-                    s.BoardNo = rdr[34].ToString();
-
-                    s.CouncilRoll = rdr[35].ToString();
-                    s.CouncilNo = rdr[36].ToString();
-                    s.StudyingClass = rdr[39].ToString();
-                    s.Section = rdr[40].ToString();
-                    s.Roll = Int32.Parse(rdr[41].ToString());
-                    //  s.SubjectComboId = rdr[44].ToString();
-                    s.HsSub1 = rdr[44].ToString();
-                    s.HsSub2 = rdr[45].ToString();
-                    s.HsSub3 = rdr[46].ToString();
-                    s.HsAdlSub = rdr[47].ToString();
-
-                    s.AdmissionNo = rdr[50].ToString();
-                    s.AdmDate = (string.IsNullOrEmpty(rdr[51].ToString())) ? default(DateTime) : DateTime.Parse(rdr[51].ToString());
-                    s.AdmittedClass = rdr[52].ToString();
-                    s.LastSchool = rdr[53].ToString();
-                    s.DateOfLeaving = (string.IsNullOrEmpty(rdr[54].ToString())) ? default(DateTime) : DateTime.Parse(rdr[54].ToString());
-                    s.TC = rdr[55].ToString();
-
+                    Student s = BuildObject(rdr);
                     sList.Add(s);
-
                 }
             }
             catch (Exception e1)
@@ -571,6 +232,72 @@ namespace NaimouzaHighSchool.Models.Database
             }
             return sList;
 
+        }
+
+        private Student BuildObject(MySqlDataReader rdr)
+        {
+            Student s = new Student();
+            s.Id = rdr[0].ToString();
+            s.Aadhar = rdr[1].ToString();
+            s.Name = rdr[2].ToString();
+            s.FatherName = rdr[3].ToString();
+            s.MotherName = rdr[4].ToString();
+            s.GuardianName = rdr[5].ToString();
+            s.GuardianRelation = rdr[6].ToString();
+
+            s.GuardianOccupation = rdr[7].ToString();
+            s.Dob = (string.IsNullOrEmpty(rdr[8].ToString())) ? default(DateTime) : DateTime.Parse(rdr[8].ToString());
+            s.Sex = rdr[9].ToString();
+            s.PresentAdrress = rdr[11].ToString();
+            s.PermanentAddress = rdr[12].ToString();
+
+            s.Mobile = rdr[13].ToString();
+            s.GuardianMobile = rdr[14].ToString();
+            s.Email = rdr[15].ToString();
+            s.Religion = rdr[16].ToString();
+            s.SocialCategory = rdr[17].ToString();
+
+            s.SubCast = rdr[18].ToString();
+            s.IsPH = (rdr[19].ToString() == "Y") ? true : false;
+            s.PhType = rdr[20].ToString();
+            s.IsBpl = (rdr[21].ToString() == "Y") ? true : false;
+            s.BplNo = rdr[22].ToString();
+
+            s.GuardianAadhar = rdr[23].ToString();
+            s.GuardianEpic = rdr[24].ToString();
+            s.BloodGroup = rdr[25].ToString();
+            s.BankAcc = rdr[26].ToString();
+            s.BankName = rdr[27].ToString();
+
+            s.BankBranch = rdr[28].ToString();
+            s.Ifsc = rdr[29].ToString();
+            s.MICR = rdr[30].ToString();
+            s.BoardRoll = rdr[33].ToString();
+            s.BoardNo = rdr[34].ToString();
+
+            s.CouncilRoll = rdr[35].ToString();
+            s.CouncilNo = rdr[36].ToString();
+
+            s.RegistrationNoMp = rdr[37].ToString();
+            s.RegistrationNoHs = rdr[38].ToString();
+
+            s.StudyingClass = rdr[41].ToString();
+            s.Section = rdr[42].ToString();
+            s.Roll = Int32.Parse(rdr[43].ToString());
+            // s.SubjectComboId = rdr[44].ToString(); 
+            s.HsSub1 = rdr[46].ToString();
+            s.HsSub2 = rdr[47].ToString();
+            s.HsSub3 = rdr[48].ToString();
+            s.HsAdlSub = rdr[49].ToString();
+
+
+            s.AdmissionNo = rdr[52].ToString();
+            s.AdmDate = (string.IsNullOrEmpty(rdr[53].ToString())) ? default(DateTime) : DateTime.Parse(rdr[53].ToString());
+            s.AdmittedClass = rdr[54].ToString();
+            s.LastSchool = rdr[55].ToString();
+            s.DateOfLeaving = (string.IsNullOrEmpty(rdr[56].ToString())) ? default(DateTime) : DateTime.Parse(rdr[56].ToString());
+            s.TC = rdr[57].ToString();
+            return s;
         }
 
         public ArrayList GetComboSubjects(string comboId)

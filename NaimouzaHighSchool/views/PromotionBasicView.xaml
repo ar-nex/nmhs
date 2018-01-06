@@ -4,80 +4,236 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NaimouzaHighSchool.ViewModels"
+        xmlns:conv="clr-namespace:NaimouzaHighSchool.ViewModels.Converters"
         mc:Ignorable="d"
         Title="Promotion Basic" Height="600" Width="800" Closing="Window_Closing">
     <Window.Resources>
         <local:PromotionBasicViewModel x:Key="p_vm" />
+        <conv:IntConverter x:Key="IntConverter"/>
     </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Border Grid.Row="1">
+    <TabControl>
+        <TabItem Header="Promotion">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Label Content="Class" Margin="2"/>
-                    <ComboBox Grid.Column="1" Margin="2"/>
-                    <Label Content="Section" Grid.Row="1" Margin="2"/>
-                    <ComboBox Grid.Row="1" Grid.Column="1" Margin="2"/>
-                </Grid>
-                <Grid Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Label Content="Session Starts" Margin="2"/>
-                    <TextBox Grid.Column="1" Margin="2"/>
-                    <Label Grid.Row="1" Content="Session ends" Margin="2" />
-                    <TextBox Grid.Row="1" Grid.Column="1" Margin="2"/>
-                </Grid>
-                <Grid Grid.Column="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Button Margin="2" Grid.Row="1" Content="Get" />
-                </Grid>
-            </Grid>
-        </Border>
-        <Border Grid.Row="2">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <DataGrid>
-                    
-                </DataGrid>
-                <DockPanel Grid.Column="1" LastChildFill="True">
-                    <Border DockPanel.Dock="Bottom">
-                        <Button Content="Update" Margin="2" />
-                    </Border>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border Grid.Row="1">
                     <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Class" Margin="2"/>
+                            <ComboBox Grid.Column="1" 
+                              ItemsSource="{Binding SclClass, Source={StaticResource p_vm}}"
+                              SelectedIndex="{Binding SclClassIndex, Source={StaticResource p_vm}, Mode=TwoWay}"
+                              Margin="2"/>
+                            <Label Content="Section" Grid.Row="1" Margin="2"/>
+                            <ComboBox Grid.Row="1" Grid.Column="1" 
+                              ItemsSource="{Binding ClsSection, Source={StaticResource p_vm}}"
+                              SelectedIndex="{Binding ClsSectionIndex, Source={StaticResource p_vm}, Mode=TwoWay}"
+                              Margin="2"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Session Starts" Margin="2"/>
+                            <TextBox Grid.Column="1" 
+                             Text="{Binding StartYear, Source={StaticResource p_vm}, Mode=TwoWay}"
+                             Margin="2"/>
+                            <Label Grid.Row="1" Content="Session ends" Margin="2" />
+                            <TextBox Grid.Row="1" Grid.Column="1" 
+                             Text="{Binding EndYear, Source={StaticResource p_vm}, Mode=TwoWay}"
+                             Margin="2"/>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Margin="2" Content="Gender"/>
+                                <ComboBox Margin="2" 
+                                          ItemsSource="{Binding StdGender, Source={StaticResource p_vm}}"
+                                          SelectedIndex="{Binding StdGenderIndex, Source={StaticResource p_vm}, Mode=TwoWay}"
+                                          Width="60">
+                                </ComboBox>
+                            </StackPanel>
+                            <Button Margin="2" Grid.Row="1" 
+                            Command="{Binding GetDataCommand, Source={StaticResource p_vm}}"
+                            Content="Get" />
+                        </Grid>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <DataGrid 
+                    CanUserAddRows="False"
+                    GridLinesVisibility="Vertical"
+                    AlternatingRowBackground="#eee"
+                    AutoGenerateColumns="False"
+                    ItemsSource="{Binding PromBasicList, Source={StaticResource p_vm}}"
+                    Margin="2">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Sex" Binding="{Binding Path=Sex}" IsReadOnly="True"/>
+                                <DataGridTextColumn 
+                            Binding="{Binding Path=Name}"
+                            IsReadOnly="True"
+                            Header="Name" />
+                                <DataGridTextColumn 
+                            Binding="{Binding Path=OldStat}" IsReadOnly="True"
+                            Header="Old Roll"/>
+                                <DataGridTextColumn 
+                            Binding="{Binding Path=NewClass}"
+                            Header="New Class"/>
+                                <DataGridTextColumn 
+                            Binding="{Binding Path=NewSection, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Header="New Section"/>
+                                <DataGridTextColumn 
+                            Binding="{Binding Path=NewRoll, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource IntConverter}}"
+                            Header="New Roll"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <DockPanel Grid.Column="1" LastChildFill="True">
+                            <Border DockPanel.Dock="Bottom">
+                                <Button Content="Promote" 
+                                Command="{Binding DoPromotionCommand, Source={StaticResource p_vm}}"
+                                Margin="2" />
+                            </Border>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label Content="New Session"/>
+                                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                    <Label Content="Starting Year : "/>
+                                    <Label Content="{Binding NewStartYear, Source={StaticResource p_vm}}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                    <Label Content="Ending Year : "/>
+                                    <Label Content="{Binding NewEndYear, Source={StaticResource p_vm}}"/>
+                                </StackPanel>
+                            </Grid>
+                        </DockPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Promoted">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="2*"/>
+                   
+                </Grid.RowDefinitions>
+                <Border Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Class" Margin="2"/>
+                            <ComboBox Grid.Column="1" 
+                              ItemsSource="{Binding SclClass, Source={StaticResource p_vm}}"
+                              SelectedIndex="{Binding SclClassIndex2, Source={StaticResource p_vm}, Mode=TwoWay}"
+                              Margin="2"/>
+                            <Label Content="Section" Grid.Row="1" Margin="2"/>
+                            <ComboBox Grid.Row="1" Grid.Column="1" 
+                              ItemsSource="{Binding ClsSection, Source={StaticResource p_vm}}"
+                              SelectedIndex="{Binding ClsSectionIndex2, Source={StaticResource p_vm}, Mode=TwoWay}"
+                              Margin="2"/>
+                        </Grid>
+                        
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Margin="2" Content="Gender"/>
+                                <ComboBox Margin="2" 
+                                          ItemsSource="{Binding StdGender, Source={StaticResource p_vm}}"
+                                          SelectedIndex="{Binding StdGenderIndex2, Source={StaticResource p_vm}, Mode=TwoWay}"
+                                          Width="60">
+                                </ComboBox>
+                            </StackPanel>
+                            <Button Margin="2" Grid.Row="1" 
+                            Command="{Binding GetDataCommand2, Source={StaticResource p_vm}}"
+                            Content="Get" />
+                        </Grid>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <DataGrid 
+                    CanUserAddRows="False"
+                    GridLinesVisibility="Vertical"
+                    AlternatingRowBackground="#eee"
+                    AutoGenerateColumns="False"
+                    ItemsSource="{Binding PromotedList, Source={StaticResource p_vm}}"
+                    Margin="2">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Sex" Binding="{Binding Path=Sex}" IsReadOnly="True"/>
+                                <DataGridTextColumn 
+                            Binding="{Binding Path=Name}"
+                            IsReadOnly="True"
+                            Header="Name" />
+                               
+                                <DataGridTextColumn 
+                            Binding="{Binding Path=NewClass}"
+                            Header="New Class"/>
+                                <DataGridTextColumn 
+                            Binding="{Binding Path=NewSection, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Header="New Section"/>
+                                <DataGridTextColumn 
+                            Binding="{Binding Path=NewRoll, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource IntConverter}}"
+                            Header="New Roll"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
                         
                     </Grid>
-                </DockPanel>
+                </Border>
             </Grid>
-        </Border>
-    </Grid>
+        </TabItem>
+    </TabControl>
+   
 </Window>

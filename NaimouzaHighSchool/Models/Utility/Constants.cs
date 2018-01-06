@@ -7,6 +7,6 @@ namespace NaimouzaHighSchool.Models.Utility
 {
     public static class Constants
     {
-
+        public enum Gender { NA, M, F};
     }
 }

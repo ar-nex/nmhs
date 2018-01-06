@@ -1,0 +1,89 @@
+﻿<Window x:Class="NaimouzaHighSchool.Views.RegistrationUpdaterView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NaimouzaHighSchool.ViewModels"
+        mc:Ignorable="d"
+        Title="Registration Updater" Height="600" Width="500" WindowStartupLocation="CenterOwner" Closing="Window_Closing">
+    <Window.Resources>
+        <local:RegistrationUpdaterViewModel x:Key="rvm" />
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <Border DockPanel.Dock="Bottom" Padding="5" Background="#eee">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Update" 
+                        Command="{Binding UpdateCommand, Source={StaticResource rvm}}"
+                        Margin="2" Width="80"/>
+            </StackPanel>
+        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border>
+
+            </Border>
+            <Border Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Class" Margin="2"/>
+                    <ComboBox Margin="2"
+                    ItemsSource="{Binding SclClass, Source={StaticResource rvm}}"
+                    SelectedIndex="{Binding SclClassIndex, Source={StaticResource rvm}, Mode=TwoWay}"
+                    Grid.Column="1"/>
+                    <Label Grid.Row="1" Content="Section" Margin="2"/>
+                    <ComboBox Margin="2"
+                    ItemsSource="{Binding SclSection, Source={StaticResource rvm}}"
+                    SelectedIndex="{Binding SclSectionIndex, Source={StaticResource rvm}, Mode=TwoWay}"
+                    Grid.Column="1" Grid.Row="1"/>
+                    <Label Content="Session" Grid.Column="2" Margin="2" />
+                    <StackPanel  Grid.Row="1" Grid.Column="2" Margin="2" Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBox Width="60" Text="{Binding StartYear, Source={StaticResource rvm}, Mode=TwoWay}"/>
+                        <Label Content="-"/>
+                        <TextBox Width="60" Text="{Binding EndYear, Source={StaticResource rvm}, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <Button Grid.Row="1" Grid.Column="3" 
+                        Content="Get"
+                        Command="{Binding GetDataCommand, Source={StaticResource rvm}}"
+                        Margin="2" Width="80" HorizontalAlignment="Left"/>
+                </Grid>
+            </Border>
+            <DataGrid 
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                ItemsSource="{Binding RList, Source={StaticResource rvm}}"
+                Grid.Row="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="200"
+                        Binding="{Binding Path=Name}"
+                        Header="Name" IsReadOnly="True"/>
+                    <DataGridTextColumn 
+                        Binding="{Binding Path=Cls}"
+                        Header="Class" IsReadOnly="True"/>
+                    <DataGridTextColumn 
+                        Binding="{Binding Path=Section}"
+                        Header="Section" IsReadOnly="True"/>
+                    <DataGridTextColumn 
+                        Binding="{Binding Path=Roll}"
+                        Header="Roll" IsReadOnly="True"/>
+                    <DataGridTextColumn 
+                        Binding="{Binding Path=RegistrationNo}"
+                        Header="Registration No"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+    
+</Window>
