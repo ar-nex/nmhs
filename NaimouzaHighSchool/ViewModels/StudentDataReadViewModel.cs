@@ -712,6 +712,17 @@ namespace NaimouzaHighSchool.ViewModels
         private string _txbMadhyamicNoColor;
         public string TxbMadhyamicNoColor { get { return this._txbMadhyamicNoColor; } set { this._txbMadhyamicNoColor = value; this.OnPropertyChanged("TxbMadhyamicNoColor"); } }
 
+        private string _txbMPRegisNo;
+        public string TxbMPRegisNo
+        {
+            get => _txbMPRegisNo;
+            set
+            {
+                _txbMPRegisNo = value;
+                OnPropertyChanged("TxbMPRegisNo");
+            }
+        }
+
         private string _txbCouncilRoll;
         public string TxbCouncilRoll { get { return this._txbCouncilRoll; } set { this._txbCouncilRoll = value; this.OnPropertyChanged("TxbCouncilRoll"); } }
         private string _txbCouncilRollColor;
@@ -721,6 +732,17 @@ namespace NaimouzaHighSchool.ViewModels
         public string TxbCouncilNo { get { return this._txbCouncilNo; } set { this._txbCouncilNo = value; this.OnPropertyChanged("TxbCouncilNo"); } }
         private string _txbCouncilNoColor;
         public string TxbCouncilNoColor { get { return this._txbCouncilNoColor; } set { this._txbCouncilNoColor = value; this.OnPropertyChanged("TxbCouncilNoColor"); } }
+
+        private string _txbHSRegisNo;
+        public string TxbHSRegisNo
+        {
+            get => _txbHSRegisNo;
+            set
+            {
+                _txbHSRegisNo = value;
+                OnPropertyChanged("TxbHSRegisNo");
+            }
+        }
         #endregion
        
         #endregion
@@ -1234,6 +1256,10 @@ namespace NaimouzaHighSchool.ViewModels
 
             this.Tc = (string.IsNullOrEmpty(s.TC)) ? defaultEntry : s.TC;
             this.TcColor = (string.IsNullOrEmpty(s.TC)) ? fontcolor0 : fontcolor1;
+
+            TxbMPRegisNo = (string.IsNullOrEmpty(s.RegistrationNoMp)) ? defaultEntry : s.RegistrationNoMp;
+            TxbHSRegisNo = (string.IsNullOrEmpty(s.RegistrationNoHs)) ? defaultEntry : s.RegistrationNoHs;
+
 
             this.TxbMadhyamicRoll = (string.IsNullOrEmpty(s.BoardRoll)) ? defaultEntry : s.BoardRoll;
             this.TxbMadhyamicRollColor = (string.IsNullOrEmpty(s.BoardRoll)) ? fontcolor0 : fontcolor1;

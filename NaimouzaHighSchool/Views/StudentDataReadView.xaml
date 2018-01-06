@@ -341,12 +341,12 @@
                                          Text="{Binding TxbRoll, Source={StaticResource dObj}, Mode=TwoWay, Converter={StaticResource IntConverter}}" 
                                          Style="{StaticResource TxbInDetail}" Foreground="{Binding TxbRollColor, Source={StaticResource dObj}}"></TextBox>
 
-                                <Label Grid.Row="5" Style="{StaticResource lblProperty}">Subject Combo Id</Label>
+                                <!--<Label Grid.Row="5" Style="{StaticResource lblProperty}">Subject Combo Id</Label>
                                 <Label Grid.Row="5" Grid.Column="1" Style="{StaticResource doubleDot}"> : </Label>
                                 <ComboBox Grid.Row="5" Grid.Column="2" Margin="0,0,0,20" Width="150" HorizontalAlignment="Left"
                                           IsHitTestVisible="{Binding HitTestGeneral, Source={StaticResource dObj}}"
                                           ItemsSource="{Binding FilteredComboCode, Source={StaticResource dObj}}" 
-                                          SelectedItem="{Binding SelectedComboCode, Source={StaticResource dObj}}"></ComboBox>
+                                          SelectedItem="{Binding SelectedComboCode, Source={StaticResource dObj}}"></ComboBox>-->
 
                                 <Label Grid.Row="2" Grid.Column="3" Style="{StaticResource lblProperty}">Gender</Label>
                                 <Label Grid.Row="2" Grid.Column="4" Style="{StaticResource doubleDot}">:</Label>
@@ -809,31 +809,44 @@
                                         <Button Width="60" Margin="3" HorizontalAlignment="Right" Grid.Column="1" Command="{Binding OthEditBtnCommand, Source={StaticResource dObj}}">Edit</Button>
                                     </Grid>
                                 </Border>
-                                <Label Grid.Row="1" Style="{StaticResource lblProperty}">Madhyamic Roll</Label>
-                                <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
-                                <TextBox Grid.Row="1" Grid.Column="2" Style="{StaticResource TxbInDetail}" IsReadOnly="{Binding IsReadOnlyOth, Source={StaticResource dObj}}" 
+                                <Label Grid.Row="1" Content="Madhyamic Regis. No." Style="{StaticResource lblProperty}"/>
+                                <Label Grid.Row="1" Grid.Column="1" Content=":"/>
+                                <TextBox Grid.Row="1" Grid.Column="2" 
+                                         Text="{Binding TxbMPRegisNo, Source={StaticResource dObj}, Mode=TwoWay}"
+                                         Style="{StaticResource TxbInDetail}" IsReadOnly="{Binding IsReadOnlyOth, Source={StaticResource dObj}}"/>
+                                
+                                
+                                <Label Grid.Row="1" Grid.Column="3" Content="HS Regis. No." Style="{StaticResource lblProperty}"/>
+                                <Label Grid.Row="1" Grid.Column="4" Content=":"/>
+                                <TextBox Grid.Row="1" Grid.Column="5" 
+                                         Text="{Binding TxbHSRegisNo, Source={StaticResource dObj}, Mode=TwoWay}"
+                                         Style="{StaticResource TxbInDetail}" IsReadOnly="{Binding IsReadOnlyOth, Source={StaticResource dObj}}"/>
+                                
+                                <Label Grid.Row="2" Style="{StaticResource lblProperty}">Madhyamic Roll</Label>
+                                <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
+                                <TextBox Grid.Row="2" Grid.Column="2" Style="{StaticResource TxbInDetail}" IsReadOnly="{Binding IsReadOnlyOth, Source={StaticResource dObj}}" 
                                    Text="{Binding TxbMadhyamicRoll, Source={StaticResource dObj}}"
                                    Foreground="{Binding TxbMadhyamicRollColor, Source={StaticResource dObj}}">
                                 </TextBox>
-                                <Label Grid.Row="2" Style="{StaticResource lblProperty}">Madhyamic No</Label>
-                                <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
-                                <TextBox Grid.Row="2" Grid.Column="2" Style="{StaticResource TxbInDetail}" IsReadOnly="{Binding IsReadOnlyOth, Source={StaticResource dObj}}" 
+                                <Label Grid.Row="3" Style="{StaticResource lblProperty}">Madhyamic No</Label>
+                                <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource doubleDot}">:</Label>
+                                <TextBox Grid.Row="3" Grid.Column="2" Style="{StaticResource TxbInDetail}" IsReadOnly="{Binding IsReadOnlyOth, Source={StaticResource dObj}}" 
                                    Text="{Binding TxbMadhyamicNo, Source={StaticResource dObj}}"
                                    Foreground="{Binding TxbMadhyamicNoColor, Source={StaticResource dObj}}">
                                 </TextBox>
-                                <Label Grid.Row="1" Grid.Column="3" Style="{StaticResource lblProperty}">Council Roll</Label>
-                                <Label Grid.Row="1" Grid.Column="4" Style="{StaticResource doubleDot}">:</Label>
-                                <TextBox Grid.Row="1" Grid.Column="5" Style="{StaticResource TxbInDetail}" IsReadOnly="{Binding IsReadOnlyOth, Source={StaticResource dObj}}" 
+                                <Label Grid.Row="2" Grid.Column="3" Style="{StaticResource lblProperty}">Council Roll</Label>
+                                <Label Grid.Row="2" Grid.Column="4" Style="{StaticResource doubleDot}">:</Label>
+                                <TextBox Grid.Row="2" Grid.Column="5" Style="{StaticResource TxbInDetail}" IsReadOnly="{Binding IsReadOnlyOth, Source={StaticResource dObj}}" 
                                    Text="{Binding TxbCouncilRoll, Source={StaticResource dObj}}"
                                    Foreground="{Binding TxbCouncilRollColor, Source={StaticResource dObj}}">
                                 </TextBox>
-                                <Label Grid.Row="2" Grid.Column="3" Margin="10,0,0,20" Style="{StaticResource lblProperty}">Council No</Label>
-                                <Label Grid.Row="2" Grid.Column="4" Style="{StaticResource doubleDot}">:</Label>
-                                <TextBox Grid.Row="2" Grid.Column="5" Style="{StaticResource TxbInDetail}" IsReadOnly="{Binding IsReadOnlyOth, Source={StaticResource dObj}}" 
+                                <Label Grid.Row="3" Grid.Column="3" Margin="10,0,0,20" Style="{StaticResource lblProperty}">Council No</Label>
+                                <Label Grid.Row="3" Grid.Column="4" Style="{StaticResource doubleDot}">:</Label>
+                                <TextBox Grid.Row="3" Grid.Column="5" Style="{StaticResource TxbInDetail}" IsReadOnly="{Binding IsReadOnlyOth, Source={StaticResource dObj}}" 
                                    Text="{Binding TxbCouncilNo, Source={StaticResource dObj}}"
                                    Foreground="{Binding TxbCouncilNoColor, Source={StaticResource dObj}}">
                                 </TextBox>
-                                <Border Grid.Row="3" Grid.ColumnSpan="6" Style="{StaticResource footerBorder}"></Border>
+                                <Border Grid.Row="4" Grid.ColumnSpan="6" Style="{StaticResource footerBorder}"></Border>
                             </Grid>
                         </Grid>    
                         

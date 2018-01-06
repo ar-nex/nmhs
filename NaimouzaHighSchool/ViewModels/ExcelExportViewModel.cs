@@ -248,9 +248,9 @@ namespace NaimouzaHighSchool.ViewModels
         {
             // get the student list.
 
-            int syear = DateTime.Today.Year;
-            int eyear = DateTime.Today.Year;
-            this.Slist = this.db.GetStudentListByClass(this.SchoolClasses[this.ClsIndex], this.Section[this.SectionIndex], syear, eyear);
+           // int syear = DateTime.Today.Year;
+           // int eyear = DateTime.Today.Year;
+            this.Slist = this.db.GetStudentListByClass(this.SchoolClasses[this.ClsIndex], this.Section[this.SectionIndex], SYear, EYear);
             this.DoFilterStdList();
 
             DataTable dt = new DataTable();
