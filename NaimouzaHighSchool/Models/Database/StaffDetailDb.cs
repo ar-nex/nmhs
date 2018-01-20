@@ -35,7 +35,7 @@ namespace NaimouzaHighSchool.Models.Database
                     s.DateOfJoining = (string.IsNullOrEmpty(rdr[7].ToString())) ? default(DateTime) : DateTime.Parse(rdr[7].ToString());
                     s.RetireDate = (string.IsNullOrEmpty(rdr[8].ToString())) ? default(DateTime) : DateTime.Parse(rdr[8].ToString());
                     s.Mobile = rdr[9].ToString();
-                    s.AltMobile = rdr[10].ToString();
+                    s.LandPhone = rdr[10].ToString();
                     s.Email = rdr[11].ToString();
                     s.BankAcc = rdr[12].ToString();
                     s.Ifsc = rdr[13].ToString();
@@ -70,7 +70,7 @@ namespace NaimouzaHighSchool.Models.Database
             int doj_temp = s.DateOfJoining.Year;
             string doj = (doj_temp == 1) ? "NULL" : "'"+s.DateOfJoining.ToString("yyyy-MM-dd")+"'";
             string mob = this.GetDbCompatableVal(s.Mobile);
-            string altMob = this.GetDbCompatableVal(s.AltMobile);
+            string altMob = this.GetDbCompatableVal(s.LandPhone);
             string email = this.GetDbCompatableVal(s.Email);
             string acc = this.GetDbCompatableVal(s.BankAcc);
             string ifsc = this.GetDbCompatableVal(s.Ifsc);
@@ -199,7 +199,7 @@ namespace NaimouzaHighSchool.Models.Database
             int dor_temp = s.RetireDate.Year;
             string dor = (dor_temp == 1) ? "NULL" : "'"+s.RetireDate.ToString("yyyy-MM-dd")+"'";
             string mob = this.GetDbCompatableVal(s.Mobile);
-            string altMob = this.GetDbCompatableVal(s.AltMobile);
+            string altMob = this.GetDbCompatableVal(s.LandPhone);
             string email = this.GetDbCompatableVal(s.Email);
 
             string acc = this.GetDbCompatableVal(s.BankAcc);

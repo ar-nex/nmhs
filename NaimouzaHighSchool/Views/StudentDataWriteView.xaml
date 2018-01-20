@@ -87,6 +87,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Label Grid.ColumnSpan="2">
                                 <TextBlock Style="{StaticResource headerTextBlock}">General Info</TextBlock>
@@ -136,6 +137,17 @@
                             <ComboBox Grid.Row="11" Grid.Column="1"
                                       ItemsSource="{Binding ReligionList, Source={StaticResource Srvm}}" SelectedIndex="{Binding ReligionIndex, Source={StaticResource Srvm}}">                               
                             </ComboBox>
+                            <Label Grid.Row="12" Content="Session" />
+                            <StackPanel Grid.Row="12" Grid.Column="1" Orientation="Horizontal">
+                                <Label Content="Starts"/>
+                                <ComboBox Width="60"
+                                          ItemsSource="{Binding StartYearList, Source={StaticResource Srvm}}"
+                                          SelectedIndex="{Binding StartYearListIndex, Source={StaticResource Srvm}, Mode=TwoWay}"/>
+                                <Label Content="Ends" />
+                                <ComboBox Width="60"
+                                          ItemsSource="{Binding EndYearList, Source={StaticResource Srvm}}"
+                                          SelectedIndex="{Binding EndYearListIndex, Source={StaticResource Srvm}, Mode=TwoWay}"/>
+                            </StackPanel>
                         </Grid>
                         
                         

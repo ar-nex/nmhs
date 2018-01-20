@@ -869,6 +869,86 @@ namespace NaimouzaHighSchool.ViewModels
             }
         }
 
+        private int[] _startYearList;
+        public int[] StartYearList
+        {
+            get => _startYearList;
+            set
+            {
+                _startYearList = value;
+                OnPropertyChanged("StartYearList");
+            }
+        }
+
+        private int _startYearListIndex;
+        public int StartYearListIndex
+        {
+            get => _startYearListIndex;
+            set
+            {
+                if (value < -1 || value > StartYearList.Length)
+                {
+                    _startYearListIndex = -1;
+                }
+                else
+                {
+                    _startYearListIndex = value;
+                }
+                OnPropertyChanged("StartYearListIndex");
+            }
+        }
+
+        private int[] _endYearList;
+        public int[] EndYearList
+        {
+            get => _endYearList;
+            set
+            {
+                _endYearList = value;
+                OnPropertyChanged("EndYearList");
+            }
+        }
+
+        private int _endYearListIndex;
+        public int EndYearListIndex
+        {
+            get => _endYearListIndex;
+            set
+            {
+                if (value < -1 || value > EndYearList.Length)
+                {
+                    _endYearListIndex = -1;
+                }
+                else
+                {
+                    _endYearListIndex = value;
+                }
+                OnPropertyChanged("EndYearListIndex");
+            }
+        }
+
+        private int _startYear;
+        public int StartYear
+        {
+            get => _startYear;
+            set
+            {
+                _startYear = value;
+                OnPropertyChanged("StartYear");
+            }
+        }
+
+        private int _endYear;
+        public int EndYear
+        {
+            get => _endYear;
+            set
+            {
+                _endYear = value;
+                OnPropertyChanged("EndYear");
+            }
+        }
+
         private StudentDataWriteDb db { get; set; }
         private List<SubjectCombo> AllCombo { get; set; }
 
@@ -880,19 +960,25 @@ namespace NaimouzaHighSchool.ViewModels
         private void StartUpInitialize()
         {
             this.StdModel = new StudentDataWriteModel();
-            this.SchoolClass = new string[] { "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"};
-            this.ClassessForAdmission = new string[] { "V", "VI", "VII", "VIII", "IX", "XI"};
+            this.SchoolClass = new string[] { "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII" };
+            this.ClassessForAdmission = new string[] { "V", "VI", "VII", "VIII", "IX", "XI" };
             this.LastClasses = new string[] { "V", "VI", "VII", "VIII", "IX", "X", "XI" };
             this.SchoolSection = new string[] { "A", "B", "C", "D", "E" };
             this.ReligionList = new string[] { "ISLAM", "HINDU", "OTHER" };
             this.StreamList = new string[] { "Arts", "Science" };
-            this.SocialCatList = new string[] { "GEN", "SC", "ST", "OBC-A", "OBC-B"};
+            this.SocialCatList = new string[] { "GEN", "SC", "ST", "OBC-A", "OBC-B" };
             this.BloodGroups = new string[] { "A +", "A -", "B +", "B -", "AB +", "AB -", "O +", "O -" };
             this.VillList = new string[] { "BAKHARPUR", "BAMONGRAM", "BROHMOTTOR", "CHAMAGRAM", "CHASPARA", "GOYESHBARI", "HARUGRAM", "JALALPUR", "MOSIMPUR", "NAZIRPUR", "PAHARPUR", "SUJAPUR" };
             this.PostOfficeList = new string[] { "BAKHARPUR", "BAMONGRAM", "CHASPARA", "CHHOTO SUJAPUR", "FATEHKHANI", "GAYESHBARI", "JALALPUR", "MOSIMPUR", "SUJAPUR" };
             this.PSList = new string[] { "KALIACHAK" };
             this.DistList = new string[] { "MALDA" };
             this.PinList = new string[] { "732206" };
+
+            int cYear = DateTime.Today.Year;
+            StartYearList = new int[] { cYear - 2, cYear - 1, cYear};
+            EndYearList = new int[] {cYear-2, cYear-1, cYear, cYear+1};
+            StartYearListIndex = Array.IndexOf(StartYearList, cYear);
+            EndYearListIndex = Array.IndexOf(EndYearList, cYear);
 
             int CurrentYear = DateTime.Today.Year;
             this.YearOfPassingArray = new int[] { CurrentYear, CurrentYear - 1, CurrentYear - 2, CurrentYear - 3, CurrentYear - 4, CurrentYear - 5, CurrentYear - 6, CurrentYear - 7, CurrentYear -8, CurrentYear - 9};
@@ -922,6 +1008,8 @@ namespace NaimouzaHighSchool.ViewModels
             this.MICRList = new ObservableCollection<string>();
             this.MICRList.Add("732002506");
 
+            StartYear = DateTime.Today.Year;
+            EndYear = DateTime.Today.Year;
 
             this.SaveDataCommand = new RelayCommand(this.SaveData, this.CanSaveData);
             this.PreviewCommand = new RelayCommand(this.PreviewData, this.CanPreview);
@@ -989,18 +1077,30 @@ namespace NaimouzaHighSchool.ViewModels
 
         public void SaveData()
         {
-            Student std = this.buildStudentObject();
-            string sYear = DateTime.Today.Year.ToString();
-            string eYear = DateTime.Today.Year.ToString();
-            bool inserted = db.InsertStudentData(std, sYear, eYear);
-            if (inserted)
+            int sYear1 = StartYearList[StartYearListIndex];
+            int eYear1 = EndYearList[EndYearListIndex];
+            bool validStartSession = sYear1 >= DateTime.Today.Year - 2 && sYear1 <= DateTime.Today.Year;
+            bool validEndSessoin = eYear1 < DateTime.Today.Year + 2;
+            if (validStartSession && validEndSessoin)
             {
-                System.Windows.MessageBox.Show("Inserted.");
-                this.ResetData();
+                Student std = this.buildStudentObject();
+                string sYear = StartYear.ToString();
+                string eYear = EndYear.ToString();
+                bool inserted = db.InsertStudentData(std, sYear, eYear);
+                if (inserted)
+                {
+                    System.Windows.MessageBox.Show("Inserted.");
+                    this.ResetData();
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Failed");
+                }
             }
             else
             {
-                System.Windows.MessageBox.Show("Failed");
+                System.Windows.MessageBox.Show("Sorry! invalid session.");
+                return;
             }
         }
         public bool CanSaveData()

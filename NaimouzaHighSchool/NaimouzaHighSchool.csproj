@@ -132,6 +132,7 @@
     <Compile Include="Models\Database\DeleteDb.cs" />
     <Compile Include="Models\Database\ExamDb.cs" />
     <Compile Include="Models\Database\ExcelExportDb.cs" />
+    <Compile Include="Models\Database\MarkEntryDb.cs" />
     <Compile Include="Models\Database\PromotionBasicDb.cs" />
     <Compile Include="Models\Database\RegistrationUpdaterDb.cs" />
     <Compile Include="Models\Database\RollUpdateDb.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Models\Database\StudentDataWriteDb.cs" />
     <Compile Include="Models\Database\SubjectComboDb.cs" />
     <Compile Include="Models\Database\SubjectGroupDb.cs" />
+    <Compile Include="Models\Database\TeacherEntryDb.cs" />
     <Compile Include="Models\GlobalVar.cs" />
     <Compile Include="Models\StudentDataWriteModel.cs" />
     <Compile Include="Models\Utility\AdmissionInfo.cs" />
@@ -149,6 +151,7 @@
     <Compile Include="Models\Utility\CombSubPair.cs" />
     <Compile Include="Models\Utility\Constants.cs" />
     <Compile Include="Models\Utility\EnumFile.cs" />
+    <Compile Include="Models\Utility\ExamMarks.cs" />
     <Compile Include="Models\Utility\ExcelColumnPositionServiceStaff.cs" />
     <Compile Include="Models\Utility\ExcelColumnPositionStaff.cs" />
     <Compile Include="Models\Utility\PromotionBasic.cs" />
@@ -161,8 +164,10 @@
     <Compile Include="Models\Utility\SubjectCombo.cs" />
     <Compile Include="Models\Utility\SubjectGroup.cs" />
     <Compile Include="Models\Utility\SubjectUtility.cs" />
+    <Compile Include="Models\Utility\Teacher.cs" />
     <Compile Include="ViewModels\BoardExamViewModel.cs" />
     <Compile Include="ViewModels\ClassConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\Commands\RelayCommandWithParam.cs" />
     <Compile Include="ViewModels\Converters\Bool1Converter.cs" />
     <Compile Include="ViewModels\Converters\BoolConverter.cs" />
     <Compile Include="ViewModels\Converters\CheckboxConverter.cs" />
@@ -174,9 +179,11 @@
     <Compile Include="ViewModels\Converters\SearchConverter.cs" />
     <Compile Include="ViewModels\DeleteViewModel.cs" />
     <Compile Include="ViewModels\ExamViewModel.cs" />
+    <Compile Include="ViewModels\ExcelEntryStaffViewModel.cs" />
     <Compile Include="ViewModels\ExcelExportViewModel.cs" />
     <Compile Include="ViewModels\GroupSubjectPaperViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\MarkEntryViewModel.cs" />
     <Compile Include="ViewModels\PromotionBasicViewModel.cs" />
     <Compile Include="ViewModels\RegistrationUpdaterViewModel.cs" />
     <Compile Include="ViewModels\RollUpdateViewModel.cs" />
@@ -186,6 +193,7 @@
     <Compile Include="ViewModels\StudentDataReadViewModel.cs" />
     <Compile Include="ViewModels\StudentDataWriteViewModel.cs" />
     <Compile Include="ViewModels\SubjectComboViewModel.cs" />
+    <Compile Include="ViewModels\TeacherEntryViewModel.cs" />
     <Compile Include="Views\AcademicConfigurationView.xaml.cs">
       <DependentUpon>AcademicConfigurationView.xaml</DependentUpon>
     </Compile>
@@ -245,6 +253,9 @@
     </Compile>
     <Compile Include="Views\SubjectComboView.xaml.cs">
       <DependentUpon>SubjectComboView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TeacherEntryView.xaml.cs">
+      <DependentUpon>TeacherEntryView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AcademicConfigurationView.xaml">
       <SubType>Designer</SubType>
@@ -362,6 +373,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SubjectComboView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TeacherEntryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

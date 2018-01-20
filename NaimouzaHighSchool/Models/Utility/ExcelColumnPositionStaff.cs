@@ -10,6 +10,12 @@ namespace NaimouzaHighSchool.Models.Utility
             ColName = name;
         }
 
+        public ExcelColumnPositionStaff(string name, string pos)
+        {
+            this.ColName = name;
+            this.ColPosition = pos;
+        }
+
         public string ColName { get; set; }
 
         private string _colPosition;

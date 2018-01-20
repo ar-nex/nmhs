@@ -3,10 +3,90 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:NaimouzaHighSchool.Views"
+        xmlns:local="clr-namespace:NaimouzaHighSchool.ViewModels"
         mc:Ignorable="d"
-        Title="Staff Details Import" Height="550" Width="750" Closing="Window_Closing">
-    <Grid>
-        
-    </Grid>
+        Title="Staff Details Import" Height="550" Width="900" Closing="Window_Closing">
+    <Window.Resources>
+        <local:ExcelEntryStaffViewModel x:Key="xfvm" />
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <Border DockPanel.Dock="Bottom" Background="#FF2275C9" Padding="5">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Padding="3" Margin="2" Command="{Binding InsertDataCommand, Source={StaticResource xfvm}}">Insert data</Button>
+                <Button Padding="3" Margin="2" Command="{Binding AbortCommand, Source={StaticResource xfvm}}">Abort</Button>
+                <Button Padding="3" Margin="2" Command="{Binding ResetCommand, Source={StaticResource xfvm}}">Reset</Button>
+            </StackPanel>
+        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="1.8*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.ColumnSpan="2" Background="#FF5AB5F3" Padding="7">
+                <Label FontSize="16">Staff's Data Entry From Excel File</Label>
+            </Border>
+            <DataGrid Grid.Row="1" ItemsSource="{Binding ListExCol, Source={StaticResource xfvm}}" AutoGenerateColumns="False" AlternatingRowBackground="#eee" VerticalGridLinesBrush="#ccc" HorizontalGridLinesBrush="#eee">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=ColName}" IsReadOnly="True" Header="Property"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=ColPosition}" Header="Position"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Border Padding="10" Background="#FFD2E2BF">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Border>
+                            <TextBlock TextDecorations="Underline" FontWeight="Bold" FontSize="14">File Details</TextBlock>
+                        </Border>
+                        <StackPanel Orientation="Horizontal" Margin="3,10,3,3" Grid.Row="1">
+                            <Label Width="100" Margin="2">Excel file</Label>
+                            <TextBox Width="300" Text="{Binding TxbFileName, Source={StaticResource xfvm}}" IsReadOnly="True"></TextBox>
+                            <Button Command="{Binding FileOpenCommand, Source={StaticResource xfvm}}">Browse</Button>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="3">
+                            <Label Width="100" Margin="2">Ignore rows</Label>
+                            <TextBox Width="70" Text="{Binding IgnoredRow, Source={StaticResource xfvm}, Mode=TwoWay}"></TextBox>
+                            <StackPanel Orientation="Vertical" Height="30">
+                                <Button Height="14" FontSize="7" Command="{Binding IncrementIgnoredRowCommand, Source={StaticResource xfvm}}">/\</Button>
+                                <Button Height="14" FontSize="7" Command="{Binding DecrementIgnoredRowCommand, Source={StaticResource xfvm}}">\/</Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border Padding="10" Background="#FFD2E2BF" Grid.Row="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock TextDecorations="Underline" FontSize="14" FontWeight="Bold">Progress</TextBlock>
+                        <StackPanel Orientation="Vertical" Grid.Row="1">
+                            <Label Content="{Binding LblProgress, Source={StaticResource xfvm}}"></Label>
+                            <ProgressBar Height="30" Margin="3,0,3,3" IsIndeterminate="False" Minimum="0" Maximum="100" Value="{Binding ProgressbarValue, StringFormat={}{0:0}%, Source={StaticResource xfvm}}"></ProgressBar>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Row="2">
+
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </DockPanel>
 </Window>

@@ -17,7 +17,8 @@ namespace NaimouzaHighSchool.Models.Utility
             ListCol.Add(new ExcelColumnPositionStaff("Date of Joining"));
             ListCol.Add(new ExcelColumnPositionStaff("Date of Retirement"));
             ListCol.Add(new ExcelColumnPositionStaff("Educational Qualification"));
-            ListCol.Add(new ExcelColumnPositionStaff("Academic Section"));
+            ListCol.Add(new ExcelColumnPositionStaff("Subject Name"));
+            ListCol.Add(new ExcelColumnPositionStaff("Academic Group"));
             ListCol.Add(new ExcelColumnPositionStaff("Appointment Approval No."));
             ListCol.Add(new ExcelColumnPositionStaff("Appointment Approval Date"));
             ListCol.Add(new ExcelColumnPositionStaff("Pay Band"));
@@ -34,7 +35,6 @@ namespace NaimouzaHighSchool.Models.Utility
             ListCol.Add(new ExcelColumnPositionStaff("Date of Retirement"));
             ListCol.Add(new ExcelColumnPositionStaff("Caste"));
             ListCol.Add(new ExcelColumnPositionStaff("Vacancy Status"));
-            ListCol.Add(new ExcelColumnPositionStaff("Subject Name"));
             ListCol.Add(new ExcelColumnPositionStaff("Bill Type/Salary Source"));
             ListCol.Add(new ExcelColumnPositionStaff("Employee Group"));
 
@@ -44,16 +44,14 @@ namespace NaimouzaHighSchool.Models.Utility
             ListCol.Add(new ExcelColumnPositionStaff("Religion"));
             ListCol.Add(new ExcelColumnPositionStaff("Mother tongue"));
             ListCol.Add(new ExcelColumnPositionStaff("Marital Status"));
-            ListCol.Add(new ExcelColumnPositionStaff("Religion"));
             ListCol.Add(new ExcelColumnPositionStaff("Spouse Name"));
             ListCol.Add(new ExcelColumnPositionStaff("Opted WB Health Scheme"));
             ListCol.Add(new ExcelColumnPositionStaff("Residential Status"));
             ListCol.Add(new ExcelColumnPositionStaff("PAN"));
             ListCol.Add(new ExcelColumnPositionStaff("Aadhar ID No."));
-            ListCol.Add(new ExcelColumnPositionStaff("Religion"));
             ListCol.Add(new ExcelColumnPositionStaff("Assembly Const. No."));
             ListCol.Add(new ExcelColumnPositionStaff("Assembly Part No."));
-            ListCol.Add(new ExcelColumnPositionStaff("Voter SL no. is Part"));
+            ListCol.Add(new ExcelColumnPositionStaff("Voter SL no. in Part"));
             ListCol.Add(new ExcelColumnPositionStaff("Blood Group"));
             ListCol.Add(new ExcelColumnPositionStaff("Is Differently Able"));
             ListCol.Add(new ExcelColumnPositionStaff("State details"));
@@ -86,6 +84,26 @@ namespace NaimouzaHighSchool.Models.Utility
             ListCol.Add(new ExcelColumnPositionStaff("Other Prof. Qualification"));
 
             // Approval of Appointment
+            ListCol.Add(new ExcelColumnPositionStaff("Post Status"));
+            ListCol.Add(new ExcelColumnPositionStaff("Appointment Letter No."));
+            ListCol.Add(new ExcelColumnPositionStaff("Appointment Letter Date"));
+            ListCol.Add(new ExcelColumnPositionStaff("MC Resolution No."));
+            ListCol.Add(new ExcelColumnPositionStaff("MC Resolution Date"));
+            ListCol.Add(new ExcelColumnPositionStaff("Memo No/DI'S PP Memo No."));
+            ListCol.Add(new ExcelColumnPositionStaff("Memo No/DI'S PP Memo Date"));
+            ListCol.Add(new ExcelColumnPositionStaff("Post Sanctioning Memo No."));
+            ListCol.Add(new ExcelColumnPositionStaff("Post Sanctioning Memo Date"));
+
+            // Details of previous Employment
+
+            // Other
+            ListCol.Add(new ExcelColumnPositionStaff("Opted Under DCRB Scheme"));
+            ListCol.Add(new ExcelColumnPositionStaff("Option Excercise Under"));
+            ListCol.Add(new ExcelColumnPositionStaff("Opted Under post 1981 pension"));
+            ListCol.Add(new ExcelColumnPositionStaff("Date of refund of employer's share of CPF"));
+            ListCol.Add(new ExcelColumnPositionStaff("Name of treasury"));
+            ListCol.Add(new ExcelColumnPositionStaff("Amount refunded"));
+
 
         }
 

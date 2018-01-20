@@ -340,7 +340,7 @@ namespace NaimouzaHighSchool.Models.Utility
             {
                 if (!String.IsNullOrWhiteSpace(item.ColPosition))
                 {
-                    colIndex.Add((Array.IndexOf(validColPos, item.ColPosition)+1), item.ColName);
+                    colIndex.Add((Array.IndexOf(validColPos, item.ColPosition)+1), value: item.ColName);
                 }
             }
         }

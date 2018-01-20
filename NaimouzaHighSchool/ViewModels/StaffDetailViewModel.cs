@@ -493,7 +493,7 @@ namespace NaimouzaHighSchool.ViewModels
                 }
 
                 this.Mobile = s.Mobile;
-                this.AltMobile = s.AltMobile;
+                this.AltMobile = s.LandPhone;
                 this.Email = s.Email;
                 this.BankAcc = s.BankAcc;
                 this.Ifsc = s.Ifsc;
@@ -518,7 +518,7 @@ namespace NaimouzaHighSchool.ViewModels
             s.DateOfJoining = getDate("doj");
             s.RetireDate = getDate("dor");
             s.Mobile = this.Mobile;
-            s.AltMobile = this.AltMobile;
+            s.LandPhone = this.AltMobile;
             s.Email = this.Email;
             s.BankAcc = this.BankAcc;
             s.Ifsc = this.Ifsc;
@@ -635,7 +635,7 @@ namespace NaimouzaHighSchool.ViewModels
                     orgStf.DateOfJoining = s.DateOfJoining;
                     orgStf.RetireDate = s.RetireDate;
                     orgStf.Mobile = s.Mobile;
-                    orgStf.AltMobile = s.AltMobile;
+                    orgStf.LandPhone = s.LandPhone;
                     orgStf.Email = s.Email;
                     orgStf.BankAcc = s.BankAcc;
                     orgStf.Ifsc = s.Ifsc;

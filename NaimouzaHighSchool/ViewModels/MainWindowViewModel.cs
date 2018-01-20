@@ -25,6 +25,7 @@ namespace NaimouzaHighSchool.ViewModels
         public RelayCommand ShowStaffExcelImportWindowCommand { get; set; }
         public RelayCommand ShowPromotionBasicViewCommand { get; set; }
         public RelayCommand ShowRegistrationUpdaterCommand { get; set; }
+        public RelayCommand ShowTeacherEntryViewCommand { get; set; }
 
         private void StartUpInitializer()
         {
@@ -41,6 +42,7 @@ namespace NaimouzaHighSchool.ViewModels
             ShowMarksEntryWindowCommand = new RelayCommand(ShowMarkEntryWindow, CanShowMarkEntryWindow);
             ShowPromotionBasicViewCommand = new RelayCommand(ShowPromotionBasicView, CanShowPromotionBasicView);
             ShowRegistrationUpdaterCommand = new RelayCommand(ShowRegistrationUpdater, CanShowRegistrationUpdater);
+            ShowTeacherEntryViewCommand = new RelayCommand(ShowTeacherEntry, CanShowTeacherEntry);
         }
 
         private void ShowExcelExport()
@@ -297,6 +299,26 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanShowRegistrationUpdater()
         {
             return !Views.RegistrationUpdaterView.IsOpen;
+        }
+
+        private void ShowTeacherEntry()
+        {
+            if (Views.TeacherEntryView.IsOpen)
+            {
+                return;
+            }
+            else
+            {
+                Views.TeacherEntryView te = new Views.TeacherEntryView();
+                Views.TeacherEntryView.IsOpen = true;
+                te.Owner = Application.Current.MainWindow;
+                te.Show();
+            }
+        }
+
+        private bool CanShowTeacherEntry()
+        {
+            return !Views.TeacherEntryView.IsOpen;
         }
     }
 }

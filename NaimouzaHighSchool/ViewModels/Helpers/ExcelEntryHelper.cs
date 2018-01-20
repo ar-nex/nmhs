@@ -38,5 +38,34 @@ namespace NaimouzaHighSchool.ViewModels.Helpers
             return unique;
         
         }
+
+        public bool isExcelColPositionUnique(List<ExcelColumnPositionStaff> listOfExCol)
+        {
+            bool unique = false;
+            int j = 0;
+            int length = listOfExCol.Count;
+            foreach (ExcelColumnPositionStaff item in listOfExCol)
+            {
+                string pos = item.ColPosition;
+                for (int i = ++j; i < length; i++)
+                {
+                    if (!String.IsNullOrWhiteSpace(pos))
+                    {
+                        if (listOfExCol[i].ColPosition == pos)
+                        {
+                            unique = false;
+                            return unique;
+                        }
+                        else
+                        {
+                            unique = true;
+                        }
+                    }
+                }
+
+            }
+            return unique;
+
+        }
     }
 }

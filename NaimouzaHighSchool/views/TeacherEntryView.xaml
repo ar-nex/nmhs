@@ -1,0 +1,67 @@
+﻿<Window x:Class="NaimouzaHighSchool.Views.TeacherEntryView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NaimouzaHighSchool.ViewModels"
+        mc:Ignorable="d"
+        Title="Teacher Entry" Height="400" Width="600" Closing="Window_Closing" WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <local:TeacherEntryViewModel x:Key="tvm" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Name" Margin="2"/>
+            <TextBox Grid.Column="1" Text="{Binding TeacherName, Source={StaticResource tvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+            <Label Content="Subject" Grid.Row="1" Margin="2"/>
+            <ComboBox Grid.Row="1" Grid.Column="1"
+                      Text="{Binding TeacherSubject, Source={StaticResource tvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Subjects,Source={StaticResource tvm}}"
+                      SelectedIndex="{Binding SubjectsIndex, Source={StaticResource tvm}}"
+                      IsEditable="True" Margin="2"/>
+            <Label Grid.Row="2" Content="Password" Margin="2"/>
+            <TextBox Grid.Row="2" Grid.Column="1" 
+                     Text="{Binding TeacherPassword, Source={StaticResource tvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="2"/>
+            <Button Grid.Column="2" Margin="2" 
+                    Command="{Binding SaveCommand, Source={StaticResource tvm}}"
+                    Width="80" Content="Save"/>
+            <Button Grid.Row="1" Grid.Column="2" Margin="2"
+                    Command="{Binding AddCommand, Source={StaticResource tvm}}"
+                    Visibility="{Binding AddBtnVisibility, Source={StaticResource tvm}}"
+                    Width="80" Content="Add New" />
+            <Label Grid.Row="2" Grid.Column="2" Content="Password should have minimum 5 Characters"/>
+        </Grid>
+        <DataGrid Grid.Row="1" CanUserAddRows="False" IsReadOnly="True"
+                  ItemsSource="{Binding TeacherList, Source={StaticResource tvm}}"      
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Teacher's Name" Binding="{Binding Path=Name}" MinWidth="200" />
+                <DataGridTextColumn Header="Subject" Binding="{Binding Path=Subject}" MinWidth="200"/>
+                <DataGridTemplateColumn Header="Delete">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button BorderBrush="Transparent" Background="Transparent" Command="{Binding DeleteCommand, Source={StaticResource tvm}}" CommandParameter="{Binding}">
+                                <Path Data="M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z" Fill="Red" />
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
