@@ -326,7 +326,7 @@ namespace NaimouzaHighSchool.Models.Database
                         }
                         else
                         {
-                            sql = $"INSERT IGNORE INTO student_class (startYear, endYear, class, section, roll, student_basic_id) VALUES('{sYear}', '{eYear}', '{item.NewClass}', '{item.Section}', '{item.NewRoll}', '{item.Id}')";
+                            sql = $"INSERT IGNORE INTO student_class (startYear, endYear, class, section, roll, student_basic_id) VALUES('{sYear}', '{eYear}', '{item.NewClass}', '{item.NewSection}', '{item.NewRoll}', '{item.Id}')";
                         }
                         cmd.CommandText = sql;
                         r = cmd.ExecuteNonQuery();

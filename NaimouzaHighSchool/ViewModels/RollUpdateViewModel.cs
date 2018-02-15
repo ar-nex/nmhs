@@ -95,7 +95,7 @@ namespace NaimouzaHighSchool.ViewModels
                 
                 foreach (RollUpdater item in rlist)
                 {
-                    item.NewRollSetEvent += this.RollUpdateHandler;
+                    item.NewRollSectionSetEvent += this.RollSectionUpdateHandler;
                     this.RollUpdaterList.Add(item);
                 }
             }
@@ -144,8 +144,9 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
 
-        public void RollUpdateHandler(Object sender, EventArgs e)
+        public void RollSectionUpdateHandler(Object sender, EventArgs e)
         {
+            /*
             int enteredNewRoll = this.RollUpdaterList[this.RollUpdaterListIndex].NewRoll;
             int rollCounter = 0;
             foreach (RollUpdater item in this.RollUpdaterList)
@@ -165,6 +166,37 @@ namespace NaimouzaHighSchool.ViewModels
                     break;
                 }
             }
+            */
+            // new code
+            // section or roll changed
+            // if duplicate found
+            // alert the user
+            // Reset the section and roll
+
+            int enteredNewRoll = RollUpdaterList[RollUpdaterListIndex].NewRoll;
+            string enteredNewSec = RollUpdaterList[RollUpdaterListIndex].NewSection;
+            Predicate<RollUpdater> RollUpdatedPredicate = r => r.NewRoll == enteredNewRoll && r.Section == enteredNewSec;
+            int counter = 0;
+            foreach (var item in RollUpdaterList)
+            {
+                if (item.NewRoll == 0)
+                {
+                    continue;
+                }
+                if (RollUpdatedPredicate(item))
+                {
+                    counter++;
+                }
+                if (counter > 1)
+                {
+                    string msg = string.Format("Entered Roll {0} and Section {1} already assigned to another student. ", item.NewRoll.ToString(), item.NewSection);
+                    System.Windows.MessageBox.Show(msg);
+                    RollUpdaterList[this.RollUpdaterListIndex].NewRoll = 0;
+                    RollUpdaterList[this.RollUpdaterListIndex].NewSection = string.Empty;
+                    break;
+                }
+            }
+            
         }
         #endregion
     }

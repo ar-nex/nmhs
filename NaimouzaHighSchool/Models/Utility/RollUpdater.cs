@@ -52,19 +52,40 @@ namespace NaimouzaHighSchool.Models.Utility
             set 
             {
                 this._newRoll = value;
-                this.OnNewRollSetEvent();
                 this.OnPropertyChanged("NewRoll");
+                this.OnNewRollSectionSetEvent();
             }
         }
 
-        public event EventHandler NewRollSetEvent;
+        private string _newSection;
 
-        public void OnNewRollSetEvent()
+        public string NewSection
         {
-            if (NewRollSetEvent != null)
+            get { return _newSection; }
+            set
             {
-                NewRollSetEvent(this, EventArgs.Empty);
+                if (value != null)
+                {
+                    if ("A" == value.ToUpper() || "B" == value.ToUpper() || "C" == value.ToUpper() || "D" == value.ToUpper())
+                    {
+                        _newSection = value.ToUpper();
+                    }
+                    else
+                    {
+                        _newSection = string.Empty;
+                    }
+                }
+                OnPropertyChanged("NewSection");
+                OnNewRollSectionSetEvent();
             }
+        }
+
+
+        public event EventHandler NewRollSectionSetEvent;
+
+        public void OnNewRollSectionSetEvent()
+        {
+            NewRollSectionSetEvent?.Invoke(this, EventArgs.Empty);
         }
 
     }

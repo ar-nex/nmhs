@@ -188,9 +188,17 @@
                                 </ComboBox>
                                
                         <Label>Session :</Label>
-                        <TextBox Width="45" Text="{Binding StartYear, Source={StaticResource dObj}, Mode=TwoWay}"></TextBox>
+                        <xctk:IntegerUpDown 
+                            Value="{Binding StartYear, Source={StaticResource dObj}, Mode=TwoWay}"
+                            Width="65">
+                        </xctk:IntegerUpDown>        
+                        <!--<TextBox Width="45" Text="{Binding StartYear, Source={StaticResource dObj}, Mode=TwoWay}"></TextBox>-->
                         <Label>-</Label>
-                        <TextBox Width="45" Text="{Binding EndYear, Source={StaticResource dObj}, Mode=TwoWay}"></TextBox>
+                        <xctk:IntegerUpDown 
+                            Value="{Binding EndYear, Source={StaticResource dObj}, Mode=TwoWay}"
+                            Width="65">
+                        </xctk:IntegerUpDown>
+                        <!--<TextBox Width="45" Text="{Binding EndYear, Source={StaticResource dObj}, Mode=TwoWay}"></TextBox>-->
                             <Button Margin="15,0,0,0" Command="{Binding SearchCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}" Content="Search"/>
                         <Button Name="EditBtn" Content="Update" Command="{Binding SaveEditCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}"
                                Template="{StaticResource UpdateButtonTemplate}" Cursor="Hand">

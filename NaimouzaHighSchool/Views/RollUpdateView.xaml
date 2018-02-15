@@ -41,6 +41,7 @@
                     <DataGridTextColumn Header="Class" Binding="{Binding Path=Cls}" IsReadOnly="True"></DataGridTextColumn>
                     <DataGridTextColumn Header="Section" Binding="{Binding Path=Section}" IsReadOnly="True"></DataGridTextColumn>
                     <DataGridTextColumn Header="Old Roll" Binding="{Binding Path=OldRoll}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="New Section" Binding="{Binding Path=NewSection, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
                     <DataGridTextColumn Header="New Roll" Binding="{Binding Path=NewRoll, Converter={StaticResource IntConverter}}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
