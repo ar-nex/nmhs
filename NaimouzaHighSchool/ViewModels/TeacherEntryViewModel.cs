@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Security.Cryptography;
 using NaimouzaHighSchool.Models.Utility;
 using NaimouzaHighSchool.Models.Database;
 using NaimouzaHighSchool.ViewModels.Commands;
+
 
 namespace NaimouzaHighSchool.ViewModels
 {
@@ -131,7 +133,7 @@ namespace NaimouzaHighSchool.ViewModels
                 t.Name = TeacherName;
                 t.Subject = TeacherSubject;
                 t.Password = TeacherPassword;
-                
+                t.PasswordHash = GetPasswordHash(TeacherPassword);
                 TeacherEntryDb db = new TeacherEntryDb();
                 int r = db.InsertTeacher(t);
                 if (r > 0)
@@ -152,6 +154,23 @@ namespace NaimouzaHighSchool.ViewModels
             {
 
             }
+        }
+
+        private string GetPasswordHash(string teacherPassword)
+        {
+            StringBuilder sBuilder = new StringBuilder();
+            using (MD5 md5Hash = MD5.Create())
+            {
+                // convert the input string into byte array and compute the hash
+                byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(teacherPassword));
+          
+                // loop through each byte of the hashed data and format each one as a hexadecimal string.
+                for (int i = 0; i < data.Length; i++)
+                {
+                    sBuilder.Append(data[i].ToString("x2"));
+                }
+            }
+            return sBuilder.ToString();
         }
 
         private bool CanSave()

@@ -7,7 +7,6 @@
         {
 
         }
-
         private string _id;
         public string Id
         {
@@ -50,6 +49,13 @@
                 _password = value;
                 OnPropertyChanged("Password");
             }
+        }
+
+        private string _passwordHash;
+        public string PasswordHash
+        {
+            get { return _passwordHash; }
+            set { _passwordHash = value; }
         }
     }
 }

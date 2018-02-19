@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:NaimouzaHighSchool.ViewModels"
         xmlns:conv="clr-namespace:NaimouzaHighSchool.ViewModels.Converters"
         mc:Ignorable="d"
-        Title="Marks Entry" Height="450" Width="830" Closing="Window_Closing">
+        Title="Marks Entry" Height="550" Width="950" Closing="Window_Closing">
     <Window.Resources>
         <local:MarkEntryViewModel x:Key="mrkvm" />
         <conv:IntConverter x:Key="intConverter" />
@@ -29,14 +29,18 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <Label Content="Password" Margin="2"/>
-                <PasswordBox Margin="2" Width="100" />
+                <PasswordBox Margin="2" 
+                             Name="tPasswordBox"
+                             Width="100" />
                 <Button Content="Save" 
                         Command="{Binding SaveCommand, Source={StaticResource mrkvm}}"
+                        CommandParameter="{Binding ElementName=tPasswordBox}"
                         Margin="2" Width="80"/>
             </StackPanel>
         </Border>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition />
@@ -86,11 +90,28 @@
                     <Label Margin="2" Content="Group : " />
                     <Label Margin="2" Content="{Binding SubsGroup, Source={StaticResource mrkvm}}" Width="200"/>
                     <Label Content="Full Mark" Margin="2" />
-                    <TextBox Margin="2" Width="60" />
+                    <TextBox Margin="2" 
+                             Text="{Binding FullMark, Source={StaticResource mrkvm}, Mode=TwoWay}"
+                             Width="60" />
                 </StackPanel>
             </Border>
-            <DataGrid Grid.Row="2">
-                
+            <Border Grid.Row="2" Padding="5">
+                <Button Content="GET" Width="100" 
+                        Command="{Binding GetDataCommand, Source={StaticResource mrkvm}}"
+                        HorizontalAlignment="Left" Margin="2"/>
+            </Border>
+            <DataGrid 
+                ItemsSource="{Binding ExamMarkList, Source={StaticResource mrkvm}}"
+                AutoGenerateColumns="False" CanUserAddRows="False"
+                Grid.Row="3">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Path=StudentName}"/>
+                    <DataGridTextColumn Header="Class" IsReadOnly="True" Binding="{Binding Path=StudentClass}"/>
+                    <DataGridTextColumn Header="Section" IsReadOnly="True" Binding="{Binding Path=StudentSection}"/>
+                    <DataGridTextColumn Header="Roll" IsReadOnly="True" Binding="{Binding Path=StudentRoll}"/>
+                    <DataGridTextColumn Header="Marks Obtained" Binding="{Binding Path=ObtainedMark}"/>
+                    <DataGridCheckBoxColumn Header="Is Absent" Binding="{Binding Path=IsAbsent}"/>
+                </DataGrid.Columns>
             </DataGrid>
         </Grid>
     </DockPanel>

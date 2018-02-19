@@ -54,7 +54,7 @@ namespace NaimouzaHighSchool.Models.Database
             try
             {
                 conn.Open();
-                string sql = $"INSERT INTO teacher (name, subject, password) VALUES ('{t.Name}', '{t.Subject}', '{t.Password}')";
+                string sql = $"INSERT INTO teacher (name, subject, password) VALUES ('{t.Name}', '{t.Subject}', '{t.PasswordHash}')";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
                 r = (int)cmd.LastInsertedId;

@@ -7,6 +7,7 @@ using System.Text;
 using NaimouzaHighSchool.Models.Database;
 using NaimouzaHighSchool.Models.Utility;
 using NaimouzaHighSchool.ViewModels.Commands;
+using System.Security.Cryptography;
 
 namespace NaimouzaHighSchool.ViewModels
 {
@@ -17,6 +18,15 @@ namespace NaimouzaHighSchool.ViewModels
         {
             StartUpInitializer();
         }
+
+        private ObservableCollection<ExamMarks> _examMarkList;
+
+        public ObservableCollection<ExamMarks> ExamMarkList
+        {
+            get { return _examMarkList; }
+            set { _examMarkList = value; OnPropertyChanged("ExamMarkList"); }
+        }
+
 
         private int _startYear;
         public int StartYear
@@ -207,6 +217,23 @@ namespace NaimouzaHighSchool.ViewModels
             }
         }
 
+        private int _fullMark;
+        public int FullMark
+        {
+            get { return _fullMark; }
+            set { _fullMark = value; OnPropertyChanged("FullMark"); }
+        }
+
+        private string _enteredPassword;
+
+        public string EnteredPassword
+        {
+            get { return _enteredPassword; }
+            set { _enteredPassword = value; OnPropertyChanged("EnteredPassword"); }
+        }
+
+
+
         private int _subjectIndex;
         public int SubjectIndex
         {
@@ -258,12 +285,13 @@ namespace NaimouzaHighSchool.ViewModels
             }
         }
 
-        public RelayCommand SaveCommand { get; set; }
+        public RelayCommandWithParam SaveCommand { get; set; }
+        public RelayCommand GetDataCommand { get; set; }
 
         private void StartUpInitializer()
         {
             MarkEntryDb db = new MarkEntryDb();
-
+            ExamMarkList = new ObservableCollection<ExamMarks>();
             StartYear = DateTime.Today.Year;
             EndYear = DateTime.Today.Year;
             Cls = new string[] {"V", "VI", "VII", "VIII", "IX", "X", "XI", "XII" };
@@ -281,22 +309,97 @@ namespace NaimouzaHighSchool.ViewModels
             SubjectIndex = -1;
             TeacherListIndex = -1;
             TypeVisibility = Visibility.Collapsed;
-            SaveCommand = new RelayCommand(Save, CanSave);
+            SaveCommand = new RelayCommandWithParam(Save, CanSave);
+            GetDataCommand = new RelayCommand(GetData, CanGetData);
         }
 
-        private void Save()
+        private void Save(Object param)
         {
-            
+            var passwordBox = param as System.Windows.Controls.PasswordBox;
+            var password = passwordBox.Password;
+            // 1. If password is blank
+            if (string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Password can't be blank");
+                return;
+            }
+            // 2. If password do not matched
+            if (!IsPasswordCorrect(password))
+            {
+                MessageBox.Show("Sorry password didn't match.");
+                return;
+            }
+            // 3. If mark obtained more than fullmark
+            List<int> MoreThanFullMarksRoll = GetRollsWithMoreNumbers();
+            if (MoreThanFullMarksRoll.Count > 0)
+            {
+                int c = MoreThanFullMarksRoll.Count;
+
+                string msg;
+                if (c == 1)
+                {
+                    msg = $"Roll no. {MoreThanFullMarksRoll[0].ToString()} has more than full marks.";
+                }
+                else if (c == 2)
+                {
+                    msg = $"Roll nos. {MoreThanFullMarksRoll[0].ToString()} and {MoreThanFullMarksRoll[1].ToString()} have more than full marks.";
+                }
+                else
+                {
+                    string rolls = string.Empty;
+                    for (int i = 0; i < c -1; i++)
+                    {
+                        rolls = rolls + " " + MoreThanFullMarksRoll[i].ToString() + ",";
+                    }
+                    rolls = rolls.Remove(rolls.Length-1, 1);
+                    rolls = rolls + " & "+MoreThanFullMarksRoll[c-1].ToString();
+                    msg = "Roll nos. "+rolls+ " have more than full marks";
+                }
+
+                MessageBox.Show(msg);
+                return;
+            }
         }
 
         private bool CanSave()
         {
-            return true;
+            return FullMark > 0 && FullMark < 200 && TeacherListIndex > -1;
+        }
+
+        private void GetData()
+        {
+            ExamMarks me = new ExamMarks();
+            me.SessionStartYear = StartYear;
+            me.SessionEndYear = EndYear;
+            me.StudentClass = Cls[ClsIndex];
+            me.StudentSection = Section[SectionIndex];
+            me.ExamPhase = ExamUnit[ExamUnitIndex];
+            if (ClsIndex > -1 && (Cls[ClsIndex] == "IX" || Cls[ClsIndex] == "X"))
+            {
+                me.ExamType = ExmType[ExmTypeIndex];
+            }
+            MarkEntryDb db = new MarkEntryDb();
+            ExamMarkList = db.GetExamMarkData(me);
+        }
+
+        private bool CanGetData()
+        {
+            bool validStartYear = StartYear > 2016 && StartYear < DateTime.Now.Year + 1;
+            bool validEndYear = EndYear > 2016 && EndYear < DateTime.Now.Year + 1;
+            bool validClsSection = ClsIndex > -1 && SectionIndex > -1;
+            bool validUnit = ExamUnitIndex > -1;
+            bool validSubject = SubjectIndex > -1;
+            bool validExamType = true;
+            if (ClsIndex > -1 && (Cls[ClsIndex] == "IX" || Cls[ClsIndex] == "X"))
+            {
+                validExamType = ExmTypeIndex > -1;
+            }
+            return validStartYear && validEndYear && validClsSection && validUnit && validSubject && validExamType;
         }
 
         private void OnClassChanged()
         {
-            Subject.Clear();
+          //  Subject.Clear();
             if (ClsIndex == -1)
             {
 
@@ -313,6 +416,10 @@ namespace NaimouzaHighSchool.ViewModels
                 {
                     TypeVisibility = Visibility.Visible;
                     Subject = _secondarySubs;
+                }
+                else
+                {
+                    Subject = new ObservableCollection<string>();
                 }
             }
         }
@@ -390,6 +497,40 @@ namespace NaimouzaHighSchool.ViewModels
                     return string.Empty;
                 }
             }
+        }
+
+        private bool IsPasswordCorrect(string password)
+        {
+            StringBuilder sBuilder = new StringBuilder();
+            using (MD5 md5Hash = MD5.Create())
+            {
+                // convert the input string into byte array and compute the hash
+                byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+                // loop through each byte of the hashed data and format each one as a hexadecimal string.
+                for (int i = 0; i < data.Length; i++)
+                {
+                    sBuilder.Append(data[i].ToString("x2"));
+                }
+            }
+
+            string s = sBuilder.ToString();
+            string s1 = TeacherList[TeacherListIndex].PasswordHash;
+
+            string enteredHash = sBuilder.ToString();
+            return enteredHash == TeacherList[TeacherListIndex].PasswordHash;
+        }
+
+        private List<int> GetRollsWithMoreNumbers()
+        {
+            List<int> rolls = new List<int>();
+            foreach (ExamMarks item in ExamMarkList)
+            {
+                if (item.ObtainedMark > FullMark)
+                {
+                    rolls.Add(item.StudentRoll);
+                }
+            }
+            return rolls;
         }
     }
 }
