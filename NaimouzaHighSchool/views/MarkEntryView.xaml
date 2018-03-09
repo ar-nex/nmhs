@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NaimouzaHighSchool.ViewModels"
         xmlns:conv="clr-namespace:NaimouzaHighSchool.ViewModels.Converters"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Marks Entry" Height="550" Width="950" Closing="Window_Closing">
     <Window.Resources>
@@ -36,6 +37,7 @@
                         Command="{Binding SaveCommand, Source={StaticResource mrkvm}}"
                         CommandParameter="{Binding ElementName=tPasswordBox}"
                         Margin="2" Width="80"/>
+                <TextBlock Margin="2" Text="{Binding Msg, Source={StaticResource mrkvm}}"/>
             </StackPanel>
         </Border>
         <Grid>
@@ -48,13 +50,17 @@
             <Border>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Session Starting Year" Margin="2"/>
-                    <TextBox Margin="2" 
-                             Text="{Binding StartYear, Source={StaticResource mrkvm}, Converter={StaticResource intConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             Width="60" />
+
+                    <xctk:IntegerUpDown Margin="2" 
+                            Value="{Binding StartYear, Source={StaticResource mrkvm}, Mode=TwoWay}"
+                            Width="65">
+                    </xctk:IntegerUpDown>
                     <Label Content="Ending Year" Margin="2"/>
-                    <TextBox Margin="2"
-                             Text="{Binding EndYear, Source={StaticResource mrkvm}, Converter={StaticResource intConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             Width="60"/>
+                    <xctk:IntegerUpDown Margin="2" 
+                            Value="{Binding EndYear, Source={StaticResource mrkvm}, Mode=TwoWay}"
+                            Width="65">
+                    </xctk:IntegerUpDown>
+                    
                     <Label Content="Class" Margin="2" />
                     <ComboBox 
                         ItemsSource="{Binding Cls, Source={StaticResource mrkvm}}"
@@ -91,7 +97,7 @@
                     <Label Margin="2" Content="{Binding SubsGroup, Source={StaticResource mrkvm}}" Width="200"/>
                     <Label Content="Full Mark" Margin="2" />
                     <TextBox Margin="2" 
-                             Text="{Binding FullMark, Source={StaticResource mrkvm}, Mode=TwoWay}"
+                             Text="{Binding FullMark, Source={StaticResource mrkvm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              Width="60" />
                 </StackPanel>
             </Border>
@@ -110,7 +116,7 @@
                     <DataGridTextColumn Header="Section" IsReadOnly="True" Binding="{Binding Path=StudentSection}"/>
                     <DataGridTextColumn Header="Roll" IsReadOnly="True" Binding="{Binding Path=StudentRoll}"/>
                     <DataGridTextColumn Header="Marks Obtained" Binding="{Binding Path=ObtainedMark}"/>
-                    <DataGridCheckBoxColumn Header="Is Absent" Binding="{Binding Path=IsAbsent}"/>
+                    <DataGridCheckBoxColumn Header="Is Absent" Binding="{Binding Path=IsAbsent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

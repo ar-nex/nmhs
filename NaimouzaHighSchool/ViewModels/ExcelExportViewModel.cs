@@ -342,11 +342,51 @@ namespace NaimouzaHighSchool.ViewModels
                 case "Present Address":
                     rstr = s.PresentAdrress;
                     break;
+                    // added later
+                case "Present AddrLane1":
+                    rstr = s.PstAddrLane1;
+                    break;
+                case "Present Vill. or Street":
+                    rstr = s.PstAddrLane2;
+                    break;
+                case "Present PO":
+                    rstr = s.PstAddrPO;
+                    break;
+                case "Present PS":
+                    rstr = s.PstAddrPS;
+                    break;
+                case "Present Dist":
+                    rstr = s.PstAddrDist;
+                    break;
+                case "Present PIN":
+                    rstr = s.PstAddrPin;
+                    break;
+// end : added later
 
                 case "Permanent Address":
                     rstr = s.PermanentAddress;
                     break;
-
+                // added later
+                // added later
+                case "Permanent AddrLane1":
+                    rstr = s.PmtAddrLane1;
+                    break;
+                case "Permanent Vill. or Street":
+                    rstr = s.PmtAddrLane2;
+                    break;
+                case "Permanent PO":
+                    rstr = s.PmtAddrPO;
+                    break;
+                case "Permanent PS":
+                    rstr = s.PmtAddrPS;
+                    break;
+                case "Permanent Dist":
+                    rstr = s.PmtAddrDist;
+                    break;
+                case "Permanent PIN":
+                    rstr = s.PmtAddrPin;
+                    break;
+                // end added later
                 case "Mobile":
                     rstr = s.Mobile;
                     break;

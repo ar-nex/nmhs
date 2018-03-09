@@ -17,7 +17,9 @@ namespace NaimouzaHighSchool.Models.Utility
             ListCol.Add(new ExcelColumnPosition("Roll"));
             ListCol.Add(new ExcelColumnPosition("SubjectComboId"));
             ListCol.Add(new ExcelColumnPosition("Present Address"));
+
             ListCol.Add(new ExcelColumnPosition("Permanent Address"));
+
             ListCol.Add(new ExcelColumnPosition("Mobile"));
             ListCol.Add(new ExcelColumnPosition("Guardian Mobile"));
             ListCol.Add(new ExcelColumnPosition("Email"));
@@ -80,7 +82,26 @@ namespace NaimouzaHighSchool.Models.Utility
             cl.Add("Roll");
             cl.Add("SubjectComboId");
             cl.Add("Present Address");
+            // added later
+            cl.Add("Present AddrLane1");
+            cl.Add("Present Vill. or Street");
+            cl.Add("Present PO");
+            cl.Add("Present PS");
+            cl.Add("Present Dist");
+            cl.Add("Present PIN");
+            // end added later
             cl.Add("Permanent Address");
+
+            //added later
+            // added later
+            cl.Add("Permanent AddrLane1");
+            cl.Add("Permanent Vill. or Street");
+            cl.Add("Permanent PO");
+            cl.Add("Permanent PS");
+            cl.Add("Permanent Dist");
+            cl.Add("Permanent PIN");
+            // end added later
+            // end added later
 
             cl.Add("Mobile");
             cl.Add("Guardian Mobile");

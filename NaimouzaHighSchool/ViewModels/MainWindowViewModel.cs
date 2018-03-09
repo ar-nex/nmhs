@@ -26,6 +26,8 @@ namespace NaimouzaHighSchool.ViewModels
         public RelayCommand ShowPromotionBasicViewCommand { get; set; }
         public RelayCommand ShowRegistrationUpdaterCommand { get; set; }
         public RelayCommand ShowTeacherEntryViewCommand { get; set; }
+        public RelayCommand ShowStdAddrUpdateCommand { get; set; }
+
 
         private void StartUpInitializer()
         {
@@ -43,6 +45,8 @@ namespace NaimouzaHighSchool.ViewModels
             ShowPromotionBasicViewCommand = new RelayCommand(ShowPromotionBasicView, CanShowPromotionBasicView);
             ShowRegistrationUpdaterCommand = new RelayCommand(ShowRegistrationUpdater, CanShowRegistrationUpdater);
             ShowTeacherEntryViewCommand = new RelayCommand(ShowTeacherEntry, CanShowTeacherEntry);
+            ShowStdAddrUpdateCommand = new RelayCommand(ShowStdAddrUpdateWindow, CanShowStdAddrUpdateWindow);
+
         }
 
         private void ShowExcelExport()
@@ -319,6 +323,26 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanShowTeacherEntry()
         {
             return !Views.TeacherEntryView.IsOpen;
+        }
+
+        private void ShowStdAddrUpdateWindow()
+        {
+            if (Views.StdAddressUpdateView.IsOpen)
+            {
+                return;
+            }
+            else
+            {
+                Views.StdAddressUpdateView adrup = new Views.StdAddressUpdateView();
+                Views.StdAddressUpdateView.IsOpen = true;
+                adrup.Owner = Application.Current.MainWindow;
+                adrup.Show();
+            }
+        }
+
+        private bool CanShowStdAddrUpdateWindow()
+        {
+            return !Views.StdAddressUpdateView.IsOpen;
         }
     }
 }

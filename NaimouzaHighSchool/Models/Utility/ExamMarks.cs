@@ -8,6 +8,8 @@
 
         }
 
+        public string RecordIdInTable { get; set; }
+
         private string _studentId;
         public string StudentId
         {
@@ -124,7 +126,7 @@
             get => _obtainedMark;
             set
             {
-                _obtainedMark = value;
+                _obtainedMark = IsAbsent ? 0: value;
                 OnPropertyChanged("ObtainedMark");
             }
         }
@@ -158,6 +160,10 @@
             set
             {
                 _isAbsent = value;
+                if (value)
+                {
+                    ObtainedMark = 0;
+                }
                 OnPropertyChanged("IsAbsent");
             }
         }

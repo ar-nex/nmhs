@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ExVm="clr-namespace:NaimouzaHighSchool.ViewModels"
         xmlns:conv="clr-namespace:NaimouzaHighSchool.ViewModels.Converters"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="Export into Excel" Height="500" Width="750" Closing="Window_Closing_1">
     <Window.Resources>
         <ExVm:ExcelExportViewModel x:Key="xxvm"></ExVm:ExcelExportViewModel>
@@ -43,9 +44,15 @@
                           SelectedIndex="{Binding SectionIndex, Source={StaticResource xxvm}}">
                 </ComboBox>
                 <Label Margin="10,0,2,0">Session</Label>
-                <TextBox Width="60" Text="{Binding SYear, Source={StaticResource xxvm}, Mode=TwoWay}"></TextBox>
+                <xctk:IntegerUpDown Margin="2"
+                            Value="{Binding SYear, Source={StaticResource xxvm}, Mode=TwoWay}"
+                            Width="65">
+                </xctk:IntegerUpDown>
                 <Label>-</Label>
-                <TextBox Width="60" Text="{Binding EYear, Source={StaticResource xxvm}, Mode=TwoWay}"></TextBox>
+                <xctk:IntegerUpDown Margin="2"
+                            Value="{Binding EYear, Source={StaticResource xxvm}, Mode=TwoWay}"
+                            Width="65">
+                </xctk:IntegerUpDown>
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <Label Foreground="Black" Margin="10,0,2,0">Filter by :</Label>

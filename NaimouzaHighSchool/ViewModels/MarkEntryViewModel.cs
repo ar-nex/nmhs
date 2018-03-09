@@ -285,6 +285,14 @@ namespace NaimouzaHighSchool.ViewModels
             }
         }
 
+        private string _msg;
+        public string Msg
+        {
+            get { return _msg; }
+            set { _msg = value; OnPropertyChanged("Msg"); }
+        }
+
+
         public RelayCommandWithParam SaveCommand { get; set; }
         public RelayCommand GetDataCommand { get; set; }
 
@@ -359,6 +367,52 @@ namespace NaimouzaHighSchool.ViewModels
                 MessageBox.Show(msg);
                 return;
             }
+
+            // if everything is correct prepare the object for database entry
+            List<ExamMarks> emlist = new List<ExamMarks>();
+            var em = from e in ExamMarkList
+                     where e.IsAbsent == true || e.ObtainedMark > 0
+                     select e;
+            foreach (ExamMarks item in em)
+            {
+                string selectedClass = Cls[ClsIndex];
+                if (selectedClass == "IX" || selectedClass == "X")
+                {
+                    item.ExamType = ExmType[ExmTypeIndex];
+                }
+                
+                item.FullMark = FullMark;
+                item.Subject = Subject[SubjectIndex];
+                item.SubjectGroup = SubsGroup;
+                item.TeacherId = TeacherList[TeacherListIndex].Id;
+                emlist.Add(item);
+            }
+
+            MarkEntryDb db = new MarkEntryDb();
+            List<string> notEnteredRolls = db.InsertMarkData(emlist);
+            if (notEnteredRolls.Count > 0)
+            {
+                Msg = "Saving one or more student's data failed to save.";
+                foreach (var item in emlist)
+                {
+                    if (!notEnteredRolls.Contains(item.StudentRoll.ToString()))
+                    {
+                        ExamMarkList.Remove(item);
+                    }
+                }
+                emlist.Clear();
+            }
+            else
+            {
+                Msg = "Marks saved successfully.";
+                foreach (var item in emlist)
+                {
+                    ExamMarkList.Remove(item);
+                }
+                emlist.Clear();
+            }
+            
+
         }
 
         private bool CanSave()
@@ -374,12 +428,14 @@ namespace NaimouzaHighSchool.ViewModels
             me.StudentClass = Cls[ClsIndex];
             me.StudentSection = Section[SectionIndex];
             me.ExamPhase = ExamUnit[ExamUnitIndex];
+            me.Subject = Subject[SubjectIndex];
             if (ClsIndex > -1 && (Cls[ClsIndex] == "IX" || Cls[ClsIndex] == "X"))
             {
                 me.ExamType = ExmType[ExmTypeIndex];
             }
             MarkEntryDb db = new MarkEntryDb();
             ExamMarkList = db.GetExamMarkData(me);
+            Msg = "Total students : "+ExamMarkList.Count.ToString();
         }
 
         private bool CanGetData()

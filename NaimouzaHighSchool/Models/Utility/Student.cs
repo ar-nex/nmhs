@@ -399,6 +399,140 @@ namespace NaimouzaHighSchool.Models.Utility
                 OnPropertyChanged("RegistrationNoHs");
             }
         }
+
+        #region address
+        private string _pstAddrLane1;
+        public string PstAddrLane1
+        {
+            get { return _pstAddrLane1; }
+            set
+            {
+                _pstAddrLane1 = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PstAddrLane1");
+            }
+        }
+
+        private string _pstAddrLane2;
+        public string PstAddrLane2
+        {
+            get => _pstAddrLane2;
+            set
+            {
+                _pstAddrLane2 = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PstAddrLane2");
+            }
+        }
+        private string _pstAddrPO;
+        public string PstAddrPO
+        {
+            get { return _pstAddrPO; }
+            set
+            {
+                _pstAddrPO = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PstAddrPO");
+            }
+        }
+
+        private string _pstAddrPS;
+        public string PstAddrPS
+        {
+            get { return _pstAddrPS; }
+            set
+            {
+                _pstAddrPS = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PstAddrPS");
+            }
+        }
+
+        private string _pstAddrDist;
+        public string PstAddrDist
+        {
+            get { return _pstAddrDist; }
+            set
+            {
+                _pstAddrDist = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PstAddrDist");
+            }
+        }
+
+        private string _pstAddrPin;
+        public string PstAddrPin
+        {
+            get { return _pstAddrPin; }
+            set
+            {
+                _pstAddrPin = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PstAddrPin");
+            }
+        }
+
+        private string _pmtAddrLane1;
+        public string PmtAddrLane1
+        {
+            get { return _pmtAddrLane1; }
+            set
+            {
+                _pmtAddrLane1 = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PmtAddrLane1");
+            }
+        }
+
+        private string _pmtAddrLane2;
+        public string PmtAddrLane2
+        {
+            get => _pmtAddrLane2;
+            set
+            {
+                _pmtAddrLane2 = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PmtAddrLane2");
+            }
+        }
+        private string _pmtAddrPO;
+        public string PmtAddrPO
+        {
+            get { return _pmtAddrPO; }
+            set
+            {
+                _pmtAddrPO = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PmtAddrPO");
+            }
+        }
+
+        private string _pmtAddrPS;
+        public string PmtAddrPS
+        {
+            get { return _pmtAddrPS; }
+            set
+            {
+                _pmtAddrPS = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PmtAddrPS");
+            }
+        }
+
+        private string _pmtAddrDist;
+        public string PmtAddrDist
+        {
+            get { return _pmtAddrDist; }
+            set
+            {
+                _pmtAddrDist = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PmtAddrDist");
+            }
+        }
+
+        private string _pmtAddrPin;
+        public string PmtAddrPin
+        {
+            get { return _pmtAddrPin; }
+            set
+            {
+                _pmtAddrPin = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PmtAddrPin");
+            }
+        }
+
+        #endregion
+
         #endregion
     }
 }
