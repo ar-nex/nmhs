@@ -14,39 +14,61 @@ namespace NaimouzaHighSchool.Models.Database
 
         }
 
+        private string basic_table = "student_basic";
+
         public List<Student> GetStudentList(string type, string param, int startYear, int endYear)
         {
             List<Student> sList = new List<Student>();
-            string sYear = "'"+startYear.ToString()+"'";
-            string eYear = "'" + endYear.ToString() + "'";
+            string sYear = startYear.ToString();
+            string eYear = endYear.ToString();
             string sql;
             switch (type)
             {
                 case "name":
-                    sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
-                            INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.name LIKE '%"+param+"%' AND c.startYear = "+sYear+" AND c.endYear = "+eYear;
+                    //sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
+                    //        INNER JOIN student_class c ON c.student_basic_id = s.id 
+                    //        INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.name LIKE '%"+param+"%' AND c.startYear = "+sYear+" AND c.endYear = "+eYear;
+
+                    sql = $"SELECT s.*, c.*, a.* FROM {basic_table} s INNER JOIN student_class c ON c.student_basic_id = s.id" +
+                        $" INNER JOIN admission a ON a.student_basic_id = s.id" +
+                        $" WHERE s.name LIKE '%{param}%' AND c.startYear = '{sYear}' AND c.endYear = '{eYear}'";
                     break;
                 case "aadhar":
-                    sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
-                            INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.aadhar = '" + param + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+                    //sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
+                    //        INNER JOIN student_class c ON c.student_basic_id = s.id 
+                    //        INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.aadhar = '" + param + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+
+                    sql = $"SELECT s.*, c.*, a.* FROM {basic_table} s INNER JOIN student_class c ON c.student_basic_id = s.id" +
+                        $" INNER JOIN admission a ON a.student_basic_id = s.id" +
+                        $" WHERE s.aadhar = '{param}' AND c.startYear = '{sYear}' AND c.endYear = '{eYear}'";
                     break;
 
                 case "admissionNo":
-                    sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
-                            INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE a.admissionNo = '" + param + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+                    //sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
+                    //        INNER JOIN student_class c ON c.student_basic_id = s.id 
+                    //        INNER JOIN admission a ON a.student_basic_id = s.id WHERE a.admissionNo = '" + param + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+
+                    sql = $"SELECT s.*, c.*, a.* FROM {basic_table} s INNER JOIN student_class c ON c.student_basic_id = s.id" +
+                    $" INNER JOIN admission a ON a.student_basic_id = s.id" +
+                    $" WHERE a.admissionNo = '{param}' AND c.startYear = '{sYear}' AND c.endYear = '{eYear}'";
                     break;
                 case "madhyamicNo":
-                    sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
-                            INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.BoardNo = '" + param + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+                    //sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
+                    //        INNER JOIN student_class c ON c.student_basic_id = s.id 
+                    //        INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.BoardNo = '" + param + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+
+                    sql = $"SELECT s.*, c.*, a.* FROM {basic_table} s INNER JOIN student_class c ON c.student_basic_id = s.id" +
+                    $" INNER JOIN admission a ON a.student_basic_id = s.id" +
+                    $" WHERE s.BoardNo = '{param}' AND c.startYear = '{sYear}' AND c.endYear = '{eYear}'";
                     break;
                 case "madhyamicRoll":
-                    sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
-                            INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.BoardRoll = '" + param + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+                    //sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
+                    //        INNER JOIN student_class c ON c.student_basic_id = s.id 
+                    //        INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.BoardRoll = '" + param + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+
+                    sql = $"SELECT s.*, c.*, a.* FROM {basic_table} s INNER JOIN student_class c ON c.student_basic_id = s.id" +
+                    $" INNER JOIN admission a ON a.student_basic_id = s.id" +
+                    $" WHERE s.BoardRoll = '{param}' AND c.startYear = '{sYear}' AND c.endYear = '{eYear}'";
                     break;
                 default:
                     return sList;
@@ -79,11 +101,15 @@ namespace NaimouzaHighSchool.Models.Database
         public List<Student> GetStudentListByClass(string cls, int startYear, int endYear)
         {
             List<Student> sList = new List<Student>();
-            string sYear = "'"+startYear.ToString()+"'";
-            string eYear = "'" + endYear.ToString() + "'";
-            string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
-                            INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+            string sYear = startYear.ToString();
+            string eYear = endYear.ToString();
+            //string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
+            //                INNER JOIN student_class c ON c.student_basic_id = s.id 
+            //                INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+
+            string sql = $"SELECT s.*, c.*, a.* FROM {basic_table} s" +
+                $" INNER JOIN student_class c ON c.student_basic_id = s.id INNER JOIN admission a ON a.student_basic_id = s.id " +
+                $" WHERE c.class = '{cls}' AND c.startYear = '{sYear}' AND c.endYear = '{eYear}'";
             try
             {
                 this.conn.Open();
@@ -110,11 +136,15 @@ namespace NaimouzaHighSchool.Models.Database
         public List<Student> GetStudentListByClass(string cls, string sec, int startYear, int endYear)
         {
             List<Student> sList = new List<Student>();
-            string sYear = "'"+startYear.ToString()+"'";
-            string eYear = "'" + endYear.ToString() + "'";
-            string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
-                            INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.section='" + sec + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+            string sYear = startYear.ToString();
+            string eYear = endYear.ToString();
+            //string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
+            //                INNER JOIN student_class c ON c.student_basic_id = s.id 
+            //                INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.section='" + sec + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+
+            string sql = $"SELECT s.*, c.*, a.* FROM {basic_table} s" +
+                $" INNER JOIN student_class c ON c.student_basic_id = s.id INNER JOIN admission a ON a.student_basic_id = s.id " +
+                $" WHERE c.class = '{cls}' AND c.section = '{sec}' AND c.startYear = '{sYear}' AND c.endYear = '{eYear}'";
             try
             {
                 this.conn.Open();
@@ -143,9 +173,13 @@ namespace NaimouzaHighSchool.Models.Database
             List<Student> sList = new List<Student>();
             string sYear = startYear.ToString();
             string eYear = endYear.ToString();
-            string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
-                            INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.section='" + sec + "' AND c.roll = '" + roll + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+            //string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
+            //                INNER JOIN student_class c ON c.student_basic_id = s.id 
+            //                INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.section='" + sec + "' AND c.roll = '" + roll + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+
+            string sql = $"SELECT s.*, c.*, a.* FROM {basic_table} s" +
+           $" INNER JOIN student_class c ON c.student_basic_id = s.id INNER JOIN admission a ON a.student_basic_id = s.id " +
+           $" WHERE c.class = '{cls}' AND c.section = '{sec}' AND c.roll = '{roll}' AND c.startYear = '{sYear}' AND c.endYear = '{eYear}'";
             try
             {
                 this.conn.Open();
@@ -175,9 +209,13 @@ namespace NaimouzaHighSchool.Models.Database
             List<Student> sList = new List<Student>();
             string sYear = startYear.ToString();
             string eYear = endYear.ToString();
-            string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
-                            INNER JOIN student_class c ON c.student_basic_id = s.id 
-                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.roll = '" + roll + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+            //string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
+            //                INNER JOIN student_class c ON c.student_basic_id = s.id 
+            //                INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.roll = '" + roll + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
+
+            string sql = $"SELECT s.*, c.*, a.* FROM {basic_table} s" +
+          $" INNER JOIN student_class c ON c.student_basic_id = s.id INNER JOIN admission a ON a.student_basic_id = s.id " +
+          $" WHERE c.class = '{cls}' AND c.roll = '{roll}' AND c.startYear = '{sYear}' AND c.endYear = '{eYear}'";
             try
             {
                 this.conn.Open();
@@ -234,7 +272,7 @@ namespace NaimouzaHighSchool.Models.Database
 
         }
 
-        private Student BuildObject(MySqlDataReader rdr)
+        private Student BuildObject_old(MySqlDataReader rdr)
         {
             Student s = new Student();
             s.Id = rdr[0].ToString();
@@ -297,6 +335,70 @@ namespace NaimouzaHighSchool.Models.Database
             s.LastSchool = rdr[55].ToString();
             s.DateOfLeaving = (string.IsNullOrEmpty(rdr[56].ToString())) ? default(DateTime) : DateTime.Parse(rdr[56].ToString());
             s.TC = rdr[57].ToString();
+            return s;
+        }
+        private Student BuildObject(MySqlDataReader rdr)
+        {
+            Student s = new Student();
+            s.Id = rdr[0].ToString();
+            s.Aadhar = rdr[1].ToString();
+            s.Name = rdr[2].ToString();
+            s.FatherName = rdr[3].ToString();
+            s.MotherName = rdr[4].ToString();
+            s.GuardianName = rdr[5].ToString();
+            s.GuardianRelation = rdr[6].ToString();
+
+            s.GuardianOccupation = rdr[7].ToString();
+            s.Dob = (string.IsNullOrEmpty(rdr[8].ToString())) ? default(DateTime) : DateTime.Parse(rdr[8].ToString());
+            s.Sex = rdr[9].ToString();
+            s.PresentAdrress = rdr[11].ToString();
+            s.PermanentAddress = rdr[18].ToString();
+
+            s.Mobile = rdr[25].ToString();
+            s.GuardianMobile = rdr[26].ToString();
+            s.Email = rdr[27].ToString();
+            s.Religion = rdr[28].ToString();
+            s.SocialCategory = rdr[29].ToString();
+
+            s.SubCast = rdr[30].ToString();
+            s.IsPH = (rdr[31].ToString() == "Y") ? true : false;
+            s.PhType = rdr[32].ToString();
+            s.IsBpl = (rdr[33].ToString() == "Y") ? true : false;
+            s.BplNo = rdr[34].ToString();
+
+            s.GuardianAadhar = rdr[35].ToString();
+            s.GuardianEpic = rdr[36].ToString();
+            s.BloodGroup = rdr[37].ToString();
+            s.BankAcc = rdr[38].ToString();
+            s.BankName = rdr[39].ToString();
+
+            s.BankBranch = rdr[40].ToString();
+            s.Ifsc = rdr[41].ToString();
+            s.MICR = rdr[42].ToString();
+            s.BoardRoll = rdr[45].ToString();
+            s.BoardNo = rdr[46].ToString();
+
+            s.CouncilRoll = rdr[47].ToString();
+            s.CouncilNo = rdr[48].ToString();
+
+            s.RegistrationNoMp = rdr[49].ToString();
+            s.RegistrationNoHs = rdr[50].ToString();
+
+            s.StudyingClass = rdr[53].ToString();
+            s.Section = rdr[54].ToString();
+            s.Roll = Int32.Parse(rdr[55].ToString());
+            s.HsSub1 = rdr[58].ToString();
+            s.HsSub2 = rdr[59].ToString();
+            s.HsSub3 = rdr[60].ToString();
+            s.HsAdlSub = rdr[61].ToString();
+
+
+            s.AdmissionNo = rdr[64].ToString();
+            s.AdmDate = (string.IsNullOrEmpty(rdr[65].ToString())) ? default(DateTime) : DateTime.Parse(rdr[65].ToString());
+            s.AdmittedClass = rdr[66].ToString();
+            s.LastSchool = rdr[67].ToString();
+            s.DateOfLeaving = (string.IsNullOrEmpty(rdr[68].ToString())) ? default(DateTime) : DateTime.Parse(rdr[68].ToString());
+            s.TC = rdr[69].ToString();
             return s;
         }
 
@@ -431,16 +533,16 @@ namespace NaimouzaHighSchool.Models.Database
                 cmd.Transaction = myTrans;
                 try
                 {
-                    string sql1 = @"UPDATE student_basic SET
-                                    aadhar = " + aadhar + ", name=" + name + ", fatherName=" + fatherName + ", motherName=" + motherName + ", guardianName=" + guardianName + ", guardianRelation=" + guardianRelation + ", guardianOccupation=" + guardianOccupation + ", dob=" + dob + ", sex=" + sex + ", presentAddress=" + presentAddress + ", permanentAddress=" + permanentAddress + ", mobile=" + mobile + ", guardianMobile=" + grdMobile + ", email=" + email + ", religion=" + religion + ", socialCategory=" + socialCat + ", subCast=" + subCast + ", isPH=" + isPH + ", phType=" + phType + ", isBPL=" + isBpl + ", BPLnumber=" + bplNo + ", guardianAadhar=" + grdAadhar + ", guardianEpic=" + grdEpic + ", bloodGroup=" + bloodGroup + ", bankAccountNo=" + bankAcc + ", bankName=" + bankName + ", branchName=" + branchName + ", IFSC=" + ifsc + ", bankMICR=" + micr + ", BoardRoll=" + boardRoll + ", BoardNo=" + boardNo + ", CouncilRoll=" + councilRoll + ", CouncilNo=" + councilNo + " WHERE id=" + s.Id;
+                    string sql1 = $"UPDATE {basic_table} SET " +
+                                   $" aadhar = " + aadhar + ", name=" + name + ", fatherName=" + fatherName + ", motherName=" + motherName + ", guardianName=" + guardianName + ", guardianRelation=" + guardianRelation + ", guardianOccupation=" + guardianOccupation + ", dob=" + dob + ", sex=" + sex + ", presentAddress=" + presentAddress + ", permanentAddress=" + permanentAddress + ", mobile=" + mobile + ", guardianMobile=" + grdMobile + ", email=" + email + ", religion=" + religion + ", socialCategory=" + socialCat + ", subCast=" + subCast + ", isPH=" + isPH + ", phType=" + phType + ", isBPL=" + isBpl + ", BPLnumber=" + bplNo + ", guardianAadhar=" + grdAadhar + ", guardianEpic=" + grdEpic + ", bloodGroup=" + bloodGroup + ", bankAccountNo=" + bankAcc + ", bankName=" + bankName + ", branchName=" + branchName + ", IFSC=" + ifsc + ", bankMICR=" + micr + ", BoardRoll=" + boardRoll + ", BoardNo=" + boardNo + ", CouncilRoll=" + councilRoll + ", CouncilNo=" + councilNo + " WHERE id=" + s.Id;
                     cmd.CommandText = sql1;
                     cmd.ExecuteNonQuery();
 
-                    string sql2 = @"UPDATE student_class SET class=" + cls + ", section=" + section + ", roll=" + roll + " WHERE student_basic_id="+s.Id;
+                    string sql2 = $"UPDATE student_class SET class=" + cls + ", section=" + section + ", roll=" + roll + " WHERE student_basic_id="+s.Id;
                     cmd.CommandText = sql2;
                     cmd.ExecuteNonQuery();
 
-                    string sql3 = @"UPDATE Admission SET admissionNo=" + admissionNo + ", dateOfAdmission=" + doa + ", admittedClass=" + admittedClass + ", lastSchool=" + lastSchool + ", dateOfLeaving=" + dol + ", TC=" + tc + " WHERE student_basic_id=" + s.Id;
+                    string sql3 = $"UPDATE Admission SET admissionNo=" + admissionNo + ", dateOfAdmission=" + doa + ", admittedClass=" + admittedClass + ", lastSchool=" + lastSchool + ", dateOfLeaving=" + dol + ", TC=" + tc + " WHERE student_basic_id=" + s.Id;
                     cmd.CommandText = sql3;
                     cmd.ExecuteNonQuery();
 
@@ -479,7 +581,7 @@ namespace NaimouzaHighSchool.Models.Database
             string[] rdata = new string[2];
             try
             {
-                string sql = "SELECT b.id, b.name FROM student_basic b INNER JOIN student_class c ON c.student_basic_id = b.id WHERE c.startYear = '"+syear.ToString()+"' AND c.endYear = '"+eyear.ToString()+"' AND c.class = '"+cls+"' AND c.section = '"+section+"' AND c.roll='"+roll.ToString()+"'";
+                string sql = "SELECT b.id, b.name FROM "+basic_table+" b INNER JOIN student_class c ON c.student_basic_id = b.id WHERE c.startYear = '"+syear.ToString()+"' AND c.endYear = '"+eyear.ToString()+"' AND c.class = '"+cls+"' AND c.section = '"+section+"' AND c.roll='"+roll.ToString()+"'";
                 this.conn.Open();
                 MySqlCommand cmd = new MySqlCommand(sql, this.conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();

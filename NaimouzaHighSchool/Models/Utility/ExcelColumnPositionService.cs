@@ -14,11 +14,28 @@ namespace NaimouzaHighSchool.Models.Utility
             ListCol.Add(new ExcelColumnPosition("Guardian Occupation"));
             ListCol.Add(new ExcelColumnPosition("Date of birth"));
             ListCol.Add(new ExcelColumnPosition("Sex"));
+            ListCol.Add(new ExcelColumnPosition("Section"));
             ListCol.Add(new ExcelColumnPosition("Roll"));
-            ListCol.Add(new ExcelColumnPosition("SubjectComboId"));
-            ListCol.Add(new ExcelColumnPosition("Present Address"));
+          //  ListCol.Add(new ExcelColumnPosition("SubjectComboId"));
 
-            ListCol.Add(new ExcelColumnPosition("Permanent Address"));
+         //   ListCol.Add(new ExcelColumnPosition("Present Address"));
+
+            ListCol.Add(new ExcelColumnPosition("Present AddrLane1"));
+            ListCol.Add(new ExcelColumnPosition("Present Vill. or Street"));
+            ListCol.Add(new ExcelColumnPosition("Present PO"));
+            ListCol.Add(new ExcelColumnPosition("Present PS"));
+            ListCol.Add(new ExcelColumnPosition("Present Dist"));
+            ListCol.Add(new ExcelColumnPosition("Present PIN"));
+
+
+          //  ListCol.Add(new ExcelColumnPosition("Permanent Address"));
+
+            ListCol.Add(new ExcelColumnPosition("Permanent AddrLane1"));
+            ListCol.Add(new ExcelColumnPosition("Permanent Vill. or Street"));
+            ListCol.Add(new ExcelColumnPosition("Permanent PO"));
+            ListCol.Add(new ExcelColumnPosition("Permanent PS"));
+            ListCol.Add(new ExcelColumnPosition("Permanent Dist"));
+            ListCol.Add(new ExcelColumnPosition("Permanent PIN"));
 
             ListCol.Add(new ExcelColumnPosition("Mobile"));
             ListCol.Add(new ExcelColumnPosition("Guardian Mobile"));

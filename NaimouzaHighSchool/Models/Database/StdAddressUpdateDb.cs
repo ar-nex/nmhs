@@ -14,7 +14,7 @@ namespace NaimouzaHighSchool.Models.Database
 
         }
 
-        string MainTable = "student_basic_test";
+        string MainTable = "student_basic";
 
         public ObservableCollection<Student> GetStudentAddressData(int startYear, int endYear, string cls, string section)
         {

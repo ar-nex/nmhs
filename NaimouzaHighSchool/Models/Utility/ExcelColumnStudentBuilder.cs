@@ -59,7 +59,9 @@ namespace NaimouzaHighSchool.Models.Utility
                                 
                                 try
                                 {
-                                    s.Dob = DateTime.ParseExact(rowValues[i], "dd/MM/yyyy", null);
+                                    //s.Dob = DateTime.ParseExact(rowValues[i], "dd/MM/yyyy", null);
+                                    s.Dob = DateTime.ParseExact(rowValues[i], "yyyy/MM/dd", null);
+
                                 }
                                 catch (Exception)
                                 {
@@ -73,7 +75,8 @@ namespace NaimouzaHighSchool.Models.Utility
                             {
                                 try
                                 {
-                                    s.Dob = DateTime.ParseExact(rowValues[i], "dd-MM-yyyy", null);
+                                    //s.Dob = DateTime.ParseExact(rowValues[i], "dd-MM-yyyy", null);
+                                    s.Dob = DateTime.ParseExact(rowValues[i], "yyyy-MM-dd", null);
                                 }
                                 catch (Exception)
                                 {
@@ -100,6 +103,9 @@ namespace NaimouzaHighSchool.Models.Utility
                         case "Sex":
                             s.Sex = rowValues[i];
                             break;
+                        case "Section":
+                            s.Section = rowValues[i];
+                            break;
                         case "Roll":
                             s.Roll = Int32.Parse(rowValues[i]);
                             break;
@@ -112,9 +118,45 @@ namespace NaimouzaHighSchool.Models.Utility
                         case "Present Address":
                             s.PresentAdrress = rowValues[i];
                             break;
+                        case "Present AddrLane1":
+                            s.PstAddrLane1 = rowValues[i];
+                            break;
+                        case "Present Vill. or Street":
+                            s.PstAddrLane2 = rowValues[i];
+                            break;
+                        case "Present PO":
+                            s.PstAddrPO = rowValues[i];
+                            break;
+                        case "Present PS":
+                            s.PstAddrPS = rowValues[i];
+                            break;
+                        case "Present Dist":
+                            s.PstAddrDist = rowValues[i];
+                            break;
+                        case "Present PIN":
+                            s.PstAddrPin = rowValues[i];
+                            break;
+
                         case "Permanent Address":
                             s.PermanentAddress = rowValues[i];
                             break;
+
+                        case "Permanent Vill. or Street":
+                            s.PmtAddrLane2 = rowValues[i];
+                            break;
+                        case "Permanent PO":
+                            s.PmtAddrPO = rowValues[i];
+                            break;
+                        case "Permanent PS":
+                            s.PmtAddrPS = rowValues[i];
+                            break;
+                        case "Permanent Dist":
+                            s.PmtAddrDist = rowValues[i];
+                            break;
+                        case "Permanent PIN":
+                            s.PmtAddrPin = rowValues[i];
+                            break;
+
                         case "Mobile":
                             s.Mobile = rowValues[i];
                             break;

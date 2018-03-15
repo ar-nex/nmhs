@@ -65,6 +65,7 @@
                 </MenuItem>
                 <MenuItem Header="Report">
                     <MenuItem Header="Export to Excel" Command="{Binding ShowExcelExportCommand, Source={StaticResource vm}}"/>
+                    <MenuItem Header="Dash Grid" Command="{Binding ShowDashGridCommand, Source={StaticResource vm}}"/>
                 </MenuItem>
               
                 <MenuItem Header="Backup">

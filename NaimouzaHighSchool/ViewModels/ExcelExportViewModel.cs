@@ -272,6 +272,7 @@ namespace NaimouzaHighSchool.ViewModels
             }
 
             this.Dtable = dt;
+
         }
 
         private bool CanBuildGridView()

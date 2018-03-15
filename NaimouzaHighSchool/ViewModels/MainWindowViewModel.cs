@@ -27,6 +27,7 @@ namespace NaimouzaHighSchool.ViewModels
         public RelayCommand ShowRegistrationUpdaterCommand { get; set; }
         public RelayCommand ShowTeacherEntryViewCommand { get; set; }
         public RelayCommand ShowStdAddrUpdateCommand { get; set; }
+        public RelayCommand ShowDashGridCommand { get; set; }
 
 
         private void StartUpInitializer()
@@ -46,6 +47,7 @@ namespace NaimouzaHighSchool.ViewModels
             ShowRegistrationUpdaterCommand = new RelayCommand(ShowRegistrationUpdater, CanShowRegistrationUpdater);
             ShowTeacherEntryViewCommand = new RelayCommand(ShowTeacherEntry, CanShowTeacherEntry);
             ShowStdAddrUpdateCommand = new RelayCommand(ShowStdAddrUpdateWindow, CanShowStdAddrUpdateWindow);
+            ShowDashGridCommand = new RelayCommand(ShowDashGrid, CanShowDashGrid);
 
         }
 
@@ -343,6 +345,26 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanShowStdAddrUpdateWindow()
         {
             return !Views.StdAddressUpdateView.IsOpen;
+        }
+
+        private void ShowDashGrid()
+        {
+            if (Views.DashGridView.IsOpen)
+            {
+                return;
+            }
+            else
+            {
+                Views.DashGridView dgrid = new Views.DashGridView();
+                Views.DashGridView.IsOpen = true;
+                dgrid.Owner = Application.Current.MainWindow;
+                dgrid.Show();
+            }
+        }
+
+        private bool CanShowDashGrid()
+        {
+            return !Views.DashGridView.IsOpen;
         }
     }
 }

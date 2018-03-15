@@ -445,12 +445,13 @@ namespace NaimouzaHighSchool.ViewModels
             bool validClsSection = ClsIndex > -1 && SectionIndex > -1;
             bool validUnit = ExamUnitIndex > -1;
             bool validSubject = SubjectIndex > -1;
+            bool validFullMarks = FullMark > 0;
             bool validExamType = true;
             if (ClsIndex > -1 && (Cls[ClsIndex] == "IX" || Cls[ClsIndex] == "X"))
             {
                 validExamType = ExmTypeIndex > -1;
             }
-            return validStartYear && validEndYear && validClsSection && validUnit && validSubject && validExamType;
+            return validStartYear && validEndYear && validFullMarks && validClsSection && validUnit && validSubject && validExamType;
         }
 
         private void OnClassChanged()

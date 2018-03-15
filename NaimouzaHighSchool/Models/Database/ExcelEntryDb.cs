@@ -26,9 +26,7 @@ namespace NaimouzaHighSchool.Models.Database
 
                 try
                 {
-                    string dt = s.Dob.ToString("yyyy-MM-dd");
-                    string isPh = s.IsPH ? "Y" : "N";
-                    string isBpl = s.IsBpl ? "Y" : "N";
+                    
                    
                     string bordNo = String.IsNullOrWhiteSpace(s.BoardNo) ? "NULL" : "'" + s.BoardNo + "'";
                     string bordRoll = String.IsNullOrWhiteSpace(s.BoardRoll) ? "NULL" : "'" + s.BoardRoll + "'";
@@ -36,11 +34,59 @@ namespace NaimouzaHighSchool.Models.Database
                     string councilRoll = String.IsNullOrWhiteSpace(s.CouncilRoll) ? "NULL" : "'" + s.CouncilRoll+ "'";
                     string sbComboId = string.IsNullOrEmpty(s.SubjectComboId) ? "NULL" : "'" + s.SubjectComboId + "'";
 
-                    string bankMICR = String.IsNullOrWhiteSpace(s.MICR) ? "NULL" : "'" + s.MICR + "'";
-                    
+                    string d_bankMICR = String.IsNullOrWhiteSpace(s.MICR) ? "NULL" : "'" + s.MICR + "'";
 
-                    string sql = @"INSERT INTO student_basic (aadhar, name, fatherName, motherName, guardianName, guardianRelation, guardianOccupation, dob, sex, presentAddress, permanentAddress, mobile, guardianMobile, email, religion, socialCategory, isPh, phType, isBPL, BPLnumber, guardianAadhar, guardianEpic, bloodGroup, bankAccountNo, bankName, branchName, IFSC)
-                    VALUES ('"+s.Aadhar+"', '"+s.Name+"' , '"+s.FatherName+"', '"+s.MotherName+"', '"+s.GuardianName+"', '"+s.GuardianRelation+"', '"+s.GuardianOccupation+"', '"+dt+"', '"+s.Sex+"', '"+s.PresentAdrress+"', '"+s.PermanentAddress+"', '"+s.Mobile+"', '"+s.GuardianMobile+"', '"+s.Email+"', '"+s.Religion+"', '"+s.SocialCategory+"', '"+isPh+"', '"+s.PhType+"', '"+isBpl+"', '"+s.BplNo+"', '"+s.GuardianAadhar+"', '"+s.GuardianEpic+"', '"+s.BloodGroup+"', '"+s.BankAcc+"', '"+s.BankName+"', '"+s.BankBranch+"', '"+s.Ifsc+"')";
+                    string d_aadhaar = GetDbCompatableValue(s.Aadhar);
+                    string d_name = GetDbCompatableValue(s.Name);
+                    string d_sex = GetDbCompatableValue(s.Sex);
+                    string d_father = GetDbCompatableValue(s.FatherName);
+                    string d_mother = GetDbCompatableValue(s.MotherName);
+                    string d_guardian = GetDbCompatableValue(s.GuardianName);
+                    string d_guardianRel = GetDbCompatableValue(s.GuardianRelation);
+                    string d_guardianOcc = GetDbCompatableValue(s.GuardianOccupation);
+                    string d_pstAddr1 = GetDbCompatableValue(s.PstAddrLane1);
+                    string d_pstAddr2 = GetDbCompatableValue(s.PstAddrLane2);
+                    string d_pstPO = GetDbCompatableValue(s.PstAddrPO);
+                    string d_pstPS = GetDbCompatableValue(s.PstAddrPS);
+                    string d_pstDist = GetDbCompatableValue(s.PstAddrDist);
+                    string d_pstPIN = GetDbCompatableValue(s.PstAddrPin);
+                    string d_pmtAddr1 = GetDbCompatableValue(s.PmtAddrLane1);
+                    string d_pmtAddr2 = GetDbCompatableValue(s.PmtAddrLane2);
+                    string d_pmtPO = GetDbCompatableValue(s.PmtAddrPO);
+                    string d_pmtPS = GetDbCompatableValue(s.PmtAddrPS);
+                    string d_pmtDist = GetDbCompatableValue(s.PmtAddrDist);
+                    string d_pmtPIN = GetDbCompatableValue(s.PmtAddrPin);
+                    string d_mobile = GetDbCompatableValue(s.Mobile);
+                    string d_guardianMobile = GetDbCompatableValue(s.GuardianMobile);
+                    string d_email = GetDbCompatableValue(s.Email);
+                    string d_religion = GetDbCompatableValue(s.Religion);
+                    string d_socialCat = GetDbCompatableValue(s.SocialCategory);
+                    string d_phType = GetDbCompatableValue(s.PhType);
+                    string d_BplNo = GetDbCompatableValue(s.BplNo);
+                    string d_guardianAadhaar = GetDbCompatableValue(s.GuardianAadhar);
+                    string d_guardianEpic = GetDbCompatableValue(s.GuardianEpic);
+                    string d_bloodGroup = GetDbCompatableValue(s.BloodGroup);
+                    string d_bankAcc = GetDbCompatableValue(s.BankAcc);
+                    string d_bankName = GetDbCompatableValue(s.BankName);
+                    string d_branchName = GetDbCompatableValue(s.BankBranch);
+                    string d_ifsc = GetDbCompatableValue(s.Ifsc);
+
+                    string isPh = s.IsPH ? "'Y'" : "'N'";
+                    string isBpl = s.IsBpl ? "'Y'" : "'N'";
+
+                    string dt = (s.Dob.Year == 1) ? "NULL" : s.Dob.ToString("yyyy-MM-dd");
+
+
+
+
+
+
+                    //string sql = @"INSERT INTO student_basic (aadhar, name, fatherName, motherName, guardianName, guardianRelation, guardianOccupation, dob, sex, presentAddrLane1, presentAddrLane2, presentPO, presentPS, presentDist, presentPIN, permanentAddrLane1, permanentAddrLane2, permanentPO, permanentPS, permanentDist, permanentPIN, mobile, guardianMobile, email, religion, socialCategory, isPh, phType, isBPL, BPLnumber, guardianAadhar, guardianEpic, bloodGroup, bankAccountNo, bankName, branchName, IFSC)
+                    //VALUES ('" + s.Aadhar+"', '"+s.Name+"' , '"+s.FatherName+"', '"+s.MotherName+"', '"+s.GuardianName+"', '"+s.GuardianRelation+"', '"+s.GuardianOccupation+"', '"+dt+"', '"+s.Sex+"', '"+s.PstAddrLane1+"', '"+s.PstAddrLane2+"', '"+s.PstAddrPO+"', '"+s.PstAddrPS+"', '"+s.PstAddrDist+"', '"+s.PstAddrPin+ "', '" + s.PmtAddrLane1 + "', '" + s.PmtAddrLane2 + "', '" + s.PmtAddrPO + "', '" + s.PmtAddrPS + "', '" + s.PmtAddrDist + "', '" + s.PmtAddrPin + "', '"+s.Mobile+"', '"+s.GuardianMobile+"', '"+s.Email+"', '"+s.Religion+"', '"+s.SocialCategory+"', '"+isPh+"', '"+s.PhType+"', '"+isBpl+"', '"+s.BplNo+"', '"+s.GuardianAadhar+"', '"+s.GuardianEpic+"', '"+s.BloodGroup+"', '"+s.BankAcc+"', '"+s.BankName+"', '"+s.BankBranch+"', '"+s.Ifsc+"')";
+
+                    string sql = $"INSERT INTO student_basic (aadhar, name, fatherName, motherName, guardianName, guardianRelation, guardianOccupation, dob, sex, presentAddrLane1, presentAddrLane2, presentPO, presentPS, presentDist, presentPIN, permanentAddrLane1, permanentAddrLane2, permanentPO, permanentPS, permanentDist, permanentPIN, mobile, guardianMobile, email, religion, socialCategory, isPh, phType, isBPL, BPLnumber, guardianAadhar, guardianEpic, bloodGroup, bankAccountNo, bankName, branchName, IFSC, bankMICR)" +
+                        $" VALUES ({d_aadhaar}, {d_name}, {d_father}, {d_mother}, {d_guardian}, {d_guardianRel}, {d_guardianOcc}, {dt}, {d_sex}, {d_pstAddr1}, {d_pstAddr2}, {d_pstPO}, {d_pstPS}, {d_pstDist}, {d_pstPIN}, {d_pmtAddr1}, {d_pmtAddr2}, {d_pmtPO}, {d_pmtPS}, {d_pstDist}, {d_pmtPIN}, {d_mobile}, {d_guardianMobile}, {d_email}, {d_religion}, {d_socialCat}, {isPh}, {d_phType}, {isBpl}, {d_BplNo}, {d_guardianAadhaar}, {d_guardianEpic}, {d_bloodGroup}, {d_bankAcc}, {d_bankName}, {d_branchName}, {d_ifsc}, {d_bankMICR} )";
+
                     cmd.CommandText = sql;
                     cmd.ExecuteNonQuery();
                     long insertedId = cmd.LastInsertedId;
@@ -119,6 +165,11 @@ namespace NaimouzaHighSchool.Models.Database
                 this.conn.Close();
             }
             return inserted;
+        }
+
+        private string GetDbCompatableValue(string inp)
+        {
+            return string.IsNullOrEmpty(inp) ? "NULL" : "'"+inp+"'";
         }
     }
 }

@@ -57,7 +57,22 @@ namespace NaimouzaHighSchool.Models.Database
             string sex = string.IsNullOrEmpty(s.Sex) ? "NULL" : "'" + s.Sex + "'";
             // registration Not implemented yet.
             string presentAddress = string.IsNullOrEmpty(s.PresentAdrress) ? "NULL" : "'" + s.PresentAdrress + "'";
+            string adrLane1 = string.IsNullOrEmpty(s.PstAddrLane1) ? "NULL" : "'" + s.PstAddrLane1 + "'";
+            string adrLane2 = string.IsNullOrEmpty(s.PstAddrLane2) ? "NULL" : "'" + s.PstAddrLane2 + "'";
+            string po = string.IsNullOrEmpty(s.PstAddrPO) ? "NULL" : "'" + s.PstAddrPO + "'";
+            string ps = string.IsNullOrEmpty(s.PstAddrPS) ? "NULL" : "'" + s.PstAddrPS + "'";
+            string dst = string.IsNullOrEmpty(s.PstAddrDist) ? "NULL" : "'" + s.PstAddrDist + "'";
+            string pin = string.IsNullOrEmpty(s.PstAddrPin) ? "NULL" : "'" + s.PstAddrPin + "'";
+
             string permanentAddress = string.IsNullOrEmpty(s.PermanentAddress) ? "NULL" : "'" + s.PermanentAddress + "'";
+
+            string p_adrLane1 = string.IsNullOrEmpty(s.PmtAddrLane1) ? "NULL" : "'" + s.PstAddrLane1 + "'";
+            string p_adrLane2 = string.IsNullOrEmpty(s.PmtAddrLane2) ? "NULL" : "'" + s.PstAddrLane2 + "'";
+            string p_po = string.IsNullOrEmpty(s.PmtAddrPO) ? "NULL" : "'" + s.PstAddrPO + "'";
+            string p_ps = string.IsNullOrEmpty(s.PmtAddrPS) ? "NULL" : "'" + s.PstAddrPS + "'";
+            string p_dst = string.IsNullOrEmpty(s.PmtAddrDist) ? "NULL" : "'" + s.PstAddrDist + "'";
+            string p_pin = string.IsNullOrEmpty(s.PmtAddrPin) ? "NULL" : "'" + s.PstAddrPin + "'";
+
             string mobile = string.IsNullOrEmpty(s.Mobile) ? "NULL" : "'" + s.Mobile + "'";
             string grdMobile = string.IsNullOrEmpty(s.GuardianMobile) ? "NULL" : "'" + s.GuardianMobile + "'";
             string email = string.IsNullOrEmpty(s.Email) ? "NULL" : "'" + s.Email + "'";
@@ -116,7 +131,20 @@ namespace NaimouzaHighSchool.Models.Database
                                         dob, 
                                         sex, 
                                         presentAddress, 
-                                        permanentAddress, 
+                                        presentAddrLane1,
+                                        presentAddrLane2,
+                                        presentPO,
+                                        presentPS,
+                                        presentDist,
+                                        presentPIN,
+                                        permanentAddress,
+                                        permanentAddrLane1,
+                                        permanentAddrLane2,
+                                        permanentPO,
+                                        permanentPS,
+                                        permanentDist,
+                                        permanentDist,
+                                        permanentPIN,
                                         mobile, 
                                         guardianMobile, 
                                         email, 
@@ -149,8 +177,20 @@ namespace NaimouzaHighSchool.Models.Database
                              +dob+", "
                              +sex+", "
                              +presentAddress+", "
+                             +adrLane1+", "
+                             +adrLane2+", "
+                             +po+", "
+                             +ps+", "
+                             +dst+", "
+                             +pin+", "
                              +permanentAddress+", "
-                             +mobile+", "
+                             + p_adrLane1 + ", "
+                             + p_adrLane2 + ", "
+                             + p_po + ", "
+                             + p_ps + ", "
+                             + p_dst + ", "
+                             + p_pin + ", " 
+                             + mobile+", "
                              +grdMobile+", "
                              +email+", "
                              +religion+", "

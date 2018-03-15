@@ -179,6 +179,7 @@
     <Compile Include="ViewModels\Converters\GenderFilterConverter.cs" />
     <Compile Include="ViewModels\Converters\IntConverter.cs" />
     <Compile Include="ViewModels\Converters\SearchConverter.cs" />
+    <Compile Include="ViewModels\DashGridViewModel.cs" />
     <Compile Include="ViewModels\DeleteViewModel.cs" />
     <Compile Include="ViewModels\ExamViewModel.cs" />
     <Compile Include="ViewModels\ExcelEntryStaffViewModel.cs" />
@@ -205,6 +206,9 @@
     </Compile>
     <Compile Include="Views\ClassConfigurationView.xaml.cs">
       <DependentUpon>ClassConfigurationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DashGridView.xaml.cs">
+      <DependentUpon>DashGridView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DeleteView.xaml.cs">
       <DependentUpon>DeleteView.xaml</DependentUpon>
@@ -276,6 +280,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ClassConfigurationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DashGridView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

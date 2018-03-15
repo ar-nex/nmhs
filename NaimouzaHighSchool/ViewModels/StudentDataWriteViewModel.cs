@@ -1173,7 +1173,20 @@ namespace NaimouzaHighSchool.ViewModels
 
             string PresetnAddress = this.PresentAddr1 + " " + this.PresentAddr2 + "P.O. " + this.PresentPostOffice + "PS " + this.PresentPs + "Dist. " + this.PresentDist + "PIN " + this.PresentPin;
             string PermanentAddress = this.PermAddr1 + " " + this.PermAddr2 + "P.O. " + this.PermPO + "PS " + this.PermPs + "Dist. " + this.PermDist + "PIN " + this.PermPin;
-           
+            std.PstAddrLane1 = PresentAddr1;
+            std.PstAddrLane2 = PresentAddr2;
+            std.PstAddrPO = PresentPostOffice;
+            std.PstAddrPS = PresentPs;
+            std.PstAddrDist = PresentDist;
+            std.PstAddrPin = PresentPin;
+
+            std.PmtAddrLane1 = PermAddr1;
+            std.PmtAddrLane2 = PermAddr2;
+            std.PmtAddrPO = PermPO;
+            std.PmtAddrPS = PermPs;
+            std.PmtAddrDist = PermDist;
+            std.PmtAddrPin = PermPin;
+
             std.Name = fullName.Trim();
             std.FatherName = this.TxbFatherName;
             std.MotherName = this.TxbMotherName;

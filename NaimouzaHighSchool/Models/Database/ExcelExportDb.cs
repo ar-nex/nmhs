@@ -13,7 +13,7 @@ namespace NaimouzaHighSchool.Models.Database
 
         }
 
-        private string mainTable = "student_basic_test";
+        private string mainTable = "student_basic";
         public List<Student> GetStudentListByClass(string cls, int sYear, int eYear)
         {
             List<Student> sList = new List<Student>();
