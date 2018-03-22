@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NaimouzaHighSchool;
 using NaimouzaHighSchool.Models.Utility;
 using NaimouzaHighSchool.ViewModels.Helpers;
+using NaimouzaHighSchool.Models.Database;
 using System.Collections.Generic;
 
 namespace NaimouzaHighSchoolTest
@@ -13,6 +14,7 @@ namespace NaimouzaHighSchoolTest
         [TestMethod]
         public void TestMethod1()
         {
+            /*
             ExcelEntryHelper eh = new ExcelEntryHelper();
             List<ExcelColumnPosition> listEx = new List<ExcelColumnPosition>();
             listEx.Add(new ExcelColumnPosition("HName", "A"));
@@ -23,6 +25,9 @@ namespace NaimouzaHighSchoolTest
             listEx.Add(new ExcelColumnPosition("CName", "F"));
             bool r = eh.isExcelColPositionUnique(listEx);
             Assert.AreEqual<bool>(true, r, "Logic failed.");
+           */
+            PromotionDb db = new PromotionDb();
+            List<Promotion> plist = db.GetList(startYear: 2017, endYear: 2017, cls: "V", section: "A");
         }
     }
 }

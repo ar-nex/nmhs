@@ -208,17 +208,7 @@ namespace NaimouzaHighSchool.ViewModels
                     {
                         this.SetSubjects(this.StudentList[value].SubjectComboId);
                     }
-                    // set selectedCombocode
-                    /*
-                    foreach (SubjectCombo item in this.ComboCodeList)
-                    {
-                        if (item.Id == this.StudentList[value].SubjectComboId)
-                        {
-                            this.SelectedComboCode = item.Code;
-                            break;
-                        }
-                    }
-                   */
+                  
                 }
                 
             }
@@ -348,10 +338,34 @@ namespace NaimouzaHighSchool.ViewModels
             set 
             { 
                 this._txbGen = value;
+                if (value == "M")
+                {
+                    GenVisibilityFemale = System.Windows.Visibility.Collapsed;
+                    GenVisibilityMale = System.Windows.Visibility.Visible;
+                }
+                else if (value == "F")
+                {
+                    GenVisibilityMale = System.Windows.Visibility.Collapsed;
+                    GenVisibilityFemale = System.Windows.Visibility.Visible;
+                }
                 this.OnPropertyChanged("TxbGen"); 
             } 
         }
-        
+
+        private System.Windows.Visibility _genVisibilityMale;
+        public System.Windows.Visibility GenVisibilityMale
+        {
+            get { return _genVisibilityMale; }
+            set { _genVisibilityMale = value; OnPropertyChanged("GenVisibilityMale"); }
+        }
+
+        private System.Windows.Visibility _genVisibilityFemale;
+        public System.Windows.Visibility GenVisibilityFemale
+        {
+            get { return _genVisibilityFemale; }
+            set { _genVisibilityFemale = value; OnPropertyChanged("GenVisibilityFemale"); }
+        }
+
         private string _txbGenColor;
         public string TxbGenColor { get { return this._txbGenColor; } set { this._txbGenColor = value; this.OnPropertyChanged("TxbGenColor"); } }
 
@@ -627,7 +641,7 @@ namespace NaimouzaHighSchool.ViewModels
         public System.Windows.Visibility StdDetailVisibility
         {
             get { return this._stdDetailVisibility; }
-           // get { return System.Windows.Visibility.Visible; }
+         //   get { return System.Windows.Visibility.Visible; }
             set { this._stdDetailVisibility = value; this.OnPropertyChanged("StdDetailVisibility"); }
         }
         #region Admission
@@ -1139,7 +1153,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.TxbSectionColor = fontcolor1;
             this.TxbRoll = s.Roll;
             this.TxbRollColor = (s.Roll != 0) ? fontcolor1 : fontcolor0;
-
+            this.Dob = s.Dob;
             if (s.Dob.Year == 1)
             {
                 DobDDIndex = DobMMIndex = DobYYIndex = 0;
@@ -1154,9 +1168,10 @@ namespace NaimouzaHighSchool.ViewModels
                 DobYYIndex = (yIndex == -1) ? 0 : yIndex;
             }
             
-            
 
-           
+
+
+
 
             this.TxbGenColor = (string.IsNullOrEmpty(s.Sex)) ? fontcolor0 : fontcolor1;
             //not implemented yet
@@ -1321,8 +1336,8 @@ namespace NaimouzaHighSchool.ViewModels
                 if (EditedStudent.Roll > 0 && (!string.IsNullOrEmpty(EditedStudent.StudyingClass)) && (!string.IsNullOrEmpty(EditedStudent.Section)))
                 {
                     //change the code specially for session
-                    int syear = DateTime.Today.Year;
-                    int eyear = DateTime.Today.Year;
+                    int syear = EditedStudent.StartSessionYear;
+                    int eyear = EditedStudent.EndSessionYear;
                     string[] rdata = new string[2];
                     rdata = db.IsRollExists(syear, eyear, EditedStudent.StudyingClass, EditedStudent.Section, EditedStudent.Roll, EditedStudent.Id);
                     if (rdata[0] != "0")
@@ -1471,6 +1486,8 @@ namespace NaimouzaHighSchool.ViewModels
 
             Student ns = new Student();
             ns.Id = this.StudentList[this.SelectedStudentListIndex].Id;
+            ns.StartSessionYear = this.StudentList[this.SelectedStudentListIndex].StartSessionYear;
+            ns.EndSessionYear = this.StudentList[this.SelectedStudentListIndex].EndSessionYear;
 
             ns.Name = this.getVal(this.TxbName);
             ns.FatherName = this.getVal(this.TxbFather);

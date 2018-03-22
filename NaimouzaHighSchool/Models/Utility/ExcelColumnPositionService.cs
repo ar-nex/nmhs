@@ -16,9 +16,7 @@ namespace NaimouzaHighSchool.Models.Utility
             ListCol.Add(new ExcelColumnPosition("Sex"));
             ListCol.Add(new ExcelColumnPosition("Section"));
             ListCol.Add(new ExcelColumnPosition("Roll"));
-          //  ListCol.Add(new ExcelColumnPosition("SubjectComboId"));
 
-         //   ListCol.Add(new ExcelColumnPosition("Present Address"));
 
             ListCol.Add(new ExcelColumnPosition("Present AddrLane1"));
             ListCol.Add(new ExcelColumnPosition("Present Vill. or Street"));
@@ -27,8 +25,6 @@ namespace NaimouzaHighSchool.Models.Utility
             ListCol.Add(new ExcelColumnPosition("Present Dist"));
             ListCol.Add(new ExcelColumnPosition("Present PIN"));
 
-
-          //  ListCol.Add(new ExcelColumnPosition("Permanent Address"));
 
             ListCol.Add(new ExcelColumnPosition("Permanent AddrLane1"));
             ListCol.Add(new ExcelColumnPosition("Permanent Vill. or Street"));
@@ -50,6 +46,7 @@ namespace NaimouzaHighSchool.Models.Utility
             ListCol.Add(new ExcelColumnPosition("Aadhar"));
             ListCol.Add(new ExcelColumnPosition("Guardian Aadhar"));
             ListCol.Add(new ExcelColumnPosition("Guardian Epic"));
+            ListCol.Add(new ExcelColumnPosition("MP Registration No."));
             ListCol.Add(new ExcelColumnPosition("Blood Group"));
 
             ListCol.Add(new ExcelColumnPosition("Board No"));

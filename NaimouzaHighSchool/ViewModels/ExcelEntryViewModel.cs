@@ -25,7 +25,8 @@ namespace NaimouzaHighSchool.ViewModels
             LblProgress = "0/0";
             ProgressbarValue = "0";
             ClassesInSchool = new string[] {"V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"};
-            SectionsInClass = new string[] { "-not applicable-", "A", "B", "C", "D", "E" };
+            // SectionsInClass = new string[] { "-not applicable-", "A", "B", "C", "D", "E" };
+            SectionsInClass = new string[] { "-not applicable-" };
             SessionStartYear = DateTime.Today.ToString("yyyy");
             SessionEndYear = DateTime.Today.ToString("yyyy");
             ExDb = new ExcelEntryDb();

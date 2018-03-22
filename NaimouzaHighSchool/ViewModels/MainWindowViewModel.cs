@@ -28,6 +28,8 @@ namespace NaimouzaHighSchool.ViewModels
         public RelayCommand ShowTeacherEntryViewCommand { get; set; }
         public RelayCommand ShowStdAddrUpdateCommand { get; set; }
         public RelayCommand ShowDashGridCommand { get; set; }
+        public RelayCommand ShowUDiseCommand { get; set; }
+        public RelayCommand ShowPromotionWindowCommand { get; set; }
 
 
         private void StartUpInitializer()
@@ -48,6 +50,8 @@ namespace NaimouzaHighSchool.ViewModels
             ShowTeacherEntryViewCommand = new RelayCommand(ShowTeacherEntry, CanShowTeacherEntry);
             ShowStdAddrUpdateCommand = new RelayCommand(ShowStdAddrUpdateWindow, CanShowStdAddrUpdateWindow);
             ShowDashGridCommand = new RelayCommand(ShowDashGrid, CanShowDashGrid);
+            ShowUDiseCommand = new RelayCommand(ShowUDise, CanShowUDise);
+            ShowPromotionWindowCommand = new RelayCommand(ShowPromotionWindow, CanShowPromotionWindow);
 
         }
 
@@ -365,6 +369,38 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanShowDashGrid()
         {
             return !Views.DashGridView.IsOpen;
+        }
+
+        private void ShowUDise()
+        {
+            if (!Views.UdiseView.IsOpen)
+            {
+                Views.UdiseView udise = new Views.UdiseView();
+                Views.UdiseView.IsOpen = true;
+                udise.Owner = Application.Current.MainWindow;
+                udise.Show();
+            }
+        }
+
+        private bool CanShowUDise()
+        {
+            return !Views.UdiseView.IsOpen;
+        }
+
+        private void ShowPromotionWindow()
+        {
+            if (!Views.PromotionView.IsOpen)
+            {
+                Views.PromotionView pview = new Views.PromotionView();
+                Views.PromotionView.IsOpen = true;
+                pview.Owner = Application.Current.MainWindow;
+                pview.Show();
+            }
+        }
+
+        private bool CanShowPromotionWindow()
+        {
+            return !Views.PromotionView.IsOpen;
         }
     }
 }

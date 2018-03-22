@@ -531,6 +531,21 @@ namespace NaimouzaHighSchool.Models.Utility
             }
         }
 
+        private int _startSessionYear;
+        public int StartSessionYear
+        {
+            get { return _startSessionYear; }
+            set { _startSessionYear = value; OnPropertyChanged("StartSessionYear"); }
+        }
+
+        private int _endSessionYear;
+        public int EndSessionYear
+        {
+            get { return _endSessionYear; }
+            set { _endSessionYear = value; OnPropertyChanged("EndSessionYear"); }
+        }
+
+
         #endregion
 
         #endregion

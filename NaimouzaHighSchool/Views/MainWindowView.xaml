@@ -49,7 +49,8 @@
                     <MenuItem Header="Delete" Command="{Binding ShowDeleteViewCommand, Source={StaticResource vm}}"></MenuItem>
                     <MenuItem Header="Update Roll Numbers" Command="{Binding ShowRollUpdateWindowCommand, Source={StaticResource vm}}"></MenuItem>
                     <MenuItem Header="Update Registration" Command="{Binding ShowRegistrationUpdaterCommand, Source={StaticResource vm}}"/>
-                    <MenuItem Header="Promotion basic" Command="{Binding ShowPromotionBasicViewCommand, Source={StaticResource vm}}"></MenuItem>
+                    <!--<MenuItem Header="Promotion basic" Command="{Binding ShowPromotionBasicViewCommand, Source={StaticResource vm}}"></MenuItem>-->
+                    <MenuItem Header="Promotion" Command="{Binding ShowPromotionWindowCommand, Source={StaticResource vm}}"/>
                     <MenuItem Header="Update Address" Command="{Binding ShowStdAddrUpdateCommand, Source={StaticResource vm}}"></MenuItem>
                     <Separator />
                     <MenuItem Header="Import" Click="MenuItem_Click_2"/>
@@ -66,6 +67,7 @@
                 <MenuItem Header="Report">
                     <MenuItem Header="Export to Excel" Command="{Binding ShowExcelExportCommand, Source={StaticResource vm}}"/>
                     <MenuItem Header="Dash Grid" Command="{Binding ShowDashGridCommand, Source={StaticResource vm}}"/>
+                    <MenuItem Header="U-Dise" Command="{Binding ShowUDiseCommand, Source={StaticResource vm}}"/>
                 </MenuItem>
               
                 <MenuItem Header="Backup">

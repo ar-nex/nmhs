@@ -54,50 +54,64 @@ namespace NaimouzaHighSchool.Models.Utility
                             break;
                         case "Date of birth":
                             string dt = rowValues[i];
-                            if (dt.IndexOf('/') > -1)
+
+                            try
                             {
+                                double d = double.Parse(rowValues[i]);
+                                s.Dob = DateTime.FromOADate(d);
+
+                            }
+                            catch (Exception)
+                            {
+
+                                throw;
+                            }
+                           // System.Windows.MessageBox.Show(s.Dob.ToString());
+                            //if (dt.IndexOf('/') > -1)
+                            //{
                                 
-                                try
-                                {
-                                    //s.Dob = DateTime.ParseExact(rowValues[i], "dd/MM/yyyy", null);
-                                    s.Dob = DateTime.ParseExact(rowValues[i], "yyyy/MM/dd", null);
+                            //    try
+                            //    {
+                            //        s.Dob = DateTime.ParseExact(rowValues[i], "dd/MM/yyyy", null);
+                            //      //  s.Dob = DateTime.ParseExact(rowValues[i], "yyyy/MM/dd", null);
 
-                                }
-                                catch (Exception)
-                                {
+                            //    }
+                            //    catch (Exception)
+                            //    {
 
-                                    s.Dob = DateTime.Parse(rowValues[i]);
-                                }
+                            //        s.Dob = DateTime.Parse(rowValues[i]);
+
+                            //    }
                                 
                                
-                            }
-                            else if (dt.IndexOf('-') > -1)
-                            {
-                                try
-                                {
-                                    //s.Dob = DateTime.ParseExact(rowValues[i], "dd-MM-yyyy", null);
-                                    s.Dob = DateTime.ParseExact(rowValues[i], "yyyy-MM-dd", null);
-                                }
-                                catch (Exception)
-                                {
+                            //}
+                            //else if (dt.IndexOf('-') > -1)
+                            //{
+                            //    try
+                            //    {
+                            //        s.Dob = DateTime.ParseExact(rowValues[i], "dd-MM-yyyy", null);
+                            //        //s.Dob = DateTime.ParseExact(rowValues[i], "yyyy-MM-dd", null);
+                            //    }
+                            //    catch (Exception)
+                            //    {
 
-                                    s.Dob = DateTime.Parse(rowValues[i]);
-                                }
+                            //        s.Dob = DateTime.Parse(rowValues[i]);
+                            //    }
                                 
-                            }
-                            else
-                            {
-                                if (string.IsNullOrEmpty(dt))
-                                {
-                                    s.Dob = default(DateTime);
-                                }
-                                else
-                                {
-                                    double d = double.Parse(rowValues[i]);
-                                    s.Dob = DateTime.FromOADate(d);
-                                }
+                            //}
+                            //else
+                            //{
+                            //    if (string.IsNullOrEmpty(dt))
+                            //    {
+                            //        s.Dob = default(DateTime);
+                            //    }
+                            //    else
+                            //    {
+                            //        double d = double.Parse(rowValues[i]);
+                            //        s.Dob = DateTime.FromOADate(d);
+                            //    }
 
-                            }
+                            //}
                             
                             break;
                         case "Sex":
@@ -211,6 +225,9 @@ namespace NaimouzaHighSchool.Models.Utility
                             break;
                         case "Guardian Epic":
                             s.GuardianEpic = rowValues[i];
+                            break;
+                        case "MP Registration No.":
+                            s.RegistrationNoMp = rowValues[i];
                             break;
                         case "Board No":
                             s.BoardNo = rowValues[i];
@@ -369,6 +386,7 @@ namespace NaimouzaHighSchool.Models.Utility
                     }
                 }
             }
+            
             return s;
         }
 
