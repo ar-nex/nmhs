@@ -70,22 +70,14 @@ namespace NaimouzaHighSchool.Models.Database
                     string d_bankName = GetDbCompatableValue(s.BankName);
                     string d_branchName = GetDbCompatableValue(s.BankBranch);
                     string d_ifsc = GetDbCompatableValue(s.Ifsc);
-
+                    string d_regisMp = GetDbCompatableValue(s.RegistrationNoMp);
                     string isPh = s.IsPH ? "'Y'" : "'N'";
                     string isBpl = s.IsBpl ? "'Y'" : "'N'";
 
                     string dt = (s.Dob.Year == 1) ? "NULL" : s.Dob.ToString("yyyy-MM-dd");
 
-
-
-
-
-
-                    //string sql = @"INSERT INTO student_basic (aadhar, name, fatherName, motherName, guardianName, guardianRelation, guardianOccupation, dob, sex, presentAddrLane1, presentAddrLane2, presentPO, presentPS, presentDist, presentPIN, permanentAddrLane1, permanentAddrLane2, permanentPO, permanentPS, permanentDist, permanentPIN, mobile, guardianMobile, email, religion, socialCategory, isPh, phType, isBPL, BPLnumber, guardianAadhar, guardianEpic, bloodGroup, bankAccountNo, bankName, branchName, IFSC)
-                    //VALUES ('" + s.Aadhar+"', '"+s.Name+"' , '"+s.FatherName+"', '"+s.MotherName+"', '"+s.GuardianName+"', '"+s.GuardianRelation+"', '"+s.GuardianOccupation+"', '"+dt+"', '"+s.Sex+"', '"+s.PstAddrLane1+"', '"+s.PstAddrLane2+"', '"+s.PstAddrPO+"', '"+s.PstAddrPS+"', '"+s.PstAddrDist+"', '"+s.PstAddrPin+ "', '" + s.PmtAddrLane1 + "', '" + s.PmtAddrLane2 + "', '" + s.PmtAddrPO + "', '" + s.PmtAddrPS + "', '" + s.PmtAddrDist + "', '" + s.PmtAddrPin + "', '"+s.Mobile+"', '"+s.GuardianMobile+"', '"+s.Email+"', '"+s.Religion+"', '"+s.SocialCategory+"', '"+isPh+"', '"+s.PhType+"', '"+isBpl+"', '"+s.BplNo+"', '"+s.GuardianAadhar+"', '"+s.GuardianEpic+"', '"+s.BloodGroup+"', '"+s.BankAcc+"', '"+s.BankName+"', '"+s.BankBranch+"', '"+s.Ifsc+"')";
-
-                    string sql = $"INSERT INTO student_basic (aadhar, name, fatherName, motherName, guardianName, guardianRelation, guardianOccupation, dob, sex, presentAddrLane1, presentAddrLane2, presentPO, presentPS, presentDist, presentPIN, permanentAddrLane1, permanentAddrLane2, permanentPO, permanentPS, permanentDist, permanentPIN, mobile, guardianMobile, email, religion, socialCategory, isPh, phType, isBPL, BPLnumber, guardianAadhar, guardianEpic, bloodGroup, bankAccountNo, bankName, branchName, IFSC, bankMICR)" +
-                        $" VALUES ({d_aadhaar}, {d_name}, {d_father}, {d_mother}, {d_guardian}, {d_guardianRel}, {d_guardianOcc}, '{dt}', {d_sex}, {d_pstAddr1}, {d_pstAddr2}, {d_pstPO}, {d_pstPS}, {d_pstDist}, {d_pstPIN}, {d_pmtAddr1}, {d_pmtAddr2}, {d_pmtPO}, {d_pmtPS}, {d_pstDist}, {d_pmtPIN}, {d_mobile}, {d_guardianMobile}, {d_email}, {d_religion}, {d_socialCat}, {isPh}, {d_phType}, {isBpl}, {d_BplNo}, {d_guardianAadhaar}, {d_guardianEpic}, {d_bloodGroup}, {d_bankAcc}, {d_bankName}, {d_branchName}, {d_ifsc}, {d_bankMICR} )";
+                    string sql = $"INSERT INTO student_basic (aadhar, name, fatherName, motherName, guardianName, guardianRelation, guardianOccupation, dob, sex, presentAddrLane1, presentAddrLane2, presentPO, presentPS, presentDist, presentPIN, permanentAddrLane1, permanentAddrLane2, permanentPO, permanentPS, permanentDist, permanentPIN, mobile, guardianMobile, email, religion, socialCategory, isPh, phType, isBPL, BPLnumber, guardianAadhar, guardianEpic, bloodGroup, registrationNoMp, bankAccountNo, bankName, branchName, IFSC, bankMICR)" +
+                        $" VALUES ({d_aadhaar}, {d_name}, {d_father}, {d_mother}, {d_guardian}, {d_guardianRel}, {d_guardianOcc}, '{dt}', {d_sex}, {d_pstAddr1}, {d_pstAddr2}, {d_pstPO}, {d_pstPS}, {d_pstDist}, {d_pstPIN}, {d_pmtAddr1}, {d_pmtAddr2}, {d_pmtPO}, {d_pmtPS}, {d_pstDist}, {d_pmtPIN}, {d_mobile}, {d_guardianMobile}, {d_email}, {d_religion}, {d_socialCat}, {isPh}, {d_phType}, {isBpl}, {d_BplNo}, {d_guardianAadhaar}, {d_guardianEpic}, {d_bloodGroup}, {d_regisMp},  {d_bankAcc}, {d_bankName}, {d_branchName}, {d_ifsc}, {d_bankMICR} )";
 
                     cmd.CommandText = sql;
                     cmd.ExecuteNonQuery();
