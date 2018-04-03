@@ -545,6 +545,13 @@ namespace NaimouzaHighSchool.Models.Utility
             set { _endSessionYear = value; OnPropertyChanged("EndSessionYear"); }
         }
 
+        private string _imageSource;
+        public string ImageSource
+        {
+            get { return _imageSource; }
+            set { _imageSource = value; }
+        }
+
 
         #endregion
 

@@ -31,6 +31,21 @@ namespace NaimouzaHighSchool.Models.Database
             s.PresentAdrress = rdr[11].ToString();
             s.PermanentAddress = rdr[18].ToString();
 
+            s.PstAddrLane1 = rdr[12].ToString();
+            s.PstAddrLane2 = rdr[13].ToString();
+            s.PstAddrPO = rdr[14].ToString();
+            s.PstAddrPS = rdr[15].ToString();
+            s.PstAddrDist = rdr[16].ToString();
+            s.PstAddrPin = rdr[17].ToString();
+
+            s.PmtAddrLane1 = rdr[19].ToString();
+            s.PmtAddrLane2 = rdr[20].ToString();
+            s.PmtAddrPO = rdr[21].ToString();
+            s.PmtAddrPS = rdr[22].ToString();
+            s.PmtAddrDist = rdr[23].ToString();
+            s.PmtAddrPin = rdr[24].ToString();
+
+
             s.Mobile = rdr[25].ToString();
             s.GuardianMobile = rdr[26].ToString();
             s.Email = rdr[27].ToString();
@@ -67,6 +82,8 @@ namespace NaimouzaHighSchool.Models.Database
             s.StudyingClass = rdr[53].ToString();
             s.Section = rdr[54].ToString();
             s.Roll = Int32.Parse(rdr[55].ToString());
+
+            s.Stream = rdr[56].ToString();
             s.HsSub1 = rdr[58].ToString();
             s.HsSub2 = rdr[59].ToString();
             s.HsSub3 = rdr[60].ToString();
