@@ -257,31 +257,34 @@ namespace NaimouzaHighSchool.Models.Database
 
         }
 
-        public ArrayList GetComboSubjects(string comboId)
+        public Student GetStudent(string studentId)
         {
-            ArrayList sList = new ArrayList();
+            Student s = new Student();
+            string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
+                            INNER JOIN student_class c ON c.student_basic_id = s.id 
+                            INNER JOIN admission a ON a.student_basic_id = s.id WHERE s.id = '" + studentId + "'" ;
             try
             {
-                this.conn.Open();
-                string sql = "SELECT s.Name FROM Subject s WHERE id IN (SELECT Subject_id FROM SubjectCombo_has_Subject WHERE SubjectCombo_id="+comboId+")";
+                conn.Open();
                 MySqlCommand cmd = new MySqlCommand(sql, this.conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                if (rdr.Read())
                 {
-                    sList.Add(rdr[0].ToString());
+                    s = BuildObject(rdr);
                 }
             }
-            catch (Exception ex3)
+            catch (Exception es)
             {
-                System.Windows.MessageBox.Show("ex3" + ex3.Message);
+                System.Windows.MessageBox.Show("Sorry! problem in getting updated student info. : "+es.Message);
             }
             finally
             {
-                this.conn.Close();
+                conn.Close();
             }
-
-            return sList;
+            return s;
         }
+
+       
 
         public bool DeleteStudent(string StdId)
         {
@@ -469,32 +472,6 @@ namespace NaimouzaHighSchool.Models.Database
         
         }
 
-        public List<SubjectCombo> GetComobCodeList()
-        {
-            List<SubjectCombo> comboList = new List<SubjectCombo>();
-            /*
-            string sql = "SELECT * FROM `subjectcombo`";
-            try
-            {
-                this.conn.Open();
-                 MySqlCommand cmd = new MySqlCommand(sql, this.conn);
-                MySqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    comboList.Add(new SubjectCombo(rdr[0].ToString(), rdr[1].ToString(), rdr[2].ToString()));
-                }
-
-            }
-            catch (Exception ex6r)
-            {
-                System.Windows.MessageBox.Show("ex6r : "+ex6r.Message);
-            }
-            finally
-            {
-                this.conn.Close();
-            }
-             */
-            return comboList;
-        }
+       
     }
 }

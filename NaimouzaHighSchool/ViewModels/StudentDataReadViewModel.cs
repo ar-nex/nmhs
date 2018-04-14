@@ -207,11 +207,6 @@ namespace NaimouzaHighSchool.ViewModels
                     this.BuildStdDetailView(this.StudentList[value]);
                     this.SelectedStudent = this.StudentList[value];
                     this.TakenSubjects.Clear();
-                    if (!string.IsNullOrEmpty(this.StudentList[value].SubjectComboId))
-                    {
-                        this.SetSubjects(this.StudentList[value].SubjectComboId);
-                    }
-                  
                 }
                 
             }
@@ -250,21 +245,6 @@ namespace NaimouzaHighSchool.ViewModels
             set 
             { 
                 this._txbCls = value;
-                /*
-                if (Array.IndexOf(this.SchoolClasses, value) > -1)
-                {
-                    var cmbList = from n in this.ComboCodeList
-                                  where n.BelongingClass == value
-                                  select n.Code;
-                    this.FilteredComboCode.Clear();
-                    foreach (string item in cmbList)
-                    {
-                        this.FilteredComboCode.Add(item);
-                    }
-                    
-                }
-                 */
-
                 this.OnPropertyChanged("TxbCls"); 
             } 
         }
@@ -870,8 +850,8 @@ namespace NaimouzaHighSchool.ViewModels
         private System.Windows.Visibility _stdDetailVisibility;
         public System.Windows.Visibility StdDetailVisibility
         {
-            //   get { return this._stdDetailVisibility; }
-            get { return System.Windows.Visibility.Visible; }
+               get { return this._stdDetailVisibility; }
+           // get { return System.Windows.Visibility.Visible; }
             set { this._stdDetailVisibility = value; this.OnPropertyChanged("StdDetailVisibility"); }
         }
 
@@ -944,41 +924,10 @@ namespace NaimouzaHighSchool.ViewModels
             set { _selecStdSessonEndYear = value; OnPropertyChanged("SelecStdSessionEndYear"); }
         }
 
+
+
         #region edit
         public string[] SocialCatList { get; set; }
-        public List<SubjectCombo> ComboCodeList { get; set; }
-
-        private ObservableCollection<string> _filteredComboCode;
-        public ObservableCollection<string> FilteredComboCode
-        {
-            get { return this._filteredComboCode; }
-            set { this._filteredComboCode = value; this.OnPropertyChanged("FilteredComboCode"); }
-        }
-
-        private string _selectedComboCode;
-        public string SelectedComboCode
-        {
-            get { return this._selectedComboCode; }
-            set 
-            { 
-                this._selectedComboCode = value;
-                string cmbId = string.Empty;
-                foreach (SubjectCombo item in this.ComboCodeList)
-                {
-                    if (item.Code == value)
-                    {
-                        cmbId = item.Id;
-                        break;
-                    }
-                }
-                if (!string.IsNullOrEmpty(cmbId))
-                {
-                    this.TakenSubjects.Clear();
-                    this.SetSubjects(cmbId);
-                }
-                this.OnPropertyChanged("SelectedComboCode"); 
-            }
-        }
 
         private string _headerBackground;
         public string HeaderBackground
@@ -1176,7 +1125,8 @@ namespace NaimouzaHighSchool.ViewModels
             this.SubDictionary = new Dictionary<string, System.Collections.ArrayList>();
            
             this.CommandInitializer();
-           
+            EventConnector.StudentUpdated += RefreshUpdatedStudentDetails;
+
         }
 
         private void CommandInitializer()
@@ -1200,6 +1150,21 @@ namespace NaimouzaHighSchool.ViewModels
             this.AdmEditBtnCommand = new RelayCommand(this.AdmEditBtnClicked, this.CanEditBtnClicked);
             this.OthEditBtnCommand = new RelayCommand(this.OthEditBtnClicked, this.CanEditBtnClicked);
             GenUpdateCommand = new RelayCommand(GenUpdate, CanGenUpdate);
+
+            
+        }
+
+        private void RefreshUpdatedStudentDetails(object sender, EventArgs e)
+        {
+            // hold the selectedIndex
+            int retainIndex = SelectedStudentListIndex;
+            // replace the old student with new one
+            string selectedStdId = StudentList[SelectedStudentListIndex].Id;
+            Student UpdatedStudent = db.GetStudent(selectedStdId);
+            StudentList[SelectedStudentListIndex] = UpdatedStudent;
+            // rebuild stdDetailView
+            BuildStdDetailView(UpdatedStudent);
+            SelectedStudentListIndex = retainIndex;
         }
 
         private void Search()
@@ -1320,7 +1285,6 @@ namespace NaimouzaHighSchool.ViewModels
             this.TxbNameColor = fontcolor1;
             this.TxbCls = s.StudyingClass;
             this.SchoolClassessIndex = Array.IndexOf(this.SchoolClasses, s.StudyingClass);
-            this.TxbClsColor = fontcolor1;
             this.TxbSection = s.Section;
             this.SchoolSectionIndex = Array.IndexOf(this.SchoolSections, s.Section);
             this.TxbRoll = s.Roll;
@@ -1637,33 +1601,6 @@ namespace NaimouzaHighSchool.ViewModels
         
         }
 
-        private void SetSubjects(string comboId)
-        {
-            if (this.SubDictionary.ContainsKey(comboId))
-            {
-                this.ArrayOfSubs = this.SubDictionary[comboId];
-            }
-            else
-            {
-                try
-                {
-                    this.ArrayOfSubs = this.db.GetComboSubjects(comboId);
-                    
-                    this.SubDictionary.Add(comboId, this.ArrayOfSubs);
-                }
-                catch (Exception ex4)
-                {
-                    System.Windows.MessageBox.Show("ex4 : "+ex4.ToString());
-                }
-            }
-            if (this.ArrayOfSubs.Count > 0)
-            {
-                foreach (string item in this.ArrayOfSubs)
-                {
-                    this.TakenSubjects.Add(item);
-                }
-            }
-        }
 
         private Student BuildNewStudent()
         {

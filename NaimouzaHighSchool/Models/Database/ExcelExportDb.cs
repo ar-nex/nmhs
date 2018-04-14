@@ -5,7 +5,7 @@ using NaimouzaHighSchool.Models.Utility;
 
 namespace NaimouzaHighSchool.Models.Database
 {
-    public class ExcelExportDb : BaseDb
+    public class ExcelExportDb : StudentBuilderFromCompleteMySqlDataReader
     {
         public ExcelExportDb()
         : base()
@@ -23,7 +23,11 @@ namespace NaimouzaHighSchool.Models.Database
                 this.conn.Open();
                 MySqlCommand cmd = new MySqlCommand(sql, this.conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
-                sList = BuildStudentList(rdr);
+                while (rdr.Read())
+                {
+                    Student s = BuildObject(rdr);
+                    sList.Add(s);
+                }
             }
             catch (Exception e1)
             {
@@ -47,7 +51,11 @@ namespace NaimouzaHighSchool.Models.Database
                 this.conn.Open();
                 MySqlCommand cmd = new MySqlCommand(sql, this.conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
-                sList = BuildStudentList(rdr);
+                while (rdr.Read())
+                {
+                    Student s = BuildObject(rdr);
+                    sList.Add(s);
+                }
             }
             catch (Exception e1x)
             {

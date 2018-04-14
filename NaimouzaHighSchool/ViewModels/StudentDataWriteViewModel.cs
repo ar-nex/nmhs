@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Globalization;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using NaimouzaHighSchool.Models;
 using NaimouzaHighSchool.ViewModels.Commands;
 using NaimouzaHighSchool.Models.Utility;
@@ -12,220 +10,275 @@ using System.ComponentModel;
 
 namespace NaimouzaHighSchool.ViewModels
 {
-    public class StudentDataWriteViewModel: BaseViewModel
+    public class StudentDataWriteViewModel: BankClassBaseViewModel
     {
         public StudentDataWriteViewModel()
         :base()
         {
             this.StartUpInitialize();
-            this.StdModel = new StudentDataWriteModel();
-            
         }
 
-
-        #region new
-        #region basic
-        private string _txbFirstName;
-
-        public string TxbFirstName
+        #region general
+        private string _stdName;
+        public string StdName
         {
-            get { return this._txbFirstName; }
-            set { this._txbFirstName = value.ToUpper(); this.OnPropertyChanged("TxbFristname"); }
-        }
-
-        private string _txbMidName;
-
-        public string TxbMidName
-        {
-            get { return this._txbMidName; }
-            set { this._txbMidName = value.ToUpper(); this.OnPropertyChanged("TxbMidName"); }
-        }
-
-        private string _txbLastName;
-
-        public string TxbLastName
-        {
-            get { return this._txbLastName; }
-            set { this._txbLastName = value.ToUpper(); this.OnPropertyChanged("TxbLastName"); }
-        }
-
-
-        private int _classSelectedIndex;
-        /// <summary>
-        /// Contain the seleted index of class used to Update the selected class of student here.
-        /// </summary>
-        public int ClassSelectedIndex
-        {
-            get { return _classSelectedIndex; }
+            get { return _stdName; }
             set
             {
-                _classSelectedIndex = value;
-                this.SelectedClass = (value > -1) ? this.SchoolClass[value] : string.Empty;
-                /*
-                if (value > -1)
-                {
-                    this.UpdateComboList();
-                }
-                this.OnPropertyChanged("ClassSelectedIndex");
-
-                 */ 
-             }
-        }
-        
-        
-        private string _selectedClass;
-
-        public string SelectedClass
-        {
-            get { return this._selectedClass; }
-            set { this._selectedClass = value; this.OnPropertyChanged("SelectedClass"); }
-        }
-
-        private int _sectionSelectedIndex;
-        /// <summary>
-        /// Contain the seleted index of section used to Update the selected section of student here.
-        /// </summary>
-        public int SectionSelectedIndex
-        {
-            get { return _sectionSelectedIndex; }
-            set
-            {
-                _sectionSelectedIndex = value;
-                this.SelectedSection = (value > -1) ? this.SchoolSection[value] : string.Empty;
-                this.OnPropertyChanged("SectionSeletedIndex");
+                _stdName = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("StdName");
             }
         }
 
-        private string _selectedSection;
-
-        public string SelectedSection
+        private int _stdRoll;
+        public int StdRoll
         {
-            get { return this._selectedSection; }
-            set { this._selectedSection = value; this.OnPropertyChanged("SelectedSection"); }
+            get { return _stdRoll; }
+            set { _stdRoll = (value > 0 && value < 1500) ? value : 0; OnPropertyChanged("StdRoll"); }
         }
 
-        private int _roll;
-        public int Roll
-        {
-            get { return _roll; }
-            set { _roll = value; this.OnPropertyChanged("Roll"); }
-        }
-
-        private int _comboIndex;
-        /// <summary>
-        /// Combo code (name) index
-        /// </summary>
-        public int ComboIndex
-        {
-            get { return _comboIndex; }
-            set
-            {
-                _comboIndex = value;
-                /*
-                if (value > -1)
-                {
-                    this.SetComboCode();
-                }
-                else
-                {
-                    this.SbComboCode = string.Empty;
-                }
-                */
-                this.OnPropertyChanged("ComboIndex");
-            }
-        }
-        
-        private string _sbComboCode;
-        public string SbComboCode
-        {
-            get { return _sbComboCode; }
-            set 
-            { 
-                _sbComboCode = value;
-                this.OnPropertyChanged("SbComboCode"); 
-            }
-        }
-
-        private string _sex;
-
-        public string Sex
+        private string [] _sex;
+        public string [] Sex
         {
             get { return this._sex; }
             set { this._sex = value; this.OnPropertyChanged("Sex"); }
         }
 
-        private DateTime _dob;
-        public DateTime Dob
+        private int _sexIndex;
+        public int SexIndex
         {
-            get { return this._dob; }
-            set { this._dob = value; this.OnPropertyChanged("Dob"); }
+            get { return _sexIndex; }
+            set { _sexIndex =(value > -1 && value < Sex.Length ) ? value : -1; OnPropertyChanged("SexIndia"); }
         }
+
+        private int[] _yyyy;
+        public int[] YYYY
+        {
+            get { return _yyyy; }
+            set { _yyyy = value; OnPropertyChanged("YYYY"); }
+        }
+
+        private string[] _mm;
+        public string[] MM
+        {
+            get { return _mm; }
+            set { _mm = value; OnPropertyChanged("MM"); }
+        }
+
+        private int[] _dd;
+        public int[] DD
+        {
+            get { return _dd; }
+            set { _dd = value; OnPropertyChanged("DD"); }
+        }
+
+        private int[] _dd28;
+        public int[] DD28
+        {
+            get { return _dd28; }
+            set { _dd28 = value; OnPropertyChanged("DD28"); }
+        }
+
+        private int[] _dd29;
+        public int[] DD29
+        {
+            get { return _dd29; }
+            set { _dd29 = value; OnPropertyChanged("DD29"); }
+        }
+
+        private int[] _dd30;
+        public int[] DD30
+        {
+            get { return _dd30; }
+            set { _dd30 = value; OnPropertyChanged("DD30"); }
+        }
+
+        private int[] _dd31;
+        public int[] DD31
+        {
+            get { return _dd31; }
+            set { _dd31 = value; OnPropertyChanged("DD31"); }
+        }
+
+        private int _dobYYIndex;
+        public int DobYYIndex
+        {
+            get { return _dobYYIndex; }
+            set
+            {
+                _dobYYIndex = (value > -1 && value < YYYY.Length) ? value : -1;
+                OnPropertyChanged("DobYYIndex");
+                UpdateDaysInMonth();
+            }
+        }
+
+        private int _dobMMIndex;
+        public int DobMMIndex
+        {
+            get { return _dobMMIndex; }
+            set
+            {
+                _dobMMIndex = (value > -1 && value < MM.Length) ? value : -1;
+                OnPropertyChanged("DobMMIndex");
+                UpdateDaysInMonth();
+            }
+        }
+
+        private int _dobDDIndex;
+        public int DobDDIndex
+        {
+            get { return _dobDDIndex; }
+            set { _dobDDIndex = (value > -1 && value < DD.Length) ? value : -1; OnPropertyChanged("DobDDIndex"); }
+        }
+
+        public string[] StreamList { get; set; }
+
+        private int _streamListIndex;
+        public int StreamListIndex
+        {
+            get { return _streamListIndex; }
+            set
+            {
+                _streamListIndex = (value > -1 && value < StreamList.Length) ? value : -1;
+                OnPropertyChanged("StreamListIndex");
+                UpdateHsSubs(value);
+            }
+        }
+
+        private string[] _hsArtsSubs;
+        public string[] HsArtsSubs
+        {
+            get { return _hsArtsSubs; }
+            set { _hsArtsSubs = value; OnPropertyChanged("HsArtsSubs"); }
+        }
+
+        private string[] _hsSciSubs;
+        public string[] HsSciSubs
+        {
+            get { return _hsSciSubs; }
+            set { _hsSciSubs = value; OnPropertyChanged("HsSciSubs"); }
+        }
+
+        private string[] _hsActiveSubs;
+        public string[] HsActiveSubs
+        {
+            get { return _hsActiveSubs; }
+            set { _hsActiveSubs = value; OnPropertyChanged("HsActiveSubs"); }
+        }
+
+        private string[] _hsActiveSubs1;
+        public string[] HsActiveSubs1
+        {
+            get { return _hsActiveSubs1; }
+            set { _hsActiveSubs1 = value; OnPropertyChanged("HsActiveSubs1"); }
+        }
+
+        private ObservableCollection<string> _hsActiveSubs2;
+        public ObservableCollection<string> HsActiveSubs2
+        {
+            get { return _hsActiveSubs2; }
+            set { _hsActiveSubs2 = value; OnPropertyChanged("HsActiveSubs2"); }
+        }
+
+        private ObservableCollection<string> _hsActiveSubs3;
+        public ObservableCollection<string> HsActiveSubs3
+        {
+            get { return _hsActiveSubs3; }
+            set { _hsActiveSubs3 = value; OnPropertyChanged("HsActiveSubs3"); }
+        }
+
+        private ObservableCollection<string> _hsActiveSubs4;
+        public ObservableCollection<string> HsActiveSubs4
+        {
+            get { return _hsActiveSubs4; }
+            set { _hsActiveSubs4 = value; OnPropertyChanged("HsActiveSubs4"); }
+        }
+
+        private int _hsSub1Index;
+        public int HsSub1Index
+        {
+            get { return _hsSub1Index; }
+            set { _hsSub1Index = value; OnPropertyChanged("HsSub1Index"); TrimHsSubs(2); }
+        }
+
+        private int _hsSub2Index;
+        public int HsSub2Index
+        {
+            get { return _hsSub2Index; }
+            set { _hsSub2Index = value; OnPropertyChanged("HsSub2Index"); TrimHsSubs(3); }
+        }
+
+        private int _hsSub3Index;
+        public int HsSub3Index
+        {
+            get { return _hsSub3Index; }
+            set { _hsSub3Index = value; OnPropertyChanged("HsSub3Index"); TrimHsSubs(4); }
+        }
+
+        private int _hsSub4Index;
+        public int HsSub4Index
+        {
+            get { return _hsSub4Index; }
+            set { _hsSub4Index = value; OnPropertyChanged("HsSub4Index"); }
+        }
+
+        #endregion
+
+        #region personal
 
         private string _txbAadhar;
         public string TxbAadhar
         {
             get { return this._txbAadhar; }
-            set { this._txbAadhar = value; this.OnPropertyChanged("TxbAadhar"); }
+            set
+            {
+                _txbAadhar = value;
+                this.OnPropertyChanged("TxbAadhar");
+            }
         }
 
+        public string[] ReligionList { get; set; }
+
+        private int _religionIndex;
+        public int ReligionIndex
+        {
+            get { return this._religionIndex; }
+            set
+            {
+                this._religionIndex = value;
+                OnPropertyChanged("ReligionIndex");
+            }
+        }
+
+        public string[] SocialCatList { get; set; }
 
         private int _socialCatIndex;
-        /// <summary>
-        /// Social category Index
-        /// </summary>
         public int SocialCatIndex
         {
             get { return _socialCatIndex; }
             set
             {
-                _socialCatIndex = value;
-                this.SocialCat = (value > -1) ? this.SocialCatList[value] : string.Empty;
+                _socialCatIndex = (value > -1 && value < SocialCatList.Length) ? value : -1;
                 this.OnPropertyChanged("SocialCatIndex");
             }
         }
 
-        private string _socialCat;
+        
 
-        public string SocialCat
-        {
-            get { return this._socialCat; }
-            set { this._socialCat = value; this.OnPropertyChanged("SocialCat"); }
-        }
-
-        private string _socialSubCat;
-
-        public string SocialSubCat
-        {
-            get { return this._socialSubCat; }
-            set { this._socialSubCat = value; this.OnPropertyChanged("SocialSubCat"); }
-        }
+        public string[] BloodGroups { get; set; }
 
         private int _bloodGroupIndex;
-        /// <summary>
-        /// Blood grp index
-        /// </summary>
         public int BloodGroupIndex
         {
             get { return _bloodGroupIndex; }
-
             set
             {
-                this._bloodGroupIndex = value;
-                this.BloodGroup = (value > -1) ? this.BloodGroups[value] : string.Empty;
+                this._bloodGroupIndex = (value > -1 && value < BloodGroups.Length) ? value : -1;
                 this.OnPropertyChanged("BloodGroupIndex");
             }
         }
 
-        private string _bloodGroup;
-
-        public string BloodGroup
-        {
-            get { return this._bloodGroup; }
-            set { this._bloodGroup = value; this.OnPropertyChanged("BloodGroup"); }
-        }
-
         private bool _isbpl;
-
         public bool Isbpl
         {
             get { return this._isbpl; }
@@ -236,29 +289,26 @@ namespace NaimouzaHighSchool.ViewModels
                 {
                     this.BplNo = string.Empty;
                 }
-                this.EnableBplTxb = value;
+                this.BplReadOnly = !value;
                 this.OnPropertyChanged("Isbpl"); 
             }
         }
 
-        private bool _enableBplTxb;
-
-        public bool EnableBplTxb
+        private bool _bplReadOnly;
+        public bool BplReadOnly
         {
-            get { return _enableBplTxb; }
-            set { this._enableBplTxb = value; this.OnPropertyChanged("EnableBplTxb"); }
+            get { return _bplReadOnly; }
+            set { this._bplReadOnly = value; this.OnPropertyChanged("BplReadOnly"); }
         }
 
         private string _bplNo;
-
         public string BplNo
         {
             get { return this._bplNo; }
-            set { this._bplNo = value; this.OnPropertyChanged("BplNo"); }
+            set { this._bplNo = (value != null) ? value.ToUpper() : value; this.OnPropertyChanged("BplNo"); }
         }
 
         private bool _isPh;
-
         public bool IsPh
         {
             get { return this._isPh; }
@@ -269,165 +319,144 @@ namespace NaimouzaHighSchool.ViewModels
                 {
                     this.PhDetail = string.Empty;
                 }
-                this.EnablePhTxb = value;
                 this.OnPropertyChanged("IsPh");
+                this.ReadOnlyPhTxb = !value;
             }
         }
 
-        private bool _enablePhTxb;
-
-        public bool EnablePhTxb
+        private bool _readOnlyPhTxb;
+        public bool ReadOnlyPhTxb
         {
-            get { return this._enablePhTxb; }
-            set { this._enablePhTxb = value; this.OnPropertyChanged("EnablePhTxb"); }
+            get { return this._readOnlyPhTxb; }
+            set { this._readOnlyPhTxb = value; this.OnPropertyChanged("ReadOnlyPhTxb"); }
         }
 
         private string _phDetail;
-
         public string PhDetail
         {
             get { return this._phDetail; }
             set { this._phDetail = value; this.OnPropertyChanged("PhDetail"); }
         }
 
-        public string[] ReligionList { get; set; }
-        private string _religion;
-        public string Religion
-        {
-            get { return this._religion; }
-            set { this._religion = value; this.OnPropertyChanged("Religion"); }
-        }
 
-        private int _religionIndex;
-        public int ReligionIndex
-        {
-            get { return this._religionIndex; }
-            set
-            {
-                this._religionIndex = value;
-                if (value > -1)
-                {
-                    this.Religion = this.ReligionList[value];
-                }
-                else
-                {
-                    this.Religion = string.Empty;
-                }
-            }
-        }
         #endregion
 
-        #region contact
+        #region guardian
         private string _txbFatherName;
-
         public string TxbFatherName
         {
             get { return this._txbFatherName; }
-            set 
-            { 
-                this._txbFatherName = value.ToUpper();
-                if (this.IsSameGuardian)
-                {
-                    this.GuardianName = this._txbFatherName;
-                }
+            set
+            {
+                this._txbFatherName = (value != null) ? value.ToUpper() : value;
                 this.OnPropertyChanged(string.Empty);
             }
         }
 
         private string _txbMotherName;
-
         public string TxbMotherName
         {
             get { return this._txbMotherName; }
-            set { this._txbMotherName = value.ToUpper(); this.OnPropertyChanged("TxbMotherName"); }
-        }
-
-        private bool _isSameGuardian;
-
-        public bool IsSameGuardian
-        {
-            get { return this._isSameGuardian; }
-            set 
-            { 
-                this._isSameGuardian = value;
-                if (value && !string.IsNullOrEmpty(this.TxbFatherName))
-                {
-                    this.GuardianName = this.TxbFatherName;
-                }
-                if (value)
-                {
-                    this.RelationWithGuardian = "FATHER";
-                }
-                this.OnPropertyChanged("IsSameGuardian"); 
-            }
+            set { this._txbMotherName = (value != null) ? value.ToUpper() : value; this.OnPropertyChanged("TxbMotherName"); }
         }
 
         private string _guardianName;
-
         public string GuardianName
         {
             get { return this._guardianName; }
-            set { this._guardianName = value.ToUpper(); this.OnPropertyChanged("GuardianName"); }
+            set { this._guardianName = (value != null) ? value.ToUpper() : value; this.OnPropertyChanged("GuardianName"); }
+        }
+
+        private bool _isGuardianFather;
+        public bool IsGuardianFather
+        {
+            get { return _isGuardianFather; }
+            set
+            {
+                _isGuardianFather = value;
+                OnPropertyChanged("IsGuardianFather");
+                if (value)
+                {
+                    GuardianName = TxbFatherName;
+                    RelationWithGuardian = "Father";
+                }
+                else
+                {
+                    GuardianName = RelationWithGuardian = string.Empty;
+                }
+            }
         }
 
         private string _relationWithGuardian;
-
         public string RelationWithGuardian
         {
             get { return this._relationWithGuardian; }
-            set { this._relationWithGuardian = value.ToUpper(); this.OnPropertyChanged("RelationWithGuardian"); }
+            set
+            {
+                this._relationWithGuardian = (value != null) ? value.ToUpper() : value;
+                if (value != null)
+                {
+                    if (value.ToLower() == "fa")
+                    {
+                        _relationWithGuardian = "FATHER";
+                    }
+                    else if (value.ToLower() == "mo")
+                    {
+                        _relationWithGuardian = "MOTHER";
+                    }
+
+                }
+                this.OnPropertyChanged("RelationWithGuardian");
+            }
         }
 
         private string _occupation;
-
         public string Occupation
         {
             get { return this._occupation; }
-            set 
+            set
             {
                 TextInfo myTI = new CultureInfo("en-US", false).TextInfo;
                 this._occupation = myTI.ToTitleCase(value);
-                this.OnPropertyChanged("Occupation"); 
+                this.OnPropertyChanged("Occupation");
             }
         }
 
         private int _annualIncome;
-
         public int AnnualIncome
         {
             get { return this._annualIncome; }
             set { this._annualIncome = value; this.OnPropertyChanged("AnnualIncome"); }
         }
 
-        private string _voterCardNo;
-
-        public string VoterCardNo
-        {
-            get { return this._voterCardNo; }
-            set { this._voterCardNo = value; this.OnPropertyChanged("VoterCardNo"); }
-        }
-
         private string _guardianAadhar;
-
         public string GuardianAadhar
         {
             get { return this._guardianAadhar; }
             set { this._guardianAadhar = value; this.OnPropertyChanged("GuardianAadhar"); }
         }
 
+        private string _voterCardNo;
+        public string VoterCardNo
+        {
+            get { return this._voterCardNo; }
+            set
+            {
+                this._voterCardNo = (value != null) ? value.ToUpper() : value;
+                this.OnPropertyChanged("VoterCardNo");
+            }
+        }
+        #endregion
+
+        #region contact
+
         private string _presentAddr1;
         public string PresentAddr1
         {
             get { return this._presentAddr1; }
             set 
-            { 
-                this._presentAddr1 = value.ToUpper();
-                if (this.Same2Address)
-                {
-                    this.PermAddr1 = value.ToUpper();
-                }
-                this.OnPropertyChanged("PresentAddr1"); 
-            
+            {
+                _presentAddr1 = (value != null) ? value.ToUpper() : value;
             }
         }
 
@@ -436,82 +465,56 @@ namespace NaimouzaHighSchool.ViewModels
         {
             get { return this._presentAddr2; }
             set 
-            { 
-                this._presentAddr2 = value.ToUpper();
-                if (this.Same2Address)
-                {
-                    this.PermAddr2 = value.ToUpper();
-                }
-                this.OnPropertyChanged("PresentAddr2"); 
-            
+            {
+                _presentAddr2 = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PresentAddr2");
             }
         }
 
         private string _presentPostOffice;
-
         public string PresentPostOffice
         {
             get { return this._presentPostOffice; }
             set 
             { 
-                this._presentPostOffice = value.ToUpper();
-                if (Same2Address)
-                {
-                    this.PermPO = value.ToUpper();
-                }
-                this.OnPropertyChanged("PresentPostOffice"); }
+                _presentPostOffice = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PresentPostOffice"); }
         }
 
         private string _presentPs;
-
         public string PresentPs
         {
             get { return this._presentPs; }
             set 
-            { 
-                this._presentPs = value.ToUpper();
-                if (Same2Address)
-                {
-                    this.PermPs = value.ToUpper();
-                }
-                this.OnPropertyChanged("PresentPs"); 
+            {
+                _presentPs = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PresentPs"); 
             }
         }
 
         private string _presentDist;
-
         public string PresentDist
         {
             get { return this._presentDist; }
             set 
             { 
-                this._presentDist = value.ToUpper();
-                if (Same2Address)
-                {
-                    this.PermDist = value.ToUpper();
-                }
-                this.OnPropertyChanged("PresentDist"); 
+                _presentDist = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PresentDist"); 
             }
         }
 
         private string _presentPin;
-
         public string PresentPin
         {
             get { return this._presentPin; }
             set 
             { 
-                this._presentPin = value;
-                if (Same2Address)
-                {
-                    this.PermPin = value.ToUpper();
-                }
-                this.OnPropertyChanged("PresentPin"); 
+                _presentPin = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("PresentPin"); 
             }
         }
 
         private bool _same2Address;
-
         public bool Same2Address
         {
             get { return this._same2Address; }
@@ -522,51 +525,54 @@ namespace NaimouzaHighSchool.ViewModels
                 {
                     this.CopyPresetnAddrToPermAddr();
                 }
+                else
+                {
+                    PermAddr1 = PermAddr2 = PermPO = PermPs = PermDist = PermPin = string.Empty;
+                }
                 this.OnPropertyChanged("Same2Address");
             }
         }
 
         private string _permAddr1;
-
         public string PermAddr1
         {
             get { return this._permAddr1; }
-            set { this._permAddr1 = value.ToUpper(); this.OnPropertyChanged("PermAddr1"); }
+            set { this._permAddr1 = (value != null) ? value.ToUpper() : value; this.OnPropertyChanged("PermAddr1"); }
         }
 
         private string _permAddr2;
-
         public string PermAddr2
         {
             get { return this._permAddr2; }
-            set { this._permAddr2 = value.ToUpper(); this.OnPropertyChanged("PermAddr2"); }
+            set { this._permAddr2 = (value != null) ? value.ToUpper() : value; this.OnPropertyChanged("PermAddr2"); }
         }
-        private string _permPO;
 
+        private string _permPO;
         public string PermPO
         {
             get { return this._permPO; }
-            set { this._permPO = value.ToUpper(); this.OnPropertyChanged("PermPO"); }
+            set { this._permPO = (value != null) ? value.ToUpper() : value; this.OnPropertyChanged("PermPO"); }
         }
-        private string _permPs;
 
+        private string _permPs;
         public string PermPs
         {
             get { return this._permPs; }
-            set { this._permPs = value.ToUpper(); this.OnPropertyChanged("PermPs"); }
+            set { this._permPs = (value != null) ? value.ToUpper() : value; this.OnPropertyChanged("PermPs"); }
         }
-        private string _permDist;
 
+        private string _permDist;
         public string PermDist
         {
             get { return this._permDist; }
-            set { this._permDist = value.ToUpper(); this.OnPropertyChanged("PermDist"); }
+            set { this._permDist = (value != null) ? value.ToUpper() : value; this.OnPropertyChanged("PermDist"); }
         }
+
         private string _permPin;
         public string PermPin
         {
             get { return this._permPin; }
-            set { this._permPin = value.ToUpper(); this.OnPropertyChanged("PermPin"); }
+            set { this._permPin = (value != null) ? value.ToUpper() : value; this.OnPropertyChanged("PermPin"); }
         }
 
         private string _stdMobile;
@@ -589,6 +595,7 @@ namespace NaimouzaHighSchool.ViewModels
             get { return this._email; }
             set { this._email = value; this.OnPropertyChanged("Email"); }
         }
+
         public string[] VillList { get; set; }
         public string[] PostOfficeList { get; set; }
         public string[] PSList { get; set; }
@@ -604,35 +611,16 @@ namespace NaimouzaHighSchool.ViewModels
             set { this._admissionNo = value; this.OnPropertyChanged("AdmissionNo"); }
         }
 
-        private DateTime _admissionDate;
-
-        public DateTime AdmissionDate
-        {
-            get { return this._admissionDate; }
-            set { this._admissionDate = value; this.OnPropertyChanged("AdmissionDate"); }
-        }
-
         public string[] ClassessForAdmission { get; set; }
-
         private int _indexOfAdmittedClass;
-
         public int IndexOfAdmittedClass
         {
             get { return this._indexOfAdmittedClass; }
             set 
             {
                 this._indexOfAdmittedClass = value;
-                this.AdmittedClass = (value > -1) ? this.ClassessForAdmission[value] : string.Empty;
                 this.OnPropertyChanged("IndexOfAdmittedClass");
             }
-        }
-
-        private string _admittedClass;
-
-        public string AdmittedClass
-        {
-            get { return this._admittedClass; }
-            set { this._admittedClass = value; this.OnPropertyChanged("AdmittedClass"); }
         }
 
         private string _lastSchool;
@@ -656,23 +644,13 @@ namespace NaimouzaHighSchool.ViewModels
             set 
             { 
                 this._lastClassIndex = value; 
-                this.LastClass = (value > -1) ? this.LastClasses[value] : string.Empty;
                 this.OnPropertyChanged("LastClassIndex");
             }
-        }
-
-        private string _lastClass;
-
-        public string LastClass
-        {
-            get { return this._lastClass; }
-            set { this._lastClass = value; this.OnPropertyChanged("LastClass"); }
         }
 
         public int[] YearOfPassingArray { get; set; }
 
         private int _indexOfLastClassYear;
-
         public int IndexOfLastClassYear
         {
             get { return this._indexOfLastClassYear; }
@@ -685,7 +663,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private int _lastClassYear;
-
         public int LastClassYear
         {
             get { return this._lastClassYear; }
@@ -714,76 +691,16 @@ namespace NaimouzaHighSchool.ViewModels
         }
         #endregion
 
-        #region bank
-       
-
-        private ObservableCollection<string> _banks;
-        public ObservableCollection<string> Banks
-        {
-            get { return this._banks; }
-            set { this._banks = value; this.OnPropertyChanged("Banks"); }
-        }
-
-        private string _bankName;
-        public string BankName
-        {
-            get { return this._bankName; }
-            set { this._bankName = value.ToUpper(); this.OnPropertyChanged("BankName"); }
-        }
-
-
-
-        private ObservableCollection<string> _branchs;
-        public ObservableCollection<string> Branchs
-        {
-            get { return this._branchs; }
-            set { this._branchs = value; this.OnPropertyChanged("Branchs"); }
-        }
-
-        private string _branchName;
-        public string BranchName
-        {
-            get { return this._branchName; }
-            set { this._branchName = value.ToUpper(); this.OnPropertyChanged("BranchName"); }
-        }
-
-        private string _accNo;
-        public string AccNo
-        {
-            get { return this._accNo; }
-            set { this._accNo = value; this.OnPropertyChanged("AccNo"); }
-        }
-
-        private ObservableCollection<string> _ifcrList;
-        public ObservableCollection<string> IfcrList
-        {
-            get { return this._ifcrList; }
-            set { this._ifcrList = value; this.OnPropertyChanged("IfcrList"); }
-        }
-
-        private string _ifcr;
-        public string Ifcr
-        {
-            get { return this._ifcr; }
-            set { this._ifcr = value.ToUpper(); this.OnPropertyChanged("Ifcr"); }
-        }
-
-        private string _micr;
-        public string Micr
-        {
-            get { return this._micr; }
-            set { this._micr = value; this.OnPropertyChanged("Micr"); }
-        }
-
-        private ObservableCollection<string> _micrList;
-        public ObservableCollection<string> MICRList
-        {
-            get { return this._micrList; }
-            set { this._micrList = value; this.OnPropertyChanged("MICRList"); }
-        }
-        #endregion
-
         #region other
+
+        private string _mpRegisNo;
+        public string MpRegisNo
+        {
+            get { return _mpRegisNo; }
+            set { _mpRegisNo = value; OnPropertyChanged("MpRegisNo"); }
+        }
+
+
         private string _boardNo;
         public string BoardNo
         {
@@ -796,6 +713,13 @@ namespace NaimouzaHighSchool.ViewModels
         {
             get { return this._boardRoll; }
             set { this._boardRoll = value.ToUpper(); this.OnPropertyChanged("BoardRoll"); }
+        }
+
+        private string _hsRegisNo;
+        public string HsRegisNo
+        {
+            get { return _hsRegisNo; }
+            set { _hsRegisNo = value; OnPropertyChanged("HsRegisNo"); }
         }
 
         private string _councilNo;
@@ -811,161 +735,52 @@ namespace NaimouzaHighSchool.ViewModels
             get { return this._councilRoll; }
             set { this._councilRoll = value; this.OnPropertyChanged("CouncilRoll"); }
         }
-        #endregion
-        #endregion
 
-        #region fields
-        private StudentDataWriteModel _StdModel;
-        private bool _enableStrem;
-        private string _stdClass;
-
-
-        private ObservableCollection<string> _filteredComboCode;
-        /// <summary>
-        /// Contains the Combo code according to the selection of class.
-        /// </summary>
-        public ObservableCollection<string> FilteredComboCode
+        private bool _otherTabEnabled;
+        public bool OtherTabEnabled
         {
-            get { return _filteredComboCode; }
-            set { _filteredComboCode = value; this.OnPropertyChanged("FilteredComboCode"); }
+            get { return _otherTabEnabled; }
+            set { _otherTabEnabled = value; OnPropertyChanged("OtherTabEnabled"); }
         }
-  
-        
+
+        private string _msg;
+        public string Msg
+        {
+            get { return _msg; }
+            set { _msg = value; OnPropertyChanged("Msg"); }
+        }
+
+        private enum maskedTextType { Aadhaar, Mobile};
         #endregion
 
-        #region property
-        public StudentDataWriteModel StdModel
+        #region visibility
+        private System.Windows.Visibility _sub5Visibility;
+        public System.Windows.Visibility Sub5Visibility
         {
-            get { return _StdModel; }
-            set { _StdModel = value; this.OnPropertyChanged("Student"); }
-        }
-        public string[] SchoolClass { get; set; }
-        public string[] SchoolSection { get; set; }
-        public string[] StreamList { get; set; }
-        public string[] SocialCatList { get; set; }
-        public string[] BloodGroups { get; set; }
-        public bool EnableStream
-        {
-            get { return _enableStrem; }
-            set { _enableStrem = value; this.OnPropertyChanged("EnableStream"); }
-        }
-        public string StdClass
-        {
-            get { return _stdClass; }
-            set 
-            {
-                this._stdClass = value;
-                if (value == "XI" || value == "XII")
-                {
-                    this.EnableStream = true;
-                }
-                else
-                {
-                    // remove the selection and then disabled it.
-                    this.ClassSelectedIndex = -1;
-                    this.EnableStream = false;
-                }
-                this.OnPropertyChanged(string.Empty);
-            }
+            get { return _sub5Visibility; }
+            //  get { return System.Windows.Visibility.Visible; }
+            set { _sub5Visibility = value; OnPropertyChanged("Sub5Visibility"); }
         }
 
-        private int[] _startYearList;
-        public int[] StartYearList
+        private System.Windows.Visibility _subHsVisibility;
+        public System.Windows.Visibility SubHsVisibility
         {
-            get => _startYearList;
-            set
-            {
-                _startYearList = value;
-                OnPropertyChanged("StartYearList");
-            }
+            get { return _subHsVisibility; }
+            set { _subHsVisibility = value; OnPropertyChanged("SubHsVisibility"); }
         }
+        #endregion
 
-        private int _startYearListIndex;
-        public int StartYearListIndex
-        {
-            get => _startYearListIndex;
-            set
-            {
-                if (value < -1 || value > StartYearList.Length)
-                {
-                    _startYearListIndex = -1;
-                }
-                else
-                {
-                    _startYearListIndex = value;
-                }
-                OnPropertyChanged("StartYearListIndex");
-            }
-        }
-
-        private int[] _endYearList;
-        public int[] EndYearList
-        {
-            get => _endYearList;
-            set
-            {
-                _endYearList = value;
-                OnPropertyChanged("EndYearList");
-            }
-        }
-
-        private int _endYearListIndex;
-        public int EndYearListIndex
-        {
-            get => _endYearListIndex;
-            set
-            {
-                if (value < -1 || value > EndYearList.Length)
-                {
-                    _endYearListIndex = -1;
-                }
-                else
-                {
-                    _endYearListIndex = value;
-                }
-                OnPropertyChanged("EndYearListIndex");
-            }
-        }
-
-        private int _startYear;
-        public int StartYear
-        {
-            get => _startYear;
-            set
-            {
-                _startYear = value;
-                OnPropertyChanged("StartYear");
-            }
-        }
-
-        private int _endYear;
-        public int EndYear
-        {
-            get => _endYear;
-            set
-            {
-                _endYear = value;
-                OnPropertyChanged("EndYear");
-            }
-        }
-
-        private StudentDataWriteDb db { get; set; }
-        private List<SubjectCombo> AllCombo { get; set; }
-
-        public RelayCommand SaveDataCommand { get; set; }
-        public RelayCommand PreviewCommand { get; set; }
+        public RelayCommand SaveCommand { get; set; }
         public RelayCommand ResetCommand { get; set; }
-        #endregion
-
+       
         private void StartUpInitialize()
         {
-            this.StdModel = new StudentDataWriteModel();
-            this.SchoolClass = new string[] { "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII" };
+            Sex = new string[] { "Male", "Female" };
+            SexIndex = -1;
             this.ClassessForAdmission = new string[] { "V", "VI", "VII", "VIII", "IX", "XI" };
             this.LastClasses = new string[] { "V", "VI", "VII", "VIII", "IX", "X", "XI" };
-            this.SchoolSection = new string[] { "A", "B", "C", "D", "E" };
-            this.ReligionList = new string[] { "ISLAM", "HINDU", "OTHER" };
-            this.StreamList = new string[] { "Arts", "Science" };
+            this.ReligionList = new string[] { "ISLAM", "HINDUISM", "OTHER" };
+            this.StreamList = new string[] { "ARTS", "SCIENCE" };
             this.SocialCatList = new string[] { "GEN", "SC", "ST", "OBC-A", "OBC-B" };
             this.BloodGroups = new string[] { "A +", "A -", "B +", "B -", "AB +", "AB -", "O +", "O -" };
             this.VillList = new string[] { "BAKHARPUR", "BAMONGRAM", "BROHMOTTOR", "CHAMAGRAM", "CHASPARA", "GOYESHBARI", "HARUGRAM", "JALALPUR", "MOSIMPUR", "NAZIRPUR", "PAHARPUR", "SUJAPUR" };
@@ -974,77 +789,77 @@ namespace NaimouzaHighSchool.ViewModels
             this.DistList = new string[] { "MALDA" };
             this.PinList = new string[] { "732206" };
 
-            int cYear = DateTime.Today.Year;
-            StartYearList = new int[] { cYear - 2, cYear - 1, cYear};
-            EndYearList = new int[] {cYear-2, cYear-1, cYear, cYear+1};
-            StartYearListIndex = Array.IndexOf(StartYearList, cYear);
-            EndYearListIndex = Array.IndexOf(EndYearList, cYear);
-
             int CurrentYear = DateTime.Today.Year;
-            this.YearOfPassingArray = new int[] { CurrentYear, CurrentYear - 1, CurrentYear - 2, CurrentYear - 3, CurrentYear - 4, CurrentYear - 5, CurrentYear - 6, CurrentYear - 7, CurrentYear -8, CurrentYear - 9};
+            this.YearOfPassingArray = new int[] { CurrentYear, CurrentYear - 1, CurrentYear - 2, CurrentYear - 3, CurrentYear - 4, CurrentYear - 5, CurrentYear - 6, CurrentYear - 7, CurrentYear - 8, CurrentYear - 9 };
 
-
-            this.ClassSelectedIndex = -1;
-            this.SectionSelectedIndex = -1;
-            this.ComboIndex = -1;
             this.BloodGroupIndex = -1;
             this.SocialCatIndex = -1;
             this.IndexOfAdmittedClass = -1;
             this.LastClassIndex = -1;
             this.IndexOfLastClassYear = -1;
             this.ReligionIndex = -1;
-            
 
-            this.db = new StudentDataWriteDb();
-            //this.AllCombo = db.GetCombo();
-            
-            this.FilteredComboCode = new ObservableCollection<string>();
-            this.Banks = new ObservableCollection<string>();
-            this.Banks.Add("STATE BANK OF INDIA");
-            this.Branchs = new ObservableCollection<string>();
-            this.Branchs.Add("SUJAPUR");
-            this.IfcrList = new ObservableCollection<string>();
-            this.IfcrList.Add("SBIN0006810");
-            this.MICRList = new ObservableCollection<string>();
-            this.MICRList.Add("732002506");
+            ComboCalendarInitializer();
 
-            StartYear = DateTime.Today.Year;
-            EndYear = DateTime.Today.Year;
+            Sub5Visibility = SubHsVisibility = System.Windows.Visibility.Collapsed;
+            StreamListIndex = -1;
 
-            this.SaveDataCommand = new RelayCommand(this.SaveData, this.CanSaveData);
-            this.PreviewCommand = new RelayCommand(this.PreviewData, this.CanPreview);
+            HsSubsInitializer();
+
+            BplReadOnly = ReadOnlyPhTxb = true;
+
+            this.SaveCommand = new RelayCommand(this.SaveData, this.CanSaveData);
             this.ResetCommand = new RelayCommand(this.ResetData, this.CanResetData);
         }
 
-        private void UpdateComboList()
+        private void HsSubsInitializer()
         {
-            /*
-            if (this.FilteredComboCode.Count > 0)
-            {
-                this.FilteredComboCode.Clear();
-            }
-            if (this.ClassSelectedIndex > -1)
-            {
-                var combs = from cm in this.AllCombo
-                           where cm.BelongingClass == this.SchoolClass[this.ClassSelectedIndex]
-                           select cm.Code;
-                foreach (string item in combs)
-                {
-                    this.FilteredComboCode.Add(item);
-                }
-            }
-             */
+            HsArtsSubs = new string[] { "ARABIC", "ECONOMICS", "EDUCATION", "GEOGRAPHY", "PHILOSOPHY", "HISTORY", "POL. SC", "SOCIOLOGY" };
+            HsSciSubs = new string[] { "PHYSICS", "CHEMISTRY", "MATHEMATICS", "BIOLOGY" };
+            HsActiveSubs = new string[] { };
+            HsActiveSubs1 = new string[] { };
+            HsActiveSubs2 = new ObservableCollection<string>();
+            HsActiveSubs3 = new ObservableCollection<string>();
+            HsActiveSubs4 = new ObservableCollection<string>();
+
+            HsSub1Index = HsSub2Index = HsSub3Index = HsSub4Index = -1;
         }
-        
-        private void SetComboCode()
+
+        private void ComboCalendarInitializer()
         {
-            var comboId = from c in AllCombo
-                             where c.Code == this.FilteredComboCode[this.ComboIndex]
-                             select c.Id;
-            foreach (string item in comboId)
+            MM = new string[] { "JAN (01)", "FEB (02)", "MAR (03)", "APR (04)", "MAY (05)", "JUN (06)", "JUL (07)", "AUG (08)", "SEP (09)", "OCT (10)", "NOV (11)", "DEC (12)" };
+            DD = new int[] { };
+            DD28 = new int[28];
+            for (int i = 0; i < 28; i++)
             {
-                this.SbComboCode = item;
+                DD28[i] = i + 1;
             }
+
+            DD29 = new int[29];
+            for (int i = 0; i < 29; i++)
+            {
+                DD29[i] = i + 1;
+            }
+
+            DD30 = new int[30];
+            for (int i = 0; i < 30; i++)
+            {
+                DD30[i] = i + 1;
+            }
+
+            DD31 = new int[31];
+            for (int i = 0; i < 31; i++)
+            {
+                DD31[i] = i + 1;
+            }
+
+            YYYY = new int[20];
+            int dobStartYear = DateTime.Today.Year - 5;
+            for (int i = 0; i <= 19; i++)
+            {
+                YYYY[i] = dobStartYear - i;
+            }
+            DobYYIndex = DobMMIndex = DobDDIndex = -1;
         }
 
         private void CopyPresetnAddrToPermAddr()
@@ -1077,87 +892,77 @@ namespace NaimouzaHighSchool.ViewModels
 
         public void SaveData()
         {
-            int sYear1 = StartYearList[StartYearListIndex];
-            int eYear1 = EndYearList[EndYearListIndex];
-            bool validStartSession = sYear1 >= DateTime.Today.Year - 2 && sYear1 <= DateTime.Today.Year;
-            bool validEndSessoin = eYear1 < DateTime.Today.Year + 2;
-            if (validStartSession && validEndSessoin)
+            if (!HasError())
             {
-                Student std = this.buildStudentObject();
-                string sYear = StartYear.ToString();
-                string eYear = EndYear.ToString();
-                bool inserted = db.InsertStudentData(std, sYear, eYear);
-                if (inserted)
+                Student std = buildStudentObject();
+                StudentDataWriteDb db = new StudentDataWriteDb();
+                bool dataInserted = db.InsertStudentData(std);
+                if (dataInserted)
                 {
-                    System.Windows.MessageBox.Show("Inserted.");
-                    this.ResetData();
+                    Msg = std.Name + " details saved successfully.";
+                    ResetData();
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("Failed");
+                    Msg = "Sorry! failed to save data.";
                 }
             }
-            else
-            {
-                System.Windows.MessageBox.Show("Sorry! invalid session.");
-                return;
-            }
-        }
-        public bool CanSaveData()
-        {
-           bool basicNotEntered = string.IsNullOrWhiteSpace(this.TxbFirstName) || (this.ClassSelectedIndex == -1) || (this.SectionSelectedIndex == -1) || string.IsNullOrEmpty(this.Sex);
-           bool FatherNameNotEntered = string.IsNullOrEmpty(this.TxbFatherName);
-           return !basicNotEntered && !FatherNameNotEntered;
-           
         }
 
-        public void PreviewData()
+        public bool CanSaveData()
         {
-            NaimouzaHighSchool.Views.StudentEntryPreviewView preview = new Views.StudentEntryPreviewView();
-            preview.ShowDialog();
-        }
-        public bool CanPreview()
-        {
-            return true;
+            return (!string.IsNullOrEmpty(StdName) && SchoolClassIndex > -1 && SchoolClassIndex < SchoolClass.Length);
         }
 
         public void ResetData()
         {
-            this.TxbFirstName = this.TxbMidName = this.TxbLastName = string.Empty;
-            this.TxbFatherName = string.Empty;
-            this.TxbMotherName = string.Empty;
-            this.GuardianName = string.Empty;
-            this.RelationWithGuardian = string.Empty;
-            this.Occupation = string.Empty;
-            this.Dob = default(DateTime);
-            this.Sex = string.Empty;
-            this.BloodGroupIndex = -1;
-            this.ReligionIndex = -1;
-            this.SocialCatIndex = -1;
-            this.SocialSubCat = string.Empty;
-            this.IsPh = false;
-            this.Isbpl = false;
-            this.PhDetail = string.Empty;
-            this.BplNo = string.Empty;
-            this.PresentAddr1 = string.Empty;
-            this.PresentAddr2 = string.Empty;
-            this.PresentPostOffice = string.Empty;
-            this.PresentPs = string.Empty;
-            this.PresentDist = string.Empty;
-            this.PresentPin = string.Empty;
-            this.PermAddr1 = this.PermAddr2 = this.PermPO = this.PermPs = this.PermDist = this.PermPin = string.Empty;
-            this.StdMobile = this.GrdMobile = string.Empty;
-            this.Email = string.Empty;
-            this.TxbAadhar = this.GuardianAadhar = this.VoterCardNo = string.Empty;
-            this.AccNo = this.BankName = this.BranchName = this.Micr = this.Ifcr = string.Empty;
-            this.ClassSelectedIndex = -1;
-            this.SectionSelectedIndex = -1;
-            this.Roll = 0;
-            this.BoardNo = this.BoardRoll = this.CouncilNo = this.CouncilRoll = string.Empty;
-            this.AdmissionDate = this.DateOfLeaving = default(DateTime);
-            this.LastClassIndex = -1;
-            this.LastSchool = string.Empty;
-            this.Tc = string.Empty;
+            StdName = string.Empty;
+            SchoolClassIndex = SchoolSectionIndex = -1;
+            StdRoll = 0;
+            SexIndex = -1;
+            DobYYIndex = -1;
+            DobMMIndex = -1;
+            DobDDIndex = -1;
+            StreamListIndex = -1;
+            HsSub1Index = -1;
+            HsSub2Index = -1;
+            HsSub3Index = -1;
+            HsSub4Index = -1;
+
+            TxbAadhar = string.Empty;
+            ReligionIndex = -1;
+            SocialCatIndex = -1;
+            BloodGroupIndex = -1;
+            IsPh = false;
+            Isbpl = false;
+            PhDetail = string.Empty;
+            BplNo = string.Empty;
+
+
+            TxbFatherName = string.Empty;
+            TxbMotherName = string.Empty;
+            GuardianName = string.Empty;
+            RelationWithGuardian = string.Empty;
+            Occupation = string.Empty;
+            GuardianAadhar = string.Empty;
+            VoterCardNo = string.Empty;
+            IsGuardianFather = false;
+
+            PresentAddr1 = string.Empty;
+            PresentAddr2 = string.Empty;
+            PresentPostOffice = string.Empty;
+            PresentPs = string.Empty;
+            PresentDist = string.Empty;
+            PresentPin = string.Empty;
+            PermAddr1 = PermAddr2 = PermPO = PermPs = PermDist = PermPin = string.Empty;
+            StdMobile = GrdMobile = string.Empty;
+            Email = string.Empty;
+
+            AccNo = BankName = BranchName = Micr = Ifsc = string.Empty;
+            BoardNo = BoardRoll = CouncilNo = CouncilRoll = string.Empty;
+            IndexOfAdmittedClass = -1;
+            LastSchool = string.Empty;
+            Tc = string.Empty;
 
         }
 
@@ -1166,13 +971,148 @@ namespace NaimouzaHighSchool.ViewModels
             return true;
         }
 
+        private bool HasError()
+        {
+            bool rs = false;
+
+            if (string.IsNullOrEmpty(StdName))
+            {
+                System.Windows.MessageBox.Show("Sorry! Student name can't be blank.");
+                rs = true;
+                return rs;
+            }
+
+            if (SchoolClassIndex <= -1 || SchoolClassIndex > SchoolClass.Length)
+            {
+                System.Windows.MessageBox.Show("Sorry! Class isn't selected");
+                rs = true;
+                return rs;
+            }
+
+            // aadhaar
+            if (!IsMaskedTextNullOrValid(TxbAadhar, maskedTextType.Aadhaar))
+            {
+                System.Windows.MessageBox.Show("Sorry! Aadhaar has some invalid entries.");
+                return true;
+            }
+
+            if (!IsMaskedTextNullOrValid(GuardianAadhar, maskedTextType.Aadhaar))
+            {
+                System.Windows.MessageBox.Show("Sorry! Guardian's Aadhaar has some invalid entries.");
+                return true;
+            }
+
+            // mobile
+            if (!IsMaskedTextNullOrValid(StdMobile, maskedTextType.Mobile))
+            {
+                System.Windows.MessageBox.Show("Sorry!  Mobile no. has some invalid entries.");
+                return true;
+            }
+
+            if (!IsMaskedTextNullOrValid(GrdMobile, maskedTextType.Mobile))
+            {
+                System.Windows.MessageBox.Show("Sorry! Guardian Mobile no. has some invalid entries.");
+                return true;
+            }
+            return rs;
+        }
+
         private Student buildStudentObject()
         {
             Student std = new Student();
-            string fullName = this.TxbFirstName + " " + this.TxbMidName + " " + this.TxbLastName;
 
-            string PresetnAddress = this.PresentAddr1 + " " + this.PresentAddr2 + "P.O. " + this.PresentPostOffice + "PS " + this.PresentPs + "Dist. " + this.PresentDist + "PIN " + this.PresentPin;
-            string PermanentAddress = this.PermAddr1 + " " + this.PermAddr2 + "P.O. " + this.PermPO + "PS " + this.PermPs + "Dist. " + this.PermDist + "PIN " + this.PermPin;
+            std.Name = StdName.Trim();
+            std.StudyingClass = SchoolClass[SchoolClassIndex];
+            if (SchoolSectionIndex > -1 && SchoolSectionIndex < SchoolSection.Length)
+            {
+                std.Section = SchoolSection[SchoolSectionIndex];
+            }
+            std.Roll = StdRoll;
+            if (SexIndex > -1 && SexIndex < Sex.Length)
+            {
+                std.Sex = Sex[SexIndex];
+            }
+            if (DobYYIndex != -1 && DobMMIndex != -1 && DobDDIndex != -1)
+            {
+                try
+                {
+                    std.Dob = new DateTime(YYYY[DobYYIndex], DobMMIndex+1, DD[DobDDIndex]);
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show("Sorry! You have invalid Date of Birth.: "+ex.Message);
+                }
+            }
+            std.StartSessionYear = StartYear;
+            std.EndSessionYear = EndYear;
+            if (std.StudyingClass == "V")
+            {
+
+            }
+            else if (std.StudyingClass == "XI" || std.StudyingClass == "XII")
+            {
+                if (StreamListIndex != -1)
+                {
+                    std.Stream = StreamList[StreamListIndex];
+
+                    if (HsSub1Index != -1)
+                    {
+                        std.HsSub1 = HsActiveSubs1[HsSub1Index];
+                    }
+                    if (HsSub2Index != -1)
+                    {
+                        std.HsSub2 = HsActiveSubs2[HsSub2Index];
+                    }
+                    if (HsSub3Index != -1)
+                    {
+                        std.HsSub3 = HsActiveSubs3[HsSub3Index];
+                    }
+                    if (HsSub4Index != -1)
+                    {
+                        std.HsAdlSub = HsActiveSubs4[HsSub4Index];
+                    }
+                }
+            }
+
+            string pat_aadhaar = @"^\d{4}[-]\d{4}[-]\d{4}$";
+            if (!string.IsNullOrEmpty(TxbAadhar) && Regex.IsMatch(TxbAadhar, pat_aadhaar))
+            {
+                std.Aadhar = TxbAadhar.Replace(@"-", string.Empty);
+            }
+            if (ReligionIndex > -1 && ReligionIndex < ReligionList.Length)
+            {
+                std.Religion = ReligionList[ReligionIndex];
+            }
+            if (SocialCatIndex > -1 && SocialCatIndex < SocialCatList.Length)
+            {
+                std.SocialCategory = SocialCatList[SocialCatIndex];
+            }
+            if (BloodGroupIndex > -1 && BloodGroupIndex < BloodGroups.Length)
+            {
+                std.BloodGroup = BloodGroups[BloodGroupIndex];
+            }
+            std.IsBpl = Isbpl;
+            if (Isbpl)
+            {
+                std.BplNo = BplNo;
+            }
+            std.IsPH = IsPh;
+            if (IsPh)
+            {
+                std.PhType = PhDetail;
+            }
+
+            std.FatherName = TxbFatherName;
+            std.MotherName = TxbMotherName;
+            std.GuardianName = GuardianName;
+            std.GuardianRelation = RelationWithGuardian;
+            std.GuardianOccupation = Occupation;
+            if (!string.IsNullOrEmpty(GuardianAadhar) && Regex.IsMatch(GuardianAadhar, pat_aadhaar))
+            {
+                std.GuardianAadhar = GuardianAadhar.Replace(@"-", string.Empty);
+            }
+            std.GuardianEpic = VoterCardNo;
+
             std.PstAddrLane1 = PresentAddr1;
             std.PstAddrLane2 = PresentAddr2;
             std.PstAddrPO = PresentPostOffice;
@@ -1186,53 +1126,303 @@ namespace NaimouzaHighSchool.ViewModels
             std.PmtAddrPS = PermPs;
             std.PmtAddrDist = PermDist;
             std.PmtAddrPin = PermPin;
+            string pat_mob1 = @"^\d{3}[-]\d{3}[-]\d{4}$";
+            if (!string.IsNullOrEmpty(StdMobile) && Regex.IsMatch( StdMobile, pat_mob1))
+            {
+                std.Mobile = StdMobile.Replace(@"-", string.Empty);
+            }
+            if (!string.IsNullOrEmpty(GrdMobile) && Regex.IsMatch(GrdMobile, pat_mob1))
+            {
+                std.GuardianMobile = GrdMobile.Replace(@"-", string.Empty);
+            }
+            std.Email = Email;
 
-            std.Name = fullName.Trim();
-            std.FatherName = this.TxbFatherName;
-            std.MotherName = this.TxbMotherName;
-            std.GuardianName = this.GuardianName;
-            std.GuardianRelation = this.RelationWithGuardian;
-            std.GuardianOccupation = this.Occupation;
-            std.Dob = this.Dob;
-            std.Sex = this.Sex;
-            std.BloodGroup = this.BloodGroup;
-            std.Religion = this.Religion;
-            std.SocialCategory = this.SocialCat;
-            std.SubCast = this.SocialSubCat;
-            std.IsPH = this.IsPh;
-            std.PhType = this.PhDetail;
-            std.IsBpl = this.Isbpl;
-            std.BplNo = this.BplNo;
-            std.PresentAdrress = PresetnAddress.Trim();
-            std.PermanentAddress = PermanentAddress.Trim();
-            std.Mobile = this.StdMobile;
-            std.GuardianMobile = this.GrdMobile;
-            std.Email = this.Email;
-            std.Aadhar = this.TxbAadhar;
-            std.GuardianAadhar = this.GuardianAadhar;
-            std.GuardianEpic = this.VoterCardNo;
             std.BankAcc = this.AccNo;
             std.BankName = this.BankName;
             std.BankBranch = this.BranchName;
-            std.Ifsc = this.Ifcr;
+            std.Ifsc = this.Ifsc;
             std.MICR = this.Micr;
-            std.StudyingClass = this.SelectedClass;
-            std.Section = this.SelectedSection;
-            std.Roll = this.Roll;
-           // std.SubjectComboId = this.SbComboCode;
+
+            std.LastSchool = this.LastSchool;
+            std.TC = this.Tc;
+            std.AdmissionNo = this.AdmissionNo;
+            if (IndexOfAdmittedClass > -1 && IndexOfAdmittedClass < ClassessForAdmission.Length)
+            {
+                std.AdmittedClass = ClassessForAdmission[IndexOfAdmittedClass];
+            }
+
+            std.RegistrationNoMp = MpRegisNo;
             std.BoardNo = this.BoardNo;
             std.BoardRoll = this.BoardRoll;
+            std.RegistrationNoHs = HsRegisNo;
             std.CouncilNo = this.CouncilNo;
             std.CouncilRoll = this.CouncilRoll;
-            std.AdmissionNo = this.AdmissionNo;
-            std.AdmDate = this.AdmissionDate;
-            std.LastSchool = this.LastSchool;
-            std.AdmittedClass = this.AdmittedClass;
-            std.DateOfLeaving = this.DateOfLeaving;
-            std.TC = this.Tc;
 
             return std;
-        
+        }
+
+        protected override void OnSelectedClassChange()
+        {
+            if (SchoolClass[SchoolClassIndex] == "V")
+            {
+                SubHsVisibility = System.Windows.Visibility.Collapsed;
+                Sub5Visibility = System.Windows.Visibility.Visible;
+                OtherTabEnabled = false;
+            }
+            else if (SchoolClass[SchoolClassIndex] == "XI" || SchoolClass[SchoolClassIndex] == "XII")
+            {
+                Sub5Visibility = System.Windows.Visibility.Collapsed;
+                SubHsVisibility = System.Windows.Visibility.Visible;
+                OtherTabEnabled = true;
+            }
+            else
+            {
+                Sub5Visibility = SubHsVisibility = System.Windows.Visibility.Collapsed;
+                OtherTabEnabled = false;
+            }
+        }
+
+        private void UpdateHsSubs(int value)
+        {
+            HsSub1Index = HsSub2Index = HsSub3Index = HsSub4Index = -1;
+            if (value == -1)
+            {
+              //  Array.Clear(HsActiveSubs, 0, HsActiveSubs.Length);
+            }
+            else
+            {
+                if (StreamList[StreamListIndex] == "ARTS")
+                {
+                    HsActiveSubs = HsArtsSubs;
+                }
+                else if (StreamList[StreamListIndex] == "SCIENCE")
+                {
+                    HsActiveSubs = HsSciSubs;
+                }
+                else
+                {
+                    Array.Clear(HsActiveSubs, 0, HsActiveSubs.Length);
+                }
+                HsActiveSubs1 = HsActiveSubs;
+            }
+        }
+
+        private void TrimHsSubs(int subNo)
+        {
+            switch(subNo)
+            {
+                case 2:
+                    if (HsActiveSubs2 != null && HsActiveSubs2.Count > 0)
+                    {
+                        HsActiveSubs2.Clear();
+                    }
+                    if (HsSub1Index != -1)
+                    {
+                        string sub1 = HsActiveSubs1[HsSub1Index];
+                        if (sub1 == "ARABIC" || sub1 == "ECONOMICS")
+                        {
+                            foreach (var item in HsActiveSubs1)
+                            {
+                                if (item == "ARABIC" || item == "ECONOMICS")
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    HsActiveSubs2.Add(item);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in HsActiveSubs1)
+                            {
+                                if (item == sub1)
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    HsActiveSubs2.Add(item);
+                                }
+                            }
+                        }
+                    }
+                    break;
+
+                case 3:
+                    if (HsActiveSubs3 != null && HsActiveSubs3.Count > 0)
+                    {
+                        HsActiveSubs3.Clear();
+                    }
+                    if (HsSub2Index != -1)
+                    {
+                        string sub2 = HsActiveSubs2[HsSub2Index];
+                        if (sub2 == "ARABIC" || sub2 == "ECONOMICS")
+                        {
+                            foreach (var item in HsActiveSubs2)
+                            {
+                                if (item == "ARABIC" || item == "ECONOMICS")
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    HsActiveSubs3.Add(item);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in HsActiveSubs2)
+                            {
+                                if (item == sub2)
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    HsActiveSubs3.Add(item);
+                                }
+                            }
+                        }
+                    }
+                    break;
+
+                case 4:
+                    if (HsActiveSubs4 != null && HsActiveSubs4.Count > 0)
+                    {
+                        HsActiveSubs4.Clear();
+                    }
+                    if (HsSub3Index != -1)
+                    {
+                        string sub3 = HsActiveSubs3[HsSub3Index];
+                        if (sub3 == "ARABIC" || sub3 == "ECONOMICS")
+                        {
+                            foreach (var item in HsActiveSubs3)
+                            {
+                                if (item == "ARABIC" || item == "ECONOMICS")
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    HsActiveSubs4.Add(item);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in HsActiveSubs3)
+                            {
+                                if (item == sub3)
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    HsActiveSubs4.Add(item);
+                                }
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void UpdateDaysInMonth()
+        {
+            if (DobYYIndex == -1 || DobMMIndex == -1)
+            {
+                DD = new int[] { };
+            }
+            else
+            {
+                int selecYear = YYYY[DobYYIndex];
+                int selecMonth = DobMMIndex + 1;
+                int [] month30 = new int[] { 4, 6, 9, 11};
+                int[] month31 = new int[] { 1, 3, 5, 7, 8, 10, 12 };
+                if (DateTime.IsLeapYear(selecYear))
+                {
+                    if (selecMonth == 2)
+                    {
+                        DD = DD29;
+                    }
+                    else
+                    {
+                        SetNonFebDays(selecMonth, month30, month31);
+                    }
+                }
+                else
+                {
+                    if (selecMonth == 2)
+                    {
+                        DD = DD28;
+                    }
+                    else
+                    {
+                        SetNonFebDays(selecMonth, month30, month31);
+                    }
+                }
+            }
+        }
+
+        private void SetNonFebDays(int selecMonth, int[] month30, int[] month31)
+        {
+            if (Array.IndexOf(month30, selecMonth) != -1)
+            {
+                DD = DD30;
+            }
+            else if (Array.IndexOf(month31, selecMonth) != -1)
+            {
+                DD = DD31;
+            }
+            else
+            {
+                DD = new int[] { };
+            }
+        }
+
+        private bool IsMaskedTextNullOrValid(string inpAadhaar, maskedTextType mt)
+        {
+            // if null return true
+            if (string.IsNullOrEmpty(inpAadhaar))
+            {
+                return true;
+            }
+            // if white space return true
+            else if (string.IsNullOrWhiteSpace(inpAadhaar))
+            {
+                return true;
+            }
+            //
+            else
+            {
+                string pat1 = string.Empty;
+                string pat2 = string.Empty;
+
+                if (mt == maskedTextType.Aadhaar)
+                {
+                    pat1 = @"^\d{4}[-]\d{4}[-]\d{4}$";
+                    pat2 = @"^[_]{4}[-][_]{4}[-][_]{4}$";
+                }
+                else if(mt == maskedTextType.Mobile)
+                {
+                    pat1 = @"^\d{3}[-]\d{3}[-]\d{4}$";
+                    pat2 = @"^[_]{3}[-][_]{3}[-][_]{4}$";
+                }
+
+                if (Regex.IsMatch(inpAadhaar, pat1) || Regex.IsMatch(inpAadhaar, pat2))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
     }
 }

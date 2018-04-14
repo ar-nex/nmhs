@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NaimouzaHighSchool.Models.Utility
+﻿namespace NaimouzaHighSchool.Models.Utility
 {
     public class BankBranch : BaseModel
     {
@@ -19,7 +14,7 @@ namespace NaimouzaHighSchool.Models.Utility
             get => _ifsc;
             set
             {
-                _ifsc = value.ToUpper();
+                _ifsc = (value != null) ? value.ToUpper() : value;
                 OnPropertyChanged("IFSC");
             }
         }
@@ -30,7 +25,7 @@ namespace NaimouzaHighSchool.Models.Utility
             get => _branchName;
             set
             {
-                _branchName = value.ToUpper();
+                _branchName = (value != null) ? value.ToUpper() : value;
                 OnPropertyChanged("BranchName");
             }
         }
@@ -41,7 +36,7 @@ namespace NaimouzaHighSchool.Models.Utility
             get => _bankName;
             set
             {
-                _bankName = value.ToUpper();
+                _bankName = (value != null) ? value.ToUpper() : value;
                 OnPropertyChanged("BankName");
             }
         }
@@ -52,9 +47,17 @@ namespace NaimouzaHighSchool.Models.Utility
             get => _micr;
             set
             {
-                _micr = value.ToUpper();
+                _micr = (value != null) ? value.ToUpper() : value;
                 OnPropertyChanged("Micr");
             }
         }
+
+        private string[] _bankNameAlias;
+        public string[] BankNameAlias
+        {
+            get { return _bankNameAlias; }
+            set { _bankNameAlias = value; }
+        }
+
     }
 }

@@ -133,9 +133,19 @@ namespace NaimouzaHighSchool.Models.Utility
             cl.Add("Guardian Aadhar");
             cl.Add("Guardian Epic");
             cl.Add("Blood Group");
+
+            cl.Add("MP Regis. No.");
             cl.Add("Board No");
 
             cl.Add("Board Roll");
+
+            cl.Add("HS Sub1");
+            cl.Add("HS Sub2");
+            cl.Add("HS Sub3");
+            cl.Add("HS Sub4");
+
+
+            cl.Add("HS Regis. No.");
             cl.Add("Council No.");
             cl.Add("Council Roll");
             cl.Add("Admission No.");

@@ -198,7 +198,7 @@
                         </xctk:IntegerUpDown>
                         <!--<TextBox Width="45" Text="{Binding EndYear, Source={StaticResource dObj}, Mode=TwoWay}"></TextBox>-->
                         <Button Margin="15,0,0,0" Command="{Binding SearchCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}" Content="Search" />
-                        <Button Name="EditBtn" Content="Update" Command="{Binding SaveEditCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}"
+                        <Button Visibility="Hidden" Name="EditBtn" Content="Update" Command="{Binding SaveEditCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}"
                                Template="{StaticResource UpdateButtonTemplate}" Cursor="Hand">
                             <!--<Button.Triggers>
                                         <EventTrigger RoutedEvent="Button.Click" SourceName="EditBtn">
@@ -214,9 +214,9 @@
                                     </Button.Triggers>-->
                         </Button>
                         <Button Command="{Binding DeleteCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}">Delete</Button>
-                        <Button Content="Update_new" Width="100" 
+                        <Button Content="Update_new" Width="100"
                                             Command="{Binding GenUpdateCommand, Source={StaticResource dObj}}"
-                                            HorizontalAlignment="Left"/>
+                                            HorizontalAlignment="Left" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -854,549 +854,961 @@
                             </Style>
                         </TabControl.Resources>
                         <TabItem Header="General">
-                            <Grid Margin="20">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Border Padding="20" Background="#1A237E">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Path Margin="2"
-                                              Visibility="{Binding GenVisibilityMale, Source={StaticResource dObj}}"
-                                              Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" Fill="#C5CAE9" />
-                                        <Path Margin="2"
-                                              Visibility="{Binding GenVisibilityFemale, Source={StaticResource dObj}}"
-                                              Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,22V16H7.5L10.09,8.41C10.34,7.59 11.1,7 12,7C12.9,7 13.66,7.59 13.91,8.41L16.5,16H13.5V22H10.5Z" Fill="#C5CAE9" />
-                                        <TextBlock Foreground="#E8EAF6" FontSize="20" Margin="2" VerticalAlignment="Center"
-                                                   Text="{Binding TxbName, Source={StaticResource dObj}}" />
-                                    </StackPanel>
-                                </Border>
-                                <Border Grid.Row="1" Background="#C5CAE9" Padding="5">
-                                    <Border.Resources>
-                                        <Style TargetType="Label">
-                                            <Setter Property="FontSize" Value="18" />
-                                        </Style>
-                                    </Border.Resources>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label Content="Class : " />
-                                        <Label Content="{Binding TxbCls, Source={StaticResource dObj}}" />
-                                        <Label Margin="20, 0, 0, 0" Content="Section : " />
-                                        <Label Content="{Binding TxbSection, Source={StaticResource dObj}}" />
-                                        <Label Margin="20, 0, 0, 0" Content="Roll : " />
-                                        <Label Content="{Binding TxbRoll, Source={StaticResource dObj}}" />
-                                        <Label Content="Session : " Margin="10,0,0,0"/>
-                                        <Label Content="{Binding SelecStdSessionStartYear, Source={StaticResource dObj}}"/>
-                                        <Label Content="-"/>
-                                        <Label Content="{Binding SelecStdSessionEndYear, Source={StaticResource dObj}}"/>
-                                    </StackPanel>
-                                </Border>
-                                <Grid Grid.Row="2" Margin="0, 10">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid>
-                                        <Grid.Resources>
-                                            <Style TargetType="Label">
-                                                <Setter Property="FontSize" Value="14" />
-                                            </Style>
-                                        </Grid.Resources>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Path Data="M10,4A4,4 0 0,1 14,8A4,4 0 0,1 10,12A4,4 0 0,1 6,8A4,4 0 0,1 10,4M10,14C14.42,14 18,15.79 18,18V20H2V18C2,15.79 5.58,14 10,14M20,12V7H22V12H20M20,16V14H22V16H20Z" Fill="#009688" />
-                                            <Label Content="Gender " />
-                                        </StackPanel>
-                                        <Label Grid.Column="1" Content=" : " Foreground="#009688" />
-                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                            <Label Content="{Binding TxbGen, Source={StaticResource dObj}}" />
-                                            <Path
-                                            Visibility="{Binding GenVisibilityFemale, Source={StaticResource dObj}}"
-                                            Data="M12,4A6,6 0 0,1 18,10C18,12.97 15.84,15.44 13,15.92V18H15V20H13V22H11V20H9V18H11V15.92C8.16,15.44 6,12.97 6,10A6,6 0 0,1 12,4M12,6A4,4 0 0,0 8,10A4,4 0 0,0 12,14A4,4 0 0,0 16,10A4,4 0 0,0 12,6Z" Fill="#009688" />
-                                            <Path
-                                            Visibility="{Binding GenVisibilityMale, Source={StaticResource dObj}}"
-                                            Data="M9,9C10.29,9 11.5,9.41 12.47,10.11L17.58,5H13V3H21V11H19V6.41L13.89,11.5C14.59,12.5 15,13.7 15,15A6,6 0 0,1 9,21A6,6 0 0,1 3,15A6,6 0 0,1 9,9M9,11A4,4 0 0,0 5,15A4,4 0 0,0 9,19A4,4 0 0,0 13,15A4,4 0 0,0 9,11Z" Fill="#009688" />
-                                        </StackPanel>
-                                        <StackPanel Grid.Row="1" Orientation="Horizontal">
-                                            <Path VerticalAlignment="Center" Data="M9,10H7V12H9V10M13,10H11V12H13V10M17,10H15V12H17V10M19,3H18V1H16V3H8V1H6V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V8H19V19Z" Fill="#009688" />
-                                            <Label Content="Date of Birth " VerticalAlignment="Center" />
-                                        </StackPanel>
-                                        <Label Grid.Row="1" Grid.Column="1" Content=" : " Foreground="#009688" />
-                                        <Label Grid.Row="1" Grid.Column="2" Content="{Binding DobString, Source={StaticResource dObj}, StringFormat=f}" />
-                                        <StackPanel Grid.Row="2" Orientation="Horizontal">
-                                            <Path Data="M15,13H16.5V15.82L18.94,17.23L18.19,18.53L15,16.69V13M19,8H5V19H9.67C9.24,18.09 9,17.07 9,16A7,7 0 0,1 16,9C17.07,9 18.09,9.24 19,9.67V8M5,21C3.89,21 3,20.1 3,19V5C3,3.89 3.89,3 5,3H6V1H8V3H16V1H18V3H19A2,2 0 0,1 21,5V11.1C22.24,12.36 23,14.09 23,16A7,7 0 0,1 16,23C14.09,23 12.36,22.24 11.1,21H5M16,11.15A4.85,4.85 0 0,0 11.15,16C11.15,18.68 13.32,20.85 16,20.85A4.85,4.85 0 0,0 20.85,16C20.85,13.32 18.68,11.15 16,11.15Z" Fill="#009688" />
-                                            <Label Content="Age On Today " />
-                                        </StackPanel>
-                                        <Label Grid.Row="2" Grid.Column="1" Content=" : " Foreground="#009688" />
-                                        <Label Grid.Row="2" Grid.Column="2" Content="{Binding StudentAge, Source={StaticResource dObj}}" />
-                                    </Grid>
-                                    <Image Grid.Column="1" MaxHeight="150" Source="{Binding ProfileImageSource, Source={StaticResource dObj}}"/>
-                                </Grid>
-                                
-                                <Grid Grid.Row="3" Margin="0, 10" Visibility="{Binding SubjVisibility, Source={StaticResource dObj}}">
+                            <Border>
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFF1F1F1" Offset="0" />
+                                        <GradientStop Color="#FFB0BFC8" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Grid Margin="20">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Path Data="M19,2L14,6.5V17.5L19,13V2M6.5,5C4.55,5 2.45,5.4 1,6.5V21.16C1,21.41 1.25,21.66 1.5,21.66C1.6,21.66 1.65,21.59 1.75,21.59C3.1,20.94 5.05,20.5 6.5,20.5C8.45,20.5 10.55,20.9 12,22C13.35,21.15 15.8,20.5 17.5,20.5C19.15,20.5 20.85,20.81 22.25,21.56C22.35,21.61 22.4,21.59 22.5,21.59C22.75,21.59 23,21.34 23,21.09V6.5C22.4,6.05 21.75,5.75 21,5.5V7.5L21,13V19C19.9,18.65 18.7,18.5 17.5,18.5C15.8,18.5 13.35,19.15 12,20V13L12,8.5V6.5C10.55,5.4 8.45,5 6.5,5V5Z" Fill="#009688" />
-                                        <TextBlock Margin="5, 0" VerticalAlignment="Center" FontSize="16"
+                                    <Grid>
+                                        <Border Background="White">
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                            </Border.Effect>
+                                        </Border>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
+                                                    <GradientStop Color="White" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </StackPanel.Background>
+                                            <Path Margin="2" VerticalAlignment="Center"
+                                              Visibility="{Binding GenVisibilityMale, Source={StaticResource dObj}}"
+                                              Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" Fill="#FF2C9CD1" />
+                                            <Path Margin="2" VerticalAlignment="Center"
+                                              Visibility="{Binding GenVisibilityFemale, Source={StaticResource dObj}}"
+                                              Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,22V16H7.5L10.09,8.41C10.34,7.59 11.1,7 12,7C12.9,7 13.66,7.59 13.91,8.41L16.5,16H13.5V22H10.5Z" Fill="#FF2C9CD1" />
+                                            <TextBlock Foreground="#000" FontSize="25" Margin="2" VerticalAlignment="Center"
+                                                   Text="{Binding TxbName, Source={StaticResource dObj}}" />
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid Grid.Row="1" Margin="0, 0, 0, 10">
+                                        <Border Background="White">
+                                            <!--<Border.Effect>
+                                                <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                            </Border.Effect>-->
+                                        </Border>
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="White" Offset="0"/>
+                                                    <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </StackPanel.Background>
+                                            <Label Content="Class : " />
+                                            <Label Content="{Binding TxbCls, Source={StaticResource dObj}}" />
+                                            <Label Margin="20, 0, 0, 0" Content="Section : " />
+                                            <Label Content="{Binding TxbSection, Source={StaticResource dObj}}" />
+                                            <Label Margin="20, 0, 0, 0" Content="Roll : " />
+                                            <Label Content="{Binding TxbRoll, Source={StaticResource dObj}}" />
+                                            <Label Content="Session : " Margin="10,0,0,0" />
+                                            <Label Margin="0, 2" Content="{Binding SelecStdSessionStartYear, Source={StaticResource dObj}}" />
+                                            <Label Content="-" Margin="0, 2" />
+                                            <Label Margin="0, 2" Content="{Binding SelecStdSessionEndYear, Source={StaticResource dObj}}" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <Grid Grid.Row="2" Margin="0, 0, 0, 10">
+                                        <Border Background="White">
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                            </Border.Effect>
+                                        </Border>
+                                        <Border Padding="10">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
+                                                    <GradientStop Color="White" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="2*" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid>
+                                                    <Grid.Resources>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="FontSize" Value="14" />
+                                                        </Style>
+                                                    </Grid.Resources>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Path Data="M10,4A4,4 0 0,1 14,8A4,4 0 0,1 10,12A4,4 0 0,1 6,8A4,4 0 0,1 10,4M10,14C14.42,14 18,15.79 18,18V20H2V18C2,15.79 5.58,14 10,14M20,12V7H22V12H20M20,16V14H22V16H20Z" Fill="#000" />
+                                                        <Label Content="Gender " />
+                                                    </StackPanel>
+                                                    <Label Grid.Column="1" Content=" : " Foreground="#009688" />
+                                                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                        <Label Content="{Binding TxbGen, Source={StaticResource dObj}}" />
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                                        <Path VerticalAlignment="Center" Data="M9,10H7V12H9V10M13,10H11V12H13V10M17,10H15V12H17V10M19,3H18V1H16V3H8V1H6V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V8H19V19Z" Fill="#000" />
+                                                        <Label Content="Date of Birth " VerticalAlignment="Center" />
+                                                    </StackPanel>
+                                                    <Label Grid.Row="1" Grid.Column="1" Content=" : " Foreground="#009688" />
+                                                    <Label Grid.Row="1" Grid.Column="2" Content="{Binding DobString, Source={StaticResource dObj}, StringFormat=f}" />
+                                                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                                        <Path Data="M15,13H16.5V15.82L18.94,17.23L18.19,18.53L15,16.69V13M19,8H5V19H9.67C9.24,18.09 9,17.07 9,16A7,7 0 0,1 16,9C17.07,9 18.09,9.24 19,9.67V8M5,21C3.89,21 3,20.1 3,19V5C3,3.89 3.89,3 5,3H6V1H8V3H16V1H18V3H19A2,2 0 0,1 21,5V11.1C22.24,12.36 23,14.09 23,16A7,7 0 0,1 16,23C14.09,23 12.36,22.24 11.1,21H5M16,11.15A4.85,4.85 0 0,0 11.15,16C11.15,18.68 13.32,20.85 16,20.85A4.85,4.85 0 0,0 20.85,16C20.85,13.32 18.68,11.15 16,11.15Z" Fill="#000" />
+                                                        <Label Content="Age On Today " />
+                                                    </StackPanel>
+                                                    <Label Grid.Row="2" Grid.Column="1" Content=" : " Foreground="#009688" />
+                                                    <Label Grid.Row="2" Grid.Column="2" Content="{Binding StudentAge, Source={StaticResource dObj}}" />
+                                                </Grid>
+                                                <Image Grid.Column="1" MaxHeight="150" Source="{Binding ProfileImageSource, Source={StaticResource dObj}}" />
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                    <Grid Grid.Row="3" Margin="0, 5">
+                                        <Border>
+                                            <Border Background="White">
+                                                <Border.Effect>
+                                                    <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                                </Border.Effect>
+                                            </Border>
+                                            
+                                        </Border>
+                                        <Border Padding="10">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
+                                                    <GradientStop Color="White" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <Grid Visibility="{Binding SubjVisibility, Source={StaticResource dObj}}">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Path Data="M19,2L14,6.5V17.5L19,13V2M6.5,5C4.55,5 2.45,5.4 1,6.5V21.16C1,21.41 1.25,21.66 1.5,21.66C1.6,21.66 1.65,21.59 1.75,21.59C3.1,20.94 5.05,20.5 6.5,20.5C8.45,20.5 10.55,20.9 12,22C13.35,21.15 15.8,20.5 17.5,20.5C19.15,20.5 20.85,20.81 22.25,21.56C22.35,21.61 22.4,21.59 22.5,21.59C22.75,21.59 23,21.34 23,21.09V6.5C22.4,6.05 21.75,5.75 21,5.5V7.5L21,13V19C19.9,18.65 18.7,18.5 17.5,18.5C15.8,18.5 13.35,19.15 12,20V13L12,8.5V6.5C10.55,5.4 8.45,5 6.5,5V5Z" Fill="#000" />
+                                                    <TextBlock Margin="5, 0" VerticalAlignment="Center" FontSize="16"
                                                    Text="{Binding SubjGroupHeader, Source={StaticResource dObj}}" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Vertical" Margin="0, 5"
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical" Margin="0, 5"
                                                 Visibility="{Binding Subj5Visibility, Source={StaticResource dObj}}"
                                                 Grid.Row="1">
-                                        <StackPanel Orientation="Horizontal">
-                                            <BulletDecorator VerticalAlignment="Center">
-                                                <BulletDecorator.Bullet>
-                                                    <Ellipse Height="6" Width="6" Fill="Black" />
-                                                </BulletDecorator.Bullet>
-                                            </BulletDecorator>
-                                            <Label Content="Amrin" />
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Vertical" Margin="0, 5"
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <BulletDecorator VerticalAlignment="Center">
+                                                            <BulletDecorator.Bullet>
+                                                                <Ellipse Height="6" Width="6" Fill="Black" />
+                                                            </BulletDecorator.Bullet>
+                                                        </BulletDecorator>
+                                                        <Label Content="" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical" Margin="0, 5"
                                                 Visibility="{Binding SubjHsVisibility, Source={StaticResource dObj}}"
                                                 Grid.Row="1">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Label Content="STREAM : " />
+                                                        <Label Content="{Binding HsStream, Source={StaticResource dObj}}" />
+                                                    </StackPanel>
+                                                    <Label Content="{Binding HsSub1, Source={StaticResource dObj}}" />
+                                                    <Label Content="{Binding HsSub2, Source={StaticResource dObj}}" />
+                                                    <Label Content="{Binding HsSub3, Source={StaticResource dObj}}" />
+                                                    <Label Content="{Binding HsSub4, Source={StaticResource dObj}}" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </TabItem>
+
+                        <TabItem Header="Personal" Height="22" VerticalAlignment="Top">
+                            <Border>
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFF1F1F1" Offset="0" />
+                                        <GradientStop Color="#FFB0BFC8" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Grid Margin="20">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid>
+                                        <Border Background="White">
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                            </Border.Effect>
+                                        </Border>
+
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="STREAM : " />
-                                            <Label Content="{Binding HsStream, Source={StaticResource dObj}}" />
+                                            <StackPanel.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
+                                                    <GradientStop Color="White" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </StackPanel.Background>
+                                            <Path Margin="2" VerticalAlignment="Center"
+                                              Visibility="{Binding GenVisibilityMale, Source={StaticResource dObj}}"
+                                              Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" Fill="#FF2C9CD1" />
+                                            <Path Margin="2" VerticalAlignment="Center"
+                                              Visibility="{Binding GenVisibilityFemale, Source={StaticResource dObj}}"
+                                              Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,22V16H7.5L10.09,8.41C10.34,7.59 11.1,7 12,7C12.9,7 13.66,7.59 13.91,8.41L16.5,16H13.5V22H10.5Z" Fill="#FF2C9CD1" />
+                                            <TextBlock Foreground="#000" FontSize="25" Margin="2" VerticalAlignment="Center"
+                                                   Text="{Binding TxbName, Source={StaticResource dObj}}" />
                                         </StackPanel>
-                                        <Label Content="{Binding HsSub1, Source={StaticResource dObj}}" />
-                                        <Label Content="{Binding HsSub2, Source={StaticResource dObj}}" />
-                                        <Label Content="{Binding HsSub3, Source={StaticResource dObj}}" />
-                                        <Label Content="{Binding HsSub4, Source={StaticResource dObj}}" />
-                                    </StackPanel>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <Border Background="White">
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                            </Border.Effect>
+                                        </Border>
+                                        <Border Padding="30">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFF1F1F1" Offset="0" />
+                                                    <GradientStop Color="#FFB0BFC8" Offset="1" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <Grid>
+                                                <Grid.Resources>
+                                                    <Style TargetType="Label">
+                                                        <Setter Property="Margin" Value="2, 0" />
+                                                        <Setter Property="FontSize" Value="16" />
+                                                    </Style>
+                                                </Grid.Resources>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <Label Content="Aadhaar" />
+                                                <Label Grid.Column="1" Content=" : " />
+                                                <Label Grid.Column="2" Content="{Binding TxbAadhar, Source={StaticResource dObj}}" />
+                                                <Label Grid.Row="1" Content="Religion" />
+                                                <Label Grid.Row="1" Grid.Column="1" Content=" : " />
+                                                <Label Grid.Row="1" Grid.Column="2" Content="{Binding TxbReligion, Source={StaticResource dObj}}" />
+
+                                                <Label Grid.Row="2" Content="Social Category" />
+                                                <Label Grid.Row="2" Grid.Column="1" Content=" : " />
+                                                <Label Grid.Row="2" Grid.Column="2" Content="{Binding TxbSocCat, Source={StaticResource dObj}}" />
+
+                                                <Label Grid.Row="3" Content="Blood Group" />
+                                                <Label Grid.Row="3" Grid.Column="1" Content=" : " />
+                                                <Label Grid.Row="3" Grid.Column="2" Content="{Binding BloodGrp, Source={StaticResource dObj}}" />
+
+                                                <Label Grid.Row="4" Content="BPL" />
+                                                <Label Grid.Row="4" Grid.Column="1" Content=" : " />
+                                                <Label Grid.Row="4" Grid.Column="2" Content="{Binding IsStudentBPL, Source={StaticResource dObj}}" />
+
+                                                <Label Grid.Row="5" Content="BPL No." />
+                                                <Label Grid.Row="5" Grid.Column="1" Content=" : " />
+                                                <Label Grid.Row="5" Grid.Column="2" Content="{Binding TxbBplNo, Source={StaticResource dObj}}" />
+
+                                                <Label Grid.Row="6" Content="PH" />
+                                                <Label Grid.Row="6" Grid.Column="1" Content=" : " />
+                                                <Label Grid.Row="6" Grid.Column="2" Content="{Binding IsStudentPH, Source={StaticResource dObj}}" />
+
+                                                <Label Grid.Row="7" Content="PH Details" />
+                                                <Label Grid.Row="7" Grid.Column="1" Content=" : " />
+                                                <Label Grid.Row="7" Grid.Column="2" Content="{Binding TxbPhType, Source={StaticResource dObj}}" />
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                    
                                 </Grid>
-                            </Grid>
-                        </TabItem>
-
-                        <TabItem Header="Personal">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Border>
-                                    <StackPanel Orientation="Vertical">
-                                        
-                                    </StackPanel>
-                                </Border>
-                                <Grid Grid.Row="1" Margin="30">
-                                    <Grid.Resources>
-                                        <Style TargetType="Label">
-                                            <Setter Property="Margin" Value="2"/>
-                                            <Setter Property="FontSize" Value="16"/>
-                                        </Style>
-                                    </Grid.Resources>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Label Content="Aadhaar"/>
-                                    <Label Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Column="2" Content="{Binding TxbAadhar, Source={StaticResource dObj}}"/>
-                                    <Label Grid.Row="1" Content="Religion"/>
-                                    <Label Grid.Row="1" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="1" Grid.Column="2" Content="{Binding TxbReligion, Source={StaticResource dObj}}"/>
-                                    
-                                    <Label Grid.Row="2" Content="Social Category"/>
-                                    <Label Grid.Row="2" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="2" Grid.Column="2" Content="{Binding TxbSocCat, Source={StaticResource dObj}}"/>
-                                    
-                                    <Label Grid.Row="3" Content="Blood Group"/>
-                                    <Label Grid.Row="3" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="3" Grid.Column="2" Content="{Binding BloodGrp, Source={StaticResource dObj}}"/>
-                                    
-                                    <Label Grid.Row="4" Content="BPL"/>
-                                    <Label Grid.Row="4" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="4" Grid.Column="2" Content="{Binding IsStudentBPL, Source={StaticResource dObj}}"/>
-                                    
-                                    <Label Grid.Row="5" Content="BPL No."/>
-                                    <Label Grid.Row="5" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="5" Grid.Column="2" Content="{Binding TxbBplNo, Source={StaticResource dObj}}"/>
-                                   
-                                    <Label Grid.Row="6" Content="PH"/>
-                                    <Label Grid.Row="6" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="6" Grid.Column="2" Content="{Binding IsStudentPH, Source={StaticResource dObj}}"/>
-
-                                    <Label Grid.Row="7" Content="PH Details"/>
-                                    <Label Grid.Row="7" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="7" Grid.Column="2" Content="{Binding TxbPhType, Source={StaticResource dObj}}"/>
-                                </Grid>
-                            </Grid>
-                        </TabItem>
-                        <TabItem Header="Guardians">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Border>
-                                    <StackPanel Orientation="Vertical">
-
-                                    </StackPanel>
-                                </Border>
-                                <Grid Grid.Row="1" Margin="30">
-                                    <Grid.Resources>
-                                        <Style TargetType="Label">
-                                            <Setter Property="Margin" Value="2"/>
-                                            <Setter Property="FontSize" Value="16"/>
-                                        </Style>
-                                    </Grid.Resources>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Label Content="Father"/>
-                                    <Label Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Column="2" Content="{Binding TxbFather, Source={StaticResource dObj}}"/>
-                                    
-                                    <Label Grid.Row="1" Content="Mother"/>
-                                    <Label Grid.Row="1" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="1" Grid.Column="2" Content="{Binding TxbMother, Source={StaticResource dObj}}"/>
-
-                                    <Label Grid.Row="2" Content="Guardian"/>
-                                    <Label Grid.Row="2" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="2" Grid.Column="2" Content="{Binding TxbGrd, Source={StaticResource dObj}}"/>
-
-                                    <Label Grid.Row="3" Content="Relation with guardian"/>
-                                    <Label Grid.Row="3" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="3" Grid.Column="2" Content="{Binding TxbGrdRel, Source={StaticResource dObj}}"/>
-
-                                    <Label Grid.Row="4" Content="Father/Guardian's Occupation"/>
-                                    <Label Grid.Row="4" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="4" Grid.Column="2" Content="{Binding TxbGrdOcc, Source={StaticResource dObj}}"/>
-
-                                    <Label Grid.Row="5" Content="Father/Guardian's Aadhaar"/>
-                                    <Label Grid.Row="5" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="5" Grid.Column="2" Content="{Binding TxbGrdAadhar, Source={StaticResource dObj}}"/>
-
-                                    <Label Grid.Row="6" Content="Father/Guardian's Epic"/>
-                                    <Label Grid.Row="6" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="6" Grid.Column="2" Content="{Binding TxbGrdEpic, Source={StaticResource dObj}}"/>
-                                </Grid>
-                            </Grid>
-                        </TabItem>
-                        <TabItem Header="Contact">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <Border>
-                                    
-                                </Border>
-                                <Grid Margin="30">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <GroupBox Header="Present Address">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition />
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition />
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Label Content="Para/House No. : "/>
-                                            <Label Grid.Column="1" Content="{Binding AddrLane1, Source={StaticResource dObj}}"/>
-                                            <Label Grid.Column="2" Content="Vill/Street : "/>
-                                            <Label Grid.Column="3" Content="{Binding AddrLane2, Source={StaticResource dObj}}"/>
-                                            
-                                            <Label Grid.Row="1" Content="PO : "/>
-                                            <Label Grid.Row="1" Grid.Column="1" Content="{Binding AddrPO, Source={StaticResource dObj}}"/>
-                                            <Label Grid.Row="1" Grid.Column="2" Content="PS : "/>
-                                            <Label Grid.Row="1" Grid.Column="3" Content="{Binding AddrPS, Source={StaticResource dObj}}"/>
-
-                                            <Label Grid.Row="2" Content="Dist : "/>
-                                            <Label Grid.Row="2" Grid.Column="1" Content="{Binding AddrDist, Source={StaticResource dObj}}"/>
-                                            <Label Grid.Row="2" Grid.Column="2" Content="PIN :"/>
-                                            <Label Grid.Row="2" Grid.Column="3" Content="{Binding AddrPIN, Source={StaticResource dObj}}"/>
-                                        </Grid>
-                                    </GroupBox>
-                                    <GroupBox Grid.Row="1" Header="Permanent Address">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition />
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition />
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Label Content="Para/House No. : "/>
-                                            <Label Grid.Column="1" Content="{Binding PaddrLane1, Source={StaticResource dObj}}"/>
-                                            <Label Grid.Column="2" Content="Vill/Street : "/>
-                                            <Label Grid.Column="3" Content="{Binding PaddrLane2, Source={StaticResource dObj}}"/>
-
-                                            <Label Grid.Row="1" Content="PO : "/>
-                                            <Label Grid.Row="1" Grid.Column="1" Content="{Binding PaddrPO, Source={StaticResource dObj}}"/>
-                                            <Label Grid.Row="1" Grid.Column="2" Content="PS : "/>
-                                            <Label Grid.Row="1" Grid.Column="3" Content="{Binding PaddrPS, Source={StaticResource dObj}}"/>
-
-                                            <Label Grid.Row="2" Content="Dist : "/>
-                                            <Label Grid.Row="2" Grid.Column="1" Content="{Binding PaddrDist, Source={StaticResource dObj}}"/>
-                                            <Label Grid.Row="2" Grid.Column="2" Content="PIN :"/>
-                                            <Label Grid.Row="2" Grid.Column="3" Content="{Binding PaddrPIN, Source={StaticResource dObj}}"/>
-                                        </Grid>
-                                    </GroupBox>
-                                    <GroupBox Grid.Row="2" Header="Contact">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition />
-                                            </Grid.ColumnDefinitions>
-                                            <Label Content="Mobile"/>
-                                            <Label Grid.Column="1" Content=" : "/>
-                                            <Label Grid.Column="2" Content="{Binding TxbMobile, Source={StaticResource dObj}}"/>
-
-                                            <Label Grid.Row="1" Content="Email"/>
-                                            <Label Grid.Row="1" Grid.Column="1" Content=" : "/>
-                                            <Label Grid.Row="1" Grid.Column="2" Content="{Binding TxbEmail, Source={StaticResource dObj}}"/>
-                                        </Grid>
-                                    </GroupBox>
-                                </Grid>
-                            </Grid>
-                        </TabItem>
-                        <TabItem Header="Bank">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Border>
-                                    <StackPanel Orientation="Vertical">
-
-                                    </StackPanel>
-                                </Border>
-                                <Grid Grid.Row="1" Margin="30">
-                                    <Grid.Resources>
-                                        <Style TargetType="Label">
-                                            <Setter Property="Margin" Value="2"/>
-                                            <Setter Property="FontSize" Value="16"/>
-                                        </Style>
-                                    </Grid.Resources>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="442" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        
-                                    </Grid.RowDefinitions>
-                                    <Label Content="Account No."/>
-                                    <Label Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Column="2" Content="{Binding BankAcc, Source={StaticResource dObj}}"/>
-                                    
-                                    <Label Grid.Row="1" Content="Bank Name"/>
-                                    <Label Grid.Row="1" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="1" Grid.Column="2" Content="{Binding BankName, Source={StaticResource dObj}}"/>
-
-                                    <Label Grid.Row="2" Content="Branch"/>
-                                    <Label Grid.Row="2" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="2" Grid.Column="2" Content="{Binding BankBranch, Source={StaticResource dObj}}"/>
-
-                                    <Label Grid.Row="3" Content="IFSC"/>
-                                    <Label Grid.Row="3" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="3" Grid.Column="2" Content="{Binding BankIfsc, Source={StaticResource dObj}}"/>
-
-                                    <Label Grid.Row="4" Content="MICR"/>
-                                    <Label Grid.Row="4" Grid.Column="1" Content=" : "/>
-                                    <Label Grid.Row="4" Grid.Column="2" Content="{Binding BankMicr, Source={StaticResource dObj}}"/>
-
-                                </Grid>
-                            </Grid>
-                        </TabItem>
-                        <TabItem Header="Marksheet">
+                            </Border>
                             
                         </TabItem>
+                        <TabItem Header="Guardians">
+                            <Border>
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFF1F1F1" Offset="0" />
+                                        <GradientStop Color="#FFB0BFC8" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Grid Margin="20">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid>
+                                        <Border Background="White">
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                            </Border.Effect>
+                                        </Border>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
+                                                    <GradientStop Color="White" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </StackPanel.Background>
+                                            <Path Margin="2" VerticalAlignment="Center"
+                                              Visibility="{Binding GenVisibilityMale, Source={StaticResource dObj}}"
+                                              Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" Fill="#FF2C9CD1" />
+                                            <Path Margin="2" VerticalAlignment="Center"
+                                              Visibility="{Binding GenVisibilityFemale, Source={StaticResource dObj}}"
+                                              Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,22V16H7.5L10.09,8.41C10.34,7.59 11.1,7 12,7C12.9,7 13.66,7.59 13.91,8.41L16.5,16H13.5V22H10.5Z" Fill="#FF2C9CD1" />
+                                            <TextBlock Foreground="#000" FontSize="25" Margin="2" VerticalAlignment="Center"
+                                                   Text="{Binding TxbName, Source={StaticResource dObj}}" />
+                                        </StackPanel>
+                                    </Grid>
+                                    <Border Grid.Row="1">
+                                        <Grid>
+                                            <Border Background="White">
+                                                <Border.Effect>
+                                                    <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                                </Border.Effect>
+                                            </Border>
+                                            <Border Padding="30">
+                                                <Border.Background>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="#FFF1F1F1" Offset="0" />
+                                                        <GradientStop Color="#FFB0BFC8" Offset="1" />
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                                <Grid Margin="0, 5">
+                                                    <Grid.Resources>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="Margin" Value="2, 0" />
+                                                            <Setter Property="FontSize" Value="16" />
+                                                        </Style>
+                                                    </Grid.Resources>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Label Content="Father" />
+                                                    <Label Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Column="2" Content="{Binding TxbFather, Source={StaticResource dObj}}" />
+
+                                                    <Label Grid.Row="1" Content="Mother" />
+                                                    <Label Grid.Row="1" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="1" Grid.Column="2" Content="{Binding TxbMother, Source={StaticResource dObj}}" />
+
+                                                    <Label Grid.Row="2" Content="Guardian" />
+                                                    <Label Grid.Row="2" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="2" Grid.Column="2" Content="{Binding TxbGrd, Source={StaticResource dObj}}" />
+
+                                                    <Label Grid.Row="3" Content="Relation with guardian" />
+                                                    <Label Grid.Row="3" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="3" Grid.Column="2" Content="{Binding TxbGrdRel, Source={StaticResource dObj}}" />
+
+                                                    <Label Grid.Row="4" Content="Father/Guardian's Occupation" />
+                                                    <Label Grid.Row="4" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="4" Grid.Column="2" Content="{Binding TxbGrdOcc, Source={StaticResource dObj}}" />
+
+                                                    <Label Grid.Row="5" Content="Father/Guardian's Aadhaar" />
+                                                    <Label Grid.Row="5" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="5" Grid.Column="2" Content="{Binding TxbGrdAadhar, Source={StaticResource dObj}}" />
+
+                                                    <Label Grid.Row="6" Content="Father/Guardian's Epic" />
+                                                    <Label Grid.Row="6" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="6" Grid.Column="2" Content="{Binding TxbGrdEpic, Source={StaticResource dObj}}" />
+                                                </Grid>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                    
+                                </Grid>
+                            </Border>
+                            
+                        </TabItem>
+                        <TabItem Header="Contact">
+                            <Border>
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFF1F1F1" Offset="0" />
+                                        <GradientStop Color="#FFB0BFC8" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Grid Margin="20">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid>
+                                        <Border Background="White">
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                            </Border.Effect>
+                                        </Border>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
+                                                    <GradientStop Color="White" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </StackPanel.Background>
+                                            <Path Margin="2" VerticalAlignment="Center"
+                                              Visibility="{Binding GenVisibilityMale, Source={StaticResource dObj}}"
+                                              Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" Fill="#FF2C9CD1" />
+                                            <Path Margin="2" VerticalAlignment="Center"
+                                              Visibility="{Binding GenVisibilityFemale, Source={StaticResource dObj}}"
+                                              Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,22V16H7.5L10.09,8.41C10.34,7.59 11.1,7 12,7C12.9,7 13.66,7.59 13.91,8.41L16.5,16H13.5V22H10.5Z" Fill="#FF2C9CD1" />
+                                            <TextBlock Foreground="#000" FontSize="25" Margin="2" VerticalAlignment="Center"
+                                                   Text="{Binding TxbName, Source={StaticResource dObj}}" />
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Margin="0, 0, 0, 10">
+                                            <Border Background="White">
+                                                <Border.Effect>
+                                                    <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                                </Border.Effect>
+                                            </Border>
+                                            <Border Padding="10">
+                                                <Border.Background>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="White" Offset="0"/>
+                                                        <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                                <GroupBox>
+                                                    <GroupBox.Header>
+                                                        <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Present Address"/>
+                                                    </GroupBox.Header>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
+                                                        </Grid.RowDefinitions>
+                                                        <Label Content="Para/House No. : " />
+                                                        <Label Grid.Column="1" Content="{Binding AddrLane1, Source={StaticResource dObj}}" />
+                                                        <Label Grid.Column="2" Content="Vill/Street : " />
+                                                        <Label Grid.Column="3" Content="{Binding AddrLane2, Source={StaticResource dObj}}" />
+
+                                                        <Label Grid.Row="1" Content="PO : " />
+                                                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding AddrPO, Source={StaticResource dObj}}" />
+                                                        <Label Grid.Row="1" Grid.Column="2" Content="PS : " />
+                                                        <Label Grid.Row="1" Grid.Column="3" Content="{Binding AddrPS, Source={StaticResource dObj}}" />
+
+                                                        <Label Grid.Row="2" Content="Dist : " />
+                                                        <Label Grid.Row="2" Grid.Column="1" Content="{Binding AddrDist, Source={StaticResource dObj}}" />
+                                                        <Label Grid.Row="2" Grid.Column="2" Content="PIN :" />
+                                                        <Label Grid.Row="2" Grid.Column="3" Content="{Binding AddrPIN, Source={StaticResource dObj}}" />
+                                                    </Grid>
+                                                </GroupBox>
+                                            </Border>
+                                        </Grid>
+                                        <Grid Grid.Row="1" Margin="0, 0, 0, 10">
+                                            <Border Background="White">
+                                                <Border.Effect>
+                                                    <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                                </Border.Effect>
+                                            </Border>
+                                            <Border Padding="10">
+                                                <Border.Background>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="White" Offset="0"/>
+                                                        <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                                <GroupBox>
+                                                    <GroupBox.Header>
+                                                        <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Permanent Address"/>
+                                                    </GroupBox.Header>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
+                                                        </Grid.RowDefinitions>
+                                                        <Label Content="Para/House No. : " />
+                                                        <Label Grid.Column="1" Content="{Binding PaddrLane1, Source={StaticResource dObj}}" />
+                                                        <Label Grid.Column="2" Content="Vill/Street : " />
+                                                        <Label Grid.Column="3" Content="{Binding PaddrLane2, Source={StaticResource dObj}}" />
+
+                                                        <Label Grid.Row="1" Content="PO : " />
+                                                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding PaddrPO, Source={StaticResource dObj}}" />
+                                                        <Label Grid.Row="1" Grid.Column="2" Content="PS : " />
+                                                        <Label Grid.Row="1" Grid.Column="3" Content="{Binding PaddrPS, Source={StaticResource dObj}}" />
+
+                                                        <Label Grid.Row="2" Content="Dist : " />
+                                                        <Label Grid.Row="2" Grid.Column="1" Content="{Binding PaddrDist, Source={StaticResource dObj}}" />
+                                                        <Label Grid.Row="2" Grid.Column="2" Content="PIN :" />
+                                                        <Label Grid.Row="2" Grid.Column="3" Content="{Binding PaddrPIN, Source={StaticResource dObj}}" />
+                                                    </Grid>
+                                                </GroupBox>
+                                            </Border>
+                                        </Grid>
+                                        <Grid Grid.Row="2" Margin="0,2">
+                                            <Border Background="White">
+                                                <Border.Effect>
+                                                    <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                                </Border.Effect>
+                                            </Border>
+                                            <Border Padding="10">
+                                                <Border.Background>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="White" Offset="0"/>
+                                                        <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                                <GroupBox>
+                                                    <GroupBox.Header>
+                                                        <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Contact"/>
+                                                    </GroupBox.Header>
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Content="Mobile" />
+                                                        <Label Grid.Column="1" Content=" : " />
+                                                        <Label Grid.Column="2" Content="{Binding TxbMobile, Source={StaticResource dObj}}" />
+
+                                                        <Label Grid.Row="1" Content="Email" />
+                                                        <Label Grid.Row="1" Grid.Column="1" Content=" : " />
+                                                        <Label Grid.Row="1" Grid.Column="2" Content="{Binding TxbEmail, Source={StaticResource dObj}}" />
+                                                    </Grid>
+                                                </GroupBox>
+                                            </Border>
+                                        </Grid>
+                                        
+                                    </Grid>
+                                </Grid>
+                                
+                            </Border>
+                        </TabItem>
+                        <TabItem Header="Bank">
+                            <Border>
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFF1F1F1" Offset="0" />
+                                        <GradientStop Color="#FFB0BFC8" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Grid Margin="20">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid>
+                                        <Border Background="White">
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                            </Border.Effect>
+                                        </Border>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
+                                                    <GradientStop Color="White" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </StackPanel.Background>
+                                            <Path Margin="2" VerticalAlignment="Center"
+                                              Visibility="{Binding GenVisibilityMale, Source={StaticResource dObj}}"
+                                              Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" Fill="#FF2C9CD1" />
+                                            <Path Margin="2" VerticalAlignment="Center"
+                                              Visibility="{Binding GenVisibilityFemale, Source={StaticResource dObj}}"
+                                              Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,22V16H7.5L10.09,8.41C10.34,7.59 11.1,7 12,7C12.9,7 13.66,7.59 13.91,8.41L16.5,16H13.5V22H10.5Z" Fill="#FF2C9CD1" />
+                                            <TextBlock Foreground="#000" FontSize="25" Margin="2" VerticalAlignment="Center"
+                                                   Text="{Binding TxbName, Source={StaticResource dObj}}" />
+                                        </StackPanel>
+                                    </Grid>
+                                    <Border Grid.Row="1">
+                                        <Grid>
+                                            <Border Background="White">
+                                                <Border.Effect>
+                                                    <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                                </Border.Effect>
+                                            </Border>
+                                            <Border Padding="10">
+                                                <Border.Background>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="White" Offset="0"/>
+                                                        <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                                <Grid>
+                                                    <Grid.Resources>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="Margin" Value="2" />
+                                                            <Setter Property="FontSize" Value="16" />
+                                                        </Style>
+                                                    </Grid.Resources>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="442" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Label Content="Account No." />
+                                                    <Label Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Column="2" Content="{Binding BankAcc, Source={StaticResource dObj}}" />
+
+                                                    <Label Grid.Row="1" Content="Bank Name" />
+                                                    <Label Grid.Row="1" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="1" Grid.Column="2" Content="{Binding BankName, Source={StaticResource dObj}}" />
+
+                                                    <Label Grid.Row="2" Content="Branch" />
+                                                    <Label Grid.Row="2" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="2" Grid.Column="2" Content="{Binding BankBranch, Source={StaticResource dObj}}" />
+
+                                                    <Label Grid.Row="3" Content="IFSC" />
+                                                    <Label Grid.Row="3" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="3" Grid.Column="2" Content="{Binding BankIfsc, Source={StaticResource dObj}}" />
+
+                                                    <Label Grid.Row="4" Content="MICR" />
+                                                    <Label Grid.Row="4" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="4" Grid.Column="2" Content="{Binding BankMicr, Source={StaticResource dObj}}" />
+                                                </Grid>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                    
+                                </Grid>
+                            </Border>
+                            
+                        </TabItem>
+                        <TabItem Header="Marksheet" IsEnabled="False">
+                            <Border>
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFF1F1F1" Offset="0" />
+                                        <GradientStop Color="#FFB0BFC8" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </TabItem>
                         <TabItem Header="Admission">
-                            <Grid Margin="30">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <GroupBox Header="Last School">
+                            <Border>
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFF1F1F1" Offset="0" />
+                                        <GradientStop Color="#FFB0BFC8" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Grid Margin="20">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
                                     <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-                                        <Label Content="Last School Name"/>
-                                        <Label Grid.Column="1" Content=" : "/>
-                                        <Label Grid.Column="2" Content="{Binding LastSchool, Source={StaticResource dObj}}"/>
+                                        <Border Background="White">
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                            </Border.Effect>
+                                        </Border>
 
-                                        <Label Grid.Row="1" Content="Board"/>
-                                        <Label Grid.Row="1" Grid.Column="1" Content=" : "/>
-                                        <Label Grid.Row="1" Grid.Column="2" Content=""/>
-
-                                        <Label Grid.Row="2" Content="TC"/>
-                                        <Label Grid.Row="2" Grid.Column="1" Content=" : "/>
-                                        <Label Grid.Row="2" Grid.Column="2" Content="{Binding Tc, Source={StaticResource dObj  }}"/>
-
-                                        <Label Grid.Row="3" Content="Qualified Exam"/>
-                                        <Label Grid.Row="3" Grid.Column="1" Content=" : "/>
-                                        <Label Grid.Row="3" Grid.Column="2" Content=""/>
-
-                                        <Label Grid.Row="4" Content="Full Mark of Qualified Exam"/>
-                                        <Label Grid.Row="4" Grid.Column="1" Content=" : "/>
-                                        <Label Grid.Row="4" Grid.Column="2" Content=""/>
-
-                                        <Label Grid.Row="5" Content="Mark Obtained in Qualified Exam"/>
-                                        <Label Grid.Row="5" Grid.Column="1" Content=" : "/>
-                                        <Label Grid.Row="5" Grid.Column="2" Content=""/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
+                                                    <GradientStop Color="White" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </StackPanel.Background>
+                                            <Path Margin="2" VerticalAlignment="Center"
+                                              Visibility="{Binding GenVisibilityMale, Source={StaticResource dObj}}"
+                                              Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" Fill="#FF2C9CD1" />
+                                            <Path Margin="2" VerticalAlignment="Center"
+                                              Visibility="{Binding GenVisibilityFemale, Source={StaticResource dObj}}"
+                                              Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,22V16H7.5L10.09,8.41C10.34,7.59 11.1,7 12,7C12.9,7 13.66,7.59 13.91,8.41L16.5,16H13.5V22H10.5Z" Fill="#FF2C9CD1" />
+                                            <TextBlock Foreground="#000" FontSize="25" Margin="2" VerticalAlignment="Center"
+                                                   Text="{Binding TxbName, Source={StaticResource dObj}}" />
+                                        </StackPanel>
                                     </Grid>
-                                </GroupBox>
-                                <GroupBox Grid.Row="1" Header="Admission">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
+                                    <Grid Grid.Row="1" Margin="0, 0, 0, 10">
+                                        <Border Background="White">
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                            </Border.Effect>
+                                        </Border>
+                                        
+                                        <Border Padding="10">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="White" Offset="0"/>
+                                                    <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <GroupBox>
+                                                <GroupBox.Header>
+                                                    <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Last School"/>
+                                                </GroupBox.Header>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Label Content="Last School Name" />
+                                                    <Label Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Column="2" Content="{Binding LastSchool, Source={StaticResource dObj}}" />
 
-                                        </Grid.RowDefinitions>
-                                        <Label Content="Admission No."/>
-                                        <Label Grid.Column="1" Content=" : "/>
-                                        <Label Grid.Column="2" Content=""/>
+                                                    <Label Grid.Row="1" Content="Board" />
+                                                    <Label Grid.Row="1" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="1" Grid.Column="2" Content="" />
 
-                                        <Label Grid.Row="1" Content="Admission Date"/>
-                                        <Label Grid.Row="1" Grid.Column="1" Content=" : "/>
-                                        <Label Grid.Row="1" Grid.Column="2" Content=""/>
+                                                    <Label Grid.Row="2" Content="TC" />
+                                                    <Label Grid.Row="2" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="2" Grid.Column="2" Content="{Binding Tc, Source={StaticResource dObj  }}" />
 
-                                        <Label Grid.Row="2" Content="Admitted in Class"/>
-                                        <Label Grid.Row="2" Grid.Column="1" Content=" : "/>
-                                        <Label Grid.Row="2" Grid.Column="2" Content="{Binding AdmittedClass, Source={StaticResource dObj  }}"/>
+                                                    <Label Grid.Row="3" Content="Qualified Exam" />
+                                                    <Label Grid.Row="3" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="3" Grid.Column="2" Content="" />
 
+                                                    <Label Grid.Row="4" Content="Full Mark of Qualified Exam" />
+                                                    <Label Grid.Row="4" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="4" Grid.Column="2" Content="" />
+
+                                                    <Label Grid.Row="5" Content="Mark Obtained in Qualified Exam" />
+                                                    <Label Grid.Row="5" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="5" Grid.Column="2" Content="" />
+                                                </Grid>
+                                            </GroupBox>
+                                        </Border>
                                     </Grid>
-                                </GroupBox>
-                            </Grid>
+                                    <Grid Grid.Row="2">
+                                        <Border Padding="10">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="White" Offset="0"/>
+                                                    <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <GroupBox>
+                                                <GroupBox.Header>
+                                                    <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Admission"/>
+                                                </GroupBox.Header>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Label Content="Admission No." />
+                                                    <Label Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Column="2" Content="" />
+
+                                                    <Label Grid.Row="1" Content="Admission Date" />
+                                                    <Label Grid.Row="1" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="1" Grid.Column="2" Content="" />
+
+                                                    <Label Grid.Row="2" Content="Admitted in Class" />
+                                                    <Label Grid.Row="2" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="2" Grid.Column="2" Content="{Binding AdmittedClass, Source={StaticResource dObj  }}" />
+                                                </Grid>
+                                            </GroupBox>
+                                        </Border>
+                                    </Grid>
+                                    
+                                </Grid>
+                            </Border>
+                            
                         </TabItem>
                         <TabItem Header="Other">
-                            <Grid Margin="30">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <GroupBox Header="Madhyamic">
+                            <Border>
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFF1F1F1" Offset="0" />
+                                        <GradientStop Color="#FFB0BFC8" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Grid Margin="20">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
                                     <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            
-                                        </Grid.RowDefinitions>
-                                        <Label Content="Registration No."/>
-                                        <Label Grid.Column="1" Content=" : "/>
-                                        <Label Grid.Column="2" Content="{Binding TxbMPRegisNo, Source={StaticResource dObj}}"/>
+                                        <Border Background="White">
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                            </Border.Effect>
+                                        </Border>
 
-                                        <Label Grid.Row="1" Content="Admit Roll"/>
-                                        <Label Grid.Row="1" Grid.Column="1" Content=" : "/>
-                                        <Label Grid.Row="1" Grid.Column="2" Content="{Binding TxbMadhyamicRoll, Source={StaticResource dObj}}"/>
-
-                                        <Label Grid.Row="2" Content="Admit No"/>
-                                        <Label Grid.Row="2" Grid.Column="1" Content=" : "/>
-                                        <Label Grid.Row="2" Grid.Column="2" Content="{Binding TxbMadhyamicNo, Source={StaticResource dObj  }}"/>
-
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
+                                                    <GradientStop Color="White" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </StackPanel.Background>
+                                            <Path Margin="2" VerticalAlignment="Center"
+                                              Visibility="{Binding GenVisibilityMale, Source={StaticResource dObj}}"
+                                              Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" Fill="#FF2C9CD1" />
+                                            <Path Margin="2" VerticalAlignment="Center"
+                                              Visibility="{Binding GenVisibilityFemale, Source={StaticResource dObj}}"
+                                              Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,22V16H7.5L10.09,8.41C10.34,7.59 11.1,7 12,7C12.9,7 13.66,7.59 13.91,8.41L16.5,16H13.5V22H10.5Z" Fill="#FF2C9CD1" />
+                                            <TextBlock Foreground="#000" FontSize="25" Margin="2" VerticalAlignment="Center"
+                                                   Text="{Binding TxbName, Source={StaticResource dObj}}" />
+                                        </StackPanel>
                                     </Grid>
-                                </GroupBox>
-                                <GroupBox Grid.Row="1" Header="Higher Secondary">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-                                        <Label Content="Registration No."/>
-                                        <Label Grid.Column="1" Content=" : "/>
-                                        <Label Grid.Column="2" Content="{Binding TxbHSRegisNo, Source={StaticResource dObj}}"/>
+                                    <Grid Grid.Row="1" Margin="0, 0, 0, 10">
+                                        <Border Background="White">
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                            </Border.Effect>
+                                        </Border>
 
-                                        <Label Grid.Row="1" Content="Admit Roll"/>
-                                        <Label Grid.Row="1" Grid.Column="1" Content=" : "/>
-                                        <Label Grid.Row="1" Grid.Column="2" Content="{Binding TxbCouncilRoll, Source={StaticResource dObj}}"/>
+                                        <Border Padding="10">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="White" Offset="0"/>
+                                                    <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <GroupBox>
+                                                <GroupBox.Header>
+                                                    <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Madhyamic"/>
+                                                </GroupBox.Header>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Label Content="Registration No." />
+                                                    <Label Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Column="2" Content="{Binding TxbMPRegisNo, Source={StaticResource dObj}}" />
 
-                                        <Label Grid.Row="2" Content="Admit No."/>
-                                        <Label Grid.Row="2" Grid.Column="1" Content=" : "/>
-                                        <Label Grid.Row="2" Grid.Column="2" Content="{Binding TxbCouncilNo, Source={StaticResource dObj  }}"/>
+                                                    <Label Grid.Row="1" Content="Admit Roll" />
+                                                    <Label Grid.Row="1" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="1" Grid.Column="2" Content="{Binding TxbMadhyamicRoll, Source={StaticResource dObj}}" />
 
+                                                    <Label Grid.Row="2" Content="Admit No" />
+                                                    <Label Grid.Row="2" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="2" Grid.Column="2" Content="{Binding TxbMadhyamicNo, Source={StaticResource dObj  }}" />
+                                                </Grid>
+                                            </GroupBox>
+                                        </Border>
                                     </Grid>
-                                </GroupBox>
-                            </Grid>
+                                    <Grid Grid.Row="2">
+                                        <Border Background="White">
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
+                                            </Border.Effect>
+                                        </Border>
+
+                                        <Border Padding="10">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="White" Offset="0"/>
+                                                    <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <GroupBox>
+                                                <GroupBox.Header>
+                                                    <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Higher Secondary"/>
+                                                </GroupBox.Header>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Label Content="Registration No." />
+                                                    <Label Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Column="2" Content="{Binding TxbHSRegisNo, Source={StaticResource dObj}}" />
+
+                                                    <Label Grid.Row="1" Content="Admit Roll" />
+                                                    <Label Grid.Row="1" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="1" Grid.Column="2" Content="{Binding TxbCouncilRoll, Source={StaticResource dObj}}" />
+
+                                                    <Label Grid.Row="2" Content="Admit No." />
+                                                    <Label Grid.Row="2" Grid.Column="1" Content=" : " />
+                                                    <Label Grid.Row="2" Grid.Column="2" Content="{Binding TxbCouncilNo, Source={StaticResource dObj  }}" />
+                                                </Grid>
+                                            </GroupBox>
+                                        </Border>
+                                    </Grid>
+                                </Grid>
+                            </Border>
                         </TabItem>
                     </TabControl>
                 </ScrollViewer>

@@ -26,8 +26,9 @@ namespace NaimouzaHighSchoolTest
             bool r = eh.isExcelColPositionUnique(listEx);
             Assert.AreEqual<bool>(true, r, "Logic failed.");
            */
-            PromotionDb db = new PromotionDb();
-            List<Promotion> plist = db.GetList(startYear: 2017, endYear: 2017, cls: "V", section: "A");
+            NaimouzaHighSchool.ViewModels.StudentDataWriteViewModel vm = new NaimouzaHighSchool.ViewModels.StudentDataWriteViewModel();
+            bool r = true;
+            Assert.AreEqual<bool>(true, r, "Logic failed");
         }
     }
 }

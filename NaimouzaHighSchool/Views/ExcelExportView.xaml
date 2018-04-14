@@ -32,46 +32,60 @@
     </Window.Resources>
     <DockPanel LastChildFill="True">
         <Border DockPanel.Dock="Top" Style="{StaticResource searchBorder}">
-            <StackPanel Orientation="Horizontal">
-                <Label>Class</Label>
-                <ComboBox Width="60" 
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Label>Class</Label>
+                    <ComboBox Width="60" 
                           ItemsSource="{Binding SchoolClasses, Source={StaticResource xxvm}}"
                           SelectedIndex="{Binding ClsIndex, Source={StaticResource xxvm}}">
-                </ComboBox>
-                <Label Margin="10,0,2,0">Section</Label>
-                <ComboBox Width="60" 
+                    </ComboBox>
+                    <Label Margin="10,0,2,0">Section</Label>
+                    <ComboBox Width="60" 
                           ItemsSource="{Binding Section, Source={StaticResource xxvm}}"
                           SelectedIndex="{Binding SectionIndex, Source={StaticResource xxvm}}">
-                </ComboBox>
-                <Label Margin="10,0,2,0">Session</Label>
-                <xctk:IntegerUpDown Margin="2"
+                    </ComboBox>
+                    <Label Margin="10,0,2,0">Session</Label>
+                    <xctk:IntegerUpDown Margin="2"
                             Value="{Binding SYear, Source={StaticResource xxvm}, Mode=TwoWay}"
                             Width="65">
-                </xctk:IntegerUpDown>
-                <Label>-</Label>
-                <xctk:IntegerUpDown Margin="2"
+                    </xctk:IntegerUpDown>
+                    <Label>-</Label>
+                    <xctk:IntegerUpDown Margin="2"
                             Value="{Binding EYear, Source={StaticResource xxvm}, Mode=TwoWay}"
                             Width="65">
-                </xctk:IntegerUpDown>
-                <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal">
-                        <Label Foreground="Black" Margin="10,0,2,0">Filter by :</Label>
-                        <RadioButton GroupName="filter" Style="{StaticResource filterRadio}"
+                    </xctk:IntegerUpDown>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Foreground="Black" Margin="10,0,2,0">Filter by :</Label>
+                            <RadioButton GroupName="filter" Style="{StaticResource filterRadio}"
                                     IsChecked="{Binding FilterCategory, Source={StaticResource xxvm}, Converter={StaticResource GenFilterConverter}, ConverterParameter=none}" >
-                            None
-                        </RadioButton>
-                        <RadioButton GroupName="filter" Style="{StaticResource filterRadio}"
+                                None
+                            </RadioButton>
+                            <RadioButton GroupName="filter" Style="{StaticResource filterRadio}"
                                     IsChecked="{Binding FilterCategory, Source={StaticResource xxvm}, Converter={StaticResource GenFilterConverter}, ConverterParameter=male}" >
-                            Boys
-                        </RadioButton>
-                        <RadioButton GroupName="filter" Style="{StaticResource filterRadio}"
+                                Boys
+                            </RadioButton>
+                            <RadioButton GroupName="filter" Style="{StaticResource filterRadio}"
                                     IsChecked="{Binding FilterCategory, Source={StaticResource xxvm}, Converter={StaticResource GenFilterConverter}, ConverterParameter=female}" >
-                            Girls
-                        </RadioButton>
+                                Girls
+                            </RadioButton>
+                        </StackPanel>
+
                     </StackPanel>
-                 
+
                 </StackPanel>
-                
+                <StackPanel Orientation="Horizontal" Visibility="{Binding SubHsVisibility, Source={StaticResource xxvm}}">
+                    <Label Content="Stream" Margin="2"/>
+                    <ComboBox Width="100" 
+                              ItemsSource="{Binding StreamList, Source={StaticResource xxvm}}"
+                              SelectedIndex="{Binding StreamListIndex, Source={StaticResource xxvm}, Mode=TwoWay}"
+                              Margin="2"/>
+                    <Label Content="Subject" Margin="2" />
+                    <ComboBox Width="200" 
+                              ItemsSource="{Binding HsActiveSubs, Source={StaticResource xxvm}}"
+                              SelectedIndex="{Binding HsSubIndex, Source={StaticResource xxvm}, Mode=TwoWay}"
+                              Margin="2"/>
+                </StackPanel>
             </StackPanel>
         </Border>
         <Grid>
@@ -122,7 +136,7 @@
                         <Label Content="{Binding ProgressbarValue, StringFormat=P2, Source={StaticResource xxvm}}"></Label>
                     </StackPanel>  
                     <StackPanel Orientation="Horizontal" Grid.Column="1">
-                            <Button Width="70" Command="{Binding BuildGridViewCommand, Source={StaticResource xxvm}}">Get</Button>
+                            <!--<Button Width="70" Command="{Binding BuildGridViewCommand, Source={StaticResource xxvm}}">Get</Button>-->
                             <Button Width="70" Command="{Binding ExportCommand, Source={StaticResource xxvm}}">Export</Button>
                         </StackPanel>
                    

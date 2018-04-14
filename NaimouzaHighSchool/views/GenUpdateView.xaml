@@ -186,10 +186,7 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="32*" />
-                        <ColumnDefinition Width="15*"/>
-                        <ColumnDefinition Width="32*"/>
-                        <ColumnDefinition Width="611*"/>
+                        <ColumnDefinition  />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="1" Content="Aadhaar No." />
                     <TextBox Grid.Row="1" Grid.Column="1" 

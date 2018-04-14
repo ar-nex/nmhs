@@ -37,5 +37,39 @@ namespace NaimouzaHighSchool.Models.Database
             }
             
         }
+
+        /// <summary>
+        /// Produce sql compatable value. That is it surrounds the inputStr with '' or generate NULL.
+        /// Also remove unwanted character like '
+        /// </summary>
+        /// <param name="inputStr"></param>
+        /// <returns></returns>
+        protected string dv(string inputStr)
+        {
+            if (string.IsNullOrEmpty(inputStr))
+            {
+                return "NULL";
+            }
+            else
+            {
+                string outputStr = inputStr.Replace(@"'", string.Empty);
+                return "'" + outputStr + "'";
+            }
+        }
+
+        protected string dv(DateTime dt)
+        {
+            return (dt.Year == 1) ? "NULL" : "'" + dt.ToString("yyyy-MM-dd") + "'";
+        }
+
+        protected string dv(bool YesNo)
+        {
+            return (YesNo) ? "'Y'" : "'N'";
+        }
+
+        protected string dv(int inpVal)
+        {
+            return "'" + inpVal.ToString() + "'";
+        }
     }
 }

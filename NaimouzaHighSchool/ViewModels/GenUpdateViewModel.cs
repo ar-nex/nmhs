@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using NaimouzaHighSchool.Models.Utility;
 using NaimouzaHighSchool.Models.Database;
 using NaimouzaHighSchool.ViewModels.Commands;
@@ -713,7 +711,6 @@ namespace NaimouzaHighSchool.ViewModels
 
         public RelayCommand SaveCommand { get; set; }
 
-
         private void StartUpInitializer()
         {
             EsSchoolClass = new string[] { "V", "VI", "VII", "VIII", "IX", "X", "XI" };
@@ -725,6 +722,9 @@ namespace NaimouzaHighSchool.ViewModels
             DD = new int[31];
             HsArtsSubs = new string[] { "ARABIC", "ECONOMICS", "EDUCATION", "GEOGRAPHY", "PHILOSOPHY", "HISTORY",  "POL. SC",  "SOCIOLOGY" };
             HsSciSubs = new string[] { "PHYSICS", "CHEMISTRY", "MATHEMATICS", "BIOLOGY" };
+
+            HsSub1Index = HsSub2Index = HsSub3Index = HsSub4Index = -1;
+
 
             for (int i = 0; i < 31; i++)
             {
@@ -880,11 +880,37 @@ namespace NaimouzaHighSchool.ViewModels
             // aadhaar
             if (!string.IsNullOrEmpty(EsAadhaar))
             {
-
+                string pattern = @"^\d{12}$";
+                Match match = Regex.Match(EsAadhaar.Trim(), pattern);
+                if (!match.Success)
+                {
+                    System.Windows.MessageBox.Show("Please enter correct Aadhaar no.");
+                    return false;
+                }
             }
 
             // mobile
+            if (!string.IsNullOrEmpty(EsMobile))
+            {
+                string pattern = @"^\d{10}$";
+                Match match = Regex.Match(EsMobile.Trim(), pattern);
+                if (!match.Success)
+                {
+                    System.Windows.MessageBox.Show("Please enter correct mobile no.");
+                    return false;
+                }
+            }
 
+            if (!string.IsNullOrEmpty(EsGuardianMobile))
+            {
+                string pattern = @"^\d{10}$";
+                Match match = Regex.Match(EsGuardianMobile.Trim(), pattern);
+                if (!match.Success)
+                {
+                    System.Windows.MessageBox.Show("Please enter guardian's correct mobile no.");
+                    return false;
+                }
+            }
             // email
 
             return false;
@@ -921,6 +947,11 @@ namespace NaimouzaHighSchool.ViewModels
                     s.HsSub3 = HsSciSubs[HsSub3Index];
                     s.HsAdlSub = HsSciSubs[HsSub4Index];
                 }
+            }
+
+            if (!string.IsNullOrEmpty(EsAadhaar))
+            {
+                s.Aadhar = EsAadhaar.Trim();
             }
 
             if (EsReligionIndex != -1)
@@ -985,8 +1016,14 @@ namespace NaimouzaHighSchool.ViewModels
 
 
             // mobile use regex
-            s.Mobile = EsMobile;
-            s.GuardianMobile = EsGuardianMobile;
+            if (!string.IsNullOrEmpty(EsMobile))
+            {
+                s.Mobile = EsMobile.Trim();
+            }
+            if (!string.IsNullOrEmpty(EsGuardianMobile))
+            {
+                s.GuardianMobile = EsGuardianMobile.Trim();
+            }
             s.Email = EsEmail;
 
             s.BankAcc = EsBankAccNo;
@@ -1032,13 +1069,14 @@ namespace NaimouzaHighSchool.ViewModels
             if (!HasError())
             {
                 Student UpdatedStudent = GetUpdatedStudent();
-
+                GenUpdateDb db = new GenUpdateDb();
+                db.UpdateStudent(UpdatedStudent);
             }
         }
 
         private bool CanSaveUpdatedStudent()
         {
-            return false;
+            return true;
         }
     }
 }

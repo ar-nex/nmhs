@@ -411,8 +411,8 @@ namespace NaimouzaHighSchool.ViewModels
                 }
                 emlist.Clear();
             }
-            
 
+            passwordBox.Password = string.Empty;
         }
 
         private bool CanSave()

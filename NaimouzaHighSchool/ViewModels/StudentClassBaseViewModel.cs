@@ -50,6 +50,10 @@ namespace NaimouzaHighSchool.ViewModels
             {
                 _schoolClassIndex = (value > -1 && value < SchoolClass.Length) ? value : -1;
                 OnPropertyChanged("SchoolClassIndex");
+                if (_schoolClassIndex > -1)
+                {
+                    OnSelectedClassChange();
+                }
             }
         }
 
@@ -76,7 +80,17 @@ namespace NaimouzaHighSchool.ViewModels
             SchoolClass = new string[] { "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII" };
             SchoolSection = new string[] { "A", "B", "C", "D", "E"};
             SchoolClassIndex = SchoolSectionIndex = -1;
-            StartYear = EndYear = DateTime.Now.Year;
+            StartYear = EndYear = DateTime.Today.Year;
+        }
+
+        protected virtual void OnSelectedClassChange()
+        {
+            return;
+        }
+
+        protected virtual void OnSelectedSectionChange()
+        {
+            return;
         }
     }
 }
