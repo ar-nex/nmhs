@@ -850,8 +850,8 @@ namespace NaimouzaHighSchool.ViewModels
         private System.Windows.Visibility _stdDetailVisibility;
         public System.Windows.Visibility StdDetailVisibility
         {
-               get { return this._stdDetailVisibility; }
-           // get { return System.Windows.Visibility.Visible; }
+             //  get { return this._stdDetailVisibility; }
+            get { return System.Windows.Visibility.Visible; }
             set { this._stdDetailVisibility = value; this.OnPropertyChanged("StdDetailVisibility"); }
         }
 
