@@ -856,7 +856,8 @@
                         <TabItem Header="General">
                             <Border>
                                 <Border.Background>
-                                    <ImageBrush ImageSource="/NaimouzaHighSchool;component/Asset/Images/raw1.jpg"/>
+                                    <!--<ImageBrush ImageSource="/NaimouzaHighSchool;component/Asset/Images/raw1.jpg" />-->
+                                    <ImageBrush ImageSource="{Binding ProfileImageSource, Source={StaticResource dObj}}" />
                                 </Border.Background>
                                 <!--<Border.Background>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -881,8 +882,8 @@
                                         <StackPanel Orientation="Horizontal">
                                             <StackPanel.Background>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
-                                                    <GradientStop Color="White" Offset="1"/>
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0" />
+                                                    <GradientStop Color="White" Offset="1" />
                                                 </LinearGradientBrush>
                                             </StackPanel.Background>
                                             <Path Margin="2" VerticalAlignment="Center"
@@ -895,35 +896,55 @@
                                                    Text="{Binding TxbName, Source={StaticResource dObj}}" />
                                         </StackPanel>
                                     </Grid>
-                                    <Grid Grid.Row="1" Margin="0, 0, 0, 10">
-                                        <Border Background="White">
-                                            <!--<Border.Effect>
-                                                <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
-                                            </Border.Effect>-->
+                                    <Grid>
+                                        <Border Background="#ffcc00">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Margin="2" VerticalAlignment="Center"
+                                                    Visibility="{Binding GenVisibilityMale, Source={StaticResource dObj}}"
+                                                    Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" Fill="#214478" />
+                                                <Path Margin="2" VerticalAlignment="Center"
+                                                    Visibility="{Binding GenVisibilityFemale, Source={StaticResource dObj}}"
+                                                    Data="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,22V16H7.5L10.09,8.41C10.34,7.59 11.1,7 12,7C12.9,7 13.66,7.59 13.91,8.41L16.5,16H13.5V22H10.5Z" Fill="#214478" />
+                                                <TextBlock Foreground="#214478" FontSize="25" Margin="2" VerticalAlignment="Center"
+                                                    Text="{Binding TxbName, Source={StaticResource dObj}}" />
+                                            </StackPanel>
                                         </Border>
-                                        <StackPanel Orientation="Horizontal">
-                                            <StackPanel.Background>
-                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                    <GradientStop Color="White" Offset="0"/>
-                                                    <GradientStop Color="#FFB0BFC8" Offset="1"/>
-                                                </LinearGradientBrush>
-                                            </StackPanel.Background>
-                                            <Label Content="Class : " />
-                                            <Label Content="{Binding TxbCls, Source={StaticResource dObj}}" />
-                                            <Label Margin="20, 0, 0, 0" Content="Section : " />
-                                            <Label Content="{Binding TxbSection, Source={StaticResource dObj}}" />
-                                            <Label Margin="20, 0, 0, 0" Content="Roll : " />
-                                            <Label Content="{Binding TxbRoll, Source={StaticResource dObj}}" />
-                                            <Label Content="Session : " Margin="10,0,0,0" />
-                                            <Label Margin="0, 2" Content="{Binding SelecStdSessionStartYear, Source={StaticResource dObj}}" />
-                                            <Label Content="-" Margin="0, 2" />
-                                            <Label Margin="0, 2" Content="{Binding SelecStdSessionEndYear, Source={StaticResource dObj}}" />
-                                        </StackPanel>
+                                    </Grid>
+                                    
+                                    <Grid Grid.Row="1" Margin="0, 0, 0, 10">
+                                        <Border Background="#004455" Padding="5, 5, 5, 0">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <StackPanel.Resources>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="Foreground" Value="#e5ffd5"/>
+                                                            <Setter Property="FontSize" Value="16"/>
+                                                        </Style>
+                                                    </StackPanel.Resources>
+                                                    <Label Content="{Binding ClaSecRoll, Source={StaticResource dObj}}" />
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                                    <StackPanel.Resources>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="Foreground" Value="#ffd42a"/>
+                                                            <Setter Property="FontSize" Value="14"/>
+                                                        </Style>
+                                                    </StackPanel.Resources>
+                                                    <Label Content="{Binding SelecStdSessionStartYear, Source={StaticResource dObj}}" />
+                                                    <Label Content="-" />
+                                                    <Label Content="{Binding SelecStdSessionEndYear, Source={StaticResource dObj}}" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
                                     </Grid>
 
                                     <Grid Grid.Row="2" Margin="0, 0, 0, 10">
                                         <Grid.Background>
-                                            <SolidColorBrush Color="Transparent" Opacity="1"/>
+                                            <SolidColorBrush Color="Transparent" Opacity="1" />
                                         </Grid.Background>
                                         <Border Background="Transparent">
                                             <Border.Effect>
@@ -933,10 +954,10 @@
                                         <Border Padding="10">
                                             <Border.Background>
                                                 <!--<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
-                                                    <GradientStop Color="White" Offset="1"/>
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0" />
+                                                    <GradientStop Color="White" Offset="1" />
                                                 </LinearGradientBrush>-->
-                                                <SolidColorBrush Color="Black" Opacity=".8"/>
+                                                <SolidColorBrush Color="Black" Opacity=".8" />
                                             </Border.Background>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
@@ -947,7 +968,7 @@
                                                     <Grid.Resources>
                                                         <Style TargetType="Label">
                                                             <Setter Property="FontSize" Value="14" />
-                                                            <Setter Property="Foreground" Value="#E6EE9C"/>
+                                                            <Setter Property="Foreground" Value="#E6EE9C" />
                                                         </Style>
                                                     </Grid.Resources>
                                                     <Grid.RowDefinitions>
@@ -985,21 +1006,13 @@
                                             </Grid>
                                         </Border>
                                     </Grid>
-                                    
+
                                     <Grid Grid.Row="3" Margin="0, 5">
-                                        <Border>
-                                            <Border Background="White">
-                                                <Border.Effect>
-                                                    <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
-                                                </Border.Effect>
-                                            </Border>
-                                            
-                                        </Border>
                                         <Border Padding="10">
                                             <Border.Background>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
-                                                    <GradientStop Color="White" Offset="1"/>
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0" />
+                                                    <GradientStop Color="White" Offset="1" />
                                                 </LinearGradientBrush>
                                             </Border.Background>
                                             <Grid Visibility="{Binding SubjVisibility, Source={StaticResource dObj}}">
@@ -1066,8 +1079,8 @@
                                         <StackPanel Orientation="Horizontal">
                                             <StackPanel.Background>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
-                                                    <GradientStop Color="White" Offset="1"/>
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0" />
+                                                    <GradientStop Color="White" Offset="1" />
                                                 </LinearGradientBrush>
                                             </StackPanel.Background>
                                             <Path Margin="2" VerticalAlignment="Center"
@@ -1148,10 +1161,8 @@
                                             </Grid>
                                         </Border>
                                     </Grid>
-                                    
                                 </Grid>
                             </Border>
-                            
                         </TabItem>
                         <TabItem Header="Guardians">
                             <Border>
@@ -1176,8 +1187,8 @@
                                         <StackPanel Orientation="Horizontal">
                                             <StackPanel.Background>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
-                                                    <GradientStop Color="White" Offset="1"/>
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0" />
+                                                    <GradientStop Color="White" Offset="1" />
                                                 </LinearGradientBrush>
                                             </StackPanel.Background>
                                             <Path Margin="2" VerticalAlignment="Center"
@@ -1256,10 +1267,8 @@
                                             </Border>
                                         </Grid>
                                     </Border>
-                                    
                                 </Grid>
                             </Border>
-                            
                         </TabItem>
                         <TabItem Header="Contact">
                             <Border>
@@ -1284,8 +1293,8 @@
                                         <StackPanel Orientation="Horizontal">
                                             <StackPanel.Background>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
-                                                    <GradientStop Color="White" Offset="1"/>
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0" />
+                                                    <GradientStop Color="White" Offset="1" />
                                                 </LinearGradientBrush>
                                             </StackPanel.Background>
                                             <Path Margin="2" VerticalAlignment="Center"
@@ -1313,13 +1322,13 @@
                                             <Border Padding="10">
                                                 <Border.Background>
                                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                        <GradientStop Color="White" Offset="0"/>
-                                                        <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                        <GradientStop Color="White" Offset="0" />
+                                                        <GradientStop Color="#FFB0BFC8" Offset="1" />
                                                     </LinearGradientBrush>
                                                 </Border.Background>
                                                 <GroupBox>
                                                     <GroupBox.Header>
-                                                        <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Present Address"/>
+                                                        <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Present Address" />
                                                     </GroupBox.Header>
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>
@@ -1360,13 +1369,13 @@
                                             <Border Padding="10">
                                                 <Border.Background>
                                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                        <GradientStop Color="White" Offset="0"/>
-                                                        <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                        <GradientStop Color="White" Offset="0" />
+                                                        <GradientStop Color="#FFB0BFC8" Offset="1" />
                                                     </LinearGradientBrush>
                                                 </Border.Background>
                                                 <GroupBox>
                                                     <GroupBox.Header>
-                                                        <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Permanent Address"/>
+                                                        <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Permanent Address" />
                                                     </GroupBox.Header>
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>
@@ -1407,13 +1416,13 @@
                                             <Border Padding="10">
                                                 <Border.Background>
                                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                        <GradientStop Color="White" Offset="0"/>
-                                                        <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                        <GradientStop Color="White" Offset="0" />
+                                                        <GradientStop Color="#FFB0BFC8" Offset="1" />
                                                     </LinearGradientBrush>
                                                 </Border.Background>
                                                 <GroupBox>
                                                     <GroupBox.Header>
-                                                        <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Contact"/>
+                                                        <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Contact" />
                                                     </GroupBox.Header>
                                                     <Grid>
                                                         <Grid.RowDefinitions>
@@ -1436,10 +1445,8 @@
                                                 </GroupBox>
                                             </Border>
                                         </Grid>
-                                        
                                     </Grid>
                                 </Grid>
-                                
                             </Border>
                         </TabItem>
                         <TabItem Header="Bank">
@@ -1453,7 +1460,7 @@
                                 <Grid Margin="20">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <Grid>
                                         <Border Background="White">
@@ -1465,8 +1472,8 @@
                                         <StackPanel Orientation="Horizontal">
                                             <StackPanel.Background>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
-                                                    <GradientStop Color="White" Offset="1"/>
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0" />
+                                                    <GradientStop Color="White" Offset="1" />
                                                 </LinearGradientBrush>
                                             </StackPanel.Background>
                                             <Path Margin="2" VerticalAlignment="Center"
@@ -1489,8 +1496,8 @@
                                             <Border Padding="10">
                                                 <Border.Background>
                                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                        <GradientStop Color="White" Offset="0"/>
-                                                        <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                        <GradientStop Color="White" Offset="0" />
+                                                        <GradientStop Color="#FFB0BFC8" Offset="1" />
                                                     </LinearGradientBrush>
                                                 </Border.Background>
                                                 <Grid>
@@ -1535,10 +1542,8 @@
                                             </Border>
                                         </Grid>
                                     </Border>
-                                    
                                 </Grid>
                             </Border>
-                            
                         </TabItem>
                         <TabItem Header="Marksheet" IsEnabled="False">
                             <Border>
@@ -1574,8 +1579,8 @@
                                         <StackPanel Orientation="Horizontal">
                                             <StackPanel.Background>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
-                                                    <GradientStop Color="White" Offset="1"/>
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0" />
+                                                    <GradientStop Color="White" Offset="1" />
                                                 </LinearGradientBrush>
                                             </StackPanel.Background>
                                             <Path Margin="2" VerticalAlignment="Center"
@@ -1594,17 +1599,17 @@
                                                 <DropShadowEffect BlurRadius="10" Color="#ccc" Direction="-90" RenderingBias="Quality" ShadowDepth="-2" />
                                             </Border.Effect>
                                         </Border>
-                                        
+
                                         <Border Padding="10">
                                             <Border.Background>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                    <GradientStop Color="White" Offset="0"/>
-                                                    <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                    <GradientStop Color="White" Offset="0" />
+                                                    <GradientStop Color="#FFB0BFC8" Offset="1" />
                                                 </LinearGradientBrush>
                                             </Border.Background>
                                             <GroupBox>
                                                 <GroupBox.Header>
-                                                    <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Last School"/>
+                                                    <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Last School" />
                                                 </GroupBox.Header>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
@@ -1651,13 +1656,13 @@
                                         <Border Padding="10">
                                             <Border.Background>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                    <GradientStop Color="White" Offset="0"/>
-                                                    <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                    <GradientStop Color="White" Offset="0" />
+                                                    <GradientStop Color="#FFB0BFC8" Offset="1" />
                                                 </LinearGradientBrush>
                                             </Border.Background>
                                             <GroupBox>
                                                 <GroupBox.Header>
-                                                    <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Admission"/>
+                                                    <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Admission" />
                                                 </GroupBox.Header>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
@@ -1672,7 +1677,7 @@
                                                     </Grid.RowDefinitions>
                                                     <Label Content="Admission No." />
                                                     <Label Grid.Column="1" Content=" : " />
-                                                    <Label Grid.Column="2" Content="" />
+                                                    <Label Grid.Column="2" Content="{Binding AdmissionNo, Source={StaticResource dObj}}" />
 
                                                     <Label Grid.Row="1" Content="Admission Date" />
                                                     <Label Grid.Row="1" Grid.Column="1" Content=" : " />
@@ -1685,10 +1690,8 @@
                                             </GroupBox>
                                         </Border>
                                     </Grid>
-                                    
                                 </Grid>
                             </Border>
-                            
                         </TabItem>
                         <TabItem Header="Other">
                             <Border>
@@ -1714,8 +1717,8 @@
                                         <StackPanel Orientation="Horizontal">
                                             <StackPanel.Background>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                    <GradientStop Color="#FFB0BFC8" Offset="0"/>
-                                                    <GradientStop Color="White" Offset="1"/>
+                                                    <GradientStop Color="#FFB0BFC8" Offset="0" />
+                                                    <GradientStop Color="White" Offset="1" />
                                                 </LinearGradientBrush>
                                             </StackPanel.Background>
                                             <Path Margin="2" VerticalAlignment="Center"
@@ -1738,13 +1741,13 @@
                                         <Border Padding="10">
                                             <Border.Background>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                    <GradientStop Color="White" Offset="0"/>
-                                                    <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                    <GradientStop Color="White" Offset="0" />
+                                                    <GradientStop Color="#FFB0BFC8" Offset="1" />
                                                 </LinearGradientBrush>
                                             </Border.Background>
                                             <GroupBox>
                                                 <GroupBox.Header>
-                                                    <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Madhyamic"/>
+                                                    <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Madhyamic" />
                                                 </GroupBox.Header>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
@@ -1782,13 +1785,13 @@
                                         <Border Padding="10">
                                             <Border.Background>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                    <GradientStop Color="White" Offset="0"/>
-                                                    <GradientStop Color="#FFB0BFC8" Offset="1"/>
+                                                    <GradientStop Color="White" Offset="0" />
+                                                    <GradientStop Color="#FFB0BFC8" Offset="1" />
                                                 </LinearGradientBrush>
                                             </Border.Background>
                                             <GroupBox>
                                                 <GroupBox.Header>
-                                                    <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Higher Secondary"/>
+                                                    <Label Margin="0" FontSize="14" Foreground="DarkMagenta" Content="Higher Secondary" />
                                                 </GroupBox.Header>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>

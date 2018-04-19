@@ -235,6 +235,15 @@ namespace NaimouzaHighSchool.ViewModels
                 this.OnPropertyChanged("TxbName"); 
             } 
         }
+
+        private string _claSecRoll;
+        public string ClaSecRoll
+        {
+            get { return _claSecRoll; }
+            set { _claSecRoll = value; OnPropertyChanged("ClaSecRoll"); }
+        }
+
+
         private string _txbNameColor;
         public string TxbNameColor { get { return this._txbNameColor; } set { this._txbNameColor = value; this.OnPropertyChanged("TxbNameColor"); } }
 
@@ -301,18 +310,14 @@ namespace NaimouzaHighSchool.ViewModels
             set { this._classessForAdmissionIndex = value; this.OnPropertyChanged("ClassessForAdmissionIndex"); }
         }
 
-        private string _txbClsColor;
-        public string TxbClsColor { get { return this._txbClsColor; } set { this._txbClsColor = value; this.OnPropertyChanged("TxbClsColor"); } }
-
+       
         private string _txbSection;
         public string TxbSection { get { return this._txbSection; } set { this._txbSection = value; this.OnPropertyChanged("TxbSection"); } }
-        private string _txbSectionColor;
-        public string TxbSectionColor { get { return this._txbSectionColor; } set { this._txbSectionColor = value; this.OnPropertyChanged("TxbSectionColor"); } }
+        
 
         private int _txbRoll;
         public int TxbRoll { get { return this._txbRoll; } set { this._txbRoll = value; this.OnPropertyChanged("TxbRoll"); } }
-        private string _txbRollColor;
-        public string TxbRollColor { get { return this._txbRollColor; } set { this._txbRollColor = value; this.OnPropertyChanged("TxbRollColor"); } }
+        
 
         private string _txbGen;
         public string TxbGen 
@@ -337,8 +342,6 @@ namespace NaimouzaHighSchool.ViewModels
 
        
 
-        private string _txbGenColor;
-        public string TxbGenColor { get { return this._txbGenColor; } set { this._txbGenColor = value; this.OnPropertyChanged("TxbGenColor"); } }
 
         public string[] DD { get; set; }
         public string[] MM { get; set; }
@@ -850,8 +853,8 @@ namespace NaimouzaHighSchool.ViewModels
         private System.Windows.Visibility _stdDetailVisibility;
         public System.Windows.Visibility StdDetailVisibility
         {
-             //  get { return this._stdDetailVisibility; }
-            get { return System.Windows.Visibility.Visible; }
+               get { return this._stdDetailVisibility; }
+           // get { return System.Windows.Visibility.Visible; }
             set { this._stdDetailVisibility = value; this.OnPropertyChanged("StdDetailVisibility"); }
         }
 
@@ -908,7 +911,7 @@ namespace NaimouzaHighSchool.ViewModels
             set { _profileImageSource = value; OnPropertyChanged("ProfileImageSource"); }
         }
 
-        private string[] profImage = { V, "f://prof//chear.png", "f://prof//UN.jpg"};
+        private string[] profImage = {"f://prof//UN.jpg", "f://prof//chear.png" };
 
         private int _selecStdSessonStartYear;
         public int SelecStdSessionStartYear
@@ -1279,15 +1282,19 @@ namespace NaimouzaHighSchool.ViewModels
 
         private void BuildStdDetailView(Student s)
         {
+            ProfileImageSource = profImage[Convert.ToInt32(s.Id)%2];
+
             this.TxbGen = s.Sex;
             this.TxbName = s.Name;
             
-            this.TxbNameColor = fontcolor1;
             this.TxbCls = s.StudyingClass;
             this.SchoolClassessIndex = Array.IndexOf(this.SchoolClasses, s.StudyingClass);
             this.TxbSection = s.Section;
             this.SchoolSectionIndex = Array.IndexOf(this.SchoolSections, s.Section);
             this.TxbRoll = s.Roll;
+
+            ClaSecRoll = TxbCls + "-"+TxbSection+"-"+TxbRoll;
+
             this.Dob = s.Dob;
             SelecStdSessionStartYear = s.StartSessionYear;
             SelecStdSessionEndYear = s.EndSessionYear;
@@ -1322,7 +1329,6 @@ namespace NaimouzaHighSchool.ViewModels
                 DobYYIndex = (yIndex == -1) ? 0 : yIndex;
             }
             
-            this.TxbGenColor = (string.IsNullOrEmpty(s.Sex)) ? fontcolor0 : fontcolor1;
 
             this.TxbFather = (string.IsNullOrEmpty(s.FatherName)) ? defaultEntry : s.FatherName;
             this.TxbMother = (string.IsNullOrEmpty(s.MotherName)) ? defaultEntry : s.MotherName;

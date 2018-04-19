@@ -284,7 +284,6 @@ namespace NaimouzaHighSchool.Models.Database
             return s;
         }
 
-       
 
         public bool DeleteStudent(string StdId)
         {

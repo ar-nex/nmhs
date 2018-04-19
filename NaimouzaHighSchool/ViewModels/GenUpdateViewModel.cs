@@ -709,6 +709,14 @@ namespace NaimouzaHighSchool.ViewModels
             set { _qualifiedClassIndex = (value > -1 && value < QualifiedClass.Length) ? value: -1;  OnPropertyChanged("QualifiedClassIndex"); }
         }
 
+        private string _msg;
+        public string Msg
+        {
+            get { return _msg; }
+            set { _msg = value; OnPropertyChanged("Msg"); }
+        }
+
+
         public RelayCommand SaveCommand { get; set; }
 
         private void StartUpInitializer()
@@ -745,6 +753,8 @@ namespace NaimouzaHighSchool.ViewModels
             {
                 BuildDetailsFromEditableStudent();
             }
+
+            Msg = string.Empty;
 
             SaveCommand = new RelayCommand(SaveUpdatedStudent, CanSaveUpdatedStudent);
         }
@@ -839,6 +849,7 @@ namespace NaimouzaHighSchool.ViewModels
              *  
              */
             EsAdmittedClassIndex = Array.IndexOf(EsSchoolClass, EditableStudent.AdmittedClass);
+            EsAdmissionNo = EditableStudent.AdmissionNo;
 
             MpRegisNo = EditableStudent.RegistrationNoMp;
             MpRoll = EditableStudent.BoardRoll;
@@ -1070,7 +1081,15 @@ namespace NaimouzaHighSchool.ViewModels
             {
                 Student UpdatedStudent = GetUpdatedStudent();
                 GenUpdateDb db = new GenUpdateDb();
-                db.UpdateStudent(UpdatedStudent);
+                if (db.UpdateStudent(UpdatedStudent))
+                {
+                    Msg = UpdatedStudent.Name+"'s details updated successfully.";
+                }
+                else
+                {
+                    Msg = "Sorry! Failed to update";
+                }
+
             }
         }
 

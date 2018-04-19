@@ -694,20 +694,7 @@ namespace NaimouzaHighSchool.ViewModels
                     int row = 1;
                     int totalRow = FilteredList.Count;
                     this.ProgressbarValue = "0" + "/" + totalRow.ToString();
-                    /*
-                    foreach (DataRow RowItem in this.Dtable.Rows)
-                    {
-                        row++;
-                        int col = 0;
-                        foreach (DataColumn ColItem in this.Dtable.Columns)
-                        {
-                            col++;
-                            workSheet.Cells[row, col] = RowItem[ColItem];
-                        }
-                        // float prgPercentage = (row / totalRow) * 100;
-                        this.ProgressbarValue = (row - 1).ToString() + "/" + totalRow.ToString();
-                    }
-                    */
+                    
                     foreach (var item in FilteredList)
                     {
                         row++;
@@ -792,6 +779,7 @@ namespace NaimouzaHighSchool.ViewModels
                     default:
                         break;
                 }
+
                 if ((SchoolClasses[ClsIndex] == "XI" || SchoolClasses[ClsIndex] == "XII") && HsSubIndex != -1)
                 {
                     if (this.FilteredList.Count > 0)
@@ -806,6 +794,20 @@ namespace NaimouzaHighSchool.ViewModels
 
                         FilteredList.Clear();
                         foreach (Student item in stdList3)
+                        {
+                            FilteredList.Add(item);
+                        }
+                    }
+                }
+                else
+                {
+                    if (this.FilteredList.Count > 0)
+                    {
+                        this.FilteredList.Clear();
+                    }
+                    if (PreFilteredList.Count > 0)
+                    {
+                        foreach (var item in PreFilteredList)
                         {
                             FilteredList.Add(item);
                         }

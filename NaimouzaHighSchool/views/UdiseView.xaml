@@ -21,10 +21,10 @@
         <Grid Grid.Row="1" Margin="20">
             <Grid.Resources>
                 <Style TargetType="Label">
-                    <Setter Property="Margin" Value="2" />
+                    <Setter Property="Margin" Value="2"/>
                 </Style>
                 <Style TargetType="ComboBox">
-                    <Setter Property="Margin" Value="2" />
+                    <Setter Property="Margin" Value="2"/>
                 </Style>
             </Grid.Resources>
             <Grid.ColumnDefinitions>
@@ -33,6 +33,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -75,11 +76,11 @@
             <Button Grid.Row="4" Grid.Column="2" Margin="2" 
                     Command="{Binding SaveGeneratedExcelFileCommand, Source={StaticResource udvm}}"
                     Width="100" HorizontalAlignment="Left">
-                <StackPanel Orientation="Horizontal">
-                    <Path Data="M6,2H14L20,8V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V4A2,2 0 0,1 6,2M13,3.5V9H18.5L13,3.5M17,11H13V13H14L12,14.67L10,13H11V11H7V13H8L11,15.5L8,18H7V20H11V18H10L12,16.33L14,18H13V20H17V18H16L13,15.5L16,13H17V11Z" Fill="Black" />
-                    <TextBlock Text="Generate" VerticalAlignment="Center" Margin="3,0"/>
-                </StackPanel>
+                    Generate Excel File 
             </Button>
+            <Label Grid.Row="5" Content="Progress" VerticalAlignment="Center"/>
+            <Label Grid.Row="5" Grid.Column="1" Content=":" VerticalAlignment="Center"/>
+            <Label Grid.Row="5" FontSize="18" VerticalAlignment="Center" Grid.Column="2" Content="{Binding ProgressbarValue, StringFormat=P2, Source={StaticResource udvm}}"></Label>
         </Grid>
     </Grid>
 </Window>

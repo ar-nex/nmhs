@@ -169,6 +169,7 @@
     <Compile Include="Models\Utility\Subject.cs" />
     <Compile Include="Models\Utility\SubjectUtility.cs" />
     <Compile Include="Models\Utility\Teacher.cs" />
+    <Compile Include="Models\Utility\UDiseProperty.cs" />
     <Compile Include="ViewModels\BankClassBaseViewModel.cs" />
     <Compile Include="ViewModels\BoardExamViewModel.cs" />
     <Compile Include="ViewModels\ClassConfigurationViewModel.cs" />

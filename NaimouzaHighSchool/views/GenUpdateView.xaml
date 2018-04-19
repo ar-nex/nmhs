@@ -12,6 +12,7 @@
     <DockPanel LastChildFill="True">
         <Border DockPanel.Dock="Bottom">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label Content="{Binding Msg, Source={StaticResource geVm}}"/>
                 <Button Margin="2" Content="Cancel" />
                 <Button 
                     Margin="2"
@@ -513,7 +514,7 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Label Content="Admission No." />
-                            <TextBox Grid.Column="1" />
+                            <TextBox Grid.Column="1" Text="{Binding EsAdmissionNo, Source={StaticResource geVm}, Mode=TwoWay}" />
                             <!--<Label Grid.Row="1" Content="Admission Date" />
                             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
                                 <ComboBox Width="120" />

@@ -9,19 +9,43 @@
         <conv:IntConverter x:Key="IntConverter"></conv:IntConverter>
     </Window.Resources>
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="Margin" Value="2" />
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="2" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="2" />
+            </Style>
+            <Style TargetType="ComboBox">
+                <Setter Property="Margin" Value="2" />
+            </Style>
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
+        
         <GroupBox Header="Class Wise Delete">
             <StackPanel Orientation="Vertical">
                 <Label Content="{Binding Message, Source={StaticResource dvm}}"></Label>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Session : "/>
+                    <TextBox 
+                        Text="{Binding StartYear, Source={StaticResource dvm}}"
+                        Width="80"/>
+                    <Label Content="-"/>
+                    <TextBox 
+                        Text="{Binding EndYear, Source={StaticResource dvm}}"
+                        Width="80"/>
+                </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Class</Label>
                     <ComboBox Width="60" ItemsSource="{Binding SchoolClasses, Source={StaticResource dvm}}" SelectedIndex="{Binding SchoolClassesIndex, Source={StaticResource dvm}}"></ComboBox>
                     <Label>Section</Label>
                     <ComboBox Width="60" ItemsSource="{Binding SchoolSections, Source={StaticResource dvm}}" SelectedIndex="{Binding SchoolSectionsIndex, Source={StaticResource dvm}}"></ComboBox>
-                  
                 </StackPanel>
                 <Button Width="80" HorizontalAlignment="Left" Command="{Binding DeleteClassWiseCommand, Source={StaticResource dvm}}">Delete</Button>
             </StackPanel>

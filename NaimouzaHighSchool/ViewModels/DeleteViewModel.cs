@@ -18,6 +18,20 @@ namespace NaimouzaHighSchool.ViewModels
 
         #region property
 
+        private int _startYear;
+        public int StartYear
+        {
+            get { return _startYear; }
+            set { _startYear = value; OnPropertyChanged("StartYear"); }
+        }
+
+        private int _endYear;
+        public int EndYear
+        {
+            get { return _endYear; }
+            set { _endYear = value; OnPropertyChanged("EndYear"); }
+        }
+
         private string[] _schoolClasses;
         public string[] SchoolClasses
         {
@@ -135,6 +149,8 @@ namespace NaimouzaHighSchool.ViewModels
             this.SchoolClasses = new string[] { "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII" };
             this.SchoolSections = new string[] { "A", "B", "C", "D", "E" };
 
+            StartYear = EndYear = DateTime.Today.Year;
+
             this.SchoolClassesIndex = -1;
             this.SchoolSectionsIndex = -1;
             this.SchoolClassesSpecificIndex = -1;
@@ -155,9 +171,7 @@ namespace NaimouzaHighSchool.ViewModels
 
         private void DeleteClassWise()
         {
-            int syear = DateTime.Today.Year;
-            int eyear = DateTime.Today.Year;
-            bool deleted = this.db.DeleteStudents(this.SchoolClasses[this.SchoolClassesIndex], this.SchoolSections[this.SchoolSectionsIndex], syear, eyear);
+            bool deleted = this.db.DeleteStudents(this.SchoolClasses[this.SchoolClassesIndex], this.SchoolSections[this.SchoolSectionsIndex], StartYear, EndYear);
             if (deleted)
             {
                 System.Windows.MessageBox.Show("deleted");
@@ -227,9 +241,7 @@ namespace NaimouzaHighSchool.ViewModels
             }
             else
             {
-                int syear = DateTime.Today.Year;
-                int eyear = DateTime.Today.Year;
-                int n = db.GetTotalStudents(this.SchoolClasses[this.SchoolClassesIndex], this.SchoolSections[this.SchoolSectionsIndex], syear, eyear);
+                int n = db.GetTotalStudents(this.SchoolClasses[this.SchoolClassesIndex], this.SchoolSections[this.SchoolSectionsIndex], StartYear, EndYear);
                 string msg = "Class " + this.SchoolClasses[this.SchoolClassesIndex] + "-" + this.SchoolSections[this.SchoolSectionsIndex] + " has "+n.ToString()+" students.";
                 this.Message = msg;
                 this.TotalStudents = n;
