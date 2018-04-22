@@ -138,10 +138,9 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Border Style="{StaticResource SearchBorder}">
+            <!--<Border Style="{StaticResource SearchBorder}">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <Label>Search by :</Label>
@@ -190,17 +189,17 @@
                             Value="{Binding StartYear, Source={StaticResource dObj}, Mode=TwoWay}"
                             Width="65">
                         </xctk:IntegerUpDown>
-                        <!--<TextBox Width="45" Text="{Binding StartYear, Source={StaticResource dObj}, Mode=TwoWay}"></TextBox>-->
+                        --><!--<TextBox Width="45" Text="{Binding StartYear, Source={StaticResource dObj}, Mode=TwoWay}"></TextBox>--><!--
                         <Label>-</Label>
                         <xctk:IntegerUpDown
                             Value="{Binding EndYear, Source={StaticResource dObj}, Mode=TwoWay}"
                             Width="65">
                         </xctk:IntegerUpDown>
-                        <!--<TextBox Width="45" Text="{Binding EndYear, Source={StaticResource dObj}, Mode=TwoWay}"></TextBox>-->
+                        --><!--<TextBox Width="45" Text="{Binding EndYear, Source={StaticResource dObj}, Mode=TwoWay}"></TextBox>--><!--
                         <Button Margin="15,0,0,0" Command="{Binding SearchCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}" Content="Search" />
                         <Button Visibility="Hidden" Name="EditBtn" Content="Update" Command="{Binding SaveEditCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}"
                                Template="{StaticResource UpdateButtonTemplate}" Cursor="Hand">
-                            <!--<Button.Triggers>
+                            --><!--<Button.Triggers>
                                         <EventTrigger RoutedEvent="Button.Click" SourceName="EditBtn">
                                             <BeginStoryboard Name="myStoryBoard">
                                                 <Storyboard>
@@ -211,16 +210,14 @@
                                                 </Storyboard>
                                             </BeginStoryboard>
                                         </EventTrigger>
-                                    </Button.Triggers>-->
+                                    </Button.Triggers>--><!--
                         </Button>
                         <Button Command="{Binding DeleteCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}">Delete</Button>
-                        <Button Content="Update_new" Width="100"
-                                            Command="{Binding GenUpdateCommand, Source={StaticResource dObj}}"
-                                            HorizontalAlignment="Left" />
+                        
                     </StackPanel>
                 </StackPanel>
-            </Border>
-            <Border Grid.Row="1">
+            </Border>-->
+            <Border>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -274,7 +271,7 @@
                                 <TextBox 
                                     Text="{Binding SearchParam, Source={StaticResource dObj}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Grid.Column="1"/>
-                                <Button Grid.Column="2" Content="Search"/>
+                                
                             </Grid>
                             <StackPanel Grid.Row="1" Orientation="Horizontal">
                                 <Label Content="Filter by "/>
@@ -331,7 +328,6 @@
                                     ItemsSource="{Binding SearchSection, Source={StaticResource dObj}}"
                                     SelectedIndex="{Binding SearchSectionIndex, Source={StaticResource dObj}}"
                                     Width="80"/>
-                                <Button Content="Get"/>
                             </StackPanel>
                             <StackPanel Grid.Row="1" Orientation="Horizontal">
                                 <Label Content="Filter by"/>
@@ -361,11 +357,13 @@
                         </Grid>
                     </Border>
                     <Border Grid.Column="2">
-                        
+                        <Button Content="Update_new" Width="100"
+                                            Command="{Binding GenUpdateCommand, Source={StaticResource dObj}}"
+                                            HorizontalAlignment="Left" />
                     </Border>
                 </Grid>
             </Border>
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.5*" MaxWidth="350" />
                     <ColumnDefinition Width="3*" />
@@ -377,7 +375,7 @@
                     </Grid.RowDefinitions>
                     <Border Background="#181a2e">
                         <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal">
+                            <!--<StackPanel Orientation="Horizontal">
                                 <Label Foreground="#bbb">Filter by :</Label>
                                 <RadioButton GroupName="filter" Style="{StaticResource filterRadio}"
                                     IsChecked="{Binding FilterCategory, Source={StaticResource dObj}, Converter={StaticResource GenFilterConverter}, ConverterParameter=none}">
@@ -391,7 +389,7 @@
                                     IsChecked="{Binding FilterCategory, Source={StaticResource dObj}, Converter={StaticResource GenFilterConverter}, ConverterParameter=female}">
                                     Girls
                                 </RadioButton>
-                            </StackPanel>
+                            </StackPanel>-->
                             <StackPanel Orientation="Horizontal">
                                 <Label Foreground="#bbb" VerticalAlignment="Center">Student(s) Found :</Label>
                                 <Label Foreground="#bbb" FontSize="20" FontWeight="Black"  Content="{Binding NumberOfMatches, Source={StaticResource dObj}}"></Label>
