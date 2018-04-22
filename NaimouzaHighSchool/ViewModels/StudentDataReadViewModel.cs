@@ -1596,6 +1596,7 @@ namespace NaimouzaHighSchool.ViewModels
             {
                 UnFilteredSList = db.GetStudentList(searchParam: SearchParam, sType: SType, startYear: StartYear, endYear: EndYear);
                 StudentList = new ObservableCollection<Student>(UnFilteredSList);
+                NumberOfMatches = StudentList.Count;
             }
         }
 
@@ -2262,6 +2263,7 @@ namespace NaimouzaHighSchool.ViewModels
             {
                 UnFilteredSList = db.GetStudentListByClass(cls: SchoolClass[SchoolClassIndex], startYear: StartYear, endYear: EndYear);
                 StudentList = new ObservableCollection<Student>(UnFilteredSList);
+                NumberOfMatches = StudentList.Count;
             }
         }
 
@@ -2271,6 +2273,7 @@ namespace NaimouzaHighSchool.ViewModels
             ObservableCollection<Student> FilteredList = new ObservableCollection<Student>();
             if (stdList.Count == 0)
             {
+                NumberOfMatches = 0;
                 return FilteredList;
             }
             else
@@ -2341,7 +2344,9 @@ namespace NaimouzaHighSchool.ViewModels
                     stdList.RemoveAll(std => (std.HsSub1 != ActiveHsSubs[ActiveHsSubsIndex] && std.HsSub2 != ActiveHsSubs[ActiveHsSubsIndex] && std.HsSub3 != ActiveHsSubs[ActiveHsSubsIndex] && std.HsAdlSub != ActiveHsSubs[ActiveHsSubsIndex]));
                 }
             }
-            return FilteredList = new ObservableCollection<Student>(stdList);
+            FilteredList = new ObservableCollection<Student>(stdList);
+            NumberOfMatches = FilteredList.Count;
+            return FilteredList;
         }
 
         #endregion method

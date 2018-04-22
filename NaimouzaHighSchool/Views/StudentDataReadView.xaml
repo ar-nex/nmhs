@@ -219,12 +219,35 @@
             </Border>-->
             <Border>
                 <Grid>
+                    <Grid.Resources>
+                        <Style TargetType="RadioButton">
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Margin" Value="2"/>
+                        </Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Margin" Value="2"/>
+                            
+                        </Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Padding" Value="10, 8"/>
+                        </Style>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Margin" Value="2"/>
+                        </Style>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="Margin" Value="2"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="/NaimouzaHighSchool;component/Asset/Images/un1.png"/>
+                    </Grid.Background>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition />
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Border>
+                    <Border BorderBrush="#999" BorderThickness="0, 0, 1, 0">
                         <StackPanel Orientation="Vertical">
                             <RadioButton 
                                 GroupName="SearchType" 
@@ -235,20 +258,21 @@
                                 IsChecked="{Binding SearchType, Source={StaticResource dObj}, Converter={StaticResource SearchTpConv}, ConverterParameter=classSearch}"
                                 Content="Get Class Wise List"/>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="Session "/>
-                                <xctk:IntegerUpDown
+                                <Label Content="Session" Width="Auto"/>
+                                <xctk:IntegerUpDown Margin="2"
                                     Value="{Binding StartYear, Source={StaticResource dObj}, Mode=TwoWay}"
                                     Width="65">
                                 </xctk:IntegerUpDown>
-                                <Label>-</Label>
-                                <xctk:IntegerUpDown
+                                <Label Margin="0" Width="Auto">-</Label>
+                                <xctk:IntegerUpDown Margin="2"
                                     Value="{Binding EndYear, Source={StaticResource dObj}, Mode=TwoWay}"
                                     Width="65">
                                 </xctk:IntegerUpDown>
                             </StackPanel>
                         </StackPanel>
                     </Border>
-                    <Border Grid.Column="1" Visibility="{Binding GenericSearch, Source={StaticResource dObj}}">
+                    <Border Grid.Column="1" BorderBrush="#999" BorderThickness="0, 0, 1, 0"
+                            Visibility="{Binding GenericSearch, Source={StaticResource dObj}}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition />
@@ -275,29 +299,29 @@
                             </Grid>
                             <StackPanel Grid.Row="1" Orientation="Horizontal">
                                 <Label Content="Filter by "/>
-                                <Label Content="Class"/>
+                                <Label Content="Class" Width="50"/>
                                 <ComboBox 
                                     ItemsSource="{Binding SearchClass, Source={StaticResource dObj}}"
                                     SelectedIndex="{Binding SearchClassIndex, Source={StaticResource dObj}, Mode=TwoWay}"
-                                    Width="60"/>
+                                    Width="63"/>
                                 <Label Content="Section"/>
                                 <ComboBox 
                                     ItemsSource="{Binding SearchSection, Source={StaticResource dObj}}"
                                     SelectedIndex="{Binding SearchSectionIndex, Source={StaticResource dObj}, Mode=TwoWay}"
-                                    Width="60"/>
+                                    Width="63"/>
                                 <Label Content="Gender"/>
                                 <ComboBox 
                                     ItemsSource="{Binding SearchGender, Source={StaticResource dObj}}"
                                     SelectedIndex="{Binding SearchGenderIndex, Source={StaticResource dObj}, Mode=TwoWay}"
-                                    Width="60"/>
+                                    Width="63"/>
                                 <Label Content="Social Category"/>
                                 <ComboBox 
                                     ItemsSource="{Binding SearchSocialCategory, Source={StaticResource dObj}}"
                                     SelectedIndex="{Binding SearchSocialCategoryIndex, Source={StaticResource dObj}, Mode=TwoWay}"
-                                    Width="80"/>
+                                    Width="85"/>
                             </StackPanel>
                             <StackPanel Grid.Row="2" Orientation="Horizontal">
-                                <Label Content="Stream "/>
+                                <Label Content="Stream " Margin="62, 0, 2, 0" Width="50"/>
                                 <ComboBox 
                                     ItemsSource="{Binding ActiveHsStream, Source={StaticResource dObj}}"
                                     SelectedIndex="{Binding SearchStreamIndex, Source={StaticResource dObj}}"
@@ -310,7 +334,8 @@
                             </StackPanel>
                         </Grid>
                     </Border>
-                    <Border Grid.Column="1" Visibility="{Binding ClassSearch, Source={StaticResource dObj}}">
+                    <Border Grid.Column="1" BorderBrush="#999" BorderThickness="0, 0, 1, 0"
+                            Visibility="{Binding ClassSearch, Source={StaticResource dObj}}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition />
@@ -318,12 +343,12 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="Class"/>
+                                <Label Margin="60, 0, 0, 0" Content="Class" Width="60"/>
                                 <ComboBox 
                                     ItemsSource="{Binding SchoolClass, Source={StaticResource dObj}}"
                                     SelectedIndex="{Binding SchoolClassIndex, Source={StaticResource dObj}, Mode=TwoWay}"
                                     Width="80"/>
-                                <Label Content="Section"/>
+                                <Label Width="95" HorizontalAlignment="Right" Content="Section"/>
                                 <ComboBox 
                                     ItemsSource="{Binding SearchSection, Source={StaticResource dObj}}"
                                     SelectedIndex="{Binding SearchSectionIndex, Source={StaticResource dObj}}"
@@ -331,24 +356,24 @@
                             </StackPanel>
                             <StackPanel Grid.Row="1" Orientation="Horizontal">
                                 <Label Content="Filter by"/>
-                                <Label Content="Gender"/>
+                                <Label Content="Gender" Width="60"/>
                                 <ComboBox 
                                     ItemsSource="{Binding SearchGender, Source={StaticResource dObj}}"
                                     SelectedIndex="{Binding SearchGenderIndex, Source={StaticResource dObj}, Mode=TwoWay}"
                                     Width="80"/>
-                                <Label Content="Social Category"/>
+                                <Label Width="95" HorizontalAlignment="Right" Content="Social Category"/>
                                 <ComboBox 
                                     ItemsSource="{Binding SearchSocialCategory, Source={StaticResource dObj}}"
                                     SelectedIndex="{Binding SearchSocialCategoryIndex,Source={StaticResource dObj}, Mode=TwoWay}"
                                     Width="100" />
                             </StackPanel>
                             <StackPanel Grid.Row="2" Orientation="Horizontal">
-                                <Label Content="Stream "/>
+                                <Label Margin="60, 0, 0, 0" Content="Stream" Width="60"/>
                                 <ComboBox 
                                     ItemsSource="{Binding ActiveHsStream, Source={StaticResource dObj}}"
                                     SelectedIndex="{Binding SearchStreamIndex, Source={StaticResource dObj}}"
-                                    Width="120"/>
-                                <Label Content="Subject "/>
+                                    Width="80"/>
+                                <Label Width="95" HorizontalAlignment="Right" Content="Subject "/>
                                 <ComboBox 
                                     ItemsSource="{Binding ActiveHsSubs, Source={StaticResource dObj}}"
                                     SelectedIndex="{Binding ActiveHsSubsIndex, Source={StaticResource dObj}, Mode=TwoWay}"
@@ -357,9 +382,13 @@
                         </Grid>
                     </Border>
                     <Border Grid.Column="2">
-                        <Button Content="Update_new" Width="100"
+                        <WrapPanel>
+                            <Button Content="_Update"
                                             Command="{Binding GenUpdateCommand, Source={StaticResource dObj}}"
                                             HorizontalAlignment="Left" />
+                            <Button Command="{Binding DeleteCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}">Delete</Button>
+                        </WrapPanel>
+                        
                     </Border>
                 </Grid>
             </Border>
