@@ -183,6 +183,7 @@
     <Compile Include="ViewModels\Converters\GenderFilterConverter.cs" />
     <Compile Include="ViewModels\Converters\IntConverter.cs" />
     <Compile Include="ViewModels\Converters\SearchConverter.cs" />
+    <Compile Include="ViewModels\Converters\SearchTypeConverter.cs" />
     <Compile Include="ViewModels\DashGridViewModel.cs" />
     <Compile Include="ViewModels\DeleteViewModel.cs" />
     <Compile Include="ViewModels\ExamViewModel.cs" />

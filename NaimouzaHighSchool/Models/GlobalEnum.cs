@@ -48,4 +48,6 @@
         Mobile,
         Email
     };
+
+    public enum SearchType { Name, ID, Aadhaar, Father, Village, SocialCategory };
 }

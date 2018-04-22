@@ -814,8 +814,8 @@ namespace NaimouzaHighSchool.ViewModels
 
         private void HsSubsInitializer()
         {
-            HsArtsSubs = new string[] { "ARABIC", "ECONOMICS", "EDUCATION", "GEOGRAPHY", "PHILOSOPHY", "HISTORY", "POL. SC", "SOCIOLOGY" };
-            HsSciSubs = new string[] { "PHYSICS", "CHEMISTRY", "MATHEMATICS", "BIOLOGY" };
+            HsArtsSubs = GlobalVar.HsArtsSubs;
+            HsSciSubs = GlobalVar.HsSciSubs;
             HsActiveSubs = new string[] { };
             HsActiveSubs1 = new string[] { };
             HsActiveSubs2 = new ObservableCollection<string>();

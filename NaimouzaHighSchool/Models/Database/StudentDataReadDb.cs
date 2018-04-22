@@ -83,14 +83,63 @@ namespace NaimouzaHighSchool.Models.Database
             return sList;
         }
 
+        public List<Student> GetStudentList(string searchParam, SearchType sType, int startYear, int endYear)
+        {
+            List<Student> sList = new List<Student>();
+            string sql = $"SELECT s.*, c.*, a.* FROM {basic_table} s INNER JOIN student_class c ON c.student_basic_id = s.id" +
+                        $" INNER JOIN admission a ON a.student_basic_id = s.id";
+            string session_sql = $"  AND c.startYear = " + dv(startYear) + " AND c.endYear = " + dv(endYear);
+            switch (sType)
+            {
+                case SearchType.Name:
+                    sql = sql + $" WHERE s.name LIKE '%{searchParam}%'" + session_sql;
+                    break;
+                case SearchType.ID:
+                    sql = sql + $" WHERE a.admissionNo = "+dv(searchParam) + session_sql;
+                    break;
+                case SearchType.Aadhaar:
+                    sql = sql + $" WHERE s.aadhar = " + dv(searchParam) + session_sql;
+                    break;
+                case SearchType.Father:
+                    sql = sql + $" WHERE s.fatherName LIKE '%{searchParam}%'" + session_sql;
+                    break;
+                case SearchType.Village:
+                    sql = sql + $" WHERE s.presentAddrLane2 LIKE '%{searchParam}%'" + session_sql;
+                    break;
+                case SearchType.SocialCategory:
+                    sql = sql + $" WHERE s.socialCategory = " + dv(searchParam) + session_sql;
+                    break;
+                default:
+                    break;
+            }
+            try
+            {
+                this.conn.Open();
+                MySqlCommand cmd = new MySqlCommand(sql, this.conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    Student s = BuildObject(rdr);
+                    sList.Add(s);
+                }
+            }
+            catch (Exception e1)
+            {
+
+                System.Windows.MessageBox.Show("Problem in getting student list by type : " + e1.Message);
+            }
+            finally
+            {
+                this.conn.Close();
+            }
+            return sList;
+        }
+
         public List<Student> GetStudentListByClass(string cls, int startYear, int endYear)
         {
             List<Student> sList = new List<Student>();
             string sYear = startYear.ToString();
             string eYear = endYear.ToString();
-            //string sql = @"SELECT s.*, c.*, a.* FROM `student_basic` s 
-            //                INNER JOIN student_class c ON c.student_basic_id = s.id 
-            //                INNER JOIN admission a ON a.student_basic_id = s.id WHERE c.class = '" + cls + "' AND c.startYear = " + sYear + " AND c.endYear = " + eYear;
 
             string sql = $"SELECT s.*, c.*, a.* FROM {basic_table} s" +
                 $" INNER JOIN student_class c ON c.student_basic_id = s.id INNER JOIN admission a ON a.student_basic_id = s.id " +
