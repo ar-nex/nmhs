@@ -58,6 +58,8 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+
                                 </Grid.RowDefinitions>
                                 <Label Content="Student Name " />
                                 <TextBox Grid.Column="1" Text="{Binding EsName, Source={StaticResource geVm}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
@@ -66,29 +68,37 @@
                                     <TextBox Text="{Binding EsClass, Source={StaticResource geVm}}" IsReadOnly="True" Width="60" />
                                     <Label Content="Section " />
                                     <ComboBox
-                            ItemsSource="{Binding EsSection, Source={StaticResource geVm}}"
-                            SelectedIndex="{Binding EsSectionIndex, Source={StaticResource geVm}}"
-                            Width="80" />
+                                         ItemsSource="{Binding EsSection, Source={StaticResource geVm}}"
+                                         SelectedIndex="{Binding EsSectionIndex, Source={StaticResource geVm}}"
+                                         Width="80" />
                                     <Label Content="Roll " />
                                     <TextBox Width="80" Text="{Binding EsRoll, Source={StaticResource geVm}, Mode=TwoWay}" />
                                 </StackPanel>
-                                <Label Grid.Row="2" Content="Date of Birth" />
-                                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                                    <ComboBox Width="80" 
+                                <Label Grid.Row="2" Content="Gender"/>
+                                <ComboBox Grid.Row="2" Grid.Column="1" Width="80" HorizontalAlignment="Left" />
+                                <Label Grid.Row="3" VerticalAlignment="Center" Content="Date of Birth" />
+                                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                                    <StackPanel Orientation="Vertical">
+                                        <Label Content="YYYY"  />
+                                        <ComboBox Width="80" 
                                               ItemsSource="{Binding YYYY, Source={StaticResource geVm}}"
                                               SelectedIndex="{Binding DobYYIndex, Source={StaticResource geVm}}"
-                                              Margin="2, 2, 0, 2" />
-                                    <Label Content="YYYY" Margin="0,2,2,2" />
-                                    <ComboBox Width="80" 
+                                               />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical">
+                                        <Label Content="MM" />
+                                        <ComboBox Width="80" 
                                               ItemsSource="{Binding MM, Source={StaticResource geVm}}"
                                               SelectedIndex="{Binding DobMMIndex, Source={StaticResource geVm}}"
-                                              Margin="2, 2, 0, 2" />
-                                    <Label Content="MM" Margin="0,2,2,2" />
-                                    <ComboBox Width="80" 
+                                               />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical">
+                                        <Label Content="DD" />
+                                        <ComboBox Width="80" 
                                               ItemsSource="{Binding DD, Source={StaticResource geVm}}"
                                               SelectedIndex="{Binding DobDDIndex, Source={StaticResource geVm}}"
-                                              Margin="2, 2, 0, 2" />
-                                    <Label Content="DD" Margin="0,2,2,2" />
+                                               />
+                                    </StackPanel>
                                 </StackPanel>
                             </Grid>
                         </Grid>

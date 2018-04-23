@@ -27,8 +27,6 @@ namespace NaimouzaHighSchool.ViewModels
 
         #region property field
 
-        private const string fontcolor1 = "#053646";
-        private const string fontcolor0 = "#053646";
         private const string defaultEntry = "";
         private const string V = @"\\Ami-laptop\d\img\bbc.jpg";
 
@@ -42,10 +40,16 @@ namespace NaimouzaHighSchool.ViewModels
 
         private string profileImageFolder { get; set; }
 
+        private string _backgroundImageSource;
+        public string BackgroundImageSource
+        {
+            get { return _backgroundImageSource; }
+            set { _backgroundImageSource = value; OnPropertyChanged("BackgroundImageSource"); }
+        }
+
         #region search bar
 
         private string _searchText;
-
         public string SearchText
         {
             get { return this._searchText; }
@@ -57,7 +61,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _searchTextBoxLabel;
-
         public string SearchTextBoxLabel
         {
             get { return this._searchTextBoxLabel; }
@@ -65,7 +68,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _selectedClass;
-
         private string SelectedClass
         {
             get { return this._selectedClass; }
@@ -75,7 +77,6 @@ namespace NaimouzaHighSchool.ViewModels
         public string[] SchoolClasses { get; set; }
 
         private int _selectedClassIndex;
-
         public int SelectedClassIndex
         {
             get { return this._selectedClassIndex; }
@@ -88,7 +89,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _selectedSection;
-
         private string SelectedSection
         {
             get { return this._selectedSection; }
@@ -98,7 +98,6 @@ namespace NaimouzaHighSchool.ViewModels
         public string[] SchoolSections { get; set; }
 
         private int _selectedSectionIndex;
-
         public int SelectedSectionIndex
         {
             get { return this._selectedSectionIndex; }
@@ -111,7 +110,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private int _roll;
-
         public int Roll
         {
             get { return this._roll; }
@@ -119,7 +117,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _searchType;
-
         public string SearchType
         {
             get { return _searchType; }
@@ -389,60 +386,6 @@ namespace NaimouzaHighSchool.ViewModels
             set { _classSearch = value; OnPropertyChanged("ClassSearch"); }
         }
 
-        private string _searchCategory;
-
-        public string SearchCategory
-        {
-            get { return this._searchCategory; }
-            set
-            {
-                this._searchCategory = value;
-                if (value == "cls")
-                {
-                    this.SearchTextBoxLabel = "Roll ";
-                }
-                else if (value == "name")
-                {
-                    this.SearchTextBoxLabel = "Name ";
-                }
-                else if (value == "aadhar")
-                {
-                    this.SearchTextBoxLabel = "Aadhaar";
-                }
-                else if (value == "admissionNo")
-                {
-                    this.SearchTextBoxLabel = "Admission No.";
-                }
-                else if (value == "madhyamicRoll")
-                {
-                    this.SearchTextBoxLabel = "Madhyamic Roll";
-                }
-                else if (value == "madhyamicNo")
-                {
-                    this.SearchTextBoxLabel = "Madhyamic No.";
-                }
-                else
-                {
-                    this.SearchTextBoxLabel = "Search Text";
-                }
-                this.ResetSearchEntry();
-                this.OnPropertyChanged("SearchCategory");
-            }
-        }
-
-        private string _filterCategory;
-
-        public string FilterCategory
-        {
-            get { return this._filterCategory; }
-            set
-            {
-                this._filterCategory = value;
-                this.UpdateLeftpaneList();
-                this.OnPropertyChanged("FilterCategory");
-            }
-        }
-
         private BackgroundWorker bw = new BackgroundWorker();
 
         public RelayCommand SearchCommand { get; set; }
@@ -672,8 +615,7 @@ namespace NaimouzaHighSchool.ViewModels
 
         private string _txbAge;
         public string TxbAge { get { return this._txbAge; } set { this._txbAge = value; this.OnPropertyChanged("TxbAge"); } }
-        private string _txbAgeColor;
-        public string TxbAgeColor { get { return this._txbAgeColor; } set { this._txbAgeColor = value; this.OnPropertyChanged("TxbAgeColor"); } }
+        
 
         private string _subjGroupHeader;
 
@@ -769,68 +711,43 @@ namespace NaimouzaHighSchool.ViewModels
 
         private string _txbFather;
         public string TxbFather { get { return this._txbFather; } set { this._txbFather = value.ToUpper(); this.OnPropertyChanged("TxbFather"); } }
-        private string _txbFatherColor;
-        public string TxbFatherColor { get { return this._txbFatherColor; } set { this._txbFatherColor = value; this.OnPropertyChanged("TxbFatherColor"); } }
 
         private string _txbMother;
         public string TxbMother { get { return this._txbMother; } set { this._txbMother = value.ToUpper(); this.OnPropertyChanged("TxbMother"); } }
-        private string _txbMotherColor;
-        public string TxbMotherColor { get { return this._txbMotherColor; } set { this._txbMotherColor = value; this.OnPropertyChanged("TxbMotherColor"); } }
 
         private string _txbGrd;
         public string TxbGrd { get { return this._txbGrd; } set { this._txbGrd = value.ToUpper(); this.OnPropertyChanged("TxbGrd"); } }
-        private string _txbGrdColor;
-        public string TxbGrdColor { get { return this._txbGrdColor; } set { this._txbGrdColor = value; this.OnPropertyChanged("TxbGrdColor"); } }
 
         private string _txbGrdRel;
         public string TxbGrdRel { get { return this._txbGrdRel; } set { this._txbGrdRel = value.ToUpper(); this.OnPropertyChanged("TxbGrdRel"); } }
-        private string _txbGrdRelColor;
-        public string TxbGrdRelColor { get { return this._txbGrdRelColor; } set { this._txbGrdRelColor = value; this.OnPropertyChanged("TxbGrdRelColor"); } }
 
         private string _txbGrdOcc;
         public string TxbGrdOcc { get { return this._txbGrdOcc; } set { this._txbGrdOcc = value; this.OnPropertyChanged("TxbGrdOcc"); } }
-        private string _txbGrdOccColor;
-        public string TxbGrdOccColor { get { return this._txbGrdOccColor; } set { this._txbGrdOccColor = value; this.OnPropertyChanged("TxbGrdOccColor"); } }
 
         private string _txbGrdAadhar;
         public string TxbGrdAadhar { get { return this._txbGrdAadhar; } set { this._txbGrdAadhar = value; this.OnPropertyChanged("TxbGrdAadhar"); } }
-        private string _txbGrdAadharColor;
-        public string TxbGrdAadharColor { get { return this._txbGrdAadharColor; } set { this._txbGrdAadharColor = value; this.OnPropertyChanged("TxbGrdAadharColor"); } }
 
         private string _txbGrdEpic;
         public string TxbGrdEpic { get { return this._txbGrdEpic; } set { this._txbGrdEpic = value; this.OnPropertyChanged("TxbGrdEpic"); } }
-        private string _txbGrdEpicColor;
-        public string TxbGrdEpicColor { get { return this._txbGrdEpicColor; } set { this._txbGrdEpicColor = value; this.OnPropertyChanged("TxbGrdEpicColor"); } }
 
         private string _txbAadhar;
         public string TxbAadhar { get { return this._txbAadhar; } set { this._txbAadhar = value; this.OnPropertyChanged("TxbAadhar"); } }
-        private string _txbAadharColor;
-        public string TxbAadharColor { get { return this._txbAadharColor; } set { this._txbAadharColor = value; this.OnPropertyChanged("TxbAadharColor"); } }
 
         private string _txbSocCat;
         public string TxbSocCat { get { return this._txbSocCat; } set { this._txbSocCat = value; this.OnPropertyChanged("TxbSocCat"); } }
-        private string _txbSocCatColor;
-        public string TxbSocCatColor { get { return this._txbSocCatColor; } set { this._txbSocCatColor = value; this.OnPropertyChanged("TxbSocCatColor"); } }
 
         private string _txbSbCat;
         public string TxbSbCat { get { return this._txbSbCat; } set { this._txbSbCat = value.ToUpper(); this.OnPropertyChanged("TxbSbCat"); } }
-        private string _txbSbCatColor;
-        public string TxbSbCatColor { get { return this._txbSbCatColor; } set { this._txbSbCatColor = value; this.OnPropertyChanged("TxbSbCatColor"); } }
 
         private bool _txbIsPh;
         public bool TxbIsPh { get { return this._txbIsPh; } set { this._txbIsPh = value; this.OnPropertyChanged("TxbIsPh"); } }
-        private string _txbIsPhColor;
-        public string TxbIsPhColor { get { return this._txbIsPhColor; } set { this._txbIsPhColor = value; this.OnPropertyChanged("TxbIsPhColor"); } }
 
         private string _txbPhType;
         public string TxbPhType { get { return this._txbPhType; } set { this._txbPhType = value; this.OnPropertyChanged("TxbPhType"); } }
-        private string _txbPhTypeColor;
-        public string TxbPhTypeColor { get { return this._txbPhTypeColor; } set { this._txbPhTypeColor = value; this.OnPropertyChanged("TxbPhTypeColor"); } }
 
         private bool _stdIsBpl;
         public bool StdIsBpl { get { return this._stdIsBpl; } set { this._stdIsBpl = value; this.OnPropertyChanged("StdIsBpl"); } }
-        private string _stdIsBplColor;
-        public string StdIsBplColor { get { return this._stdIsBplColor; } set { this._stdIsBplColor = value; this.OnPropertyChanged("StdIsBplColor"); } }
+
 
         private string _isStudentBPL;
 
@@ -1111,13 +1028,11 @@ namespace NaimouzaHighSchool.ViewModels
 
         private string _txbMadhyamicRoll;
         public string TxbMadhyamicRoll { get { return this._txbMadhyamicRoll; } set { this._txbMadhyamicRoll = value; this.OnPropertyChanged("TxbMadhyamicRoll"); } }
-        private string _txbMadhyamicRollColor;
-        public string TxbMadhyamicRollColor { get { return this._txbMadhyamicRollColor; } set { this._txbMadhyamicRollColor = value; this.OnPropertyChanged("TxbMadhyamicRollColor"); } }
+       
 
         private string _txbMadhyamicNo;
         public string TxbMadhyamicNo { get { return this._txbMadhyamicNo; } set { this._txbMadhyamicNo = value; this.OnPropertyChanged("TxbMadhyamicNo"); } }
-        private string _txbMadhyamicNoColor;
-        public string TxbMadhyamicNoColor { get { return this._txbMadhyamicNoColor; } set { this._txbMadhyamicNoColor = value; this.OnPropertyChanged("TxbMadhyamicNoColor"); } }
+       
 
         private string _txbMPRegisNo;
 
@@ -1133,13 +1048,10 @@ namespace NaimouzaHighSchool.ViewModels
 
         private string _txbCouncilRoll;
         public string TxbCouncilRoll { get { return this._txbCouncilRoll; } set { this._txbCouncilRoll = value; this.OnPropertyChanged("TxbCouncilRoll"); } }
-        private string _txbCouncilRollColor;
-        public string TxbCouncilRollColor { get { return this._txbCouncilRollColor; } set { this._txbCouncilRollColor = value; this.OnPropertyChanged("TxbCouncilRollColor"); } }
+       
 
         private string _txbCouncilNo;
         public string TxbCouncilNo { get { return this._txbCouncilNo; } set { this._txbCouncilNo = value; this.OnPropertyChanged("TxbCouncilNo"); } }
-        private string _txbCouncilNoColor;
-        public string TxbCouncilNoColor { get { return this._txbCouncilNoColor; } set { this._txbCouncilNoColor = value; this.OnPropertyChanged("TxbCouncilNoColor"); } }
 
         private string _txbHSRegisNo;
 
@@ -1158,11 +1070,10 @@ namespace NaimouzaHighSchool.ViewModels
         #region visibility
 
         private System.Windows.Visibility _stdDetailVisibility;
-
         public System.Windows.Visibility StdDetailVisibility
         {
-            get { return this._stdDetailVisibility; }
-            // get { return System.Windows.Visibility.Visible; }
+           // get { return this._stdDetailVisibility; }
+             get { return System.Windows.Visibility.Visible; }
             set { this._stdDetailVisibility = value; this.OnPropertyChanged("StdDetailVisibility"); }
         }
 
@@ -1229,175 +1140,15 @@ namespace NaimouzaHighSchool.ViewModels
 
         private string[] profImage = { "f://prof//UN.jpg", "f://prof//chear.png" };
 
-        private int _selecStdSessonStartYear;
-
-        public int SelecStdSessionStartYear
+        private string _session;
+        public string Session
         {
-            get { return _selecStdSessonStartYear; }
-            set { _selecStdSessonStartYear = value; OnPropertyChanged("SelecStdSessionStartYear"); }
+            get { return _session; }
+            set { _session = value; OnPropertyChanged("Session"); }
         }
 
-        private int _selecStdSessonEndYear;
-
-        public int SelecStdSessionEndYear
-        {
-            get { return _selecStdSessonEndYear; }
-            set { _selecStdSessonEndYear = value; OnPropertyChanged("SelecStdSessionEndYear"); }
-        }
-
-        #region edit
-
-        public string[] SocialCatList { get; set; }
-
-        private string _headerBackground;
-
-        public string HeaderBackground
-        {
-            get { return this._headerBackground; }
-            set { this._headerBackground = value; this.OnPropertyChanged("HeaderBackground"); }
-        }
-
-        private string _headerBGgen;
-
-        public string HeaderBGgen
-        {
-            get { return _headerBGgen; }
-            set { this._headerBGgen = value; this.OnPropertyChanged("HeaderBGgen"); }
-        }
-
-        private string _headerBGpar;
-
-        public string HeaderBGpar
-        {
-            get { return _headerBGpar; }
-            set { this._headerBGpar = value; this.OnPropertyChanged("HeaderBGpar"); }
-        }
-
-        private string _headerBGsoc;
-
-        public string HeaderBGsoc
-        {
-            get { return _headerBGsoc; }
-            set { this._headerBGsoc = value; this.OnPropertyChanged("HeaderBGsoc"); }
-        }
-
-        private string _headerBGadd;
-
-        public string HeaderBGadd
-        {
-            get { return _headerBGadd; }
-            set { this._headerBGadd = value; this.OnPropertyChanged("HeaderBGadd"); }
-        }
-
-        private string _headerBGbnk;
-
-        public string HeaderBGbnk
-        {
-            get { return _headerBGbnk; }
-            set { this._headerBGbnk = value; this.OnPropertyChanged("HeaderBGbnk"); }
-        }
-
-        private string _headerBGadm;
-
-        public string HeaderBGadm
-        {
-            get { return _headerBGadm; }
-            set { this._headerBGadm = value; this.OnPropertyChanged("HeaderBGadm"); }
-        }
-
-        private string _headerBGoth;
-
-        public string HeaderBGoth
-        {
-            get { return _headerBGoth; }
-            set { this._headerBGoth = value; this.OnPropertyChanged("HeaderBGoth"); }
-        }
-
-        private bool _hitTestGeneral;
-
-        public bool HitTestGeneral
-        {
-            get { return this._hitTestGeneral; }
-            set { this._hitTestGeneral = value; this.OnPropertyChanged("HitTestGeneral"); }
-        }
-
-        private bool _isReadOnlyGen;
-
-        public bool IsReadOnlyGen
-        {
-            get { return this._isReadOnlyGen; }
-            set { this._isReadOnlyGen = value; this.OnPropertyChanged("IsReadOnlyGen"); }
-        }
-
-        private bool _isReadOnlyPar;
-
-        public bool IsReadOnlyPar
-        {
-            get { return this._isReadOnlyPar; }
-            set { this._isReadOnlyPar = value; this.OnPropertyChanged("IsReadOnlyPar"); }
-        }
-
-        private bool _hitTestSoc;
-
-        public bool HitTestSoc
-        {
-            get { return this._hitTestSoc; }
-            set { this._hitTestSoc = value; this.OnPropertyChanged("HitTestSoc"); }
-        }
-
-        private bool _isReadOnlySoc;
-
-        public bool IsReadOnlySoc
-        {
-            get { return this._isReadOnlySoc; }
-            set { this._isReadOnlySoc = value; this.OnPropertyChanged("IsReadOnlySoc"); }
-        }
-
-        private bool _isReadOnlyAdd;
-
-        public bool IsReadOnlyAdd
-        {
-            get { return this._isReadOnlyAdd; }
-            set { this._isReadOnlyAdd = value; this.OnPropertyChanged("IsReadOnlyAdd"); }
-        }
-
-        private bool _isReadOnlyBnk;
-
-        public bool IsReadOnlyBnk
-        {
-            get { return this._isReadOnlyBnk; }
-            set { this._isReadOnlyBnk = value; this.OnPropertyChanged("IsReadOnlyBnk"); }
-        }
-
-        private bool _hitTestAdm;
-
-        public bool HitTestAdm
-        {
-            get { return this._hitTestAdm; }
-            set { this._hitTestAdm = value; this.OnPropertyChanged("HitTestAdm"); }
-        }
-
-        private bool _isReadOnlyAdm;
-
-        public bool IsReadOnlyAdm
-        {
-            get { return this._isReadOnlyAdm; }
-            set { this._isReadOnlyAdm = value; this.OnPropertyChanged("IsReadOnlyAdm"); }
-        }
-
-        private bool _isReadOnlyOth;
-
-        public bool IsReadOnlyOth
-        {
-            get { return this._isReadOnlyOth; }
-            set { this._isReadOnlyOth = value; this.OnPropertyChanged("IsReadOnlyOth"); }
-        }
-
-        #endregion edit
 
         public RelayCommand DeleteCommand { get; set; }
-        public RelayCommand EditCommand { get; set; }
-        public RelayCommand SaveEditCommand { get; set; }
 
         public RelayCommand SortByNameCommand { get; set; }
         public RelayCommand SortByClassCommand { get; set; }
@@ -1411,10 +1162,11 @@ namespace NaimouzaHighSchool.ViewModels
 
         private void StartUpInitializer()
         {
+            BackgroundImageSource = Helpers.BackgroundImageHelper.GetRandomImagePath();
+
             this.SchoolClasses = new string[] { "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII" };
             this.SchoolSections = new string[] { "A", "B", "C", "D", "E" };
             this.BloodGroups = new string[] { "A +", "A -", "B +", "B -", "AB +", "AB -", "O +", "O -" };
-            this.SocialCatList = new string[] { "GEN", "SC", "ST", "OBC-A", "OBC-B" };
             this.ClassesForAdmission = new string[] { "V", "VI", "VII", "VIII", "IX", "XI" };
             StartYear = DateTime.Today.Year;
             EndYear = DateTime.Today.Year;
@@ -1447,9 +1199,6 @@ namespace NaimouzaHighSchool.ViewModels
             ActiveHsSubs = new ObservableCollection<string>();
             DoSearchFilterIndexToDefault();
 
-            this.SearchCategory = "cls";
-            this.SearchTextBoxLabel = "Roll ";
-            this.FilterCategory = "none";
             this.SchoolClassessIndex = -1;
             this.SchoolSectionIndex = -1;
             this.SocialCatListIndex = -1;
@@ -1461,8 +1210,6 @@ namespace NaimouzaHighSchool.ViewModels
             profileImageFolder = ConfigurationManager.AppSettings["profileImageFolder"];
             ProfileImageSource = profileImageFolder + "20140828_142911.jpg";
             */
-
-            this.MakeReadOnly();
 
             this.TakenSubjects = new ObservableCollection<string>();
             this.ArrayOfSubs = new System.Collections.ArrayList();
@@ -1485,16 +1232,11 @@ namespace NaimouzaHighSchool.ViewModels
         private void CommandInitializer()
         {
             this.SearchCommand = new RelayCommand(this.Search, this.CanSearch);
-
             this.DeleteCommand = new RelayCommand(this.Delete, this.CanDelete);
-            this.EditCommand = new RelayCommand(this.Edit, this.CanEdit);
-            this.SaveEditCommand = new RelayCommand(this.SaveEdit, this.CanSaveEdit);
-
             this.SortByNameCommand = new RelayCommand(this.SortByName, this.CanSortByName);
             this.SortByClassCommand = new RelayCommand(this.SortByClass, this.CanSortByClass);
             this.SortBySectionCommand = new RelayCommand(this.SortBySection, this.CanSortBySection);
             this.SortByRollCommand = new RelayCommand(this.SortByRoll, this.CanSortByRoll);
-
             GenUpdateCommand = new RelayCommand(GenUpdate, CanGenUpdate);
         }
 
@@ -1511,59 +1253,7 @@ namespace NaimouzaHighSchool.ViewModels
             SelectedStudentListIndex = retainIndex;
         }
 
-        private void Search_old()
-        {
-            //hide the std detail panel
-            this.StdDetailVisibility = System.Windows.Visibility.Collapsed;
-            //  List<Student> slist = new List<Student>();
-            if (this.SearchCategory == "name" || this.SearchCategory == "aadhar" || this.SearchCategory == "admissionNo" || this.SearchCategory == "madhyamicNo" || this.SearchCategory == "madhyamicRoll")
-            {
-                this.Slist = db.GetStudentList(this.SearchCategory, this.SearchText, StartYear, EndYear);
-            }
-            else if (this.SearchCategory == "cls")
-            {
-                //if roll not exist.
-                if (string.IsNullOrEmpty(this.SearchText))
-                {
-                    if (this.SelectedClassIndex > -1 && this.SelectedSectionIndex == -1)
-                    {
-                        this.Slist = db.GetStudentListByClass(SelectedClass, StartYear, EndYear);
-                    }
-                    else if (this.SelectedClassIndex > -1 && this.SelectedSectionIndex > -1)
-                    {
-                        this.Slist = db.GetStudentListByClass(this.SelectedClass, this.SelectedSection, StartYear, EndYear);
-                    }
-                }
-                // if roll exist verify it.
-                else
-                {
-                    int rl;
-                    bool bl = Int32.TryParse(this.SearchText, out rl);
-                    if (bl)
-                    {
-                        if (this.SelectedClassIndex > -1 && this.SelectedSectionIndex > -1)
-                        {
-                            this.Slist = db.GetStudentListByClass(this.SelectedClass, this.SelectedSection, rl, StartYear, EndYear);
-                        }
-                        else if (this.SelectedClassIndex > -1 && this.SelectedSectionIndex == -1)
-                        {
-                            this.Slist = db.GetStudentListByClass(this.SelectedClass, rl, StartYear, EndYear);
-                        }
-                        else if (this.SelectedClassIndex == -1 && this.SelectedSectionIndex == -1)
-                        {
-                            this.Slist = db.GetStudentListByClass(rl, StartYear, EndYear);
-                        }
-                    }
-                    else
-                    {
-                        System.Windows.MessageBox.Show("Only digits are allowed in roll number.");
-                        return;
-                    }
-                }
-            }
-
-            this.UpdateLeftpaneList();
-        }
+ 
 
         private void Search()
         {
@@ -1605,67 +1295,10 @@ namespace NaimouzaHighSchool.ViewModels
             return SearchByIndex != -1 && !string.IsNullOrEmpty(SearchParam);
         }
 
-        private bool CanSearch_old()
-        {
-            bool rs = false;
-            if (string.IsNullOrEmpty(this.SearchCategory))
-            {
-                rs = false;
-                return rs;
-            }
-            else
-            {
-                switch (this.SearchCategory)
-                {
-                    case "name":
-                        rs = (string.IsNullOrEmpty(this.SearchText)) ? false : true;
-                        break;
-
-                    case "aadhar":
-                        rs = (string.IsNullOrEmpty(this.SearchText)) ? false : true;
-                        break;
-
-                    case "admissionNo":
-                        rs = (string.IsNullOrEmpty(this.SearchText)) ? false : true;
-                        break;
-
-                    case "cls":
-                        int rl;
-                        bool bl = Int32.TryParse(this.SearchText, out rl);
-                        rs = (this.SelectedClassIndex == -1 && this.SelectedSectionIndex == -1 && !bl) ? false : true;
-                        break;
-
-                    case "clsName":
-                        rs = ((this.SelectedClassIndex == -1) || (string.IsNullOrEmpty(this.SearchText))) ? false : true;
-                        break;
-
-                    case "madhyamicNo":
-                        rs = (string.IsNullOrEmpty(this.SearchText)) ? false : true;
-                        break;
-
-                    case "madhyamicRoll":
-                        rs = (string.IsNullOrEmpty(this.SearchText)) ? false : true;
-                        break;
-
-                    default:
-                        rs = false;
-                        break;
-                }
-            }
-            return rs;
-        }
-
-        private void ResetSearchEntry()
-        {
-            this.SearchText = string.Empty;
-            this.Roll = 0;
-            this.SelectedClassIndex = -1;
-            this.SelectedSectionIndex = -1;
-        }
 
         private void BuildStdDetailView(Student s)
         {
-            ProfileImageSource = profImage[Convert.ToInt32(s.Id) % 2];
+            ProfileImageSource = Helpers.BackgroundImageHelper.GetRandomImagePath();
 
             this.TxbGen = s.Sex;
             this.TxbName = s.Name;
@@ -1677,9 +1310,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.TxbRoll = s.Roll;
 
             ClaSecRoll = TxbCls + "-" + TxbSection + "-" + TxbRoll;
-
-            SelecStdSessionStartYear = s.StartSessionYear;
-            SelecStdSessionEndYear = s.EndSessionYear;
+            Session = s.StartSessionYear + "-" + s.EndSessionYear;
 
             DobString = s.Dob.ToLongDateString();
 
@@ -1749,10 +1380,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.HsSub4 = (string.IsNullOrEmpty(s.HsAdlSub)) ? string.Empty : "4. " + s.HsAdlSub;
 
             this.TxbAadhar = (string.IsNullOrEmpty(s.Aadhar)) ? defaultEntry : s.Aadhar;
-            this.TxbAadharColor = (string.IsNullOrEmpty(s.Aadhar)) ? fontcolor0 : fontcolor1;
             this.TxbSocCat = (string.IsNullOrEmpty(s.SocialCategory)) ? defaultEntry : s.SocialCategory;
-            this.SocialCatListIndex = Array.IndexOf(this.SocialCatList, s.SocialCategory);
-            this.TxbSocCatColor = (string.IsNullOrEmpty(s.SocialCategory)) ? fontcolor0 : fontcolor1;
             this.TxbSbCat = (string.IsNullOrEmpty(s.SubCast)) ? defaultEntry : s.SubCast;
             this.TxbIsPh = s.IsPH;
             IsStudentPH = (s.IsPH) ? "YES" : "NO";
@@ -1816,7 +1444,6 @@ namespace NaimouzaHighSchool.ViewModels
 
             this.TxbMadhyamicRoll = (string.IsNullOrEmpty(s.BoardRoll)) ? defaultEntry : s.BoardRoll;
             this.TxbMadhyamicNo = (string.IsNullOrEmpty(s.BoardNo)) ? defaultEntry : s.BoardNo;
-            this.TxbMadhyamicNoColor = (string.IsNullOrEmpty(s.BoardNo)) ? fontcolor0 : fontcolor1;
             this.TxbCouncilRoll = (string.IsNullOrEmpty(s.CouncilRoll)) ? defaultEntry : s.CouncilRoll;
             this.TxbCouncilNo = (string.IsNullOrEmpty(s.CouncilNo)) ? defaultEntry : s.CouncilNo;
         }
@@ -1844,75 +1471,6 @@ namespace NaimouzaHighSchool.ViewModels
             return (this.SelectedStudentListIndex > -1);
         }
 
-        private void Edit()
-        {
-            // System.Windows.MessageBox.Show("Working");
-        }
-
-        private bool CanEdit()
-        {
-            return (this.SelectedStudentListIndex > -1);
-        }
-
-        private void SaveEdit()
-        {
-            // if dates are valid go ahead or not
-            if (!isDatesValid())
-            {
-                System.Windows.MessageBox.Show("Please check the dates you have selected.");
-                return;
-            }
-            else
-            {
-                Student EditedStudent = this.BuildNewStudent();
-                if (EditedStudent.Roll > 0 && (!string.IsNullOrEmpty(EditedStudent.StudyingClass)) && (!string.IsNullOrEmpty(EditedStudent.Section)))
-                {
-                    //change the code specially for session
-                    int syear = EditedStudent.StartSessionYear;
-                    int eyear = EditedStudent.EndSessionYear;
-                    string[] rdata = new string[2];
-                    rdata = db.IsRollExists(syear, eyear, EditedStudent.StudyingClass, EditedStudent.Section, EditedStudent.Roll, EditedStudent.Id);
-                    if (rdata[0] != "0")
-                    {
-                        string msg = string.Empty;
-                        if (rdata[0] == "1")
-                        {
-                            msg = "This roll no. already assigned to " + rdata[1];
-                        }
-                        else
-                        {
-                            msg = "This roll no. already assigned to " + rdata[1] + " and other " + rdata[0].ToString() + " student(s)";
-                        }
-                        System.Windows.MessageBox.Show("Error msg : " + msg);
-                        return;
-                    }
-                }
-                if (db.UpdateStudentInfo(EditedStudent))
-                {
-                    System.Windows.MessageBox.Show("Saved");
-                    this.MakeReadOnly();
-                    this.UpdateEditedStd(this.StudentList[this.SelectedStudentListIndex], EditedStudent);
-                }
-                else
-                {
-                    System.Windows.MessageBox.Show("Failed :(");
-                }
-            }
-        }
-
-        public bool CanSaveEdit()
-        {
-            // check for valid date for date of birth and date of admission
-            bool allDobdtSelected = (DobDDIndex > 0 && DobMMIndex > 0 && DobYYIndex > 0);
-            bool allDoadtSelected = (DoaDDIndex > 0 && DoaMMIndex > 0 && DoaYYIndex > 0);
-
-            bool allDobdtNotSelected = (DobDDIndex == 0 && DobMMIndex == 0 && DobYYIndex == 0);
-            bool allDoadtNotSelected = (DoaDDIndex == 0 && DoaMMIndex == 0 && DoaYYIndex == 0);
-
-            bool dtSelectedOrNot = (allDobdtSelected || allDobdtNotSelected) && (allDoadtSelected || allDoadtNotSelected);
-
-            return (SelectedStudentListIndex > -1 && dtSelectedOrNot);
-        }
 
         private bool isDatesValid()
         {
@@ -1936,52 +1494,7 @@ namespace NaimouzaHighSchool.ViewModels
         {
         }
 
-        private void UpdateLeftpaneList()
-        {
-            if (this.Slist.Count > 0)
-            {
-                ObservableCollection<Student> oslist = new ObservableCollection<Student>(this.Slist);
-                this.StudentList.Clear();
-                switch (this.FilterCategory)
-                {
-                    case "none":
-                        this.StudentList = oslist;
-                        break;
-
-                    case "male":
-                        var stdlst = from std in oslist
-                                     where std.Sex == "M"
-                                     select std;
-                        foreach (Student item in stdlst)
-                        {
-                            this.StudentList.Add(item);
-                        }
-                        break;
-
-                    case "female":
-                        var stdlst2 = from std in oslist
-                                      where std.Sex == "F"
-                                      select std;
-                        foreach (Student item in stdlst2)
-                        {
-                            this.StudentList.Add(item);
-                        }
-                        break;
-
-                    default:
-                        break;
-                }
-
-                this.NumberOfMatches = this.StudentList.Count;
-                // this.ResetSearchEntry();
-                this.SelectedStudentListIndex = -1;
-            }
-            else
-            {
-                this.StudentList.Clear();
-                this.NumberOfMatches = 0;
-            }
-        }
+       
 
         private Student BuildNewStudent()
         {
@@ -2001,8 +1514,6 @@ namespace NaimouzaHighSchool.ViewModels
             ns.Sex = this.getVal(this.TxbGen);
             ns.BloodGroup = this.getVal(this.BloodGrp);
             ns.Religion = this.getVal(this.TxbReligion);
-            // ns.SocialCategory = this.getVal(this.TxbSocCat);
-            ns.SocialCategory = (this.SocialCatListIndex > -1) ? this.SocialCatList[this.SocialCatListIndex] : string.Empty;
             ns.SubCast = this.getVal(this.TxbSbCat);
             ns.IsPH = this.TxbIsPh;
             ns.PhType = this.getVal(this.TxbPhType);
@@ -2220,25 +1731,6 @@ namespace NaimouzaHighSchool.ViewModels
 
         #region editbtns
 
-        private void MakeReadOnly()
-        {
-            this.HeaderBGgen = this.HeaderBGpar = this.HeaderBGsoc = this.HeaderBGadd = this.HeaderBGbnk = this.HeaderBGadm = this.HeaderBGoth = "#FFD3EEDD";
-            this.HitTestGeneral = false;
-            this.IsReadOnlyGen = true;
-            this.IsReadOnlyPar = true;
-
-            this.HitTestSoc = false;
-            this.IsReadOnlySoc = true;
-
-            this.IsReadOnlyAdd = true;
-
-            this.IsReadOnlyBnk = true;
-
-            this.IsReadOnlyAdm = true;
-            this.HitTestAdm = false;
-
-            this.IsReadOnlyOth = true;
-        }
 
         #endregion editbtns
 

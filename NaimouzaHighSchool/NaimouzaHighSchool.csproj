@@ -182,7 +182,6 @@
     <Compile Include="ViewModels\Converters\GenderConverter.cs" />
     <Compile Include="ViewModels\Converters\GenderFilterConverter.cs" />
     <Compile Include="ViewModels\Converters\IntConverter.cs" />
-    <Compile Include="ViewModels\Converters\SearchConverter.cs" />
     <Compile Include="ViewModels\Converters\SearchTypeConverter.cs" />
     <Compile Include="ViewModels\DashGridViewModel.cs" />
     <Compile Include="ViewModels\DeleteViewModel.cs" />
@@ -190,6 +189,7 @@
     <Compile Include="ViewModels\ExcelEntryStaffViewModel.cs" />
     <Compile Include="ViewModels\ExcelExportViewModel.cs" />
     <Compile Include="ViewModels\GenUpdateViewModel.cs" />
+    <Compile Include="ViewModels\Helpers\BackgroundImageHelper.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MarkEntryViewModel.cs" />
     <Compile Include="ViewModels\PromotionBasicViewModel.cs" />
