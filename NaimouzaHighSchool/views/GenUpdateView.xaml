@@ -75,7 +75,10 @@
                                     <TextBox Width="80" Text="{Binding EsRoll, Source={StaticResource geVm}, Mode=TwoWay}" />
                                 </StackPanel>
                                 <Label Grid.Row="2" Content="Gender"/>
-                                <ComboBox Grid.Row="2" Grid.Column="1" Width="80" HorizontalAlignment="Left" />
+                                <ComboBox Grid.Row="2" Grid.Column="1" Width="80" 
+                                          ItemsSource="{Binding Sex, Source={StaticResource geVm}}"
+                                          SelectedIndex="{Binding SexIndex, Source={StaticResource geVm}, Mode=TwoWay}"
+                                          HorizontalAlignment="Left" />
                                 <Label Grid.Row="3" VerticalAlignment="Center" Content="Date of Birth" />
                                 <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
                                     <StackPanel Orientation="Vertical">
@@ -113,9 +116,9 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Grid>
+                            <Grid Grid.Column="1">
                                 <Grid.Resources>
                                     <Style TargetType="Label">
                                         <Setter Property="Margin" Value="2" />
@@ -155,9 +158,11 @@
                                           SelectedIndex="{Binding HsSub4Index, Source={StaticResource geVm}, Mode=TwoWay}"
                                           HorizontalAlignment="Left" />
                             </Grid>
-                            <StackPanel Margin="20,0" Grid.Column="1" Orientation="Vertical">
+                            <StackPanel Margin="20,0" Orientation="Vertical">
                                 <Label Content="STREAM" FontSize="30" />
-                                <Label Content="{Binding HsStream, Source={StaticResource geVm}}" FontSize="18"/>
+                                <ComboBox ItemsSource="{Binding Stream, Source={StaticResource geVm}}"
+                                          SelectedIndex="{Binding StreamIndex, Source={StaticResource geVm}, Mode=TwoWay}"
+                                          />
                             </StackPanel>
                         </Grid>
                     </GroupBox>

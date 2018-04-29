@@ -38,16 +38,22 @@ namespace NaimouzaHighSchool.Models.Database
                 try
                 {
                     string sql1 = $"UPDATE {basic_table} SET " +
-                                  $" aadhar = {DbVal(s.Aadhar)}, name= {DbVal(s.Name)}, fatherName= {DbVal(s.FatherName)}, motherName={DbVal(s.MotherName)}, guardianName={DbVal(s.GuardianName)}, guardianRelation={DbVal(s.GuardianRelation)}, guardianOccupation={DbVal(s.GuardianOccupation)}, dob={dob}, sex={DbVal(s.Sex)}, presentAddrLane1 ={DbVal(s.PstAddrLane1)}, presentAddrLane2 = {DbVal(s.PstAddrLane2)}, presentPO = {DbVal(s.PstAddrPO)}, presentPS = {DbVal(s.PstAddrPS)}, presentDist = {DbVal(s.PstAddrDist)}, presentPIN = {DbVal(s.PstAddrPin)}, permanentAddrLane1 = {DbVal(s.PmtAddrLane1)}, permanentAddrLane2 = {DbVal(s.PmtAddrLane2)}, permanentPO = {DbVal(s.PmtAddrPO)}, permanentPS = {DbVal(s.PmtAddrPS)}, permanentDist = {DbVal(s.PmtAddrDist)}, permanentPIN = {DbVal(s.PmtAddrPin)}, mobile={DbVal(s.Mobile)}, guardianMobile={DbVal(s.GuardianMobile)}, email={DbVal(s.Email)}, religion={DbVal(s.Religion)}, socialCategory={DbVal(s.SocialCategory)}, isPH={isPH}, phType={DbVal(s.PhType)}, isBPL={isBpl}, BPLnumber={DbVal(s.BplNo)}, guardianAadhar={DbVal(s.GuardianAadhar)}, guardianEpic={DbVal(s.GuardianEpic)}, bloodGroup={DbVal(s.BloodGroup)}, bankAccountNo={DbVal(s.BankAcc)}, bankName={DbVal(s.BankName)}, branchName={DbVal(s.BankBranch)}, IFSC={DbVal(s.Ifsc)}, bankMICR={DbVal(s.MICR)}, BoardRoll={DbVal(s.BoardRoll)}, BoardNo={DbVal(s.BoardNo)}, CouncilRoll={DbVal(s.CouncilRoll)}, CouncilNo={DbVal(s.CouncilNo)}, registrationNoMp = {DbVal(s.RegistrationNoMp)}, registrationNoHs = {DbVal(s.RegistrationNoHs)} WHERE id=" + s.Id;
+                                  $" aadhar = {dv(s.Aadhar)}, name= {dv(s.Name)}, fatherName= {dv(s.FatherName)}, motherName={dv(s.MotherName)}, guardianName={dv(s.GuardianName)}, guardianRelation={dv(s.GuardianRelation)}, guardianOccupation={dv(s.GuardianOccupation)}, dob={dob}, sex={dv(s.Sex)}, presentAddrLane1 ={dv(s.PstAddrLane1)}, presentAddrLane2 = {dv(s.PstAddrLane2)}, presentPO = {dv(s.PstAddrPO)}, presentPS = {dv(s.PstAddrPS)}, presentDist = {dv(s.PstAddrDist)}, presentPIN = {dv(s.PstAddrPin)}, permanentAddrLane1 = {dv(s.PmtAddrLane1)}, permanentAddrLane2 = {dv(s.PmtAddrLane2)}, permanentPO = {dv(s.PmtAddrPO)}, permanentPS = {dv(s.PmtAddrPS)}, permanentDist = {dv(s.PmtAddrDist)}, permanentPIN = {dv(s.PmtAddrPin)}, mobile={dv(s.Mobile)}, guardianMobile={dv(s.GuardianMobile)}, email={dv(s.Email)}, religion={dv(s.Religion)}, socialCategory={dv(s.SocialCategory)}, isPH={isPH}, phType={dv(s.PhType)}, isBPL={isBpl}, BPLnumber={dv(s.BplNo)}, guardianAadhar={dv(s.GuardianAadhar)}, guardianEpic={dv(s.GuardianEpic)}, bloodGroup={dv(s.BloodGroup)}, bankAccountNo={dv(s.BankAcc)}, bankName={dv(s.BankName)}, branchName={dv(s.BankBranch)}, IFSC={dv(s.Ifsc)}, bankMICR={dv(s.MICR)}, BoardRoll={dv(s.BoardRoll)}, BoardNo={dv(s.BoardNo)}, CouncilRoll={dv(s.CouncilRoll)}, CouncilNo={dv(s.CouncilNo)}, registrationNoMp = {dv(s.RegistrationNoMp)}, registrationNoHs = {dv(s.RegistrationNoHs)} WHERE id=" + s.Id;
                     cmd.CommandText = sql1;
                     cmd.ExecuteNonQuery();
 
-
-                    string sql2 = $"UPDATE student_class SET class={DbVal(s.StudyingClass)}, section={DbVal(s.Section)}, roll={roll} WHERE student_basic_id={DbVal(s.Id)} AND startYear = {sYear} AND endYear = {eYear}";
+                    string sql2 = $"UPDATE student_class SET class={dv(s.StudyingClass)}, section={dv(s.Section)}, roll={roll} WHERE student_basic_id={dv(s.Id)} AND startYear = {sYear} AND endYear = {eYear}";
                     cmd.CommandText = sql2;
                     cmd.ExecuteNonQuery();
 
-                    string sql3 = $"UPDATE Admission SET admissionNo={DbVal(s.AdmissionNo)}, admittedClass={DbVal(s.AdmittedClass)}, lastSchool={DbVal(s.LastSchool)}, TC={DbVal(s.TC)} WHERE student_basic_id={DbVal(s.Id)}";
+                    if (s.StudyingClass == "XI" || s.StudyingClass == "XII")
+                    {
+                        string sql_sub = $"UPDATE student_class SET hsElemSub1 = {dv(s.HsSub1)}, hsElemSub2 = {dv(s.HsSub2)}, hsElemSub3 = {dv(s.HsSub3)}, hsAdlSub = {dv(s.HsAdlSub)} WHERE student_basic_id = {dv(s.Id)} AND startYear = {dv(s.StartSessionYear)} AND endYear = {dv(s.EndSessionYear)}";
+                        cmd.CommandText = sql_sub;
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    string sql3 = $"UPDATE Admission SET admissionNo={dv(s.AdmissionNo)}, admittedClass={dv(s.AdmittedClass)}, lastSchool={dv(s.LastSchool)}, TC={dv(s.TC)} WHERE student_basic_id={dv(s.Id)}";
                     cmd.CommandText = sql3;
                     cmd.ExecuteNonQuery();
 
@@ -83,12 +89,5 @@ namespace NaimouzaHighSchool.Models.Database
             }
             return rs;
         }
-
-
-        private string DbVal(string inp)
-        {
-            return (string.IsNullOrEmpty(inp)) ? "NULL" : "'"+inp+"'";
-        }
-       
     }
 }

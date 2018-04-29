@@ -17,7 +17,6 @@ namespace NaimouzaHighSchool.ViewModels
         public RelayCommand ShowBoardExamViewCommand { get; set; }
         public RelayCommand ShowDeleteViewCommand { get; set; }
         public RelayCommand ShowStaffDetailViewCommand { get; set; }
-        public RelayCommand ShowExamViewCommand { get; set; }
         public RelayCommand ShowStudentDetailViewCommand { get; set; }
         public RelayCommand ShowLeavingCharacterCommand { get; set; }
         public RelayCommand ShowRollUpdateWindowCommand { get; set; }
@@ -30,6 +29,7 @@ namespace NaimouzaHighSchool.ViewModels
         public RelayCommand ShowDashGridCommand { get; set; }
         public RelayCommand ShowUDiseCommand { get; set; }
         public RelayCommand ShowPromotionWindowCommand { get; set; }
+        public RelayCommand ShowSchoolProfileCommand { get; set; }
 
 
         private void StartUpInitializer()
@@ -39,7 +39,6 @@ namespace NaimouzaHighSchool.ViewModels
             this.ShowBoardExamViewCommand = new RelayCommand(this.ShowBoardExamView, this.CanShowBoardExamView);
             this.ShowDeleteViewCommand = new RelayCommand(this.ShowDeleteView, this.CanShowDeleteView);
             this.ShowStaffDetailViewCommand = new RelayCommand(this.ShowStaffDetailView, this.CanShowStaffDetailView);
-            this.ShowExamViewCommand = new RelayCommand(this.ShowExamView, this.CanShowExamView);
             this.ShowStudentDetailViewCommand = new RelayCommand(this.ShowStudentDetailView, this.CanShowStudentDetailView);
             this.ShowLeavingCharacterCommand = new RelayCommand(this.ShowLvngCharcWindow, this.CanShowLvngCharcWindow);
             this.ShowRollUpdateWindowCommand = new RelayCommand(this.ShowRollUpdateWindow, this.CanShowRollUpdateWindow);
@@ -52,6 +51,7 @@ namespace NaimouzaHighSchool.ViewModels
             ShowDashGridCommand = new RelayCommand(ShowDashGrid, CanShowDashGrid);
             ShowUDiseCommand = new RelayCommand(ShowUDise, CanShowUDise);
             ShowPromotionWindowCommand = new RelayCommand(ShowPromotionWindow, CanShowPromotionWindow);
+            ShowSchoolProfileCommand = new RelayCommand(ShowSchoolProfileWindow, CanShowSchoolProfileWindow);
 
         }
 
@@ -148,25 +148,6 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanShowStaffDetailView()
         {
             return !NaimouzaHighSchool.Views.StaffDetailView.IsOpen;
-        }
-
-        private void ShowExamView()
-        {
-            if (NaimouzaHighSchool.Views.ExamView.IsOpen)
-            {
-                return;
-            }
-            else
-            {
-                NaimouzaHighSchool.Views.ExamView examView = new Views.ExamView();
-                examView.Show();
-                NaimouzaHighSchool.Views.ExamView.IsOpen = true;
-            }
-        }
-
-        private bool CanShowExamView()
-        {
-            return !NaimouzaHighSchool.Views.ExamView.IsOpen;
         }
 
         private void ShowStudentDetailView()
@@ -401,6 +382,22 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanShowPromotionWindow()
         {
             return !Views.PromotionView.IsOpen;
+        }
+
+        private void ShowSchoolProfileWindow()
+        {
+            if (!Views.SchoolProfileView.IsOpen)
+            {
+                Views.SchoolProfileView sview = new Views.SchoolProfileView();
+                Views.SchoolProfileView.IsOpen = true;
+                sview.Owner = Application.Current.MainWindow;
+                sview.Show();
+            }
+        }
+
+        private bool CanShowSchoolProfileWindow()
+        {
+            return !Views.SchoolProfileView.IsOpen;
         }
     }
 }

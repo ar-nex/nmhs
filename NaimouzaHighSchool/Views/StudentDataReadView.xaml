@@ -13,63 +13,6 @@
         <conv:BoolConverter x:Key="YesNoConverter"></conv:BoolConverter>
         <conv:Bool1Converter x:Key="Bool1Converter"></conv:Bool1Converter>
 
-        <Style TargetType="RadioButton">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="20,2,2,2" />
-        </Style>
-        <Style TargetType="TextBlock" x:Key="headerTextBlock">
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="Foreground" Value="DarkGreen" />
-            <Setter Property="TextDecorations" Value="Underline" />
-        </Style>
-        <Style TargetType="Border" x:Key="SearchBorder">
-            <Setter Property="Background" Value="#91aa9d" />
-            <Setter Property="Padding" Value="5" />
-        </Style>
-        <Style TargetType="RadioButton" x:Key="searchRadio">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="10,2" />
-        </Style>
-        <Style TargetType="RadioButton" x:Key="filterRadio">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Foreground" Value="#bbb" />
-            <Setter Property="Margin" Value="10,2,2,2" />
-        </Style>
-        <Style TargetType="Button" x:Key="searchbarButton">
-            <Setter Property="Width" Value="55" />
-            <Setter Property="Margin" Value="5,0,0,0" />
-        </Style>
-        <Style TargetType="TextBlock" x:Key="groupHeader">
-            <Setter Property="Foreground" Value="#053646" />
-            <Setter Property="Margin" Value="10,3,3,3" />
-            <Setter Property="FontSize" Value="20" />
-        </Style>
-        <Style TargetType="Label" x:Key="lblProperty">
-            <Setter Property="Foreground" Value="Black" />
-            <Setter Property="FontSize" Value="13" />
-            <Setter Property="Margin" Value="10,0,0,0" />
-        </Style>
-        <Style TargetType="Label" x:Key="lblValue">
-            <Setter Property="FontSize" Value="13" />
-            <Setter Property="FontWeight" Value="Black" />
-        </Style>
-        <Style TargetType="Grid" x:Key="CategoryGrid">
-            <Setter Property="Margin" Value="10" />
-        </Style>
-
-        <Style TargetType="Label" x:Key="doubleDot">
-            <Setter Property="Foreground" Value="Green" />
-            <Setter Property="FontWeight" Value="Black" />
-        </Style>
-        <Style TargetType="Border" x:Key="CategoryHeading">
-            <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="BorderThickness" Value="0,0,0,1" />
-        </Style>
-        <Style TargetType="Border" x:Key="footerBorder">
-            <Setter Property="Background" Value="Teal" />
-            <Setter Property="Height" Value="6" />
-        </Style>
-
         <Style TargetType="Button" x:Key="SortButton">
             <Setter Property="Template">
                 <Setter.Value>
@@ -92,17 +35,7 @@
                 <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="White" />
             </Style.Resources>
         </Style>
-        <Style TargetType="TextBox" x:Key="TxbInDetail">
-            <Setter Property="BorderThickness" Value="0,0,0,1" />
-            <Setter Property="FontWeight" Value="Black" />
-            <Setter Property="Foreground" Value="#053646" />
-        </Style>
-        <Style TargetType="DatePicker">
-            <Setter Property="Width" Value="150" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="BorderThickness" Value="0,0,0,1" />
-        </Style>
-
+       
         <ControlTemplate x:Key="UpdateButtonTemplate" TargetType="{x:Type Button}">
             <Border Name="TemBorder" TextBlock.Foreground="DarkBlue" CornerRadius="1" Background="Transparent" BorderBrush="DarkBlue" BorderThickness="2">
                 <ContentPresenter Name="buttonConPresenter" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}">
@@ -293,10 +226,10 @@
                     </Border>
                     <Border Grid.Column="2">
                         <WrapPanel>
-                            <Button Content="_Update"
+                            <Button Content="_Update" Margin="2"
                                             Command="{Binding GenUpdateCommand, Source={StaticResource dObj}}"
                                             HorizontalAlignment="Left" />
-                            <Button Command="{Binding DeleteCommand, Source={StaticResource dObj}}" Style="{StaticResource searchbarButton}">Delete</Button>
+                            <Button Margin="2" Command="{Binding DeleteCommand, Source={StaticResource dObj}}">Delete</Button>
                         </WrapPanel>
 
                     </Border>
@@ -435,12 +368,11 @@
                                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                                         <StackPanel.Resources>
                                             <Style TargetType="Label">
-                                                <Setter Property="Width" Value="80"/>
                                                 <Setter Property="VerticalAlignment" Value="Center"/>
                                             </Style>
                                         </StackPanel.Resources>
                                         <Label FontSize="14" BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding ClaSecRoll, Source={StaticResource dObj}}" />
-                                        <Label BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding AdmissionNo, Source={StaticResource dObj}}"/>
+                                        <Label Width="86" BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding AdmissionNo, Source={StaticResource dObj}}"/>
                                         <Label Content="{Binding Session, Source={StaticResource dObj}}"/>
                                     </StackPanel>
                                 </Grid>
@@ -585,12 +517,11 @@
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                                             <StackPanel.Resources>
                                                 <Style TargetType="Label">
-                                                    <Setter Property="Width" Value="80"/>
                                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                                 </Style>
                                             </StackPanel.Resources>
                                             <Label FontSize="14" BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding ClaSecRoll, Source={StaticResource dObj}}" />
-                                            <Label BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding AdmissionNo, Source={StaticResource dObj}}"/>
+                                            <Label Width="86" BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding AdmissionNo, Source={StaticResource dObj}}"/>
                                             <Label Content="{Binding Session, Source={StaticResource dObj}}"/>
                                         </StackPanel>
                                     </Grid>
@@ -685,12 +616,11 @@
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                                             <StackPanel.Resources>
                                                 <Style TargetType="Label">
-                                                    <Setter Property="Width" Value="80"/>
                                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                                 </Style>
                                             </StackPanel.Resources>
                                             <Label FontSize="14" BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding ClaSecRoll, Source={StaticResource dObj}}" />
-                                            <Label BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding AdmissionNo, Source={StaticResource dObj}}"/>
+                                            <Label Width="86" BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding AdmissionNo, Source={StaticResource dObj}}"/>
                                             <Label Content="{Binding Session, Source={StaticResource dObj}}"/>
                                         </StackPanel>
                                     </Grid>
@@ -790,12 +720,11 @@
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                                             <StackPanel.Resources>
                                                 <Style TargetType="Label">
-                                                    <Setter Property="Width" Value="80"/>
                                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                                 </Style>
                                             </StackPanel.Resources>
                                             <Label FontSize="14" BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding ClaSecRoll, Source={StaticResource dObj}}" />
-                                            <Label BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding AdmissionNo, Source={StaticResource dObj}}"/>
+                                            <Label Width="86" BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding AdmissionNo, Source={StaticResource dObj}}"/>
                                             <Label Content="{Binding Session, Source={StaticResource dObj}}"/>
                                         </StackPanel>
                                     </Grid>
@@ -936,12 +865,6 @@
                         </TabItem>
                         <TabItem Header="Bank">
                             <Border>
-                                <!--<Border.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="#FFF1F1F1" Offset="0" />
-                                        <GradientStop Color="#FFB0BFC8" Offset="1" />
-                                    </LinearGradientBrush>
-                                </Border.Background>-->
                                 <Grid Margin="20">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -974,12 +897,11 @@
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                                             <StackPanel.Resources>
                                                 <Style TargetType="Label">
-                                                    <Setter Property="Width" Value="80"/>
                                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                                 </Style>
                                             </StackPanel.Resources>
                                             <Label FontSize="14" BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding ClaSecRoll, Source={StaticResource dObj}}" />
-                                            <Label BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding AdmissionNo, Source={StaticResource dObj}}"/>
+                                            <Label Width="86" BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding AdmissionNo, Source={StaticResource dObj}}"/>
                                             <Label Content="{Binding Session, Source={StaticResource dObj}}"/>
                                         </StackPanel>
                                     </Grid>
@@ -1080,12 +1002,11 @@
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                                             <StackPanel.Resources>
                                                 <Style TargetType="Label">
-                                                    <Setter Property="Width" Value="80"/>
                                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                                 </Style>
                                             </StackPanel.Resources>
                                             <Label FontSize="14" BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding ClaSecRoll, Source={StaticResource dObj}}" />
-                                            <Label BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding AdmissionNo, Source={StaticResource dObj}}"/>
+                                            <Label Width="86" BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding AdmissionNo, Source={StaticResource dObj}}"/>
                                             <Label Content="{Binding Session, Source={StaticResource dObj}}"/>
                                         </StackPanel>
                                     </Grid>
@@ -1219,12 +1140,11 @@
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                                             <StackPanel.Resources>
                                                 <Style TargetType="Label">
-                                                    <Setter Property="Width" Value="80"/>
                                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                                 </Style>
                                             </StackPanel.Resources>
                                             <Label FontSize="14" BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding ClaSecRoll, Source={StaticResource dObj}}" />
-                                            <Label BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding AdmissionNo, Source={StaticResource dObj}}"/>
+                                            <Label Width="86" BorderBrush="Black" BorderThickness="0, 0, 1, 0" Content="{Binding AdmissionNo, Source={StaticResource dObj}}"/>
                                             <Label Content="{Binding Session, Source={StaticResource dObj}}"/>
                                         </StackPanel>
                                     </Grid>

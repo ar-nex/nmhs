@@ -3,6 +3,8 @@ using System.Text.RegularExpressions;
 using NaimouzaHighSchool.Models.Utility;
 using NaimouzaHighSchool.Models.Database;
 using NaimouzaHighSchool.ViewModels.Commands;
+using System.Collections.ObjectModel;
+using NaimouzaHighSchool.Models;
 
 namespace NaimouzaHighSchool.ViewModels
 {
@@ -62,13 +64,23 @@ namespace NaimouzaHighSchool.ViewModels
             set { _esRoll = value; OnPropertyChanged("EsRoll"); }
         }
 
-        private string _hsStream;
-        public string HsStream
+        private string[] _sex;
+        public string[] Sex
         {
-            get { return _hsStream; }
-            set { _hsStream = value; OnPropertyChanged("HsStream"); }
+            get { return _sex; }
+            set { _sex = value; OnPropertyChanged("Sex");  }
         }
 
+        private int _sexIndex;
+        public int SexIndex
+        {
+            get { return _sexIndex; }
+            set
+            {
+                _sexIndex = (value > -1 && value < Sex.Length) ? value : -1;
+                OnPropertyChanged("SexIndex");
+            }
+        }
 
         private System.Windows.Visibility _sub5Visibility;
         public System.Windows.Visibility Sub5Visibility
@@ -126,6 +138,26 @@ namespace NaimouzaHighSchool.ViewModels
             set { _dobDDIndex = (value > -1 && value < DD.Length) ? value : -1; OnPropertyChanged("DobDDIndex"); }
         }
 
+        private string[] _stream;
+        public string[] Stream
+        {
+            get { return _stream; }
+            set { _stream = value; OnPropertyChanged("Stream"); }
+        }
+
+        private int _streamIndex;
+        public int StreamIndex
+        {
+            get { return _streamIndex; }
+            set
+            {
+                _streamIndex = (value > -1 && value < Stream.Length) ? value : -1;
+                OnPropertyChanged("StreamIndex");
+                UpdateHsSubs(value);
+            }
+        }
+
+
         private string[] _hsArtsSubs;
         public string[] HsArtsSubs
         {
@@ -147,25 +179,53 @@ namespace NaimouzaHighSchool.ViewModels
             set { _hsActiveSubs = value; OnPropertyChanged("HsActiveSubs"); }
         }
 
+        private string[] _hsActiveSubs1;
+        public string[] HsActiveSubs1
+        {
+            get { return _hsActiveSubs1; }
+            set { _hsActiveSubs1 = value; OnPropertyChanged("HsActiveSubs1"); }
+        }
+
+        private ObservableCollection<string> _hsActiveSubs2;
+        public ObservableCollection<string> HsActiveSubs2
+        {
+            get { return _hsActiveSubs2; }
+            set { _hsActiveSubs2 = value; OnPropertyChanged("HsActiveSubs2"); }
+        }
+
+        private ObservableCollection<string> _hsActiveSubs3;
+        public ObservableCollection<string> HsActiveSubs3
+        {
+            get { return _hsActiveSubs3; }
+            set { _hsActiveSubs3 = value; OnPropertyChanged("HsActiveSubs3"); }
+        }
+
+        private ObservableCollection<string> _hsActiveSubs4;
+        public ObservableCollection<string> HsActiveSubs4
+        {
+            get { return _hsActiveSubs4; }
+            set { _hsActiveSubs4 = value; OnPropertyChanged("HsActiveSubs4"); }
+        }
+
         private int _hsSub1Index;
         public int HsSub1Index
         {
             get { return _hsSub1Index; }
-            set { _hsSub1Index = value; OnPropertyChanged("HsSub1Index"); }
+            set { _hsSub1Index = value; OnPropertyChanged("HsSub1Index"); TrimHsSubs(2); }
         }
 
         private int _hsSub2Index;
         public int HsSub2Index
         {
             get { return _hsSub2Index; }
-            set { _hsSub2Index = value; OnPropertyChanged("HsSub2Index"); }
+            set { _hsSub2Index = value; OnPropertyChanged("HsSub2Index"); TrimHsSubs(3); }
         }
 
         private int _hsSub3Index;
         public int HsSub3Index
         {
             get { return _hsSub3Index; }
-            set { _hsSub3Index = value; OnPropertyChanged("HsSub3Index"); }
+            set { _hsSub3Index = value; OnPropertyChanged("HsSub3Index"); TrimHsSubs(4); }
         }
 
         private int _hsSub4Index;
@@ -723,7 +783,11 @@ namespace NaimouzaHighSchool.ViewModels
         {
             EsSchoolClass = new string[] { "V", "VI", "VII", "VIII", "IX", "X", "XI" };
             QualifiedClass = new string[] {"IV", "V", "VI", "VII", "VIII", "IX", "X" };
+            Sex = new string[] { "Male", "Female" };
+            Stream = new string[] { "ARTS", "SCIENCE"};
             QualifiedClassIndex = -1;
+            StreamIndex = -1;
+            SexIndex = -1;
             EsSection = new string[] { "A", "B", "C", "D", "E" };
             EsReligion = new string[] { "ISLAM", "HINDUISM", "OTHER"};
             MM = new string[] { "JAN (01)", "FEB (02)", "MAR (03)", "APR (04)", "MAY (05)", "JUN (06)", "JUL (07)", "AUG (08)", "SEP (09)", "OCT (10)", "NOV (11)", "DEC (12)" };
@@ -749,6 +813,8 @@ namespace NaimouzaHighSchool.ViewModels
             SocialCatList = new string[] { "GEN", "SC", "ST", "OBC-A", "OBC-B" };
             BloodGroups = new string[] { "A +", "A -", "B +", "B -", "AB +", "AB -", "O +", "O -" };
 
+            HsSubsInitializer();
+
             if (EditableStudent != null)
             {
                 BuildDetailsFromEditableStudent();
@@ -763,6 +829,18 @@ namespace NaimouzaHighSchool.ViewModels
         {
             EsName = EditableStudent.Name;
             EsClass = EditableStudent.StudyingClass;
+            if (EditableStudent.Sex == "M")
+            {
+                SexIndex = 0;
+            }
+            else if (EditableStudent.Sex == "F")
+            {
+                SexIndex = 1;
+            }
+            else
+            {
+                SexIndex = -1;
+            }
             EsSectionIndex = Array.IndexOf(EsSection, EditableStudent.Section);
             EsRoll = EditableStudent.Roll;
             if (EditableStudent.StudyingClass == "V")
@@ -774,12 +852,13 @@ namespace NaimouzaHighSchool.ViewModels
             {
                 Sub5Visibility = System.Windows.Visibility.Collapsed;
                 SubHsVisibility = System.Windows.Visibility.Visible;
-                HsStream = EditableStudent.Stream;
-                if (HsStream.ToUpper() == "ARTS")
+               
+                StreamIndex = Array.IndexOf(Stream, EditableStudent.Stream);
+                if (Stream[StreamIndex] == "ARTS")
                 {
                     HsActiveSubs = HsArtsSubs;
                 }
-                else if (HsStream.ToUpper() == "SCIENCE")
+                else if (Stream[StreamIndex] == "SCIENCE")
                 {
                     HsActiveSubs = HsSciSubs;
                 }
@@ -933,6 +1012,14 @@ namespace NaimouzaHighSchool.ViewModels
 
             s.Id = EditableStudent.Id;
             s.Name = EsName;
+            if (SexIndex == 0)
+            {
+                s.Sex = "M";
+            }
+            else if (SexIndex == 1)
+            {
+                s.Sex = "F";
+            }
             s.StudyingClass = EsClass;
             s.Section = EsSection[EsSectionIndex];
             s.Roll = EditableStudent.Roll;
@@ -944,22 +1031,24 @@ namespace NaimouzaHighSchool.ViewModels
 
             if (s.StudyingClass == "XI" || s.StudyingClass == "XII")
             {
+               // StreamIndex = Array.IndexOf(Stream, EditableStudent.Stream);
+               // s.Stream = EditableStudent.Stream;
                 if (s.Stream == "ARTS")
                 {
-                    s.HsSub1 = HsArtsSubs[HsSub1Index];
-                    s.HsSub2 = HsArtsSubs[HsSub2Index];
-                    s.HsSub3 = HsArtsSubs[HsSub3Index];
-                    s.HsAdlSub = HsArtsSubs[HsSub4Index];
+                    s.HsSub1 = HsActiveSubs[HsSub1Index];
+                    s.HsSub2 = HsActiveSubs[HsSub2Index];
+                    s.HsSub3 = HsActiveSubs[HsSub3Index];
+                    s.HsAdlSub = HsActiveSubs[HsSub4Index];
                 }
                 else if (s.Stream == "SCIENCE")
                 {
-                    s.HsSub1 = HsSciSubs[HsSub1Index];
-                    s.HsSub2 = HsSciSubs[HsSub2Index];
-                    s.HsSub3 = HsSciSubs[HsSub3Index];
-                    s.HsAdlSub = HsSciSubs[HsSub4Index];
+                    s.HsSub1 = HsActiveSubs[HsSub1Index];
+                    s.HsSub2 = HsActiveSubs[HsSub2Index];
+                    s.HsSub3 = HsActiveSubs[HsSub3Index];
+                    s.HsAdlSub = HsActiveSubs[HsSub4Index];
                 }
             }
-
+            
             if (!string.IsNullOrEmpty(EsAadhaar))
             {
                 s.Aadhar = EsAadhaar.Trim();
@@ -1096,6 +1185,169 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanSaveUpdatedStudent()
         {
             return true;
+        }
+
+        private void HsSubsInitializer()
+        {
+            HsArtsSubs = GlobalVar.HsArtsSubs;
+            HsSciSubs = GlobalVar.HsSciSubs;
+            HsActiveSubs = new string[] { };
+            HsActiveSubs1 = new string[] { };
+            HsActiveSubs2 = new ObservableCollection<string>();
+            HsActiveSubs3 = new ObservableCollection<string>();
+            HsActiveSubs4 = new ObservableCollection<string>();
+
+            HsSub1Index = HsSub2Index = HsSub3Index = HsSub4Index = -1;
+        }
+
+        private void UpdateHsSubs(int value)
+        {
+            HsSub1Index = HsSub2Index = HsSub3Index = HsSub4Index = -1;
+            if (value == -1)
+            {
+                //  Array.Clear(HsActiveSubs, 0, HsActiveSubs.Length);
+            }
+            else
+            {
+                if (Stream[StreamIndex] == "ARTS")
+                {
+                    HsActiveSubs = HsArtsSubs;
+                }
+                else if (Stream[StreamIndex] == "SCIENCE")
+                {
+                    HsActiveSubs = HsSciSubs;
+                }
+                else
+                {
+                    Array.Clear(HsActiveSubs, 0, HsActiveSubs.Length);
+                }
+                HsActiveSubs1 = HsActiveSubs;
+            }
+        }
+
+        private void TrimHsSubs(int subNo)
+        {
+            switch (subNo)
+            {
+                case 2:
+                    if (HsActiveSubs2 != null && HsActiveSubs2.Count > 0)
+                    {
+                        HsActiveSubs2.Clear();
+                    }
+                    if (HsSub1Index != -1)
+                    {
+                        string sub1 = HsActiveSubs1[HsSub1Index];
+                        if (sub1 == "ARABIC" || sub1 == "ECONOMICS")
+                        {
+                            foreach (var item in HsActiveSubs1)
+                            {
+                                if (item == "ARABIC" || item == "ECONOMICS")
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    HsActiveSubs2.Add(item);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in HsActiveSubs1)
+                            {
+                                if (item == sub1)
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    HsActiveSubs2.Add(item);
+                                }
+                            }
+                        }
+                    }
+                    break;
+
+                case 3:
+                    if (HsActiveSubs3 != null && HsActiveSubs3.Count > 0)
+                    {
+                        HsActiveSubs3.Clear();
+                    }
+                    if (HsSub2Index != -1)
+                    {
+                        string sub2 = HsActiveSubs2[HsSub2Index];
+                        if (sub2 == "ARABIC" || sub2 == "ECONOMICS")
+                        {
+                            foreach (var item in HsActiveSubs2)
+                            {
+                                if (item == "ARABIC" || item == "ECONOMICS")
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    HsActiveSubs3.Add(item);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in HsActiveSubs2)
+                            {
+                                if (item == sub2)
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    HsActiveSubs3.Add(item);
+                                }
+                            }
+                        }
+                    }
+                    break;
+
+                case 4:
+                    if (HsActiveSubs4 != null && HsActiveSubs4.Count > 0)
+                    {
+                        HsActiveSubs4.Clear();
+                    }
+                    if (HsSub3Index != -1)
+                    {
+                        string sub3 = HsActiveSubs3[HsSub3Index];
+                        if (sub3 == "ARABIC" || sub3 == "ECONOMICS")
+                        {
+                            foreach (var item in HsActiveSubs3)
+                            {
+                                if (item == "ARABIC" || item == "ECONOMICS")
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    HsActiveSubs4.Add(item);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in HsActiveSubs3)
+                            {
+                                if (item == sub3)
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    HsActiveSubs4.Add(item);
+                                }
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

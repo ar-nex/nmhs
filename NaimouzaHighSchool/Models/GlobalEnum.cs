@@ -50,4 +50,6 @@
     };
 
     public enum SearchType { Name, ID, Aadhaar, Father, Village, SocialCategory };
+
+    public enum IdNumberType { Aadhaar, Mobile, StudentId};
 }

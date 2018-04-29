@@ -14,21 +14,20 @@ using System.Windows.Shapes;
 namespace NaimouzaHighSchool.Views
 {
     /// <summary>
-    /// Interaction logic for ExamView.xaml
+    /// Interaction logic for SchoolProfileView.xaml
     /// </summary>
-    public partial class ExamView : Window
+    public partial class SchoolProfileView : Window
     {
-        public ExamView()
+        public SchoolProfileView()
         {
             InitializeComponent();
         }
 
-        static public bool IsOpen;
+        public static bool IsOpen;
 
-        private void Window_Closing_1(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             IsOpen = false;
         }
-
     }
 }

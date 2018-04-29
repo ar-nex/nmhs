@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.ComponentModel;
+using System.Text;
 
 namespace NaimouzaHighSchool.ViewModels
 {
@@ -481,21 +482,9 @@ namespace NaimouzaHighSchool.ViewModels
             }
         }
 
-        private int _schoolClassessIndex;
-
-        public int SchoolClassessIndex
-        {
-            get { return this._schoolClassessIndex; }
-            set
-            {
-                this._schoolClassessIndex = value;
-
-                this.OnPropertyChanged("SchoolClassessIndex");
-            }
-        }
+      
 
         private int _socialCatListIndex;
-
         public int SocialCatListIndex
         {
             get { return this._socialCatListIndex; }
@@ -507,7 +496,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private int _bloodGroupIndex;
-
         public int BloodGroupIndex
         {
             get { return this._bloodGroupIndex; }
@@ -559,7 +547,6 @@ namespace NaimouzaHighSchool.ViewModels
         public string[] YYYY { get; set; }
 
         private int _dobDDIndex;
-
         public int DobDDIndex
         {
             get => _dobDDIndex;
@@ -571,7 +558,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private int _dobMMIndex;
-
         public int DobMMIndex
         {
             get => _dobMMIndex;
@@ -583,7 +569,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private int _dobYYIndex;
-
         public int DobYYIndex
         {
             get => _dobYYIndex;
@@ -598,7 +583,6 @@ namespace NaimouzaHighSchool.ViewModels
         public DateTime Dob { get { return this._dob; } set { this._dob = value; this.OnPropertyChanged("Dob"); } }
 
         private string _dobString;
-
         public string DobString
         {
             get { return _dobString; }
@@ -606,7 +590,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _studentAge;
-
         public string StudentAge
         {
             get { return _studentAge; }
@@ -618,7 +601,6 @@ namespace NaimouzaHighSchool.ViewModels
         
 
         private string _subjGroupHeader;
-
         public string SubjGroupHeader
         {
             get { return _subjGroupHeader; }
@@ -626,7 +608,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _hsStream;
-
         public string HsStream
         {
             get { return _hsStream; }
@@ -634,7 +615,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _hsSub1;
-
         public string HsSub1
         {
             get => _hsSub1;
@@ -646,7 +626,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _hsSub2;
-
         public string HsSub2
         {
             get => _hsSub2;
@@ -658,7 +637,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _hsSub3;
-
         public string HsSub3
         {
             get => _hsSub3;
@@ -670,7 +648,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _hsSub4;
-
         public string HsSub4
         {
             get => _hsSub4;
@@ -748,9 +725,7 @@ namespace NaimouzaHighSchool.ViewModels
         private bool _stdIsBpl;
         public bool StdIsBpl { get { return this._stdIsBpl; } set { this._stdIsBpl = value; this.OnPropertyChanged("StdIsBpl"); } }
 
-
         private string _isStudentBPL;
-
         public string IsStudentBPL
         {
             get { return _isStudentBPL; }
@@ -758,7 +733,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _isStudentPH;
-
         public string IsStudentPH
         {
             get { return _isStudentPH; }
@@ -767,13 +741,9 @@ namespace NaimouzaHighSchool.ViewModels
 
         private string _txbBplNo;
         public string TxbBplNo { get { return this._txbBplNo; } set { this._txbBplNo = value; this.OnPropertyChanged("TxbBplNo"); } }
-        private string _txbBplNoColor;
-        public string TxbBplNoColor { get { return this._txbBplNoColor; } set { this._txbBplNoColor = value; this.OnPropertyChanged("TxbBplNoColor"); } }
 
         private string _txbReligion;
         public string TxbReligion { get { return this._txbReligion; } set { this._txbReligion = value.ToUpper(); this.OnPropertyChanged("TxbReligion"); } }
-        private string _txbReligionColor;
-        public string TxbReligionColor { get { return this._txbReligionColor; } set { this._txbReligionColor = value; this.OnPropertyChanged("TxbReligionColor"); } }
 
         public string[] BloodGroups { get; set; }
         private string _bloodGrp;
@@ -784,30 +754,12 @@ namespace NaimouzaHighSchool.ViewModels
             set { this._bloodGrp = value; this.OnPropertyChanged("BloodGrp"); }
         }
 
-        private string _bloodGrpColor;
-
-        public string BloodGrpColor
-        {
-            get { return this._bloodGrpColor; }
-            set { this._bloodGrpColor = value; this.OnPropertyChanged("BloodGrpColor"); }
-        }
 
         #endregion personal
 
         #region contact
 
-        private string _presentAddr;
-        public string PresentAddr { get { return this._presentAddr; } set { this._presentAddr = value; this.OnPropertyChanged("PresentAddr"); } }
-        private string _presentAddrColor;
-        public string PresentAddrColor { get { return this._presentAddrColor; } set { this._presentAddrColor = value; this.OnPropertyChanged("PresentAddrColor"); } }
-
-        private string _permanentAddr;
-        public string PermanentAddr { get { return this._permanentAddr; } set { this._permanentAddr = value; this.OnPropertyChanged("PermanentAddr"); } }
-        private string _permanentAddrColor;
-        public string PermanentAddrColor { get { return this._permanentAddrColor; } set { this._permanentAddrColor = value; this.OnPropertyChanged("PermanentAddrColor"); } }
-
         private string _addrLane1;
-
         public string AddrLane1
         {
             get { return _addrLane1; }
@@ -815,7 +767,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _addrLane2;
-
         public string AddrLane2
         {
             get { return _addrLane2; }
@@ -823,7 +774,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _addrPO;
-
         public string AddrPO
         {
             get { return _addrPO; }
@@ -831,7 +781,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _addrPS;
-
         public string AddrPS
         {
             get { return _addrPS; }
@@ -839,7 +788,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _addrDist;
-
         public string AddrDist
         {
             get { return _addrDist; }
@@ -847,7 +795,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _addrPIN;
-
         public string AddrPIN
         {
             get { return _addrPIN; }
@@ -855,7 +802,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _paddrLane1;
-
         public string PaddrLane1
         {
             get { return _paddrLane1; }
@@ -863,7 +809,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _paddrLane2;
-
         public string PaddrLane2
         {
             get { return _paddrLane2; }
@@ -871,7 +816,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _paddrPO;
-
         public string PaddrPO
         {
             get { return _paddrPO; }
@@ -879,7 +823,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _paddrPS;
-
         public string PaddrPS
         {
             get { return _paddrPS; }
@@ -887,7 +830,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _paddrDist;
-
         public string PaddrDist
         {
             get { return _paddrDist; }
@@ -895,7 +837,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private string _paddrPIN;
-
         public string PaddrPIN
         {
             get { return _paddrPIN; }
@@ -904,18 +845,14 @@ namespace NaimouzaHighSchool.ViewModels
 
         private string _txbMobile;
         public string TxbMobile { get { return this._txbMobile; } set { this._txbMobile = value; this.OnPropertyChanged("TxbMobile"); } }
-        private string _txbMobileColor;
-        public string TxbMobileColor { get { return this._txbMobileColor; } set { this._txbMobileColor = value; this.OnPropertyChanged("TxbMobileColor"); } }
-
+      
         private string _grdMobile;
         public string GrdMobile { get { return this._grdMobile; } set { this._grdMobile = value; this.OnPropertyChanged("GrdMobile"); } }
-        private string _grdMobileColor;
-        public string GrdMobileColor { get { return this._grdMobileColor; } set { this._grdMobileColor = value; this.OnPropertyChanged("GrdMobileColor"); } }
+      
 
         private string _txbEmail;
         public string TxbEmail { get { return this._txbEmail; } set { this._txbEmail = value; this.OnPropertyChanged("TxbEmail"); } }
-        private string _txbEmailColor;
-        public string TxbEmailColor { get { return this._txbEmailColor; } set { this._txbEmailColor = value; this.OnPropertyChanged("TxbEmailColor"); } }
+      
 
         #endregion contact
 
@@ -923,28 +860,19 @@ namespace NaimouzaHighSchool.ViewModels
 
         private string _bankAcc;
         public string BankAcc { get { return this._bankAcc; } set { this._bankAcc = value; this.OnPropertyChanged("BankAcc"); } }
-        private string _bankAccColor;
-        public string BankAccColor { get { return this._bankAccColor; } set { this._bankAccColor = value; this.OnPropertyChanged("BankAccColor"); } }
 
         private string _bankName;
         public string BankName { get { return this._bankName; } set { this._bankName = value; this.OnPropertyChanged("BankName"); } }
-        private string _bankNameColor;
-        public string BankNameColor { get { return this._bankNameColor; } set { this._bankNameColor = value; this.OnPropertyChanged("BankNameColor"); } }
 
         private string _bankBranch;
         public string BankBranch { get { return this._bankBranch; } set { this._bankBranch = value; this.OnPropertyChanged("BankBranch"); } }
-        private string _bankBranchColor;
-        public string BankBranchColor { get { return this._bankBranchColor; } set { this._bankBranchColor = value; this.OnPropertyChanged("BankBranchColor"); } }
 
         private string _bankIfsc;
         public string BankIfsc { get { return this._bankIfsc; } set { this._bankIfsc = value; this.OnPropertyChanged("BankIfsc"); } }
-        private string _bankIfscColor;
-        public string BankIfscColor { get { return this._bankIfscColor; } set { this._bankIfscColor = value; this.OnPropertyChanged("BankIfscColor"); } }
-
+       
         private string _bankMicr;
         public string BankMicr { get { return this._bankMicr; } set { this._bankMicr = value; this.OnPropertyChanged("BankMicr"); } }
-        private string _bankMicrColor;
-        public string BankMicrColor { get { return this._bankMicrColor; } set { this._bankMicrColor = value; this.OnPropertyChanged("BankMicrColor"); } }
+     
 
         #endregion bank
 
@@ -952,8 +880,7 @@ namespace NaimouzaHighSchool.ViewModels
 
         private string _admissionNo;
         public string AdmissionNo { get { return this._admissionNo; } set { this._admissionNo = value; this.OnPropertyChanged("AdmissionNo"); } }
-        private string _admissionNoColor;
-        public string AdmissionNoColor { get { return this._admissionNoColor; } set { this._admissionNoColor = value; this.OnPropertyChanged("AdmissionNoColor"); } }
+  
 
         /*
         private DateTime _admissionDate;
@@ -963,7 +890,6 @@ namespace NaimouzaHighSchool.ViewModels
         */
 
         private int _doaDDIndex;
-
         public int DoaDDIndex
         {
             get => _doaDDIndex;
@@ -975,7 +901,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private int _doaMMIndex;
-
         public int DoaMMIndex
         {
             get => _doaMMIndex;
@@ -987,7 +912,6 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         private int _doaYYIndex;
-
         public int DoaYYIndex
         {
             get => _doaYYIndex;
@@ -1000,13 +924,11 @@ namespace NaimouzaHighSchool.ViewModels
 
         private string _admittedClass;
         public string AdmittedClass { get { return this._admittedClass; } set { this._admittedClass = value; this.OnPropertyChanged("AdmittedClass"); } }
-        private string _admittedClassColor;
-        public string AdmittedClassColor { get { return this._admittedClassColor; } set { this._admittedClassColor = value; this.OnPropertyChanged("AdmittedClassColor"); } }
+        
 
         private string _lastSchool;
         public string LastSchool { get { return this._lastSchool; } set { this._lastSchool = value; this.OnPropertyChanged("LastSchool"); } }
-        private string _lastSchoolColor;
-        public string LastSchoolColor { get { return this._lastSchoolColor; } set { this._lastSchoolColor = value; this.OnPropertyChanged("LastSchoolColor"); } }
+       
 
         /*
         private DateTime _dateOfLeaving;
@@ -1017,8 +939,7 @@ namespace NaimouzaHighSchool.ViewModels
 
         private string _tc;
         public string Tc { get { return this._tc; } set { this._tc = value; this.OnPropertyChanged("Tc"); } }
-        private string _tcColor;
-        public string TcColor { get { return this._tcColor; } set { this._tcColor = value; this.OnPropertyChanged("TcColor"); } }
+        
 
         public string[] ClassesForAdmission { get; set; }
 
@@ -1072,8 +993,8 @@ namespace NaimouzaHighSchool.ViewModels
         private System.Windows.Visibility _stdDetailVisibility;
         public System.Windows.Visibility StdDetailVisibility
         {
-           // get { return this._stdDetailVisibility; }
-             get { return System.Windows.Visibility.Visible; }
+            get { return this._stdDetailVisibility; }
+           //  get { return System.Windows.Visibility.Visible; }
             set { this._stdDetailVisibility = value; this.OnPropertyChanged("StdDetailVisibility"); }
         }
 
@@ -1199,7 +1120,7 @@ namespace NaimouzaHighSchool.ViewModels
             ActiveHsSubs = new ObservableCollection<string>();
             DoSearchFilterIndexToDefault();
 
-            this.SchoolClassessIndex = -1;
+           
             this.SchoolSectionIndex = -1;
             this.SocialCatListIndex = -1;
             this.BloodGroupIndex = -1;
@@ -1304,9 +1225,8 @@ namespace NaimouzaHighSchool.ViewModels
             this.TxbName = s.Name;
 
             this.TxbCls = s.StudyingClass;
-            this.SchoolClassessIndex = Array.IndexOf(this.SchoolClasses, s.StudyingClass);
             this.TxbSection = s.Section;
-            this.SchoolSectionIndex = Array.IndexOf(this.SchoolSections, s.Section);
+          //  this.SchoolSectionIndex = Array.IndexOf(this.SchoolSections, s.Section);
             this.TxbRoll = s.Roll;
 
             ClaSecRoll = TxbCls + "-" + TxbSection + "-" + TxbRoll;
@@ -1346,7 +1266,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.TxbMother = (string.IsNullOrEmpty(s.MotherName)) ? defaultEntry : s.MotherName;
             this.TxbGrd = (string.IsNullOrEmpty(s.GuardianName)) ? defaultEntry : s.GuardianName;
             this.TxbGrdRel = (string.IsNullOrEmpty(s.GuardianRelation)) ? defaultEntry : s.GuardianRelation;
-            this.TxbGrdAadhar = (string.IsNullOrEmpty(s.GuardianAadhar)) ? defaultEntry : s.GuardianAadhar;
+            this.TxbGrdAadhar = OutputFormatter.GetText(s.GuardianAadhar, IdNumberType.Aadhaar);
             this.TxbGrdEpic = (string.IsNullOrEmpty(s.GuardianEpic)) ? defaultEntry : s.GuardianEpic;
             this.TxbGrdOcc = (string.IsNullOrEmpty(s.GuardianOccupation)) ? defaultEntry : s.GuardianOccupation;
             this.BloodGrp = (string.IsNullOrEmpty(s.BloodGroup)) ? defaultEntry : s.BloodGroup;
@@ -1379,7 +1299,7 @@ namespace NaimouzaHighSchool.ViewModels
             this.HsSub3 = (string.IsNullOrEmpty(s.HsSub3)) ? string.Empty : "3. " + s.HsSub3;
             this.HsSub4 = (string.IsNullOrEmpty(s.HsAdlSub)) ? string.Empty : "4. " + s.HsAdlSub;
 
-            this.TxbAadhar = (string.IsNullOrEmpty(s.Aadhar)) ? defaultEntry : s.Aadhar;
+            this.TxbAadhar = OutputFormatter.GetText(s.Aadhar, IdNumberType.Aadhaar);
             this.TxbSocCat = (string.IsNullOrEmpty(s.SocialCategory)) ? defaultEntry : s.SocialCategory;
             this.TxbSbCat = (string.IsNullOrEmpty(s.SubCast)) ? defaultEntry : s.SubCast;
             this.TxbIsPh = s.IsPH;
@@ -1389,9 +1309,6 @@ namespace NaimouzaHighSchool.ViewModels
             IsStudentBPL = (s.IsBpl) ? "YES" : "NO";
             this.TxbBplNo = s.BplNo;
             this.TxbReligion = (string.IsNullOrEmpty(s.Religion)) ? defaultEntry : s.Religion;
-
-            this.PresentAddr = (string.IsNullOrEmpty(s.PresentAdrress)) ? defaultEntry : s.PresentAdrress;
-            this.PermanentAddr = (string.IsNullOrEmpty(s.PermanentAddress)) ? defaultEntry : s.PermanentAddress;
 
             AddrLane1 = s.PstAddrLane1;
             AddrLane2 = s.PstAddrLane2;
@@ -1407,17 +1324,17 @@ namespace NaimouzaHighSchool.ViewModels
             PaddrDist = s.PmtAddrDist;
             PaddrPIN = s.PmtAddrPin;
 
-            this.TxbMobile = (string.IsNullOrEmpty(s.Mobile)) ? defaultEntry : s.Mobile;
-            this.GrdMobile = (string.IsNullOrEmpty(s.GuardianMobile)) ? defaultEntry : s.GuardianMobile;
+            this.TxbMobile = OutputFormatter.GetText(s.Mobile, IdNumberType.Mobile);
+            this.GrdMobile = OutputFormatter.GetText(s.GuardianMobile, IdNumberType.Mobile);
             this.TxbEmail = (string.IsNullOrEmpty(s.Email)) ? defaultEntry : s.Email;
 
-            this.BankAcc = (string.IsNullOrEmpty(s.BankAcc)) ? defaultEntry : s.BankAcc;
-            this.BankName = (string.IsNullOrEmpty(s.BankName)) ? defaultEntry : s.BankName;
-            this.BankBranch = (string.IsNullOrEmpty(s.BankBranch)) ? defaultEntry : s.BankBranch;
-            this.BankIfsc = (string.IsNullOrEmpty(s.Ifsc)) ? defaultEntry : s.Ifsc;
-            this.BankMicr = (string.IsNullOrEmpty(s.MICR)) ? defaultEntry : s.MICR;
+            this.BankAcc = s.BankAcc;
+            this.BankName = s.BankName;
+            this.BankBranch = s.BankBranch;
+            this.BankIfsc = s.Ifsc;
+            this.BankMicr = s.MICR;
 
-            this.AdmissionNo = (string.IsNullOrEmpty(s.AdmissionNo)) ? defaultEntry : s.AdmissionNo;
+            this.AdmissionNo = OutputFormatter.GetText(s.AdmissionNo, IdNumberType.StudentId);
 
             if (s.AdmDate.Year == 1)
             {
@@ -1494,66 +1411,6 @@ namespace NaimouzaHighSchool.ViewModels
         {
         }
 
-       
-
-        private Student BuildNewStudent()
-        {
-            Student ns = new Student();
-            ns.Id = this.StudentList[this.SelectedStudentListIndex].Id;
-            ns.StartSessionYear = this.StudentList[this.SelectedStudentListIndex].StartSessionYear;
-            ns.EndSessionYear = this.StudentList[this.SelectedStudentListIndex].EndSessionYear;
-
-            ns.Name = this.getVal(this.TxbName);
-            ns.FatherName = this.getVal(this.TxbFather);
-            ns.MotherName = this.getVal(this.TxbMother);
-            ns.GuardianName = this.getVal(this.TxbGrd);
-            ns.GuardianRelation = this.getVal(this.TxbGrdRel);
-            ns.GuardianOccupation = this.getVal(this.TxbGrdOcc);
-
-            ns.Dob = getDate("dob");
-            ns.Sex = this.getVal(this.TxbGen);
-            ns.BloodGroup = this.getVal(this.BloodGrp);
-            ns.Religion = this.getVal(this.TxbReligion);
-            ns.SubCast = this.getVal(this.TxbSbCat);
-            ns.IsPH = this.TxbIsPh;
-            ns.PhType = this.getVal(this.TxbPhType);
-            ns.IsBpl = this.StdIsBpl;
-            ns.BplNo = this.getVal(this.TxbBplNo);
-            ns.BloodGroup = (this.BloodGroupIndex > -1) ? this.BloodGroups[this.BloodGroupIndex] : string.Empty;
-            ns.PresentAdrress = this.getVal(this.PresentAddr);
-            ns.PermanentAddress = this.getVal(this.PermanentAddr);
-            ns.Mobile = this.getVal(this.TxbMobile);
-            ns.GuardianMobile = this.getVal(this.GrdMobile);
-            ns.Email = this.getVal(this.TxbEmail);
-            ns.Aadhar = this.getVal(this.TxbAadhar);
-            ns.GuardianAadhar = this.getVal(this.TxbGrdAadhar);
-            ns.GuardianEpic = this.getVal(this.TxbGrdEpic);
-            ns.BankAcc = this.getVal(this.BankAcc);
-            ns.BankName = this.getVal(this.BankName);
-            ns.BankBranch = this.getVal(this.BankBranch);
-            ns.Ifsc = this.getVal(this.BankIfsc);
-            ns.MICR = this.getVal(this.BankMicr);
-            //ns.StudyingClass = this.getVal(this.TxbCls);
-            ns.StudyingClass = (this.SchoolClassessIndex > -1) ? this.SchoolClasses[this.SchoolClassessIndex] : string.Empty;
-            // ns.Section = this.getVal(this.TxbSection);
-            ns.Section = (this.SchoolSectionIndex > -1) ? this.SchoolSections[this.SchoolSectionIndex] : string.Empty;
-            ns.Roll = this.TxbRoll;
-
-            ns.BoardRoll = this.getVal(this.TxbMadhyamicRoll);
-            ns.BoardNo = this.getVal(this.TxbMadhyamicNo);
-            ns.CouncilRoll = this.getVal(this.TxbCouncilRoll);
-            ns.CouncilNo = this.getVal(this.TxbCouncilNo);
-            ns.AdmissionNo = this.getVal(this.AdmissionNo);
-            ns.AdmDate = getDate("doa");
-            ns.LastSchool = this.getVal(this.LastSchool);
-            // ns.AdmittedClass = this.getVal(this.AdmittedClass);
-            ns.AdmittedClass = (this.ClassessForAdmissionIndex > -1) ? this.ClassesForAdmission[this.ClassessForAdmissionIndex] : string.Empty;
-            //  ns.DateOfLeaving = this.DateOfLeaving;
-            ns.TC = this.getVal(this.Tc);
-
-            return ns;
-        }
-
         private string getVal(string valInp)
         {
             return (valInp == defaultEntry || valInp == defaultEntry.ToUpper()) ? string.Empty : valInp;
@@ -1593,52 +1450,6 @@ namespace NaimouzaHighSchool.ViewModels
             {
                 return DateTime.MinValue;
             }
-        }
-
-        private void UpdateEditedStd(Student taker, Student giver)
-        {
-            taker.Name = giver.Name;
-            taker.StudyingClass = giver.StudyingClass;
-            taker.Section = giver.Section;
-            taker.Roll = giver.Roll;
-            taker.Dob = giver.Dob;
-            taker.Sex = giver.Sex;
-            taker.FatherName = giver.FatherName;
-            taker.MotherName = giver.MotherName;
-            taker.GuardianName = giver.GuardianName;
-            taker.GuardianRelation = giver.GuardianRelation;
-            taker.GuardianAadhar = giver.GuardianAadhar;
-            taker.GuardianEpic = giver.GuardianEpic;
-            taker.GuardianOccupation = giver.GuardianOccupation;
-            taker.BloodGroup = giver.BloodGroup;
-            taker.Aadhar = giver.Aadhar;
-            taker.SocialCategory = giver.SocialCategory;
-            taker.SubCast = giver.SubCast;
-            taker.IsPH = giver.IsPH;
-            taker.PhType = giver.PhType;
-            taker.IsBpl = giver.IsBpl;
-            taker.BplNo = giver.BplNo;
-            taker.Religion = giver.Religion;
-            taker.PresentAdrress = giver.PresentAdrress;
-            taker.PermanentAddress = giver.PermanentAddress;
-            taker.Mobile = giver.Mobile;
-            taker.GuardianMobile = giver.GuardianMobile;
-            taker.Email = giver.Email;
-            taker.BankAcc = giver.BankAcc;
-            taker.BankName = giver.BankName;
-            taker.BankBranch = giver.BankBranch;
-            taker.Ifsc = giver.Ifsc;
-            taker.MICR = giver.MICR;
-            taker.AdmissionNo = giver.AdmissionNo;
-            taker.AdmDate = giver.AdmDate;
-            taker.AdmittedClass = giver.AdmittedClass;
-            taker.LastSchool = giver.LastSchool;
-            taker.DateOfLeaving = giver.DateOfLeaving;
-            taker.TC = giver.TC;
-            taker.BoardNo = giver.BoardNo;
-            taker.BoardRoll = giver.BoardRoll;
-            taker.CouncilNo = giver.CouncilNo;
-            taker.CouncilRoll = giver.CouncilRoll;
         }
 
         private void GenUpdate()
@@ -1729,10 +1540,6 @@ namespace NaimouzaHighSchool.ViewModels
 
         #endregion sort
 
-        #region editbtns
-
-
-        #endregion editbtns
 
         protected override void OnSelectedClassChange()
         {

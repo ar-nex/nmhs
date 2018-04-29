@@ -83,6 +83,9 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\portable-net40+sl4+win8+wp8\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Input.Toolkit.dll</HintPath>
     </Reference>
@@ -130,7 +133,6 @@
     <Compile Include="Models\Database\BoardExamDb.cs" />
     <Compile Include="Models\Database\CharacterCertificateDb.cs" />
     <Compile Include="Models\Database\DeleteDb.cs" />
-    <Compile Include="Models\Database\ExamDb.cs" />
     <Compile Include="Models\Database\ExcelExportDb.cs" />
     <Compile Include="Models\Database\GenUpdateDb.cs" />
     <Compile Include="Models\Database\MarkEntryDb.cs" />
@@ -139,6 +141,7 @@
     <Compile Include="Models\Database\RegistrationUpdaterDb.cs" />
     <Compile Include="Models\Database\RollUpdateDb.cs" />
     <Compile Include="Models\Database\SchoolLeavingAndCharacterDb.cs" />
+    <Compile Include="Models\Database\SchoolProfileDb.cs" />
     <Compile Include="Models\Database\StaffDetailDb.cs" />
     <Compile Include="Models\Database\StdAddressUpdateDb.cs" />
     <Compile Include="Models\Database\StudentBuilderFromCompleteMySqlDataReader.cs" />
@@ -159,6 +162,7 @@
     <Compile Include="Models\Utility\ExamMarks.cs" />
     <Compile Include="Models\Utility\ExcelColumnPositionServiceStaff.cs" />
     <Compile Include="Models\Utility\ExcelColumnPositionStaff.cs" />
+    <Compile Include="Models\Utility\OutputFormatter.cs" />
     <Compile Include="Models\Utility\Promotion.cs" />
     <Compile Include="Models\Utility\PromotionBasic.cs" />
     <Compile Include="Models\Utility\RegistrationUpdater.cs" />
@@ -171,6 +175,9 @@
     <Compile Include="Models\Utility\Teacher.cs" />
     <Compile Include="Models\Utility\UDiseProperty.cs" />
     <Compile Include="ViewModels\BankClassBaseViewModel.cs" />
+    <Compile Include="ViewModels\BaseVM\BaseVM.cs" />
+    <Compile Include="ViewModels\BaseVM\StudentClassBaseVM.cs" />
+    <Compile Include="ViewModels\BaseVM\StudentDataWriteBaseVM.cs" />
     <Compile Include="ViewModels\BoardExamViewModel.cs" />
     <Compile Include="ViewModels\ClassConfigurationViewModel.cs" />
     <Compile Include="ViewModels\Commands\RelayCommandWithParam.cs" />
@@ -185,7 +192,6 @@
     <Compile Include="ViewModels\Converters\SearchTypeConverter.cs" />
     <Compile Include="ViewModels\DashGridViewModel.cs" />
     <Compile Include="ViewModels\DeleteViewModel.cs" />
-    <Compile Include="ViewModels\ExamViewModel.cs" />
     <Compile Include="ViewModels\ExcelEntryStaffViewModel.cs" />
     <Compile Include="ViewModels\ExcelExportViewModel.cs" />
     <Compile Include="ViewModels\GenUpdateViewModel.cs" />
@@ -197,6 +203,7 @@
     <Compile Include="ViewModels\RegistrationUpdaterViewModel.cs" />
     <Compile Include="ViewModels\RollUpdateViewModel.cs" />
     <Compile Include="ViewModels\SchoolLeavingAndCharacterViewModel.cs" />
+    <Compile Include="ViewModels\SchoolProfileViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="ViewModels\StaffDetailViewModel.cs" />
     <Compile Include="ViewModels\StdAddrUpdateViewModel.cs" />
@@ -219,9 +226,6 @@
     </Compile>
     <Compile Include="Views\DeleteView.xaml.cs">
       <DependentUpon>DeleteView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ExamView.xaml.cs">
-      <DependentUpon>ExamView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExcelEntryStaffView.xaml.cs">
       <DependentUpon>ExcelEntryStaffView.xaml</DependentUpon>
@@ -252,6 +256,9 @@
     </Compile>
     <Compile Include="Views\SchoolLeavingAndCharacterView.xaml.cs">
       <DependentUpon>SchoolLeavingAndCharacterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SchoolProfileView.xaml.cs">
+      <DependentUpon>SchoolProfileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SessionView.xaml.cs">
       <DependentUpon>SessionView.xaml</DependentUpon>
@@ -295,10 +302,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DeleteView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ExamView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -377,6 +380,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SchoolProfileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SessionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -443,22 +450,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Asset\Images\admission.ico" />
-    <Resource Include="Asset\Images\bank.ico" />
-    <Resource Include="Asset\Images\home.ico" />
-    <Resource Include="Asset\Images\user.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Asset\Images\other.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Asset\Images\Add.png" />
-    <Resource Include="Asset\Images\Delete.png" />
-    <Resource Include="Asset\Images\Edit.png" />
-    <Resource Include="Asset\Images\Save.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Asset\subject.xml">
@@ -467,9 +459,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="subject.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Asset\Images\raw1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Asset\Images\un1.png" />
