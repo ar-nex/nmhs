@@ -1,0 +1,173 @@
+﻿<Window x:Class="NaimouzaHighSchool.Views.StaffAddView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NaimouzaHighSchool.ViewModels"
+        mc:Ignorable="d"
+        Title="Staff Entry" Height="650" Width="950" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+    <Window.Resources>
+        <local:StaffAddViewModel x:Key="sfVm"/>
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <Border DockPanel.Dock="Bottom">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Cancel"/>
+                <Button Content="Save" Command="{Binding SaveCommand, Source={StaticResource sfVm}}"/>
+            </StackPanel>
+        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TabControl Grid.Row="1">
+                <TabItem Header="Primary">
+                    <ScrollViewer>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!--row 1-->
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Name" Margin="2, 2, 0, 2"/>
+                                <Label Foreground="Red" Content="*" Margin="-5, 2, 2, 2"/>
+                            </StackPanel>
+                            <TextBox Grid.Column="1" Text="{Binding Name, Source={StaticResource sfVm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <!--row 2 -->
+                            <Label VerticalAlignment="Center" Grid.Row="1" Content="Date of Birth"/>
+                            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="YYYY" Margin="2, 2, 2, 0"/>
+                                    <ComboBox Width="80" 
+                                              ItemsSource="{Binding YYYY, Source={StaticResource sfVm}}"
+                                              SelectedIndex="{Binding DobYYIndex, Source={StaticResource sfVm}, Mode=TwoWay}"
+                                              Margin="2, 0, 2, 2"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="MM" Margin="2, 2, 2, 0"/>
+                                    <ComboBox Width="80" 
+                                              ItemsSource="{Binding MM, Source={StaticResource sfVm}}"
+                                              SelectedIndex="{Binding DobMMIndex, Source={StaticResource sfVm}, Mode=TwoWay}"
+                                              Margin="2, 0, 2, 2"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="DD" Margin="2, 2, 2, 0"/>
+                                    <ComboBox Width="80" 
+                                              ItemsSource="{Binding DD, Source={StaticResource sfVm}}"
+                                              SelectedIndex="{Binding DobDDIndex, Source={StaticResource sfVm}, Mode=TwoWay}"
+                                              Margin="2, 0, 2, 2"/>
+                                </StackPanel>
+                            </StackPanel>
+                            
+                            <!--row - 3-->
+                            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                <Label Content="Gender"  Margin="2, 2, 0, 2"/>
+                                <Label Content="*" Foreground="Red" Margin="-5, 2, 2, 2"/>
+                            </StackPanel>
+                            <ComboBox Grid.Column="1" Grid.Row="2" 
+                                      ItemsSource="{Binding Sex, Source={StaticResource sfVm}}"
+                                      SelectedIndex="{Binding SexIndex, Source={StaticResource sfVm}, Mode=TwoWay}"
+                                      Width="80" HorizontalAlignment="Left"/>
+                            <Label Grid.Row="2" Grid.Column="2" Content="Caste"/>
+                            <ComboBox Grid.Row="2" Grid.Column="3" Width="80" 
+                                      ItemsSource="{Binding SocialCategory, Source={StaticResource sfVm}}"
+                                      SelectedIndex="{Binding SocialCategoryIndex, Source={StaticResource sfVm}, Mode=TwoWay}"
+                                      HorizontalAlignment="Left"/>
+                            
+                            <!--row 4-->
+                            <Label Grid.Row="3" Content="Voter ID No."/>
+                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding VoterId, Source={StaticResource sfVm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Grid.Row="3" Grid.Column="2" Content="Vacancy Status"/>
+                            <ComboBox Grid.Row="3" Grid.Column="3" Width="200" HorizontalAlignment="Left" 
+                                      ItemsSource="{Binding Vacancy, Source={StaticResource sfVm}}"
+                                      Text="{Binding VacancyStatus, Source={StaticResource sfVm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsEditable="True"/>
+                            
+                            <!--row 5-->
+                            <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                <Label Content="Designation" Margin="2, 2, 0, 2"/>
+                                <Label Content="*" Margin="-5, 2, 2, 2" Foreground="Red"/>
+                            </StackPanel>
+                            <ComboBox Grid.Row="4" Grid.Column="1" Width="200" HorizontalAlignment="Left" 
+                                      ItemsSource="{Binding DesignationList, Source={StaticResource sfVm}}"
+                                      Text="{Binding Designation, Source={StaticResource sfVm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsEditable="True"/>
+                            <Label Grid.Row="4" Grid.Column="2" Content="Subject"/>
+                            <ComboBox Grid.Row="4" Grid.Column="3" 
+                                      ItemsSource="{Binding SubjectList, Source={StaticResource sfVm}}"
+                                      Text="{Binding Subject, Source={StaticResource sfVm}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsEditable="True"/>
+                            
+                            <!--row 6-->
+                            <Label VerticalAlignment="Center" Grid.Row="5" Content="Date of Birth"/>
+                            <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="YYYY" Margin="2, 2, 2, 0"/>
+                                    <ComboBox Width="80" 
+                                              ItemsSource="{Binding YYYY, Source={StaticResource sfVm}}"
+                                              SelectedIndex="{Binding DorYYIndex, Source={StaticResource sfVm}, Mode=TwoWay}"
+                                              Margin="2, 0, 2, 2"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="MM" Margin="2, 2, 2, 0"/>
+                                    <ComboBox Width="80" 
+                                              ItemsSource="{Binding MM, Source={StaticResource sfVm}}"
+                                              SelectedIndex="{Binding DorMMIndex, Source={StaticResource sfVm}, Mode=TwoWay}"
+                                              Margin="2, 0, 2, 2"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="DD" Margin="2, 2, 2, 0"/>
+                                    <ComboBox Width="80" 
+                                              ItemsSource="{Binding DD, Source={StaticResource sfVm}}"
+                                              SelectedIndex="{Binding DorDDIndex, Source={StaticResource sfVm}, Mode=TwoWay}"
+                                              Margin="2, 0, 2, 2"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Personal">
+                    
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </DockPanel>
+</Window>

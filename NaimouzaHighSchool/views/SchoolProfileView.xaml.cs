@@ -29,5 +29,32 @@ namespace NaimouzaHighSchool.Views
         {
             IsOpen = false;
         }
+
+        private void PrintSchoolCanvas(object sender, RoutedEventArgs e)
+        {
+            PrintDialog pdc = new PrintDialog();
+            if (pdc.ShowDialog() == true)
+            {
+                pdc.PrintVisual(GridSchool, "School Profile");
+            }
+        }
+
+        private void PrintCanvasClass(object sender, RoutedEventArgs e)
+        {
+            PrintDialog pdc = new PrintDialog();
+            if (pdc.ShowDialog() == true)
+            {
+                pdc.PrintVisual(GridClass, "Class Profile");
+            }
+        }
+
+        private void PrintStreamProfile(object sender, RoutedEventArgs e)
+        {
+            PrintDialog pdc = new PrintDialog();
+            if (pdc.ShowDialog() == true)
+            {
+                pdc.PrintVisual(GridStream, "Stream Profile");
+            }
+        }
     }
 }

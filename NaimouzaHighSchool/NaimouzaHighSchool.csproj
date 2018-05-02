@@ -142,6 +142,7 @@
     <Compile Include="Models\Database\RollUpdateDb.cs" />
     <Compile Include="Models\Database\SchoolLeavingAndCharacterDb.cs" />
     <Compile Include="Models\Database\SchoolProfileDb.cs" />
+    <Compile Include="Models\Database\StaffAddDb.cs" />
     <Compile Include="Models\Database\StaffDetailDb.cs" />
     <Compile Include="Models\Database\StdAddressUpdateDb.cs" />
     <Compile Include="Models\Database\StudentBuilderFromCompleteMySqlDataReader.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="Models\Utility\BoardStudent.cs" />
     <Compile Include="Models\Utility\CombSubPair.cs" />
     <Compile Include="Models\Utility\Constants.cs" />
+    <Compile Include="Models\Utility\Empolyment.cs" />
     <Compile Include="Models\Utility\EnumFile.cs" />
     <Compile Include="Models\Utility\EventConnector.cs" />
     <Compile Include="Models\Utility\ExamMarks.cs" />
@@ -205,6 +207,8 @@
     <Compile Include="ViewModels\SchoolLeavingAndCharacterViewModel.cs" />
     <Compile Include="ViewModels\SchoolProfileViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
+    <Compile Include="ViewModels\StaffAddViewModel.cs" />
+    <Compile Include="ViewModels\StaffBaseViewModel.cs" />
     <Compile Include="ViewModels\StaffDetailViewModel.cs" />
     <Compile Include="ViewModels\StdAddrUpdateViewModel.cs" />
     <Compile Include="ViewModels\StudentClassBaseViewModel.cs" />
@@ -262,6 +266,9 @@
     </Compile>
     <Compile Include="Views\SessionView.xaml.cs">
       <DependentUpon>SessionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StaffAddView.xaml.cs">
+      <DependentUpon>StaffAddView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StaffDetailView.xaml.cs">
       <DependentUpon>StaffDetailView.xaml</DependentUpon>
@@ -385,6 +392,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SessionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StaffAddView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -75,6 +75,20 @@ namespace NaimouzaHighSchool.ViewModels
 
         }
 
+        private string _sessionCl;
+        public string SessionCl
+        {
+            get { return _sessionCl; }
+            set { _sessionCl = value; OnPropertyChanged("SessionCl"); }
+        }
+
+        private string _sessionSch;
+        public string SessionSch
+        {
+            get { return _sessionSch; }
+            set { _sessionSch = value; OnPropertyChanged("SessionSch"); }
+        }
+
         private int _startYearStrm;
         public int StartYearStrm
         {
@@ -98,6 +112,14 @@ namespace NaimouzaHighSchool.ViewModels
                 UpdateStreamProfile();
             }
         }
+
+        private string _sessionStream;
+        public string SessionStream
+        {
+            get { return _sessionStream; }
+            set { _sessionStream = value; OnPropertyChanged("SessionStream"); }
+        }
+
 
 
         private string[] _schoolClass;
@@ -569,6 +591,7 @@ namespace NaimouzaHighSchool.ViewModels
 
         private void UpdateSchoolProfile()
         {
+            SessionSch = StartYear.ToString() + "-" + EndYear.ToString();
             SchoolProfileDb db = new SchoolProfileDb();
             var tpl = db.GetProfile(StartYear, EndYear);
             GrandTotal = tpl.Item1;
@@ -599,6 +622,8 @@ namespace NaimouzaHighSchool.ViewModels
 
         private void UpdateClassProfile()
         {
+            SessionCl = StartYearCl.ToString() + "-" + EndYearCl;
+            SelClass = SchoolClass[SchoolClassIndex];
             SchoolProfileDb db = new SchoolProfileDb();
             var tpl = db.GetProfile(StartYearCl, EndYearCl, SchoolClass[SchoolClassIndex]);
             CountCls = tpl.Item1;
@@ -627,6 +652,8 @@ namespace NaimouzaHighSchool.ViewModels
 
         private void UpdateStreamProfile()
         {
+            SessionStream = StartYearStrm.ToString() + "-" + EndYearStrm.ToString();
+            SelClassStream = SchoolClassStrm[SchoolClassStrmIndex];
             if (StartYearStrm < 2017 || EndYearStrm < 2017 || SchoolClassStrmIndex == -1)
             {
                 

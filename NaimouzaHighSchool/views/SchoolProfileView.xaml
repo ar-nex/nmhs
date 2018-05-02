@@ -6,15 +6,15 @@
         xmlns:local="clr-namespace:NaimouzaHighSchool.ViewModels"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="SchoolProfileView" Height="650" Width="900" Closing="Window_Closing" WindowStartupLocation="CenterOwner">
+        Title="School Profile" MinHeight="720" MinWidth="900" Closing="Window_Closing" WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <local:SchoolProfileViewModel x:Key="scVm"/>
         <Style TargetType="Label" x:Key="lblTitle">
-            <Setter Property="Background" Value="#Fff"/>
+            <Setter Property="Background" Value="Transparent"/>
         </Style>
         <Style TargetType="Label" x:Key="lblNos">
-            <Setter Property="Background" Value="#0D47A1"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#111"/>
+            <Setter Property="Foreground" Value="Orange"/>
         </Style>
         <Style TargetType="Label" x:Key="lblCategory">
             <Setter Property="Background" Value="#000"/>
@@ -27,11 +27,15 @@
         <TabControl>
             <TabItem Header="School">
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="13*"/>
+                        <ColumnDefinition Width="45*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Border Background="#CFD8DC" Padding="5">
+                    <Border Background="#CFD8DC" Padding="5" Grid.ColumnSpan="2">
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                             <Label Content="Session "/>
                             <xctk:IntegerUpDown Margin="2"
@@ -43,298 +47,307 @@
                             Value="{Binding EndYear, Source={StaticResource scVm}, Mode=TwoWay}"
                             Width="65">
                             </xctk:IntegerUpDown>
+                            <Button Content="Print" Margin="2" Width="60" Click="PrintSchoolCanvas"/>
                         </StackPanel>
+
                     </Border>
-                    <Canvas Grid.Row="1">
-                        <Border BorderBrush="Black" BorderThickness="1" Height="64" Canvas.Left="335.5" Canvas.Top="15.04" Width="185.25">
-                            <Grid Background="Red">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Border VerticalAlignment="Center">
-                                    <StackPanel Orientation="Vertical">
-                                        <Label HorizontalAlignment="Center" FontWeight="Black" Foreground="White"  Content="TOTAL"/>
-                                        <Label HorizontalAlignment="Center" Content="STUDENTS" FontWeight="Black" Foreground="White"/>
-                                    </StackPanel>
-                                </Border>
-                                <Label Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
+
+                    <Grid x:Name="GridSchool" Grid.Row="1" Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Border>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="NAIMOUZA HIGH SCHOOL" 
+                                           Margin="220,10, 0, 0"
+                                           FontSize="26"/>
+                                <StackPanel Orientation="Horizontal" Margin="300, 0">
+                                    <Label Content="Session :" Margin="10, 0, 0, 0"/>
+                                    <Label Content="{Binding SessionSch, Source={StaticResource scVm}}" Margin="0, 0, 10, 0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        <Canvas Grid.Row="1" x:Name="CanvasSchool">
+                            <Border BorderBrush="Black" BorderThickness="0" Height="64" Canvas.Left="280.5" Canvas.Top="15.04" Width="185.25">
+                                <Grid Background="PaleVioletRed">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Border VerticalAlignment="Center">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label HorizontalAlignment="Center" 
+                                                   FontWeight="Black" 
+                                                   Foreground="White" Margin="0, 0, 0, -5"  
+                                                   Content="TOTAL"/>
+                                            <Label HorizontalAlignment="Center" Margin="0, -5, 0, 2" Content="STUDENTS" FontWeight="Black" Foreground="White"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <Label Grid.Column="1" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" 
+                                           Foreground="Black"
                                        Content="{Binding GrandTotal, Source={StaticResource scVm}}" FontSize="24"/>
-                            </Grid>
-                        </Border>
+                                </Grid>
+                            </Border>
 
-                        <Path Data="M134.75,144.25 L737.25,140.5" Fill="#FFF" Height="4.75" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="141" Width="540.625"/>
-                        <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="345.75" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="144.5" Width="1"/>
-                        <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="221" Canvas.Left="335.25" Stretch="Fill" Stroke="Black" Canvas.Top="143.75" Width="1.75"/>
-                        <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="309.5" Canvas.Left="518.5" Stretch="Fill" Stroke="Black" Canvas.Top="142.75" Width="2.25"/>
-                        <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="201.75" Canvas.Left="701" Stretch="Fill" Stroke="Black" Canvas.Top="141.5" Width="2.25"/>
-                        <Label Style="{StaticResource lblCategory}" BorderThickness="1" Content="Class" Canvas.Left="137.25" Canvas.Top="170.5"/>
-                        <Label Style="{StaticResource lblCategory}" BorderThickness="1" Content="Gender" Canvas.Left="308.5" Canvas.Top="170.5"/>
-                        <Label Style="{StaticResource lblCategory}" BorderThickness="1" Content="Social Category" Canvas.Left="464.75" Canvas.Top="170.5"/>
-                        <Label Style="{StaticResource lblCategory}" BorderThickness="1" Content="APL/BPL" Canvas.Left="669.75" Canvas.Top="170.5"/>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="219" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="V" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                            <Path Data="M134.75,144.25 L737.25,140.5" Fill="#FFF" Height="4.75" Canvas.Left="106.5" Stretch="Fill" Stroke="Black" Canvas.Top="141" Width="540.625"/>
+                            <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="345.75" Canvas.Left="106.5" Stretch="Fill" Stroke="Black" Canvas.Top="144.5" Width="1"/>
+                            <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="221" Canvas.Left="280.25" Stretch="Fill" Stroke="Black" Canvas.Top="143.75" Width="1.75"/>
+                            <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="309.5" Canvas.Left="463.5" Stretch="Fill" Stroke="Black" Canvas.Top="142.75" Width="2.25"/>
+                            <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="201.75" Canvas.Left="646" Stretch="Fill" Stroke="Black" Canvas.Top="141.5" Width="2.25"/>
+                            <Label Style="{StaticResource lblCategory}" BorderThickness="1" Content="Class" Canvas.Left="81.25" Canvas.Top="170.5"/>
+                            <Label Style="{StaticResource lblCategory}" BorderThickness="1" Content="Gender" Canvas.Left="250.5" Canvas.Top="170.5"/>
+                            <Label Style="{StaticResource lblCategory}" BorderThickness="1" Content="Social Category" Canvas.Left="405.75" Canvas.Top="170.5"/>
+                            <Label Style="{StaticResource lblCategory}" BorderThickness="1" Content="APL/BPL" Canvas.Left="610.75" Canvas.Top="170.5"/>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="129.25" Canvas.Top="219" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="V" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding Count5, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="255" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="VI" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="129.25" Canvas.Top="255" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="VI" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding Count6, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="291" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="VII" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="129.25" Canvas.Top="291" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="VII" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding Count7, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="329" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="VIII" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="129.25" Canvas.Top="329" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="VIII" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding Count8, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="365" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="IX" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="129.25" Canvas.Top="365" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="IX" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding Count9, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="401" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="X" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="129.25" Canvas.Top="401" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="X" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding Count10, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="362.25" Canvas.Top="275" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="M" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="307.25" Canvas.Top="275" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="M" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding CountMale, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="362.25" Canvas.Top="311" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="F" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="307.25" Canvas.Top="311" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="F" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding CountFemale, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="362.25" Canvas.Top="349" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="--" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="307.25" Canvas.Top="349" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="--" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding CountGenNull, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="546.25" Canvas.Top="219" Width="95.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="GEN" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="491.25" Canvas.Top="219" Width="95.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="GEN" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding CountGen, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="546.25" Canvas.Top="255" Width="95.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="SC" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="491.25" Canvas.Top="255" Width="95.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="SC" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding CountSC, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="546.25" Canvas.Top="291" Width="95.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="ST" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="491.25" Canvas.Top="291" Width="95.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="ST" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding CountST, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="546.25" Canvas.Top="329" Width="95.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="OBC" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="491.25" Canvas.Top="329" Width="95.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="OBC" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding CountOBC, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="546.25" Canvas.Top="365" Width="95.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="OBC-A" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="491.25" Canvas.Top="365" Width="95.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="OBC-A" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding CountOBC_A, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="546.25" Canvas.Top="401" Width="95.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="OBC-B" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="491.25" Canvas.Top="401" Width="95.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="OBC-B" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding CountOBC_B, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="730.25" Canvas.Top="293" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="APL" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" Content="150" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="730.25" Canvas.Top="329" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="BPL" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" Content="" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="546.25" Canvas.Top="437" Width="95.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="--" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
-                                   Content="{Binding CountSocCatNull, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="730.25" Canvas.Top="293" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="APL" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
-                                   Content="{Binding CountApl, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="730.25" Canvas.Top="329" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="BPL" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
-                                   Content="{Binding CountBpl, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
+                                </Grid>
+                            </Border>
 
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="335.25" Stretch="Fill" Stroke="Black" Canvas.Top="290.25" Width="27.5"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="270" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="233.75" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="343" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="306.75" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.75" Stretch="Fill" Stroke="Black" Canvas.Top="417.75" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="381.5" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="335.25" Stretch="Fill" Stroke="Black" Canvas.Top="324.75" Width="27.5"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="335.5" Stretch="Fill" Stroke="Black" Canvas.Top="363.75" Width="27.5"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="518.5" Stretch="Fill" Stroke="Black" Canvas.Top="234.75" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="518.5" Stretch="Fill" Stroke="Black" Canvas.Top="269.25" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="518.5" Stretch="Fill" Stroke="Black" Canvas.Top="308.75" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="518.5" Stretch="Fill" Stroke="Black" Canvas.Top="343.25" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="519" Stretch="Fill" Stroke="Black" Canvas.Top="378.25" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="519" Stretch="Fill" Stroke="Black" Canvas.Top="417.75" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="519" Stretch="Fill" Stroke="Black" Canvas.Top="451.25" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="702" Stretch="Fill" Stroke="Black" Canvas.Top="308.75" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="701.5" Stretch="Fill" Stroke="Black" Canvas.Top="342.25" Width="28.875"/>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="437.5" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="XI" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="491.25" Canvas.Top="437" Width="95.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="--" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
+                                   Content="{Binding CountSocCatNull, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="675.25" Canvas.Top="293" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="APL" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
+                                   Content="{Binding CountApl, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="675.25" Canvas.Top="329" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="BPL" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1"
+                                   Content="{Binding CountBpl, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="129.25" Canvas.Top="437.5" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="XI" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding Count11, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="473.5" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="XII" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="129.25" Canvas.Top="473.5" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="XII" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                    Content="{Binding Count12, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.75" Stretch="Fill" Stroke="Black" Canvas.Top="489.25" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="454" Width="23.75"/>
-                        <Path Data="M429.75,115.04 L430,143.04" Fill="#FFF" Height="66.5" Canvas.Left="430.25" Stretch="Fill" Stroke="Black" Canvas.Top="77.54" Width="1"/>
-                    </Canvas>
+                                </Grid>
+                            </Border>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="280.25" Stretch="Fill" Stroke="Black" Canvas.Top="290.25" Width="27.5"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="106.5" Stretch="Fill" Stroke="Black" Canvas.Top="270" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="106.5" Stretch="Fill" Stroke="Black" Canvas.Top="233.75" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="106.5" Stretch="Fill" Stroke="Black" Canvas.Top="343" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="106.5" Stretch="Fill" Stroke="Black" Canvas.Top="306.75" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="106.75" Stretch="Fill" Stroke="Black" Canvas.Top="417.75" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="106.5" Stretch="Fill" Stroke="Black" Canvas.Top="381.5" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="280.25" Stretch="Fill" Stroke="Black" Canvas.Top="324.75" Width="27.5"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="280.5" Stretch="Fill" Stroke="Black" Canvas.Top="363.75" Width="27.5"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="463.5" Stretch="Fill" Stroke="Black" Canvas.Top="234.75" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="463.5" Stretch="Fill" Stroke="Black" Canvas.Top="269.25" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="463.5" Stretch="Fill" Stroke="Black" Canvas.Top="308.75" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="463.5" Stretch="Fill" Stroke="Black" Canvas.Top="343.25" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="463.5" Stretch="Fill" Stroke="Black" Canvas.Top="378.25" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="463.5" Stretch="Fill" Stroke="Black" Canvas.Top="417.75" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="463.5" Stretch="Fill" Stroke="Black" Canvas.Top="451.25" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="647" Stretch="Fill" Stroke="Black" Canvas.Top="308.75" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="646.5" Stretch="Fill" Stroke="Black" Canvas.Top="342.25" Width="28.875"/>
+
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="106.75" Stretch="Fill" Stroke="Black" Canvas.Top="489.25" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="106.5" Stretch="Fill" Stroke="Black" Canvas.Top="454" Width="23.75"/>
+                            <Path Data="M429.75,115.04 L430,143.04" Fill="#FFF" Height="66.5" Canvas.Left="375.25" Stretch="Fill" Stroke="Black" Canvas.Top="77.54" Width="1"/>
+                        </Canvas>
+
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Class">
@@ -360,254 +373,280 @@
                                 ItemsSource="{Binding SchoolClass, Source={StaticResource scVm}}"
                                 SelectedIndex="{Binding SchoolClassIndex, Source={StaticResource scVm}, Mode=TwoWay}"
                                 Width="80"/>
+                            <Button Content="Print" Margin="2" Width="60" Click="PrintCanvasClass"/>
                         </StackPanel>
                     </Border>
-                    <Canvas Grid.Row="1">
-                        <Border BorderBrush="Black" BorderThickness="1" Height="64" Canvas.Left="335.5" Canvas.Top="15.04" Width="185.25">
-                            <Grid Background="Red">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Border VerticalAlignment="Center">
-                                    <StackPanel Orientation="Vertical">
-                                        <Label HorizontalAlignment="Center" FontWeight="Black" Foreground="White"  Content="TOTAL"/>
-                                        <Label HorizontalAlignment="Center" Content="STUDENTS" FontWeight="Black" Foreground="White"/>
-                                    </StackPanel>
-                                </Border>
-                                <Label Grid.Column="1" 
+                    <Grid Grid.Row="1" x:Name="GridClass">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Border>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="NAIMOUZA HIGH SCHOOL" 
+                                           Margin="220,10, 0, 0"
+                                           FontSize="26"/>
+                                <StackPanel Orientation="Horizontal" Margin="260, 0">
+                                    <Label Content="Session :" Margin="10, 0, 0, 0"/>
+                                    <Label Content="{Binding SessionCl, Source={StaticResource scVm}}" Margin="0, 0, 10, 0"/>
+                                    <Label Content="Class :" Margin="10, 0, 0, 0"/>
+                                    <Label Content="{Binding SelClass, Source={StaticResource scVm}}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        <Canvas x:Name="CanvasClass" Grid.Row="1">
+                            <Border BorderBrush="Black" BorderThickness="0" Height="64" Canvas.Left="280.5" Canvas.Top="15.04" Width="185.25">
+                                <Grid Background="PaleVioletRed">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Border VerticalAlignment="Center">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label HorizontalAlignment="Center" 
+                                                   Margin="0, 0, 0, -5"
+                                                   FontWeight="Black" Foreground="White"  Content="TOTAL"/>
+                                            <Label HorizontalAlignment="Center" 
+                                                   Content="STUDENTS" 
+                                                   Margin="0, -5, 0, 0"
+                                                   FontWeight="Black" Foreground="White"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <Label Grid.Column="1" 
                                        HorizontalAlignment="Center" 
                                        VerticalAlignment="Center" 
                                        Content="{Binding CountCls, Source={StaticResource scVm}}" FontSize="24"/>
-                            </Grid>
-                        </Border>
-                        <Path Data="M429.75,115.04 L430,143.04" Fill="#FFF" Height="66.5" Canvas.Left="430.25" Stretch="Fill" Stroke="Black" Canvas.Top="77.54" Width="1"/>
-                        <Path Data="M134.75,144.25 L737.25,140.5" Fill="#FFF" Height="4.75" Canvas.Left="161" Stretch="Fill" Stroke="Black" Canvas.Top="141" Width="541.75"/>
-                        <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="274.25" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="144.5" Width="1"/>
-                        <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="221" Canvas.Left="335.25" Stretch="Fill" Stroke="Black" Canvas.Top="143.75" Width="1.75"/>
-                        <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="309.5" Canvas.Left="518.5" Stretch="Fill" Stroke="Black" Canvas.Top="142.75" Width="2.25"/>
-                        <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="201.75" Canvas.Left="701" Stretch="Fill" Stroke="Black" Canvas.Top="141.5" Width="2.25"/>
-                        <Label BorderBrush="Purple" Style="{StaticResource lblCategory}" Content="Section" Canvas.Left="137.25" Canvas.Top="170.5"/>
-                        <Label BorderBrush="Purple" Style="{StaticResource lblCategory}" Content="Gender" Canvas.Left="310.5" Canvas.Top="170.5"/>
-                        <Label BorderBrush="Purple" Style="{StaticResource lblCategory}"  Content="Social Category" Canvas.Left="474.75" Canvas.Top="170.5"/>
-                        <Label BorderBrush="Purple" Style="{StaticResource lblCategory}"  Content="APL/BPL" Canvas.Left="673.75" Canvas.Top="170.5"/>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="219" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="A" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Path Data="M429.75,115.04 L430,143.04" Fill="#FFF" Height="66.5" Canvas.Left="375.25" Stretch="Fill" Stroke="Black" Canvas.Top="77.54" Width="1"/>
+                            <Path Data="M134.75,144.25 L737.25,140.5" Fill="#FFF" Height="4.75" Canvas.Left="106" Stretch="Fill" Stroke="Black" Canvas.Top="141" Width="541.75"/>
+                            <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="274.25" Canvas.Left="106" Stretch="Fill" Stroke="Black" Canvas.Top="144.5" Width="1"/>
+                            <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="221" Canvas.Left="280.25" Stretch="Fill" Stroke="Black" Canvas.Top="143.75" Width="1.75"/>
+                            <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="309.5" Canvas.Left="463.5" Stretch="Fill" Stroke="Black" Canvas.Top="142.75" Width="2.25"/>
+                            <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="201.75" Canvas.Left="646" Stretch="Fill" Stroke="Black" Canvas.Top="141.5" Width="2.25"/>
+                            <Label BorderBrush="Purple" Style="{StaticResource lblCategory}" Content="Section" Canvas.Left="75.25" Canvas.Top="170.5"/>
+                            <Label BorderBrush="Purple" Style="{StaticResource lblCategory}" Content="Gender" Canvas.Left="250.5" Canvas.Top="170.5"/>
+                            <Label BorderBrush="Purple" Style="{StaticResource lblCategory}"  Content="Social Category" Canvas.Left="405.75" Canvas.Top="170.5"/>
+                            <Label BorderBrush="Purple" Style="{StaticResource lblCategory}"  Content="APL/BPL" Canvas.Left="610.75" Canvas.Top="170.5"/>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="129.25" Canvas.Top="219" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="A" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClA, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="255" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="B" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="129.25" Canvas.Top="255" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="B" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClB, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="291" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="C" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="129.25" Canvas.Top="291" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="C" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClC, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="329" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="D" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="129.25" Canvas.Top="329" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="D" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClD, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="365" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="E" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="129.25" Canvas.Top="365" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="E" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClE, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="401" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="--" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="129.25" Canvas.Top="401" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="--" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClNullSec, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="362.25" Canvas.Top="275" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="M" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="307.25" Canvas.Top="275" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="M" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClMale, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="362.25" Canvas.Top="311" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="F" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="307.25" Canvas.Top="311" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="F" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClFemale, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="362.25" Canvas.Top="349" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="--" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="307.25" Canvas.Top="349" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="--" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClGenNull, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="546.25" Canvas.Top="219" Width="95.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="GEN" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="491.25" Canvas.Top="219" Width="95.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="GEN" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClGen, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="546.25" Canvas.Top="255" Width="95.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="SC" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="491.25" Canvas.Top="255" Width="95.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="SC" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClSC, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="546.25" Canvas.Top="291" Width="95.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="47" />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="ST" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="491.25" Canvas.Top="291" Width="95.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="47" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="ST" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClST, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="546.25" Canvas.Top="329" Width="95.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="OBC" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="491.25" Canvas.Top="329" Width="95.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="OBC" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClOBC, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="546.25" Canvas.Top="365" Width="95.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="OBC-A" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="491.25" Canvas.Top="365" Width="95.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="OBC-A" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClOBC_A, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="546.25" Canvas.Top="401" Width="95.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="OBC-B" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="491.25" Canvas.Top="401" Width="95.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="OBC-B" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClOBC_B, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="730.25" Canvas.Top="293" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="APL" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="675.25" Canvas.Top="293" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="APL" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClApl, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="730.25" Canvas.Top="329" Width="82.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="41" />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="BPL" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="675.25" Canvas.Top="329" Width="82.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="41" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="BPL" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClBpl, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="546.25" Canvas.Top="437" Width="95.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="--" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="491.25" Canvas.Top="437" Width="95.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="--" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountClSocCatNull, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="335.25" Stretch="Fill" Stroke="Black" Canvas.Top="290.25" Width="27.5"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="270" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="233.75" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="343" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="306.75" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.75" Stretch="Fill" Stroke="Black" Canvas.Top="417.75" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="381.5" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="335.25" Stretch="Fill" Stroke="Black" Canvas.Top="324.75" Width="27.5"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="335.5" Stretch="Fill" Stroke="Black" Canvas.Top="363.75" Width="27.5"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="518.5" Stretch="Fill" Stroke="Black" Canvas.Top="234.75" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="518.5" Stretch="Fill" Stroke="Black" Canvas.Top="269.25" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="518.5" Stretch="Fill" Stroke="Black" Canvas.Top="308.75" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="518.5" Stretch="Fill" Stroke="Black" Canvas.Top="343.25" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="519" Stretch="Fill" Stroke="Black" Canvas.Top="378.25" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="519" Stretch="Fill" Stroke="Black" Canvas.Top="417.75" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="519" Stretch="Fill" Stroke="Black" Canvas.Top="451.25" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="702" Stretch="Fill" Stroke="Black" Canvas.Top="308.75" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="701.5" Stretch="Fill" Stroke="Black" Canvas.Top="342.25" Width="28.875"/>
-                    </Canvas>
+                                </Grid>
+                            </Border>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="280.25" Stretch="Fill" Stroke="Black" Canvas.Top="290.25" Width="27.5"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="280.25" Stretch="Fill" Stroke="Black" Canvas.Top="324.75" Width="27.5"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="280.25" Stretch="Fill" Stroke="Black" Canvas.Top="363.75" Width="27.5"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="106.5" Stretch="Fill" Stroke="Black" Canvas.Top="270" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="106.5" Stretch="Fill" Stroke="Black" Canvas.Top="233.75" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="106.5" Stretch="Fill" Stroke="Black" Canvas.Top="343" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="106.5" Stretch="Fill" Stroke="Black" Canvas.Top="306.75" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="106.75" Stretch="Fill" Stroke="Black" Canvas.Top="417.75" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="106.5" Stretch="Fill" Stroke="Black" Canvas.Top="381.5" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="463.5" Stretch="Fill" Stroke="Black" Canvas.Top="234.75" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="463.5" Stretch="Fill" Stroke="Black" Canvas.Top="269.25" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="463.5" Stretch="Fill" Stroke="Black" Canvas.Top="308.75" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="463.5" Stretch="Fill" Stroke="Black" Canvas.Top="343.25" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="463.5" Stretch="Fill" Stroke="Black" Canvas.Top="378.25" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="463.5" Stretch="Fill" Stroke="Black" Canvas.Top="417.75" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="463.5" Stretch="Fill" Stroke="Black" Canvas.Top="451.25" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="647" Stretch="Fill" Stroke="Black" Canvas.Top="308.75" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="647" Stretch="Fill" Stroke="Black" Canvas.Top="342.25" Width="28.875"/>
+                        </Canvas>
+
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Stream &amp; Subject">
@@ -618,234 +657,259 @@
                     </Grid.RowDefinitions>
                     <Border Background="#CFD8DC" Padding="5">
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <Label Content="Session "/>
+                            <Label Content="Session " Margin="2"/>
                             <xctk:IntegerUpDown Margin="2"
                             Value="{Binding StartYearStrm, Source={StaticResource scVm}, Mode=TwoWay}"
                             Width="65">
                             </xctk:IntegerUpDown>
-                            <Label Content="-" />
+                            <Label Content="-"/>
                             <xctk:IntegerUpDown Margin="2"
                             Value="{Binding EndYearStrm, Source={StaticResource scVm}, Mode=TwoWay}"
                             Width="65">
                             </xctk:IntegerUpDown>
-                            <Label Content="Class"/>
-                            <ComboBox 
+                            <Label Content="Class" Margin="2"/>
+                            <ComboBox Margin="2"
                                 ItemsSource="{Binding SchoolClassStrm, Source={StaticResource scVm}}"
                                 SelectedIndex="{Binding SchoolClassStrmIndex, Source={StaticResource scVm}}"
-                                Width="80"/>
+                                Width="60"/>
+                            <Button Width="60" Content="Print" Margin="2" Click="PrintStreamProfile"/>
                         </StackPanel>
                     </Border>
-                    <Canvas Grid.Row="1">
-                        <Border BorderBrush="Black" BorderThickness="1" Height="64" Canvas.Left="335.5" Canvas.Top="15.04" Width="185.25">
-                            <Grid Background="Red">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Border VerticalAlignment="Center">
-                                    <StackPanel Orientation="Vertical">
-                                        <Label HorizontalAlignment="Center" FontWeight="Black" Foreground="White"  Content="TOTAL"/>
-                                        <Label HorizontalAlignment="Center" Content="STUDENTS" FontWeight="Black" Foreground="White"/>
-                                    </StackPanel>
-                                </Border>
-                                <Label Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding CountClsStream, Source={StaticResource scVm}}" FontSize="24"/>
-                            </Grid>
+                    <Grid Grid.Row="1" x:Name="GridStream">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Border>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="NAIMOUZA HIGH SCHOOL" 
+                                           Margin="280,10, 0, 0"
+                                           FontSize="26"/>
+                                <StackPanel Orientation="Horizontal" Margin="320, 0, 0, 0">
+                                    <Label Content="Session :" Margin="10, 0, 0, 0"/>
+                                    <Label Content="{Binding SessionStream, Source={StaticResource scVm}}" Margin="0, 0, 10, 0"/>
+                                    <Label Content="Class : "/>
+                                    <Label Content="{Binding SelClassStream, Source={StaticResource scVm}}"/>
+                                </StackPanel>
+                            </StackPanel>
                         </Border>
-                        <Path Data="M429.75,115.04 L430,143.04" Fill="#FFF" Height="22.25" Canvas.Left="430.5" Stretch="Fill" Stroke="Black" Canvas.Top="77.915" Width="1"/>
-                        <Path Data="M134.75,144.25 L737.25,140.5" Fill="#FFF" Height="4.75" Canvas.Left="161" Stretch="Fill" Stroke="Black" Canvas.Top="97.25" Width="541.75"/>
-                        <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="347.5" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="101.5" Width="1"/>
-                        <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="246" Canvas.Left="702.375" Stretch="Fill" Stroke="Black" Canvas.Top="96.75" Width="1"/>
+                        <Canvas Grid.Row="1">
+                            <Border BorderBrush="Black" BorderThickness="0" Height="64" Canvas.Left="335.5" Canvas.Top="15.04" Width="185.25">
+                                <Grid Background="PaleVioletRed">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Border VerticalAlignment="Center">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label HorizontalAlignment="Center" 
+                                               Margin="0, 0, 0, -5"
+                                               FontWeight="Black" Foreground="White"  Content="TOTAL"/>
+                                            <Label HorizontalAlignment="Center" 
+                                               Margin="0, -5, 0, 0"
+                                               Content="STUDENTS" FontWeight="Black" Foreground="White"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <Label Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding CountClsStream, Source={StaticResource scVm}}" FontSize="24"/>
+                                </Grid>
+                            </Border>
+                            <Path Data="M429.75,115.04 L430,143.04" Fill="#FFF" Height="22.25" Canvas.Left="430.5" Stretch="Fill" Stroke="Black" Canvas.Top="77.915" Width="1"/>
+                            <Path Data="M134.75,144.25 L737.25,140.5" Fill="#FFF" Height="4.75" Canvas.Left="161" Stretch="Fill" Stroke="Black" Canvas.Top="97.25" Width="541.75"/>
+                            <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="347.5" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="101.5" Width="1"/>
+                            <Path Data="M156,144.25 L157.25,421.75" Fill="#FFF" Height="246" Canvas.Left="702.375" Stretch="Fill" Stroke="Black" Canvas.Top="96.75" Width="1"/>
 
 
-                        <Border Background="Black" BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="151.5" Canvas.Top="128.04" Width="162.5">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Foreground="#bbb" Content="ARTS"/>
-                                <Label Foreground="#bbb" Content="|" Grid.Column="1"/>
-                                <Label HorizontalAlignment="Right" Foreground="Orange" Content="{Binding CountArts, Source={StaticResource scVm}}" Grid.Column="2"/>
-                            </Grid>
-                        </Border>
+                            <Border Background="Black" BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="151.5" Canvas.Top="128.04" Width="162.5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Foreground="#bbb" Content="ARTS"/>
+                                    <Label Foreground="#bbb" Content="|" Grid.Column="1"/>
+                                    <Label HorizontalAlignment="Right" Foreground="YellowGreen" Content="{Binding CountArts, Source={StaticResource scVm}}" Grid.Column="2"/>
+                                </Grid>
+                            </Border>
 
 
 
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="177" Width="225.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="ARABIC" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="177" Width="225.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="ARABIC" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountArb, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="213" Width="225.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="ECONOMICS" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="213" Width="225.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="ECONOMICS" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountEco, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="249" Width="225.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="EDUCATION" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="249" Width="225.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="EDUCATION" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountEdu, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="287" Width="225.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="GEOGRAPHY" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="287" Width="225.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="GEOGRAPHY" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountGeo, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="323" Width="225.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="HISTORY" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="323" Width="225.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="HISTORY" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountHis, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="359" Width="225.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="PHILOSOPHY" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="359" Width="225.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="PHILOSOPHY" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountPhi, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="397" Width="225.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="POL. SC" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="397" Width="225.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="POL. SC" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountPol, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="433" Width="225.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="SOCIOLOGY" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="1" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="184.25" Canvas.Top="433" Width="225.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="SOCIOLOGY" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="1" 
                                        Content="{Binding CountSoc, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
+                                </Grid>
+                            </Border>
 
-                        <Border Background="Black" BorderBrush="Black" BorderThickness="1" Height="48.96" Canvas.Left="385" Canvas.Top="109.08" Width="92">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <Label Content="Undefined" BorderBrush="#777" BorderThickness="0, 0, 0, 1" Foreground="#bbb" HorizontalAlignment="Center" FontSize="11"/>
-                                <Label Grid.Row="1" HorizontalAlignment="Center" Content="{Binding CountStreamNull, Source={StaticResource scVm}}" Foreground="White"/>
-                            </Grid>
-                        </Border>
+                            <Border Background="Black" BorderBrush="Black" BorderThickness="1" Height="48.96" Canvas.Left="385" Canvas.Top="109.08" Width="92">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Label Content="Undefined" BorderBrush="#777" BorderThickness="0, 0, 0, 1" Foreground="#bbb" HorizontalAlignment="Center" FontSize="11"/>
+                                    <Label Grid.Row="1" Foreground="YellowGreen" HorizontalAlignment="Center" Content="{Binding CountStreamNull, Source={StaticResource scVm}}" />
+                                </Grid>
+                            </Border>
 
-                        <Border Background="Black" BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="551.5" Canvas.Top="128.04" Width="162.5">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label Foreground="#bbb" Content="{Binding CountScience, Source={StaticResource scVm}}"/>
-                                <Label Foreground="#bbb" Content="|" Grid.Column="1"/>
-                                <Label Grid.Column="2" HorizontalAlignment="Right" Foreground="#bbb" Content="SCIENCE"/>
-                            </Grid>
-                        </Border>
+                            <Border Background="Black" BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="551.5" Canvas.Top="128.04" Width="162.5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Foreground="YellowGreen" Content="{Binding CountScience, Source={StaticResource scVm}}"/>
+                                    <Label Foreground="#bbb" Content="|" Grid.Column="1"/>
+                                    <Label Grid.Column="2" HorizontalAlignment="Right" Foreground="#bbb" Content="SCIENCE"/>
+                                </Grid>
+                            </Border>
 
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="445.25" Canvas.Top="221" Width="228.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="3*"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="1" HorizontalAlignment="Right" Content="PHYSICS" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="0" 
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="445.25" Canvas.Top="221" Width="228.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="1" HorizontalAlignment="Right" Content="PHYSICS" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="0" 
                                        Content="{Binding CountPhy, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="445.25" Canvas.Top="257" Width="228.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="3*" />
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="1" HorizontalAlignment="Right" Content="CHEMISTRY" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="0" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="445.25" Canvas.Top="257" Width="228.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="3*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="1" HorizontalAlignment="Right" Content="CHEMISTRY" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="0" 
                                        Content="{Binding CountChm, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="445.25" Canvas.Top="293" Width="228.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="3*"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="1" HorizontalAlignment="Right" Content="MATHEMATICS" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="0" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="445.25" Canvas.Top="293" Width="228.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="1" HorizontalAlignment="Right" Content="MATHEMATICS" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="0" 
                                        Content="{Binding CountMth, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="445.25" Canvas.Top="329" Width="228.75">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="3*"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Content="BIOLOGY" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource lblTitle}"/>
-                                <Label Grid.Column="0" 
+                                </Grid>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="30" Canvas.Left="445.25" Canvas.Top="329" Width="228.75">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="BIOLOGY" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource lblTitle}"/>
+                                    <Label Grid.Column="0" 
                                        Content="{Binding CountBio, Source={StaticResource scVm}}" Style="{StaticResource lblNos}"/>
-                            </Grid>
-                        </Border>
+                                </Grid>
+                            </Border>
 
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="228" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="191.75" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="301" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="264.75" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.75" Stretch="Fill" Stroke="Black" Canvas.Top="375.75" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="339.5" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="673.75" Stretch="Fill" Stroke="Black" Canvas.Top="308.75" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="673.5" Stretch="Fill" Stroke="Black" Canvas.Top="341.75" Width="29.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="228" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="191.75" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="301" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="264.75" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.75" Stretch="Fill" Stroke="Black" Canvas.Top="375.75" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.5" Stretch="Fill" Stroke="Black" Canvas.Top="339.5" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="673.75" Stretch="Fill" Stroke="Black" Canvas.Top="308.75" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="673.5" Stretch="Fill" Stroke="Black" Canvas.Top="341.75" Width="29.875"/>
 
 
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="673.5" Stretch="Fill" Stroke="Black" Canvas.Top="237.5" Width="28.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="673.25" Stretch="Fill" Stroke="Black" Canvas.Top="271" Width="29.875"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.75" Stretch="Fill" Stroke="Black" Canvas.Top="411.75" Width="23.75"/>
-                        <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.75" Stretch="Fill" Stroke="Black" Canvas.Top="447.75" Width="23.75"/>
-                        <Path Data="M429.75,115.04 L430,143.04" Fill="#FFF" Height="22.25" Canvas.Left="430.5" Stretch="Fill" Stroke="Black" Canvas.Top="87.915" Width="1"/>
-                    </Canvas>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="673.5" Stretch="Fill" Stroke="Black" Canvas.Top="237.5" Width="28.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1.125" Canvas.Left="673.25" Stretch="Fill" Stroke="Black" Canvas.Top="271" Width="29.875"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.75" Stretch="Fill" Stroke="Black" Canvas.Top="411.75" Width="23.75"/>
+                            <Path Data="M161.5,235.5 L184.25,235" Fill="#FFF" Height="1" Canvas.Left="161.75" Stretch="Fill" Stroke="Black" Canvas.Top="447.75" Width="23.75"/>
+                            <Path Data="M429.75,115.04 L430,143.04" Fill="#FFF" Height="22.25" Canvas.Left="430.5" Stretch="Fill" Stroke="Black" Canvas.Top="87.915" Width="1"/>
+                        </Canvas>
+
+                    </Grid>
                 </Grid>
             </TabItem>
         </TabControl>

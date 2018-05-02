@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Data;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Data;
-using MySql.Data;
 using MySql.Data.MySqlClient;
-using System.Configuration;
-using NaimouzaHighSchool;
 using NaimouzaHighSchool.Models.Utility;
 
 namespace NaimouzaHighSchool.Models.Database

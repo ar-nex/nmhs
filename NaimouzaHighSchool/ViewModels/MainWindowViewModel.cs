@@ -30,6 +30,7 @@ namespace NaimouzaHighSchool.ViewModels
         public RelayCommand ShowUDiseCommand { get; set; }
         public RelayCommand ShowPromotionWindowCommand { get; set; }
         public RelayCommand ShowSchoolProfileCommand { get; set; }
+        public RelayCommand ShowStaffAddViewCommand { get; set; }
 
 
         private void StartUpInitializer()
@@ -52,6 +53,7 @@ namespace NaimouzaHighSchool.ViewModels
             ShowUDiseCommand = new RelayCommand(ShowUDise, CanShowUDise);
             ShowPromotionWindowCommand = new RelayCommand(ShowPromotionWindow, CanShowPromotionWindow);
             ShowSchoolProfileCommand = new RelayCommand(ShowSchoolProfileWindow, CanShowSchoolProfileWindow);
+            ShowStaffAddViewCommand = new RelayCommand(ShowStaffAddView, CanShowStaffAddView);
 
         }
 
@@ -398,6 +400,21 @@ namespace NaimouzaHighSchool.ViewModels
         private bool CanShowSchoolProfileWindow()
         {
             return !Views.SchoolProfileView.IsOpen;
+        }
+
+        private void ShowStaffAddView()
+        {
+            if (!Views.StaffAddView.IsOpen)
+            {
+                Views.StaffAddView stfView = new Views.StaffAddView();
+                Views.StaffAddView.IsOpen = true;
+                stfView.Show();
+            }
+        }
+
+        private bool CanShowStaffAddView()
+        {
+            return !Views.StaffAddView.IsOpen;
         }
     }
 }

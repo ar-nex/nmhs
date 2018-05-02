@@ -15,7 +15,7 @@ namespace NaimouzaHighSchool.ViewModels
         public StaffDetailViewModel()
         : base()
         {
-            this.StartUpInitialzer();
+           // this.StartUpInitialzer();
         }
 
         #region property
@@ -104,7 +104,7 @@ namespace NaimouzaHighSchool.ViewModels
             set
             {
                 this._cirteriaTypeIndex = value;
-                this.UpdateCriteriaList();
+               // this.UpdateCriteriaList();
                 this.OnPropertyChanged("CriteriaTypeIndex");
             }
         }
@@ -116,7 +116,7 @@ namespace NaimouzaHighSchool.ViewModels
             set 
             {
                 this._staffListIndex = value;
-                this.UpdateDetailView();
+               // this.UpdateDetailView();
                 this.OnPropertyChanged("StaffListIndex");
             }
         }
@@ -292,7 +292,7 @@ namespace NaimouzaHighSchool.ViewModels
                 this._ifsc = value.ToUpper();
                 if (!string.IsNullOrEmpty(value))
                 {
-                    setBankDetails(value);
+                   // setBankDetails(value);
                 }
                 OnPropertyChanged("Ifsc");
             }
@@ -356,523 +356,523 @@ namespace NaimouzaHighSchool.ViewModels
         #endregion
 
         #region method
-        private void StartUpInitialzer()
-        {
-            this.Bclick = buttonClick.none;
+        //private void StartUpInitialzer()
+        //{
+        //    this.Bclick = buttonClick.none;
 
-            StaffListIndex = -1;
-            CriteriaTypeIndex = -1;
-            CriteriaType = new string[] { "Subject", "Designation", "Qualification", "Prof. Qualification"};
-            db = new StaffDetailDb();
-            StaffList = new ObservableCollection<Staff>(db.GetStaffList());
+        //    StaffListIndex = -1;
+        //    CriteriaTypeIndex = -1;
+        //    CriteriaType = new string[] { "Subject", "Designation", "Qualification", "Prof. Qualification"};
+        //    db = new StaffDetailDb();
+        //    StaffList = new ObservableCollection<Staff>(db.GetStaffList());
 
-            UniqueDesignations = new ObservableCollection<string>(db.GetDistinct("DESIGNATION"));
-            UniqueSubjects = new ObservableCollection<string>(db.GetDistinct("SUBJECT"));
-            UniqueQualifications = db.GetDistinct("QUALIFICATION");
-            UniqueProfQualifications = db.GetDistinct("PROFFESIONALQ");
-            BranchList = new ObservableCollection<BankBranch>(db.getBankBranchList());
-            IfscList = new ObservableCollection<string>();
-            updateIfscList();
+        //    UniqueDesignations = new ObservableCollection<string>(db.GetDistinct("DESIGNATION"));
+        //    UniqueSubjects = new ObservableCollection<string>(db.GetDistinct("SUBJECT"));
+        //    UniqueQualifications = db.GetDistinct("QUALIFICATION");
+        //    UniqueProfQualifications = db.GetDistinct("PROFFESIONALQ");
+        //    BranchList = new ObservableCollection<BankBranch>(db.getBankBranchList());
+        //    IfscList = new ObservableCollection<string>();
+        //    updateIfscList();
 
 
-            DD = new string[] { "DD", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" };
-            MM = new string[] { "MM", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
-            int yy = DateTime.Now.Year;
-            YYYY = new string[41];
-            YYYY[0] = "YYYY";
-            for (int i = 0; i < 40; i++)
-            {
-                YYYY[i + 1] = (yy - i).ToString();
-            }
-            DojDDIndex = DojMMIndex = DojYYIndex = 0;
-            DorDDIndex = DorMMIndex = DorYYIndex = 0;
+        //    DD = new string[] { "DD", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" };
+        //    MM = new string[] { "MM", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
+        //    int yy = DateTime.Now.Year;
+        //    YYYY = new string[41];
+        //    YYYY[0] = "YYYY";
+        //    for (int i = 0; i < 40; i++)
+        //    {
+        //        YYYY[i + 1] = (yy - i).ToString();
+        //    }
+        //    DojDDIndex = DojMMIndex = DojYYIndex = 0;
+        //    DorDDIndex = DorMMIndex = DorYYIndex = 0;
 
-            AddStaffClickedCommand = new RelayCommand(this.AddStaffClicked, this.CanAddStaffClicked);
-            SaveBtnClickedCommand = new RelayCommand(this.SaveBtnClicked, this.CanSaveBtnClicked);
-            EditBtnClickedCommand = new RelayCommand(editBtnClicked, canEditBtnClicked);
-            DeleteBtnClickedCommand = new RelayCommand(this.DeleteBtnClicked, this.CanDeleteBtnClicked);
-            CancelBtnClickedCommand = new RelayCommand(cancelBtnClicked, canCancelBtnClicked);
-        }
+        //    AddStaffClickedCommand = new RelayCommand(this.AddStaffClicked, this.CanAddStaffClicked);
+        //    SaveBtnClickedCommand = new RelayCommand(this.SaveBtnClicked, this.CanSaveBtnClicked);
+        //    EditBtnClickedCommand = new RelayCommand(editBtnClicked, canEditBtnClicked);
+        //    DeleteBtnClickedCommand = new RelayCommand(this.DeleteBtnClicked, this.CanDeleteBtnClicked);
+        //    CancelBtnClickedCommand = new RelayCommand(cancelBtnClicked, canCancelBtnClicked);
+        //}
 
-        private void UpdateCriteriaList()
-        {
-            if (this.CriteriaTypeIndex < 0 || this._cirteriaTypeIndex >= this.CriteriaType.Length)
-            {
-                return;
-            }
-            else
-            { 
-                string crType = this.CriteriaType[this.CriteriaTypeIndex];
-                if (this.CriteriaList.Count > 0)
-                {
-                    this.CriteriaList.Clear();
-                }
+        //private void UpdateCriteriaList()
+        //{
+        //    if (this.CriteriaTypeIndex < 0 || this._cirteriaTypeIndex >= this.CriteriaType.Length)
+        //    {
+        //        return;
+        //    }
+        //    else
+        //    { 
+        //        string crType = this.CriteriaType[this.CriteriaTypeIndex];
+        //        if (this.CriteriaList.Count > 0)
+        //        {
+        //            this.CriteriaList.Clear();
+        //        }
                 
-                switch (crType)
-                {
-                    case "Subject":
-                        ObservableCollection<string> clist = new ObservableCollection<string>(this.UniqueSubjects);
-                        this.CriteriaList = clist;
-                        break;
-                    case "Designation":
-                        ObservableCollection<string> clist1 = new ObservableCollection<string>(this.UniqueDesignations);
-                        this.CriteriaList = clist1;
-                        break;
-                    case "Qualification":
-                        ObservableCollection<string> clist2 = new ObservableCollection<string>(this.UniqueQualifications);
-                        this.CriteriaList = clist2;
-                        break;
-                    case "Prof. Qualification":
-                        ObservableCollection<string> clist3 = new ObservableCollection<string>(this.UniqueProfQualifications);
-                        this.CriteriaList = clist3;
-                        break;
-                    default:
-                        break;
-                }
+        //        switch (crType)
+        //        {
+        //            case "Subject":
+        //                ObservableCollection<string> clist = new ObservableCollection<string>(this.UniqueSubjects);
+        //                this.CriteriaList = clist;
+        //                break;
+        //            case "Designation":
+        //                ObservableCollection<string> clist1 = new ObservableCollection<string>(this.UniqueDesignations);
+        //                this.CriteriaList = clist1;
+        //                break;
+        //            case "Qualification":
+        //                ObservableCollection<string> clist2 = new ObservableCollection<string>(this.UniqueQualifications);
+        //                this.CriteriaList = clist2;
+        //                break;
+        //            case "Prof. Qualification":
+        //                ObservableCollection<string> clist3 = new ObservableCollection<string>(this.UniqueProfQualifications);
+        //                this.CriteriaList = clist3;
+        //                break;
+        //            default:
+        //                break;
+        //        }
 
-            }
-        }
+        //    }
+        //}
 
-        private void UpdateDetailView()
-        {
-            if (this.StaffListIndex < 0 || this.StaffListIndex >= this.StaffList.Count)
-            {
-                this.TxbName = string.Empty;
-                this.TxbSubject = string.Empty;
-                this.TxbDesignation = string.Empty;
-                this.TxbQualification = string.Empty;
-                this.TxbProfQualification = string.Empty;
-                this.Gender = string.Empty;
-                DojDDIndex = DojMMIndex = DojYYIndex = 0;
-                DorDDIndex = DorMMIndex = DorYYIndex = 0;
-                this.BankAcc = string.Empty;
-                this.Ifsc = string.Empty;
-                this.BankBranch = string.Empty;
-                this.BankName = string.Empty;
-                this.Micr = string.Empty;
-                this.Dor = default(DateTime);
+        //private void UpdateDetailView()
+        //{
+        //    if (this.StaffListIndex < 0 || this.StaffListIndex >= this.StaffList.Count)
+        //    {
+        //        this.TxbName = string.Empty;
+        //        this.TxbSubject = string.Empty;
+        //        this.TxbDesignation = string.Empty;
+        //        this.TxbQualification = string.Empty;
+        //        this.TxbProfQualification = string.Empty;
+        //        this.Gender = string.Empty;
+        //        DojDDIndex = DojMMIndex = DojYYIndex = 0;
+        //        DorDDIndex = DorMMIndex = DorYYIndex = 0;
+        //        this.BankAcc = string.Empty;
+        //        this.Ifsc = string.Empty;
+        //        this.BankBranch = string.Empty;
+        //        this.BankName = string.Empty;
+        //        this.Micr = string.Empty;
+        //        this.Dor = default(DateTime);
 
-                this.SaveBtnContent = "save new";
-            }
-            else
-            { 
-                Staff s = this.StaffList[this.StaffListIndex];
-                this.TxbName = s.Name;
-                this.TxbDesignation = s.Designation;
-                this.TxbSubject = s.Subject;
-                this.TxbQualification = s.Qualification;
-                this.TxbProfQualification = s.ProfessionalQualification;
-                this.Gender = s.Sex;
-                //this.Doj = s.DateOfJoining;
-                if (s.DateOfJoining.Year == 1)
-                {
-                    DojDDIndex = DojMMIndex = DojYYIndex = 0;
-                }
-                else
-                {
-                    int dIndex = Array.IndexOf(DD, s.DateOfJoining.Day.ToString("00"));
-                    DojDDIndex = (dIndex == -1) ? 0 : dIndex;
-                    int mIndex = Array.IndexOf(MM, s.DateOfJoining.Month.ToString("00"));
-                    DojMMIndex = (mIndex == -1) ? 0 : mIndex;
-                    int yIndex = Array.IndexOf(YYYY, s.DateOfJoining.Year.ToString());
-                    DojYYIndex = (yIndex == -1) ? 0 : yIndex;
-                }
-                // retirement date
-                if (s.RetireDate.Year == 1)
-                {
-                    DorDDIndex = DorMMIndex = DorYYIndex = 0;
-                }
-                else
-                {
-                    int dIndex = Array.IndexOf(DD, s.RetireDate.Day.ToString("00"));
-                    DorDDIndex = (dIndex == -1) ? 0 : dIndex;
-                    int mIndex = Array.IndexOf(MM, s.RetireDate.Month.ToString("00"));
-                    DorMMIndex = (mIndex == -1) ? 0 : mIndex;
-                    int yIndex = Array.IndexOf(YYYY, s.RetireDate.Year.ToString());
-                    DorYYIndex = (yIndex == -1) ? 0 : yIndex;
-                }
+        //        this.SaveBtnContent = "save new";
+        //    }
+        //    else
+        //    { 
+        //        Staff s = this.StaffList[this.StaffListIndex];
+        //        this.TxbName = s.Name;
+        //        this.TxbDesignation = s.Designation;
+        //        this.TxbSubject = s.Subject;
+        //        this.TxbQualification = s.Qualification;
+        //        this.TxbProfQualification = s.ProfessionalQualification;
+        //        this.Gender = s.Sex;
+        //        //this.Doj = s.DateOfJoining;
+        //        if (s.DateOfJoining.Year == 1)
+        //        {
+        //            DojDDIndex = DojMMIndex = DojYYIndex = 0;
+        //        }
+        //        else
+        //        {
+        //            int dIndex = Array.IndexOf(DD, s.DateOfJoining.Day.ToString("00"));
+        //            DojDDIndex = (dIndex == -1) ? 0 : dIndex;
+        //            int mIndex = Array.IndexOf(MM, s.DateOfJoining.Month.ToString("00"));
+        //            DojMMIndex = (mIndex == -1) ? 0 : mIndex;
+        //            int yIndex = Array.IndexOf(YYYY, s.DateOfJoining.Year.ToString());
+        //            DojYYIndex = (yIndex == -1) ? 0 : yIndex;
+        //        }
+        //        // retirement date
+        //        if (s.RetireDate.Year == 1)
+        //        {
+        //            DorDDIndex = DorMMIndex = DorYYIndex = 0;
+        //        }
+        //        else
+        //        {
+        //            int dIndex = Array.IndexOf(DD, s.RetireDate.Day.ToString("00"));
+        //            DorDDIndex = (dIndex == -1) ? 0 : dIndex;
+        //            int mIndex = Array.IndexOf(MM, s.RetireDate.Month.ToString("00"));
+        //            DorMMIndex = (mIndex == -1) ? 0 : mIndex;
+        //            int yIndex = Array.IndexOf(YYYY, s.RetireDate.Year.ToString());
+        //            DorYYIndex = (yIndex == -1) ? 0 : yIndex;
+        //        }
 
-                this.Mobile = s.Mobile;
-                this.AltMobile = s.LandPhone;
-                this.Email = s.Email;
-                this.BankAcc = s.BankAcc;
-                this.Ifsc = s.Ifsc;
-                this.BankBranch = s.BankBranch;
-                this.BankName = s.BankName;
-                this.Micr = s.Micr;
+        //        this.Mobile = s.Mobile;
+        //        this.AltMobile = s.LandPhone;
+        //        this.Email = s.Email;
+        //        this.BankAcc = s.BankAcc;
+        //        this.Ifsc = s.Ifsc;
+        //        this.BankBranch = s.BankBranch;
+        //        this.BankName = s.BankName;
+        //        this.Micr = s.Micr;
 
-                this.SaveBtnContent = "update";
+        //        this.SaveBtnContent = "update";
             
-            }
-        }
+        //    }
+        //}
 
-        private Staff GetStaffBuild()
-        {
-            Staff s = new Staff();
-            s.Name = this.TxbName;
-            s.Subject = this.TxbSubject;
-            s.Designation = this.TxbDesignation;
-            s.Qualification = this.TxbQualification;
-            s.ProfessionalQualification = this.TxbProfQualification;
-            s.Sex = this.Gender;
-            s.DateOfJoining = getDate("doj");
-            s.RetireDate = getDate("dor");
-            s.Mobile = this.Mobile;
-            s.LandPhone = this.AltMobile;
-            s.Email = this.Email;
-            s.BankAcc = this.BankAcc;
-            s.Ifsc = this.Ifsc;
-            s.BankBranch = this.BankBranch;
-            s.BankName = this.BankName;
-            s.Micr = this.Micr;
-            s.Id = (StaffListIndex > -1) ? StaffList[StaffListIndex].Id : string.Empty;
-            return s;
-        }
+        //private Staff GetStaffBuild()
+        //{
+        //    Staff s = new Staff();
+        //    s.Name = this.TxbName;
+        //    s.Subject = this.TxbSubject;
+        //    s.Designation = this.TxbDesignation;
+        //    s.Qualification = this.TxbQualification;
+        //    s.ProfessionalQualification = this.TxbProfQualification;
+        //    s.Sex = this.Gender;
+        //    s.DateOfJoining = getDate("doj");
+        //    s.RetireDate = getDate("dor");
+        //    s.Mobile = this.Mobile;
+        //    s.LandPhone = this.AltMobile;
+        //    s.Email = this.Email;
+        //    s.BankAcc = this.BankAcc;
+        //    s.Ifsc = this.Ifsc;
+        //    s.BankBranch = this.BankBranch;
+        //    s.BankName = this.BankName;
+        //    s.Micr = this.Micr;
+        //    s.Id = (StaffListIndex > -1) ? StaffList[StaffListIndex].Id : string.Empty;
+        //    return s;
+        //}
 
-        private void AddStaffClicked()
-        {
+        //private void AddStaffClicked()
+        //{
 
-            StaffListIndex = -1;
-            Bclick = buttonClick.add;
-        }
+        //    StaffListIndex = -1;
+        //    Bclick = buttonClick.add;
+        //}
 
-        private bool CanAddStaffClicked()
-        {
-            if (Bclick == buttonClick.edit)
-            {
-                return false;
-            }
-            else
-            {
-                return !(Bclick == buttonClick.add);
-            }
-        }
+        //private bool CanAddStaffClicked()
+        //{
+        //    if (Bclick == buttonClick.edit)
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        return !(Bclick == buttonClick.add);
+        //    }
+        //}
 
-        private void SaveBtnClicked()
-        {
+        //private void SaveBtnClicked()
+        //{
             
             
-            if (this.Bclick == buttonClick.add)
-            {
+        //    if (this.Bclick == buttonClick.add)
+        //    {
                 
-                if (!isDatesValid())
-                {
-                    System.Windows.MessageBox.Show("Please check the entered date.");
-                    return;
-                }
-                else
-                {
-                    Staff newStaff = this.GetStaffBuild();
-                    int insertId = this.db.InsertStaff(newStaff);
-                    if (insertId > 0)
-                    {
-                        newStaff.Id = insertId.ToString();
-                        this.StaffList.Add(newStaff);
-                        this.StaffListIndex = this.StaffList.IndexOf(newStaff);
-                        // insert bank detail to observable list 
-                        if (!string.IsNullOrEmpty(newStaff.Ifsc) && IfscList.IndexOf(newStaff.Ifsc) == -1)
-                        {
-                            BankBranch br = new Models.Utility.BankBranch();
-                            br.IFSC = newStaff.Ifsc;
-                            br.BankName = newStaff.BankName;
-                            br.BranchName = newStaff.BankName;
-                            br.Micr = newStaff.Micr;
-                            BranchList.Add(br);
-                            IfscList.Add(br.IFSC);
-                        }
-                        // insert desig
-                        if (!string.IsNullOrEmpty(TxbDesignation) && UniqueDesignations.IndexOf(TxbDesignation) == -1)
-                        {
-                            UniqueDesignations.Add(TxbDesignation);
-                        }
-                        // insert subs
-                        if (!string.IsNullOrEmpty(TxbSubject) && UniqueSubjects.IndexOf(TxbSubject) == -1)
-                        {
-                            UniqueSubjects.Add(TxbSubject);
-                        }
-                        // insert qualif
-                        if (!string.IsNullOrEmpty(TxbQualification) && UniqueQualifications.IndexOf(TxbQualification) == -1)
-                        {
-                            UniqueQualifications.Add(TxbQualification);
-                        }
-                        // insert prof qualif
-                        if (!string.IsNullOrEmpty(TxbProfQualification) && UniqueProfQualifications.IndexOf(TxbProfQualification) == -1)
-                        {
-                            UniqueProfQualifications.Add(TxbProfQualification);
-                        }
+        //        if (!isDatesValid())
+        //        {
+        //            System.Windows.MessageBox.Show("Please check the entered date.");
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            Staff newStaff = this.GetStaffBuild();
+        //            int insertId = this.db.InsertStaff(newStaff);
+        //            if (insertId > 0)
+        //            {
+        //                newStaff.Id = insertId.ToString();
+        //                this.StaffList.Add(newStaff);
+        //                this.StaffListIndex = this.StaffList.IndexOf(newStaff);
+        //                // insert bank detail to observable list 
+        //                if (!string.IsNullOrEmpty(newStaff.Ifsc) && IfscList.IndexOf(newStaff.Ifsc) == -1)
+        //                {
+        //                    BankBranch br = new Models.Utility.BankBranch();
+        //                    br.IFSC = newStaff.Ifsc;
+        //                    br.BankName = newStaff.BankName;
+        //                    br.BranchName = newStaff.BankName;
+        //                    br.Micr = newStaff.Micr;
+        //                    BranchList.Add(br);
+        //                    IfscList.Add(br.IFSC);
+        //                }
+        //                // insert desig
+        //                if (!string.IsNullOrEmpty(TxbDesignation) && UniqueDesignations.IndexOf(TxbDesignation) == -1)
+        //                {
+        //                    UniqueDesignations.Add(TxbDesignation);
+        //                }
+        //                // insert subs
+        //                if (!string.IsNullOrEmpty(TxbSubject) && UniqueSubjects.IndexOf(TxbSubject) == -1)
+        //                {
+        //                    UniqueSubjects.Add(TxbSubject);
+        //                }
+        //                // insert qualif
+        //                if (!string.IsNullOrEmpty(TxbQualification) && UniqueQualifications.IndexOf(TxbQualification) == -1)
+        //                {
+        //                    UniqueQualifications.Add(TxbQualification);
+        //                }
+        //                // insert prof qualif
+        //                if (!string.IsNullOrEmpty(TxbProfQualification) && UniqueProfQualifications.IndexOf(TxbProfQualification) == -1)
+        //                {
+        //                    UniqueProfQualifications.Add(TxbProfQualification);
+        //                }
 
-                        System.Windows.MessageBoxResult result = System.Windows.MessageBox.Show("Data inserted successfully. Insert more?", "", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question);
-                        if (result == System.Windows.MessageBoxResult.No)
-                        {
-                            Bclick = buttonClick.none;
-                            StaffListIndex = -1;
-                        }
-                        else
-                        {
+        //                System.Windows.MessageBoxResult result = System.Windows.MessageBox.Show("Data inserted successfully. Insert more?", "", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question);
+        //                if (result == System.Windows.MessageBoxResult.No)
+        //                {
+        //                    Bclick = buttonClick.none;
+        //                    StaffListIndex = -1;
+        //                }
+        //                else
+        //                {
                            
-                        }
+        //                }
 
-                    }
-                }
+        //            }
+        //        }
                 
 
-            }
-            else
-            {
+        //    }
+        //    else
+        //    {
 
-                Staff s = GetStaffBuild();
-                bool rs = this.db.UpdateStaff(s);
-                if (rs)
-                {
-                    Staff orgStf = StaffList[StaffListIndex];
-                    orgStf.Id = s.Id;
-                    orgStf.Name = s.Name;
-                    orgStf.Designation = s.Designation;
-                    orgStf.Subject = s.Subject;
-                    orgStf.Qualification = s.Qualification;
-                    orgStf.ProfessionalQualification = s.ProfessionalQualification;
-                    orgStf.Sex = s.Sex;
-                    orgStf.DateOfJoining = s.DateOfJoining;
-                    orgStf.RetireDate = s.RetireDate;
-                    orgStf.Mobile = s.Mobile;
-                    orgStf.LandPhone = s.LandPhone;
-                    orgStf.Email = s.Email;
-                    orgStf.BankAcc = s.BankAcc;
-                    orgStf.Ifsc = s.Ifsc;
-                    orgStf.Micr = s.Micr;
-                    orgStf.BankName = s.BankName;
-                    orgStf.BankBranch = s.BankBranch;
+        //        Staff s = GetStaffBuild();
+        //        bool rs = this.db.UpdateStaff(s);
+        //        if (rs)
+        //        {
+        //            Staff orgStf = StaffList[StaffListIndex];
+        //            orgStf.Id = s.Id;
+        //            orgStf.Name = s.Name;
+        //            orgStf.Designation = s.Designation;
+        //            orgStf.Subject = s.Subject;
+        //            orgStf.Qualification = s.Qualification;
+        //            orgStf.ProfessionalQualification = s.ProfessionalQualification;
+        //            orgStf.Sex = s.Sex;
+        //            orgStf.DateOfJoining = s.DateOfJoining;
+        //            orgStf.RetireDate = s.RetireDate;
+        //            orgStf.Mobile = s.Mobile;
+        //            orgStf.LandPhone = s.LandPhone;
+        //            orgStf.Email = s.Email;
+        //            orgStf.BankAcc = s.BankAcc;
+        //            orgStf.Ifsc = s.Ifsc;
+        //            orgStf.Micr = s.Micr;
+        //            orgStf.BankName = s.BankName;
+        //            orgStf.BankBranch = s.BankBranch;
 
-                    // insert bank detail to observable list 
-                    if (!string.IsNullOrEmpty(s.Ifsc) && IfscList.IndexOf(s.Ifsc) == -1)
-                    {
-                        BankBranch br = new Models.Utility.BankBranch();
-                        br.IFSC = s.Ifsc;
-                        br.BankName = s.BankName;
-                        br.BranchName = s.BankName;
-                        br.Micr = s.Micr;
-                        BranchList.Add(br);
-                        IfscList.Add(br.IFSC);
-                    }
-                    // insert desig
-                    if (!string.IsNullOrEmpty(TxbDesignation) && UniqueDesignations.IndexOf(TxbDesignation) == -1)
-                    {
-                        UniqueDesignations.Add(TxbDesignation);
-                    }
-                    // insert subs
-                    if (!string.IsNullOrEmpty(TxbSubject) && UniqueSubjects.IndexOf(TxbSubject) == -1)
-                    {
-                        UniqueSubjects.Add(TxbSubject);
-                    }
-                    // insert qualif
-                    if (!string.IsNullOrEmpty(TxbQualification) && UniqueQualifications.IndexOf(TxbQualification) == -1)
-                    {
-                        UniqueQualifications.Add(TxbQualification);
-                    }
-                    // insert prof qualif
-                    if (!string.IsNullOrEmpty(TxbProfQualification) && UniqueProfQualifications.IndexOf(TxbProfQualification) == -1)
-                    {
-                        UniqueProfQualifications.Add(TxbProfQualification);
-                    }
+        //            // insert bank detail to observable list 
+        //            if (!string.IsNullOrEmpty(s.Ifsc) && IfscList.IndexOf(s.Ifsc) == -1)
+        //            {
+        //                BankBranch br = new Models.Utility.BankBranch();
+        //                br.IFSC = s.Ifsc;
+        //                br.BankName = s.BankName;
+        //                br.BranchName = s.BankName;
+        //                br.Micr = s.Micr;
+        //                BranchList.Add(br);
+        //                IfscList.Add(br.IFSC);
+        //            }
+        //            // insert desig
+        //            if (!string.IsNullOrEmpty(TxbDesignation) && UniqueDesignations.IndexOf(TxbDesignation) == -1)
+        //            {
+        //                UniqueDesignations.Add(TxbDesignation);
+        //            }
+        //            // insert subs
+        //            if (!string.IsNullOrEmpty(TxbSubject) && UniqueSubjects.IndexOf(TxbSubject) == -1)
+        //            {
+        //                UniqueSubjects.Add(TxbSubject);
+        //            }
+        //            // insert qualif
+        //            if (!string.IsNullOrEmpty(TxbQualification) && UniqueQualifications.IndexOf(TxbQualification) == -1)
+        //            {
+        //                UniqueQualifications.Add(TxbQualification);
+        //            }
+        //            // insert prof qualif
+        //            if (!string.IsNullOrEmpty(TxbProfQualification) && UniqueProfQualifications.IndexOf(TxbProfQualification) == -1)
+        //            {
+        //                UniqueProfQualifications.Add(TxbProfQualification);
+        //            }
 
-                    System.Windows.MessageBox.Show("Updated");
-                }
-                else
-                {
-                    System.Windows.MessageBox.Show("Failed to update");
-                }
-            }
+        //            System.Windows.MessageBox.Show("Updated");
+        //        }
+        //        else
+        //        {
+        //            System.Windows.MessageBox.Show("Failed to update");
+        //        }
+        //    }
 
-            Bclick = buttonClick.save;
+        //    Bclick = buttonClick.save;
 
-        }
+        //}
 
-        private bool CanSaveBtnClicked()
-        {
-            bool allDojdtSelected = (DojDDIndex > 0 && DojMMIndex > 0 && DojYYIndex > 0);
-            bool allDordtSelected = (DorDDIndex > 0 && DorMMIndex > 0 && DorYYIndex > 0);
+        //private bool CanSaveBtnClicked()
+        //{
+        //    bool allDojdtSelected = (DojDDIndex > 0 && DojMMIndex > 0 && DojYYIndex > 0);
+        //    bool allDordtSelected = (DorDDIndex > 0 && DorMMIndex > 0 && DorYYIndex > 0);
 
-            bool allDojdtNotSelected = (DojDDIndex == 0 && DojMMIndex == 0 && DojYYIndex == 0);
-            bool allDordtNotSelected = (DorDDIndex == 0 && DorMMIndex == 0 && DorYYIndex == 0);
+        //    bool allDojdtNotSelected = (DojDDIndex == 0 && DojMMIndex == 0 && DojYYIndex == 0);
+        //    bool allDordtNotSelected = (DorDDIndex == 0 && DorMMIndex == 0 && DorYYIndex == 0);
 
-            bool dtSelectedOrNot = (allDojdtSelected || allDojdtNotSelected) && (allDordtSelected || allDordtNotSelected);
+        //    bool dtSelectedOrNot = (allDojdtSelected || allDojdtNotSelected) && (allDordtSelected || allDordtNotSelected);
 
-            if (Bclick == buttonClick.none)
-            {
-                return false;
-            }
-            else if (Bclick == buttonClick.add)
-            {
-                return !string.IsNullOrEmpty(TxbName) && dtSelectedOrNot && !hasPartialBankDetails();
-            }
-            else if (Bclick == buttonClick.edit)
-            {
-                return dtSelectedOrNot && !hasPartialBankDetails();
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //    if (Bclick == buttonClick.none)
+        //    {
+        //        return false;
+        //    }
+        //    else if (Bclick == buttonClick.add)
+        //    {
+        //        return !string.IsNullOrEmpty(TxbName) && dtSelectedOrNot && !hasPartialBankDetails();
+        //    }
+        //    else if (Bclick == buttonClick.edit)
+        //    {
+        //        return dtSelectedOrNot && !hasPartialBankDetails();
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
-        private void editBtnClicked()
-        {
-            Bclick = buttonClick.edit;
-        }
+        //private void editBtnClicked()
+        //{
+        //    Bclick = buttonClick.edit;
+        //}
 
-        private bool canEditBtnClicked()
-        {
-            if (Bclick == buttonClick.add)
-            {
-                return false;
-            }
-            else
-            {
-                return (this.StaffListIndex > -1) && (!(string.IsNullOrEmpty(this.TxbName)));
-            }
-        }
+        //private bool canEditBtnClicked()
+        //{
+        //    if (Bclick == buttonClick.add)
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        return (this.StaffListIndex > -1) && (!(string.IsNullOrEmpty(this.TxbName)));
+        //    }
+        //}
 
-        private void DeleteBtnClicked()
-        {
+        //private void DeleteBtnClicked()
+        //{
             
-            bool rs = db.DeleteStaff(this.StaffList[this.StaffListIndex].Id);
-            if (rs)
-            {
-                int index_temp = StaffListIndex;
-                this.StaffListIndex = -1;
-                StaffList.RemoveAt(index_temp);
-                System.Windows.MessageBox.Show("Deleted successfully.");
-            }
-            else
-            {
-                System.Windows.MessageBox.Show("Failed to Delete.");
-            }
+        //    bool rs = db.DeleteStaff(this.StaffList[this.StaffListIndex].Id);
+        //    if (rs)
+        //    {
+        //        int index_temp = StaffListIndex;
+        //        this.StaffListIndex = -1;
+        //        StaffList.RemoveAt(index_temp);
+        //        System.Windows.MessageBox.Show("Deleted successfully.");
+        //    }
+        //    else
+        //    {
+        //        System.Windows.MessageBox.Show("Failed to Delete.");
+        //    }
             
             
-        }
+        //}
 
-        private bool CanDeleteBtnClicked()
-        {
-            return this.StaffListIndex > -1;
-        }
+        //private bool CanDeleteBtnClicked()
+        //{
+        //    return this.StaffListIndex > -1;
+        //}
 
-        private bool isDatesValid()
-        {
-            bool valid = false;
-            bool allDojdtSelected = (DojDDIndex > 0 && DojMMIndex > 0 && DojYYIndex > 0);
-            bool allDordtSelected = (DorDDIndex > 0 && DorMMIndex > 0 && DorYYIndex > 0);
+        //private bool isDatesValid()
+        //{
+        //    bool valid = false;
+        //    bool allDojdtSelected = (DojDDIndex > 0 && DojMMIndex > 0 && DojYYIndex > 0);
+        //    bool allDordtSelected = (DorDDIndex > 0 && DorMMIndex > 0 && DorYYIndex > 0);
 
-            bool allDojdtNotSelected = (DojDDIndex == 0 && DojMMIndex == 0 && DojYYIndex == 0);
-            bool allDordtNotSelected = (DorDDIndex == 0 && DorMMIndex == 0 && DorYYIndex == 0);
+        //    bool allDojdtNotSelected = (DojDDIndex == 0 && DojMMIndex == 0 && DojYYIndex == 0);
+        //    bool allDordtNotSelected = (DorDDIndex == 0 && DorMMIndex == 0 && DorYYIndex == 0);
 
-            valid = (allDojdtSelected || allDojdtNotSelected) && (allDordtSelected || allDordtNotSelected);
+        //    valid = (allDojdtSelected || allDojdtNotSelected) && (allDordtSelected || allDordtNotSelected);
 
-            if (DojDDIndex > 0 && DojMMIndex > 0 && DojYYIndex > 0)
-            {
-                string dt_str = YYYY[DojYYIndex].ToString() + MM[DojMMIndex].ToString() + DD[DojDDIndex];
-                DateTime dt;
-                valid = DateTime.TryParseExact(dt_str, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt);
-            }
-            if (DorDDIndex > 0 && DorMMIndex > 0 && DorYYIndex > 0)
-            {
-                string dt_str2 = YYYY[DojYYIndex].ToString() + MM[DojMMIndex].ToString() + DD[DojDDIndex];
-                DateTime dt2;
-                valid = DateTime.TryParseExact(dt_str2, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt2);
-            }
-            return valid;
-        }
+        //    if (DojDDIndex > 0 && DojMMIndex > 0 && DojYYIndex > 0)
+        //    {
+        //        string dt_str = YYYY[DojYYIndex].ToString() + MM[DojMMIndex].ToString() + DD[DojDDIndex];
+        //        DateTime dt;
+        //        valid = DateTime.TryParseExact(dt_str, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt);
+        //    }
+        //    if (DorDDIndex > 0 && DorMMIndex > 0 && DorYYIndex > 0)
+        //    {
+        //        string dt_str2 = YYYY[DojYYIndex].ToString() + MM[DojMMIndex].ToString() + DD[DojDDIndex];
+        //        DateTime dt2;
+        //        valid = DateTime.TryParseExact(dt_str2, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt2);
+        //    }
+        //    return valid;
+        //}
 
-        private void updateIfscList()
-        {
-            if (BranchList.Count > 0)
-            {
-                var ifsc = from n in BranchList
-                           select n.IFSC;
-                foreach (string item in ifsc)
-                {
-                    IfscList.Add(item);
-                }
-            }
-        }
+        //private void updateIfscList()
+        //{
+        //    if (BranchList.Count > 0)
+        //    {
+        //        var ifsc = from n in BranchList
+        //                   select n.IFSC;
+        //        foreach (string item in ifsc)
+        //        {
+        //            IfscList.Add(item);
+        //        }
+        //    }
+        //}
 
-        private void setBankDetails( string ifsc)
-        {
-            bool flag = false;
-            IsBankDetailReadOnly = false;
-            if (BranchList.Count > 0)
-            {
-                foreach (BankBranch item in BranchList)
-                {
-                    if (ifsc == item.IFSC)
-                    {
-                        BankName = item.BankName;
-                        BankBranch = item.BranchName;
-                        Micr = item.Micr;
-                        IsBankDetailReadOnly = true;
-                        flag = true;
-                        break;
-                    }
-                }
-                if (!flag)
-                {
-                    BankName = string.Empty;
-                    BankBranch = string.Empty;
-                    Micr = string.Empty;
-                }
-            }
-        }
+        //private void setBankDetails( string ifsc)
+        //{
+        //    bool flag = false;
+        //    IsBankDetailReadOnly = false;
+        //    if (BranchList.Count > 0)
+        //    {
+        //        foreach (BankBranch item in BranchList)
+        //        {
+        //            if (ifsc == item.IFSC)
+        //            {
+        //                BankName = item.BankName;
+        //                BankBranch = item.BranchName;
+        //                Micr = item.Micr;
+        //                IsBankDetailReadOnly = true;
+        //                flag = true;
+        //                break;
+        //            }
+        //        }
+        //        if (!flag)
+        //        {
+        //            BankName = string.Empty;
+        //            BankBranch = string.Empty;
+        //            Micr = string.Empty;
+        //        }
+        //    }
+        //}
 
-        private bool hasPartialBankDetails()
-        {
-            bool allBlank = string.IsNullOrEmpty(Ifsc) && string.IsNullOrEmpty(BankName) && string.IsNullOrEmpty(BankBranch) && string.IsNullOrEmpty(Micr);
-            bool allFilled = !string.IsNullOrEmpty(Ifsc) && !string.IsNullOrEmpty(BankName) && !string.IsNullOrEmpty(BankBranch) && !string.IsNullOrEmpty(Micr);
-            return !(allBlank || allFilled);
-        }
+        //private bool hasPartialBankDetails()
+        //{
+        //    bool allBlank = string.IsNullOrEmpty(Ifsc) && string.IsNullOrEmpty(BankName) && string.IsNullOrEmpty(BankBranch) && string.IsNullOrEmpty(Micr);
+        //    bool allFilled = !string.IsNullOrEmpty(Ifsc) && !string.IsNullOrEmpty(BankName) && !string.IsNullOrEmpty(BankBranch) && !string.IsNullOrEmpty(Micr);
+        //    return !(allBlank || allFilled);
+        //}
 
-        private DateTime getDate(string propertyName)
-        {
-            if (propertyName == "doj")
-            {
-                if (DojDDIndex == 0 && DojMMIndex == 0 && DojYYIndex == 0)
-                {
-                    return DateTime.MinValue;
-                }
-                else
-                {
-                    string dt_str = YYYY[DojYYIndex].ToString() + MM[DojMMIndex].ToString() + DD[DojDDIndex];
-                    DateTime dt;
-                    bool valid = DateTime.TryParseExact(dt_str, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt);
-                    return dt;
-                }
-            }
-            else if (propertyName == "dor")
-            {
-                if (DorDDIndex == 0 && DorMMIndex == 0 && DorYYIndex == 0)
-                {
-                    return DateTime.MinValue;
-                }
-                else
-                {
-                    string dt_str2 = YYYY[DorYYIndex].ToString() + MM[DorMMIndex].ToString() + DD[DorDDIndex];
-                    DateTime dt2;
-                    bool valid = DateTime.TryParseExact(dt_str2, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt2);
-                    return dt2;
-                }
-            }
-            else
-            {
-                return DateTime.MinValue;
-            }
-        }
+        //private DateTime getDate(string propertyName)
+        //{
+        //    if (propertyName == "doj")
+        //    {
+        //        if (DojDDIndex == 0 && DojMMIndex == 0 && DojYYIndex == 0)
+        //        {
+        //            return DateTime.MinValue;
+        //        }
+        //        else
+        //        {
+        //            string dt_str = YYYY[DojYYIndex].ToString() + MM[DojMMIndex].ToString() + DD[DojDDIndex];
+        //            DateTime dt;
+        //            bool valid = DateTime.TryParseExact(dt_str, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt);
+        //            return dt;
+        //        }
+        //    }
+        //    else if (propertyName == "dor")
+        //    {
+        //        if (DorDDIndex == 0 && DorMMIndex == 0 && DorYYIndex == 0)
+        //        {
+        //            return DateTime.MinValue;
+        //        }
+        //        else
+        //        {
+        //            string dt_str2 = YYYY[DorYYIndex].ToString() + MM[DorMMIndex].ToString() + DD[DorDDIndex];
+        //            DateTime dt2;
+        //            bool valid = DateTime.TryParseExact(dt_str2, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt2);
+        //            return dt2;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return DateTime.MinValue;
+        //    }
+        //}
 
-        private void cancelBtnClicked()
-        {
-            Bclick = buttonClick.none;
-        }
-        private bool canCancelBtnClicked()
-        {
-            return true;
-        }
+        //private void cancelBtnClicked()
+        //{
+        //    Bclick = buttonClick.none;
+        //}
+        //private bool canCancelBtnClicked()
+        //{
+        //    return true;
+        //}
         #endregion
     }
 }

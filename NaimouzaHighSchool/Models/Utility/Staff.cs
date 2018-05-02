@@ -13,14 +13,14 @@ namespace NaimouzaHighSchool.Models.Utility
 
         }
 
-
-        private string _id;
-        public string Id
+        #region primary
+        private int _id;
+        public int Id
         {
-            get { return this._id; }
+            get { return _id; }
             set
             {
-                this._id = value.ToUpper();
+                _id = (value > 0) ? value : 0;
                 OnPropertyChanged("Id");
             }
         }
@@ -31,7 +31,7 @@ namespace NaimouzaHighSchool.Models.Utility
             get { return this._name; }
             set
             {
-                this._name = value.ToUpper();
+                this._name = (value != null) ?value.ToUpper() : value;
                 OnPropertyChanged("Name");
             }
         }
@@ -53,7 +53,7 @@ namespace NaimouzaHighSchool.Models.Utility
             get { return _sex; }
             set
             {
-                string sx = value.ToUpper();
+                string sx = (value != null) ? value.ToUpper() : value;
                 if (sx == "M" || sx == "MALE" || sx == "BOY" || sx == "BOYS" || sx == "B" || sx == "BY")
                 {
                     _sex = "M";
@@ -70,15 +70,29 @@ namespace NaimouzaHighSchool.Models.Utility
             }
         }
 
+        private string _caste;
+        public string Caste
+        {
+            get => _caste;
+            set => _caste = (value != null) ? value.ToUpper() : value;
+        }
+
         private string _voterId;
         public string VoterId
         {
             get => _voterId;
             set
             {
-                _voterId = value;
+                _voterId = (value != null) ? value.ToUpper() : value;
                 OnPropertyChanged("VoterId");
             }
+        }
+
+        private string _vacancyStatus;
+        public string VacancyStatus
+        {
+            get => _vacancyStatus;
+            set => _vacancyStatus = (value != null) ? value.ToUpper() : value;
         }
 
         private string _designation;
@@ -87,53 +101,8 @@ namespace NaimouzaHighSchool.Models.Utility
             get { return this._designation; }
             set
             {
-                this._designation = value.ToUpper();
-                OnPropertyChanged("Name");
-            }
-        }
-
-        private DateTime _dateOfJoining;
-        public DateTime DateOfJoining
-        {
-            get { return this._dateOfJoining; }
-            set
-            {
-                this._dateOfJoining = value;
-                OnPropertyChanged("DateOfJoining");
-            }
-        }
-
-        private DateTime _retiredDate;
-        public DateTime RetireDate
-        {
-            get { return this._retiredDate; }
-            set
-            {
-                this._retiredDate = value;
-                OnPropertyChanged("RetireDate");
-            }
-        }
-
-
-        private string _qualification;
-        public string Qualification
-        {
-            get { return this._qualification; }
-            set
-            {
-                this._qualification = value.ToUpper();
-                OnPropertyChanged("Qualification");
-            }
-        }
-
-        private string _professionalQualification;
-        public string ProfessionalQualification
-        {
-            get { return this._professionalQualification; }
-            set
-            {
-                this._professionalQualification = value.ToUpper();
-                OnPropertyChanged("ProfessionalQualification");
+                this._designation = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("Designation");
             }
         }
 
@@ -148,190 +117,14 @@ namespace NaimouzaHighSchool.Models.Utility
             }
         }
 
-        private string _academicGroup;
-        public string AcademicGroup
+        private DateTime _retireDate;
+        public DateTime RetireDate
         {
-            get => _academicGroup;
+            get { return this._retireDate; }
             set
             {
-                _academicGroup = value;
-                OnPropertyChanged("AcademicGroup");
-            }
-        }
-
-        private string _appntApprovalNo;
-        public string AppntApprovalNo
-        {
-            get => _appntApprovalNo;
-            set
-            {
-                _appntApprovalNo = value;
-                OnPropertyChanged("AppntApprovalNo");
-            }
-        }
-
-        private DateTime _appntApprovalDate;
-        public DateTime AppntApprovalDate
-        {
-            get => _appntApprovalDate;
-            set
-            {
-                _appntApprovalDate = value;
-                OnPropertyChanged("AppntApprovalDate");
-            }
-        }
-
-        private string _payband;
-        public string PayBand
-        {
-            get => _payband;
-            set
-            {
-                _payband = value;
-                OnPropertyChanged("PayBand");
-            }
-        }
-
-        private string _payScale;
-        public string PayScale
-        {
-            get => _payScale;
-            set
-            {
-                _payScale = value;
-                OnPropertyChanged("PayScale");
-            }
-        }
-
-        private string _basicPay;
-        public string BasicPay
-        {
-            get => _basicPay;
-            set
-            {
-                _basicPay = value;
-                OnPropertyChanged("BasicPay");
-            }
-        }
-
-        private string _gradePay;
-        public string GradePay
-        {
-            get => _gradePay;
-            set
-            {
-                _gradePay = value;
-                OnPropertyChanged("GradePay");
-            }
-        }
-
-        private DateTime _nextIncrementDate;
-        public DateTime NextIncrementDate
-        {
-            get => _nextIncrementDate;
-            set
-            {
-                _nextIncrementDate = value;
-                OnPropertyChanged("NextIncrementDate");
-            }
-        }
-
-        private int _incrementAmount;
-        public int IncrementAmount
-        {
-            get => _incrementAmount;
-            set
-            {
-                _incrementAmount = value;
-                OnPropertyChanged("IncrementAmount");
-            }
-        }
-
-        private string _bankAcc;
-        public string BankAcc
-        {
-            get { return this._bankAcc; }
-            set
-            {
-                this._bankAcc = value;
-                OnPropertyChanged("BankAcc");
-            }
-        }
-
-        private string _ifsc;
-        public string Ifsc
-        {
-            get { return this._ifsc; }
-            set
-            {
-                this._ifsc = value;
-                OnPropertyChanged("Ifsc");
-            }
-        }
-
-        private string _micr;
-        public string Micr
-        {
-            get { return this._micr; }
-            set
-            {
-                this._micr = value;
-                OnPropertyChanged("Micr");
-            }
-        }
-
-        private string _bankName;
-        public string BankName
-        {
-            get { return this._bankName; }
-            set
-            {
-                this._bankName = value;
-                OnPropertyChanged("BankName");
-            }
-        }
-
-        private string _bankBranch;
-        public string BankBranch
-        {
-            get { return this._bankBranch; }
-            set
-            {
-                this._bankBranch = value;
-                OnPropertyChanged("BankBranch");
-            }
-        }
-
-        private DateTime _dateOfRetirement;
-        public DateTime DateOfRetirement
-        {
-            get => _dateOfRetirement;
-            set
-            {
-                _dateOfRetirement = value;
-                OnPropertyChanged("DateOfRetirement");
-            }
-        }
-
-        private string _caste;
-        public string Caste
-        {
-            get => _caste;
-            set
-            {
-                _caste = value;
-                OnPropertyChanged("Caste");
-            }
-        }
-
-        private string _vacancyStatus;
-        public string VacancyStatus
-        {
-            get => _vacancyStatus;
-            set
-            {
-                _vacancyStatus = value;
-                OnPropertyChanged("VacancyStatus");
+                this._retireDate = value;
+                OnPropertyChanged("RetireDate");
             }
         }
 
@@ -339,10 +132,17 @@ namespace NaimouzaHighSchool.Models.Utility
         public string BillType_salarySource
         {
             get => _billType_salarySource;
+            set => _billType_salarySource = value;
+        }
+
+        private DateTime _dateOfJoining;
+        public DateTime DateOfJoining
+        {
+            get { return this._dateOfJoining; }
             set
             {
-                _billType_salarySource = value;
-                OnPropertyChanged("BillType_salarySource");
+                this._dateOfJoining = value;
+                OnPropertyChanged("DateOfJoining");
             }
         }
 
@@ -350,615 +150,186 @@ namespace NaimouzaHighSchool.Models.Utility
         public string EmployeeGroup
         {
             get => _employeeGroup;
-            set
-            {
-                _employeeGroup = value;
-                OnPropertyChanged("EmployeeGroup");
-            }
+            set => _employeeGroup = value;
         }
 
-        private string _fatherName;
-        public string FatherName
+        private string _qualification;
+        public string Qualification
         {
-            get => _fatherName;
+            get { return this._qualification; }
             set
             {
-                _fatherName = value;
-                OnPropertyChanged("FatherName");
+                this._qualification = (value != null) ? value.ToUpper() : value;
             }
         }
 
-        private string _motherName;
-        public string MotherName
+        private int _gradePay;
+        public int GradePay
         {
-            get => _motherName;
-            set
-            {
-                _motherName = value;
-                OnPropertyChanged("MotherName");
-            }
+            get => _gradePay;
+            set => _gradePay = value;
         }
 
-        private string _religion;
-        public string Religion
+        private string _additionalQualification;
+        public string AdditionalQualification
         {
-            get => _religion;
+            get { return this._additionalQualification; }
             set
             {
-                _religion = value;
-                OnPropertyChanged("Religion");
+                this._additionalQualification = (value != null) ? value.ToUpper() : value;
             }
         }
 
-        private string _motherTounge;
-        public string MotherTounge
+        private int _basicPay;
+        public int BasicPay
         {
-            get => _motherTounge;
-            set
-            {
-                _motherTounge = value;
-                OnPropertyChanged("MotherTounge");
-            }
+            get => _basicPay;
+            set => _basicPay = value;
         }
 
-        private string _maritalStatus;
-        public string MaritalStatus
+        private string _academicSection;
+        public string AcademicSection
         {
-            get => _maritalStatus;
+            get => _academicSection;
             set
             {
-                string ms = value.ToUpper();
-                if (ms == "YES" || ms=="Y" || ms=="MARRIED")
-                {
-                    _maritalStatus = "Y";
-                }
-                else
-                {
-                    _maritalStatus = "N";
-                }
-                _maritalStatus = value;
-                OnPropertyChanged("MaritalStatus");
+                _academicSection = (value != null) ? value.ToUpper() : value;
+                OnPropertyChanged("AcademicSection");
             }
         }
 
-       
-
-        private string _spouseName;
-        public string SpouseName
+        private string _payScale;
+        public string PayScale
         {
-            get => _spouseName;
-            set
-            {
-                _spouseName = value;
-                OnPropertyChanged("SpouseName");
-            }
+            get => _payScale;
+            set => _payScale = value;
         }
 
-        private string _optedWBHealthScheme;
-        public string OptedWBHealthScheme
+        private string _appntApprovalNo;
+        public string AppntApprovalNo
         {
-            get => _optedWBHealthScheme;
-            set
-            {
-                string op = value.ToUpper();
-                if (op == "YES" || op == "Y" || op == "1")
-                {
-                    _optedWBHealthScheme = "Y";
-                }
-                else
-                {
-                    _optedWBHealthScheme = "N";
-                }
-                OnPropertyChanged("OptedWBHealthScheme");
-            }
+            get => _appntApprovalNo;
+            set => _appntApprovalNo = (value != null) ? value.ToUpper() : value;
         }
 
-        private string _residentialStatus;
-        public string ResidentialStatus
+        private DateTime _nextIncrementDate;
+        public DateTime NextIncrementDate
         {
-            get => _residentialStatus;
-            set
-            {
-                _residentialStatus = value;
-                OnPropertyChanged("ResidentialStatus");
-            }
+            get => _nextIncrementDate;
+            set => _nextIncrementDate = value;
         }
 
-        private string _panNo;
-        public string PanNo
+        private DateTime _appntApprovalDate;
+        public DateTime AppntApprovalDate
         {
-            get => _panNo;
-            set
-            {
-                _panNo = value;
-                OnPropertyChanged("PanNo");
-            }
+            get => _appntApprovalDate;
+            set => _appntApprovalDate = value;
         }
 
-        private string _aadhaar;
-        public string Aadhaar
+        private int _incrementAmount;
+        public int IncrementAmount
         {
-            get => _aadhaar;
-            set
-            {
-                _aadhaar = value;
-                OnPropertyChanged("Aadhaar");
-            }
+            get => _incrementAmount;
+            set => _incrementAmount = value;
         }
 
-        private string _assemblyConstiNo;
-        public string AssemblyConstiNo
+        public int PayInPayBand { get; set; }
+
+        private string _payband;
+        public string PayBand
         {
-            get => _assemblyConstiNo;
-            set
-            {
-                _assemblyConstiNo = value;
-                OnPropertyChanged("AssemblyConstiNo");
-            }
+            get => _payband;
+            set => _payband = value;
         }
 
-        private string _assemblyPartNo;
-        public string AssemblyPartNo
-        {
-            get => _assemblyPartNo;
-            set
-            {
-                _assemblyPartNo = value;
-                OnPropertyChanged("AssemblyPartNo");
-            }
-        }
+        public string BankName { get; set; }
+        public string BranchCode { get; set; }
+        public string BankAcc { get; set; }
+        public string Ifsc { get; set; }
+        public string Micr { get; set; }
+        public string BankBranch { get; set; }
 
-        private string _voterSlNoInPart;
-        public string VoterSlNoInPart
-        {
-            get => _voterSlNoInPart;
-            set
-            {
-                _voterSlNoInPart = value;
-                OnPropertyChanged("VoterSlNoInPart");
-            }
-        }
+        #endregion
 
-        private string _bloodGrp;
-        public string BloodGrp
-        {
-            get => _bloodGrp;
-            set
-            {
-                _bloodGrp = value;
-                OnPropertyChanged("BloodGrp");
-            }
-        }
+        #region personal
 
-        private string _isPH;
-        public string IsPH
-        {
-            get => _isPH;
-            set
-            {
-                string ph = value.ToUpper();
-                if (ph == "YES" || ph == "Y" || ph == "1")
-                {
-                    _isPH = "Y";
-                }
-                else
-                {
-                    _isPH = "N";
-                }
-                OnPropertyChanged("IsPH");
-            }
-        }
+        public string FatherName { get; set; }
+        public string MotherName { get; set; }
+        public string Religion { get; set; }
+        public string MotherTongue { get; set; }
+        public string MarritalStatus { get; set; }
+        public string SpouseName { get; set; }
+        public bool OptedWBHealthScheme { get; set; }
+        public string ResidentialStatus { get; set; }
+        public string PANNo { get; set; }
+        public string Aadhaar { get; set; }
+        public string AssemblyConstiNo { get; set; }
+        public string AssemblyPartNo { get; set; }
+        public int VoterSlNoInPart { get; set; }
+        public string BloodGroup { get; set; }
+        public bool IsPh { get; set; }
+        public string StateDetails { get; set; }
+        public float HeightInInch { get; set; }
+        public string IdentificationMark { get; set; }
 
-        private string _stateDetails;
-        public string StateDetails
-        {
-            get => _stateDetails;
-            set
-            {
-                _stateDetails = value;
-                OnPropertyChanged("StateDetails");
-            }
-        }
+        #endregion
 
-        private float _heightInInch;
-        public float HeightInInch
-        {
-            get => _heightInInch;
-            set
-            {
-                _heightInInch = value;
-                OnPropertyChanged("HeightInInch");
-            }
-        }
+        #region contact
+        public string State { get; set; }
+        public string HouseNo { get; set; }
+        public string Street { get; set; }
+        public string Town_Village { get; set; }
+        public string PO { get; set; }
+        public string PS { get; set; }
+        public string Dist { get; set; }
+        public string PIN { get; set; }
 
-        private string _identificationMark;
-        public string IdentificationMark
-        {
-            get => _identificationMark;
-            set
-            {
-                _identificationMark = value;
-                OnPropertyChanged("IdentificationMark");
-            }
-        }
+        public string PrmState { get; set; }
+        public string PrmHouseNo { get; set; }
+        public string PrmStreet { get; set; }
+        public string PrmTown_Village { get; set; }
+        public string PrmPO { get; set; }
+        public string PrmPS { get; set; }
+        public string PrmDist { get; set; }
+        public string PrmPIN { get; set; }
 
-        private string _houseNo;
-        public string HouseNo
-        {
-            get => _houseNo;
-            set
-            {
-                _houseNo = value;
-                OnPropertyChanged("HouseNo");
-            }
-        }
+        public string TelNo { get; set; }
+        public string Mobile { get; set; }
+        public string Email { get; set; }
 
-        private string _street;
-        public string Street
-        {
-            get => _street;
-            set
-            {
-                _street = value;
-                OnPropertyChanged("Street");
-            }
-        }
+        #endregion
 
-        private string _villageOrTown;
-        public string VillageOrTown
-        {
-            get => _villageOrTown;
-            set
-            {
-                _villageOrTown = value;
-                OnPropertyChanged("VillageOrTown");
-            }
-        }
+        #region ProfessionalDetails
+        public string ServiceType { get; set; }
+        public string ProfQualification { get; set; }
+        public int ProfQualificationYear { get; set; }
+        public string OtherProfQualification { get; set; }
+        #endregion
 
-        private string _dist;
-        public string Dist
-        {
-            get => _dist;
-            set
-            {
-                _dist = value;
-                OnPropertyChanged("Dist");
-            }
-        }
+        #region AppointmentApproval
+        public string PostStatus { get; set; }
+        public string AppntLetterNo { get; set; }
+        public DateTime AppntLetterDate { get; set; }
+        public string MCResolutionNo { get; set; }
+        public DateTime MCResolutionDate { get; set; }
+        public string TempPostMemoNo { get; set; }
+        public DateTime TempPostMemoDate { get; set; }
+        public string PostSancMemoNo { get; set; }
+        public DateTime PostSancMemoDate { get; set; }
+        #endregion
 
-        private string _pin;
-        public string Pin
-        {
-            get => _pin;
-            set
-            {
-                _pin = value;
-                OnPropertyChanged("Pin");
-            }
-        }
-
-        private string _state;
-        public string State
-        {
-            get => _state;
-            set
-            {
-                _state = value;
-                OnPropertyChanged("State");
-            }
-        }
-
-        private string _prmHouseNo;
-        public string PrmHouseNo
-        {
-            get => _prmHouseNo;
-            set
-            {
-                _prmHouseNo = value;
-                OnPropertyChanged("PrmHouseNo");
-            }
-        }
-
-        private string _PrmStreet;
-        public string PrmStreet
-        {
-            get => _PrmStreet;
-            set
-            {
-                _PrmStreet = value;
-                OnPropertyChanged("PrmStreet");
-            }
-        }
-
-        private string _prmVillageOrTown;
-        public string PrmVillageOrTown
-        {
-            get => _prmVillageOrTown;
-            set
-            {
-                _prmVillageOrTown = value;
-                OnPropertyChanged("PrmVillageOrTown");
-            }
-        }
-
-        private string _prmDist;
-        public string PrmDist
-        {
-            get => _prmDist;
-            set
-            {
-                _prmDist = value;
-                OnPropertyChanged("PrmDist");
-            }
-        }
-
-        private string _PrmPin;
-        public string PrmPin
-        {
-            get => _PrmPin;
-            set
-            {
-                _PrmPin = value;
-                OnPropertyChanged("PrmPin");
-            }
-        }
-
-        private string _prmState;
-        public string PrmState
-        {
-            get => _prmState;
-            set
-            {
-                _prmState = value;
-                OnPropertyChanged("PrmState");
-            }
-        }
-
-        private string _mobile;
-        public string Mobile
-        {
-            get { return this._mobile; }
-            set
-            {
-                this._mobile = value;
-                OnPropertyChanged("Mobile");
-            }
-        }
-
-        private string _landPhone;
-        public string LandPhone
-        {
-            get { return this._landPhone; }
-            set
-            {
-                this._landPhone = value;
-                OnPropertyChanged("LandPhone");
-            }
-        }
-
-        private string _email;
-        public string Email
-        {
-            get { return this._email; }
-            set
-            {
-                this._email = value;
-                OnPropertyChanged("Email");
-            }
-        }
-
-        private string _serviceType;
-        public string ServiceType
-        {
-            get => _serviceType;
-            set
-            {
-                _serviceType = value;
-                OnPropertyChanged("ServiceType");
-            }
-        }
-
-        private string _otherProfQualification;
-        public string OtherProfQualification
-        {
-            get => _otherProfQualification;
-            set
-            {
-                _otherProfQualification = value;
-                OnPropertyChanged("OtherProfQualification");
-            }
-        }
-
-        private int _profQualificationYear;
-        public int ProfQualificationYear
-        {
-            get => _profQualificationYear;
-            set
-            {
-                _profQualificationYear = value;
-                OnPropertyChanged("ProfQualificationYear");
-            }
-        }
-
-        private string _postStatus;
-        public string PostStatus
-        {
-            get => _postStatus;
-            set
-            {
-                _postStatus = value;
-                OnPropertyChanged("PostStatus");
-            }
-        }
-
-        private string _appntLetterNo;
-        public string AppntLetterNo
-        {
-            get => _appntLetterNo;
-            set
-            {
-                _appntLetterNo = value;
-                OnPropertyChanged("AppntLetterNo");
-            }
-        }
-
-        private DateTime _appntLetterDate;
-        public DateTime AppntLetterDate
-        {
-            get => _appntLetterDate;
-            set
-            {
-                _appntLetterDate = value;
-                OnPropertyChanged("AppntLetterDate");
-            }
-        }
-
-        private string _mcResolutionNo;
-        public string McResolutionNo
-        {
-            get => _mcResolutionNo;
-            set
-            {
-                _mcResolutionNo = value;
-                OnPropertyChanged("McResolutionNo");
-            }
-        }
-
-        private DateTime _mcResolutionDate;
-        public DateTime McResolutionDate
-        {
-            get => _mcResolutionDate;
-            set
-            {
-                _mcResolutionDate = value;
-                OnPropertyChanged("McResolutionDate");
-            }
-        }
-
-        private string _memoNo;
-        public string MemoNo
-        {
-            get => _memoNo;
-            set
-            {
-                _memoNo = value;
-                OnPropertyChanged("MemoNo");
-            }
-        }
-
-        private DateTime _memoDate;
-        public DateTime MemoDate
-        {
-            get => _memoDate;
-            set
-            {
-                _memoDate = value;
-                OnPropertyChanged("MemoDate");
-            }
-        }
-
-        private string _postSanctionMemoNo;
-        public string PostSanctionMemoNo
-        {
-            get => _postSanctionMemoNo;
-            set
-            {
-                _postSanctionMemoNo = value;
-                OnPropertyChanged("PostSanctionMemoNo");
-            }
-        }
-
-        private DateTime _postSanctionMemoDate;
-        public DateTime PostSanctionMemoDate
-        {
-            get => _postSanctionMemoDate;
-            set
-            {
-                _postSanctionMemoDate = value;
-                OnPropertyChanged("PostSanctionMemoDate");
-            }
-        }
-
-        private string _optedDCRB;
-        public string OptedDCRB
-        {
-            get => _optedDCRB;
-            set
-            {
-                string op = value.ToUpper();
-                if (op == "YES" || op == "Y" || op == "1")
-                {
-                    _optedDCRB = "Y";
-                }
-                else
-                {
-                    _optedDCRB = "N";
-                }
-                OnPropertyChanged("OptedDCRB");
-            }
-        }
-
-        private string _optionExcerciseUnder;
-        public string OptionExcerciseUnder
-        {
-            get => _optionExcerciseUnder;
-            set
-            {
-                _optionExcerciseUnder = value;
-                OnPropertyChanged("OptionExcerciseUnder");
-            }
-        }
-
-        private string _optedPost1981Scheme;
-        public string OptedPost1981Scheme
-        {
-            get => _optedPost1981Scheme;
-            set
-            {
-                string op1981 = value.ToUpper();
-                if (op1981 == "YES" || op1981 == "Y" || op1981 == "1")
-                {
-                    _optedPost1981Scheme = "Y";
-                }
-                else
-                {
-                    _optedPost1981Scheme = "N";
-                }
-                OnPropertyChanged("OptedPost1981Scheme");
-            }
-        }
-
-        private DateTime _cPFShareRefundDate;
-        public DateTime CPFShareRefundDate
-        {
-            get => _cPFShareRefundDate;
-            set
-            {
-                _cPFShareRefundDate = value;
-                OnPropertyChanged("CPFShareRefundDate");
-            }
-        }
-
-        private DateTime _treasuryName;
-        public DateTime TreasuryName
-        {
-            get => _treasuryName;
-            set
-            {
-                _treasuryName = value;
-                OnPropertyChanged("TreasuryName");
-            }
-        }
-
-        private decimal _refundAmount;
-        public decimal RefundAmount
-        {
-            get => _refundAmount;
-            set
-            {
-                _refundAmount = value;
-                OnPropertyChanged("RefundAmount");
-            }
-        }
+        #region other
+        public List<Empolyment> PreviousEmployment { get; set; }
+        public bool OptedDCRB { get; set; }
+        public string OptionExerciseUnder { get; set; }
+        public bool OptedPost1981Pension { get; set; }
+        public DateTime CPFShareRefundDate { get; set; }
+        public string TreasuryName { get; set; }
+        public decimal RefundAmount { get; set; }
+        public bool AnyCourtCase { get; set; }
+        public string CaseNo { get; set; }
+        public int CaseYear { get; set; }
+        public string CaseRelatedWith { get; set; }
+        #endregion
     }
 }
