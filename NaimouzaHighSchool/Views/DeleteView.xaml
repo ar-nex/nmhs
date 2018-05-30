@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:NaimouzaHighSchool.ViewModels"
         xmlns:conv="clr-namespace:NaimouzaHighSchool.ViewModels.Converters"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="Delete" Height="400" Width="600" Closing="Window_Closing_1">
     <Window.Resources>
         <vm:DeleteViewModel x:Key="dvm"></vm:DeleteViewModel>
@@ -33,13 +34,15 @@
                 <Label Content="{Binding Message, Source={StaticResource dvm}}"></Label>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Session : "/>
-                    <TextBox 
-                        Text="{Binding StartYear, Source={StaticResource dvm}}"
-                        Width="80"/>
-                    <Label Content="-"/>
-                    <TextBox 
-                        Text="{Binding EndYear, Source={StaticResource dvm}}"
-                        Width="80"/>
+                    <xctk:IntegerUpDown Margin="2"
+                            Value="{Binding StartYear, Source={StaticResource dvm}, Mode=TwoWay}"
+                            Width="65">
+                    </xctk:IntegerUpDown>
+                    <Label Content="-" />
+                    <xctk:IntegerUpDown Margin="2"
+                            Value="{Binding EndYear, Source={StaticResource dvm}, Mode=TwoWay}"
+                            Width="65">
+                    </xctk:IntegerUpDown>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Class</Label>

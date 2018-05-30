@@ -105,7 +105,7 @@ namespace NaimouzaHighSchool.Models.Utility
                     }
                 }
                 OnPropertyChanged("NewSection");
-                OnRollUpdateEvent();
+                EventConnector.OnRollUpdateEvent();
             }
         }
 
@@ -113,7 +113,11 @@ namespace NaimouzaHighSchool.Models.Utility
         public int NewRoll
         {
             get { return _newRoll; }
-            set { _newRoll = value; OnPropertyChanged("NewRoll"); OnRollUpdateEvent(); }
+            set
+            {
+                _newRoll = value; OnPropertyChanged("NewRoll");
+                EventConnector.OnRollUpdateEvent();
+            }
         }
 
         private bool _isAlreadyExist;
@@ -134,8 +138,5 @@ namespace NaimouzaHighSchool.Models.Utility
             get { return _duplicateCode; }
             set { _duplicateCode = (value == 0 || value == 1 || value == 2) ? value : 0; OnPropertyChanged("DuplicateCode"); }
         }
-
-        public event EventHandler RollUpdateEvent;
-        public void OnRollUpdateEvent() => RollUpdateEvent?.Invoke(this, EventArgs.Empty);
     }
 }

@@ -37,7 +37,7 @@
                     </Grid.RowDefinitions>
                     <Border Background="#CFD8DC" Padding="5" Grid.ColumnSpan="2">
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <Label Content="Session "/>
+                            <Label Content="Session" Margin="2"/>
                             <xctk:IntegerUpDown Margin="2"
                             Value="{Binding StartYear, Source={StaticResource scVm}, Mode=TwoWay}"
                             Width="65">
@@ -358,7 +358,7 @@
                     </Grid.RowDefinitions>
                     <Border Background="#CFD8DC" Padding="5">
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <Label Content="Session "/>
+                            <Label Content="Session" Margin="2"/>
                             <xctk:IntegerUpDown Margin="2"
                             Value="{Binding StartYearCl, Source={StaticResource scVm}, Mode=TwoWay}"
                             Width="65">

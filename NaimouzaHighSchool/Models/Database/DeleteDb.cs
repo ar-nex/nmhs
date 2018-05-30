@@ -305,5 +305,63 @@ namespace NaimouzaHighSchool.Models.Database
             }
             return rs;
         }
+
+        public List<string> DeleteSessionData(int startYear, int endYear, string cls, string section)
+        {
+            string sql = $"SELECT student_basic_id FROM student_class WHERE startYear = {dv(startYear)} AND endYear = {dv(endYear)} AND class = {dv(cls)} AND section = {dv(section)}";
+            return DeleteSessionInfo(sql, startYear: startYear, endYear: endYear);
+        }
+
+        public List<string> DeleteSessionData(int startYear, int endYear, string cls)
+        {
+            string sql = $"SELECT student_basic_id FROM student_class WHERE startYear = {dv(startYear)} AND endYear = {dv(endYear)} AND class = {dv(cls)}";
+            return DeleteSessionInfo(sql, startYear: startYear, endYear: endYear);
+        }
+
+        private List<string> DeleteSessionInfo(string sql, int startYear, int endYear)
+        {
+            List<string> notDeletedIdList = new List<string>();
+            try
+            {
+                conn.Open();
+                List<string> idList = new List<string>();
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = sql;
+               
+                using (MySqlDataReader rdr1 = cmd.ExecuteReader())
+                {
+                    while (rdr1.Read())
+                    {
+                        idList.Add(rdr1[0].ToString());
+                    }
+                }
+                string sql2 = string.Empty;
+                foreach (var id in idList)
+                {
+                    sql2 = $"SELECT COUNT(student_basic_id) FROM student_class WHERE student_basic_id = {dv(id)}";
+                    cmd.CommandText = sql2;
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && Convert.ToInt32(result) > 1)
+                    {
+                        string sql3 = $"DELETE FROM student_class WHERE student_basic_id = {dv(id)} AND startYear = {dv(startYear)} AND endYear = {dv(endYear)}";
+                        cmd.CommandText = sql3;
+                        cmd.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        notDeletedIdList.Add(id);
+                    }
+                }
+            }
+            catch (Exception sx)
+            {
+                System.Windows.MessageBox.Show("Problem in deleting session Data. : "+sx.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return notDeletedIdList;
+        }
     }
 }

@@ -225,12 +225,15 @@
                         </Grid>
                     </Border>
                     <Border Grid.Column="2">
-                        <WrapPanel>
-                            <Button Content="_Update" Margin="2"
+                        <StackPanel Orientation="Vertical">
+                            <Button Content="Find" Margin="2" 
+                                    Command="{Binding FindCommand, Source={StaticResource dObj}}"
+                                    Width="80"/>
+                            <Button Content="_Update" Margin="2" Width="80"
                                             Command="{Binding GenUpdateCommand, Source={StaticResource dObj}}"
                                             HorizontalAlignment="Left" />
-                            <Button Margin="2" Command="{Binding DeleteCommand, Source={StaticResource dObj}}">Delete</Button>
-                        </WrapPanel>
+                            <Button Margin="2" Width="80" Command="{Binding DeleteCommand, Source={StaticResource dObj}}">Delete</Button>
+                        </StackPanel>
 
                     </Border>
                 </Grid>

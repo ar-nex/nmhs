@@ -59,5 +59,12 @@
             set { _bankNameAlias = value; }
         }
 
+        private string _branchCode;
+        public string BranchCode
+        {
+            get { return _branchCode; }
+            set { _branchCode = (value != null) ? value.ToUpper() : value; OnPropertyChanged("BranchCode"); }
+        }
+
     }
 }

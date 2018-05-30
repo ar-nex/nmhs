@@ -172,7 +172,7 @@ namespace NaimouzaHighSchool.ViewModels
                 _searchParam = value;
                 // default filters
                 OnPropertyChanged("SearchParam");
-                Search();
+              //  Search();
             }
         }
 
@@ -211,10 +211,10 @@ namespace NaimouzaHighSchool.ViewModels
                         ActiveHsStream.Add(item);
                     }
                 }
-                if (UnFilteredSList.Count > 0)
-                {
-                    StudentList = DoFilterStudentList(UnFilteredSList);
-                }
+                //if (UnFilteredSList.Count > 0)
+                //{
+                //    StudentList = DoFilterStudentList(UnFilteredSList);
+                //}
             }
         }
 
@@ -234,10 +234,10 @@ namespace NaimouzaHighSchool.ViewModels
                     _searchSectionIndex = -1;
                 }
                 OnPropertyChanged("SearchSectionIndex");
-                if (UnFilteredSList.Count > 0)
-                {
-                    StudentList = DoFilterStudentList(UnFilteredSList);
-                }
+                //if (UnFilteredSList.Count > 0)
+                //{
+                //    StudentList = DoFilterStudentList(UnFilteredSList);
+                //}
             }
         }
 
@@ -257,10 +257,10 @@ namespace NaimouzaHighSchool.ViewModels
                     _searchSectionIndex = -1;
                 }
                 OnPropertyChanged("SearchGenderIndex");
-                if (UnFilteredSList.Count > 0)
-                {
-                    StudentList = DoFilterStudentList(UnFilteredSList);
-                }
+                //if (UnFilteredSList.Count > 0)
+                //{
+                //    StudentList = DoFilterStudentList(UnFilteredSList);
+                //}
             }
         }
 
@@ -279,10 +279,10 @@ namespace NaimouzaHighSchool.ViewModels
                     _searchSocialCategoryIndex = -1;
                 }
                 OnPropertyChanged("SearchSocialCategoryIndex");
-                if (UnFilteredSList.Count > 0)
-                {
-                    StudentList = DoFilterStudentList(UnFilteredSList);
-                }
+                //if (UnFilteredSList.Count > 0)
+                //{
+                //    StudentList = DoFilterStudentList(UnFilteredSList);
+                //}
             }
         }
 
@@ -315,6 +315,7 @@ namespace NaimouzaHighSchool.ViewModels
                         {
                             ActiveHsSubs.Add(item);
                         }
+                        int r = 9;
                     }
                     else if (SearchStream[SearchStreamIndex] == "SCIENCE")
                     {
@@ -324,10 +325,10 @@ namespace NaimouzaHighSchool.ViewModels
                         }
                     }
 
-                    if (UnFilteredSList.Count > 0)
-                    {
-                        StudentList = DoFilterStudentList(UnFilteredSList);
-                    }
+                    //if (UnFilteredSList.Count > 0)
+                    //{
+                    //    StudentList = DoFilterStudentList(UnFilteredSList);
+                    //}
                 }
             }
         }
@@ -364,10 +365,10 @@ namespace NaimouzaHighSchool.ViewModels
                     _activeHsSubsIndex = -1;
                 }
                 OnPropertyChanged("ActiveHsSubsIndex");
-                if (UnFilteredSList.Count > 0)
-                {
-                    StudentList = DoFilterStudentList(UnFilteredSList);
-                }
+                //if (UnFilteredSList.Count > 0)
+                //{
+                //    StudentList = DoFilterStudentList(UnFilteredSList);
+                //}
             }
         }
 
@@ -1069,6 +1070,7 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
 
+        public RelayCommand FindCommand { get; set; }
         public RelayCommand DeleteCommand { get; set; }
 
         public RelayCommand SortByNameCommand { get; set; }
@@ -1108,12 +1110,12 @@ namespace NaimouzaHighSchool.ViewModels
             this.db = new StudentDataReadDb();
 
             SearchType = "genericSearch";
-           //   SearchType = "classSearch";
+            //  SearchType = "classSearch";
             // 0=> student'sName, 1=>ID, 2=>Aadhar, 3=>FatherName, 4=>Village, 5=>SocialCategory
             SearchBy = new string[] { "Student's Name", "Student's ID", "Aadhaar", "Father's Name", "Village", "Social Category" };
             SearchClass = new string[] { "All", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "Undefined" };
             SearchSection = new string[] { "All", "A", "B", "C", "D", "E", "Undefined" };
-            SearchGender = new string[] { "All", "M", "F", "Undefined" };
+            SearchGender = new string[] { "All", "Boy", "Girl", "Undefined" };
             SearchSocialCategory = new string[] { "All", "GEN", "SC", "ST", "OBC", "OBC-A", "OBC-B", "Undefined" };
             SearchStream = new string[] { "All", "ARTS", "SCIENCE", "Undefined" };
             ActiveHsStream = new ObservableCollection<string>();
@@ -1152,6 +1154,7 @@ namespace NaimouzaHighSchool.ViewModels
 
         private void CommandInitializer()
         {
+            FindCommand = new RelayCommand(Find, CanFind);
             this.SearchCommand = new RelayCommand(this.Search, this.CanSearch);
             this.DeleteCommand = new RelayCommand(this.Delete, this.CanDelete);
             this.SortByNameCommand = new RelayCommand(this.SortByName, this.CanSortByName);
@@ -1206,7 +1209,8 @@ namespace NaimouzaHighSchool.ViewModels
             if (SearchByIndex != -1)
             {
                 UnFilteredSList = db.GetStudentList(searchParam: SearchParam, sType: SType, startYear: StartYear, endYear: EndYear);
-                StudentList = new ObservableCollection<Student>(UnFilteredSList);
+                // StudentList = new ObservableCollection<Student>(UnFilteredSList);
+                StudentList = DoFilterStudentList(UnFilteredSList);
                 NumberOfMatches = StudentList.Count;
             }
         }
@@ -1541,6 +1545,7 @@ namespace NaimouzaHighSchool.ViewModels
         #endregion sort
 
 
+        
         protected override void OnSelectedClassChange()
         {
             if (ActiveHsSubs.Count > 0)
@@ -1558,10 +1563,36 @@ namespace NaimouzaHighSchool.ViewModels
                     ActiveHsStream.Add(item);
                 }
             }
+            //if (SchoolClassIndex != -1)
+            //{
+            //    UnFilteredSList = db.GetStudentListByClass(cls: SchoolClass[SchoolClassIndex], startYear: StartYear, endYear: EndYear);
+            //    StudentList = new ObservableCollection<Student>(UnFilteredSList);
+            //    NumberOfMatches = StudentList.Count;
+            //}
+        }
+        
+        private void SearchByClass()
+        {
+            //if (ActiveHsSubs.Count > 0)
+            //{
+            //    ActiveHsSubs.Clear();
+            //}
+            //if (ActiveHsStream.Count > 0)
+            //{
+            //    ActiveHsStream.Clear();
+            //}
+            //if (SchoolClass[SchoolClassIndex] == "XI" || SchoolClass[SchoolClassIndex] == "XII")
+            //{
+            //    foreach (string item in SearchStream)
+            //    {
+            //        ActiveHsStream.Add(item);
+            //    }
+            //}
             if (SchoolClassIndex != -1)
             {
                 UnFilteredSList = db.GetStudentListByClass(cls: SchoolClass[SchoolClassIndex], startYear: StartYear, endYear: EndYear);
-                StudentList = new ObservableCollection<Student>(UnFilteredSList);
+                // StudentList = new ObservableCollection<Student>(UnFilteredSList);
+                StudentList = DoFilterStudentList(UnFilteredSList);
                 NumberOfMatches = StudentList.Count;
             }
         }
@@ -1591,7 +1622,6 @@ namespace NaimouzaHighSchool.ViewModels
                         }
                     }
                 }
-               
                 if (SearchSectionIndex > 0 && SearchSectionIndex < SearchSection.Length)
                 {
                     if (SearchSectionIndex == SearchSection.Length - 1)
@@ -1603,7 +1633,6 @@ namespace NaimouzaHighSchool.ViewModels
                         stdList.RemoveAll(std => std.Section != SearchSection[SearchSectionIndex]);
                     }
                 }
-
                 if (SearchGenderIndex > 0 && SearchGenderIndex < SearchGender.Length)
                 {
                     if (SearchGenderIndex == SearchGender.Length - 1)
@@ -1612,7 +1641,16 @@ namespace NaimouzaHighSchool.ViewModels
                     }
                     else
                     {
-                        stdList.RemoveAll(std => std.Sex != SearchGender[SearchGenderIndex]);
+                        string sx = string.Empty;
+                        if (SearchGender[SearchGenderIndex] == "Boy")
+                        {
+                            sx = "M";
+                        }
+                        else if (SearchGender[SearchGenderIndex] == "Girl")
+                        {
+                            sx = "F";
+                        }
+                        stdList.RemoveAll(std => std.Sex != sx);
                     }
                 }
                 if (SearchSocialCategoryIndex > 0 && SearchSocialCategoryIndex < SearchSocialCategory.Length)
@@ -1634,11 +1672,11 @@ namespace NaimouzaHighSchool.ViewModels
                     }
                     else
                     {
+                        
                         stdList.RemoveAll(std => std.Stream != SearchStream[SearchStreamIndex]);
                     }
-
                 }
-                if (ActiveHsSubsIndex > 0 && ActiveHsSubsIndex < ActiveHsSubs.Count)
+                if (ActiveHsSubsIndex >= 0 && ActiveHsSubsIndex < ActiveHsSubs.Count)
                 {
                     stdList.RemoveAll(std => (std.HsSub1 != ActiveHsSubs[ActiveHsSubsIndex] && std.HsSub2 != ActiveHsSubs[ActiveHsSubsIndex] && std.HsSub3 != ActiveHsSubs[ActiveHsSubsIndex] && std.HsAdlSub != ActiveHsSubs[ActiveHsSubsIndex]));
                 }
@@ -1646,6 +1684,38 @@ namespace NaimouzaHighSchool.ViewModels
             FilteredList = new ObservableCollection<Student>(stdList);
             NumberOfMatches = FilteredList.Count;
             return FilteredList;
+        }
+
+        private void Find()
+        {
+            if (SearchType == "genericSearch")
+            {
+                Search();
+            }
+            else if (SearchType == "classSearch")
+            {
+                SearchByClass();
+            }
+            else
+            {
+                
+            }
+        }
+
+        private bool CanFind()
+        {
+            if (SearchType == "genericSearch")
+            {
+                return !string.IsNullOrEmpty(SearchParam);
+            }
+            else if (SearchType == "classSearch")
+            {
+                return SchoolClassIndex != -1;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         #endregion method

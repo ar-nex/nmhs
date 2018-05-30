@@ -12,5 +12,9 @@ namespace NaimouzaHighSchool.Models.Utility
         {
             StudentUpdated?.Invoke(new object(), EventArgs.Empty);
         }
+
+
+        public static event EventHandler RollUpdateEvent;
+        public static void OnRollUpdateEvent() => RollUpdateEvent?.Invoke(new object(), EventArgs.Empty);
     }
 }

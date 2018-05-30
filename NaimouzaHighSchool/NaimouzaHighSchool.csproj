@@ -198,6 +198,7 @@
     <Compile Include="ViewModels\ExcelExportViewModel.cs" />
     <Compile Include="ViewModels\GenUpdateViewModel.cs" />
     <Compile Include="ViewModels\Helpers\BackgroundImageHelper.cs" />
+    <Compile Include="ViewModels\Helpers\DateHelper.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MarkEntryViewModel.cs" />
     <Compile Include="ViewModels\PromotionBasicViewModel.cs" />

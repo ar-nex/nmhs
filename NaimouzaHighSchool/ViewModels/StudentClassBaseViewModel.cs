@@ -21,6 +21,7 @@ namespace NaimouzaHighSchool.ViewModels
             {
                 _startYear = (value < 2017 || value > DateTime.Now.Year +2) ? DateTime.Now.Year : value;
                 OnPropertyChanged("StartYear");
+                OnStartYearChanged();
             }
         }
 
@@ -32,6 +33,7 @@ namespace NaimouzaHighSchool.ViewModels
             {
                 _endYear = (value < 2017 || value > DateTime.Now.Year + 2) ? DateTime.Now.Year : value;
                 OnPropertyChanged("EndYear");
+                OnEndYearChanged();
             }
         }
 
@@ -89,6 +91,16 @@ namespace NaimouzaHighSchool.ViewModels
         }
 
         protected virtual void OnSelectedSectionChange()
+        {
+            return;
+        }
+
+        protected virtual void OnStartYearChanged()
+        {
+            return;
+        }
+
+        protected virtual void OnEndYearChanged()
         {
             return;
         }

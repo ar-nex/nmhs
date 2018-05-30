@@ -317,6 +317,27 @@ namespace NaimouzaHighSchool.ViewModels
             }
         }
 
+        private bool _isSameFatherGuardian;
+        public bool IsSameFatherGuardian
+        {
+            get { return _isSameFatherGuardian; }
+            set
+            {
+                _isSameFatherGuardian = value;
+                if (value)
+                {
+                    EsGuardian = EsFather;
+                    EsGuardianRel = "FATHER";
+                }
+                else
+                {
+                    EsGuardian = EsGuardianRel = string.Empty;
+                }
+                OnPropertyChanged("IsSameFatherGuardian");
+            }
+        }
+
+
         private string _esMother;
         public string EsMother
         {

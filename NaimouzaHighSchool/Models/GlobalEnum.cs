@@ -53,5 +53,5 @@
 
     public enum IdNumberType { Aadhaar, Mobile, StudentId};
 
-    public enum StaffColName { VacancyStatus, Designation, Subject};
+    public enum StaffColName { VacancyStatus, Designation, Subject, SalarySource, EmployeeGroup, ApprvQualification, PayBand};
 }

@@ -23,14 +23,24 @@ namespace NaimouzaHighSchool.ViewModels
         public int NewSessionStartYear
         {
             get { return _newSessionStratYear; }
-            set { _newSessionStratYear = value; OnPropertyChanged("NewSessionStartYear"); }
+            set
+            {
+                _newSessionStratYear = value;
+                OnPropertyChanged("NewSessionStartYear");
+                NewSessionHeader = "New Session : " + NewSessionStartYear.ToString() + "-" + NewSessionEndYear.ToString();
+            }
         }
 
         private int _newSessionEndYear;
         public int NewSessionEndYear
         {
             get { return _newSessionEndYear; }
-            set { _newSessionEndYear = value; OnPropertyChanged("NewSessionEndYear"); }
+            set
+            {
+                _newSessionEndYear = value;
+                OnPropertyChanged("NewSessionEndYear");
+                NewSessionHeader = "New Session : " + NewSessionStartYear.ToString() + "-" + NewSessionEndYear.ToString();
+            }
         }
 
         private string _dupMsg;
@@ -40,6 +50,27 @@ namespace NaimouzaHighSchool.ViewModels
             set { _dupMsg = value; OnPropertyChanged("DupMsg"); }
         }
 
+
+        private int _plistIndex;
+        public int PlistIndex
+        {
+            get { return _plistIndex; }
+            set { _plistIndex = (value > -1 && value < PromoList.Count) ? value : -1; OnPropertyChanged("PlistIndex"); }
+        }
+
+        private string _prevSessionHeader;
+        public string PrevSessionHeader
+        {
+            get { return _prevSessionHeader; }
+            set { _prevSessionHeader = value; OnPropertyChanged("PrevSessionHeader"); }
+        }
+
+        private string _newSessionHeader;
+        public string NewSessionHeader
+        {
+            get { return _newSessionHeader; }
+            set { _newSessionHeader = value; OnPropertyChanged("NewSessionHeader"); }
+        }
 
         private ObservableCollection<Promotion> _promoList;
         public ObservableCollection<Promotion> PromoList
@@ -58,20 +89,39 @@ namespace NaimouzaHighSchool.ViewModels
             PromoList = new ObservableCollection<Promotion>();
             GetDataCommand = new RelayCommand(GetData, CanGetData);
             SaveDataCommand = new RelayCommand(SaveData, CanSaveData);
-
+            EventConnector.RollUpdateEvent += EventConnector_RollUpdateEvent;
+            PlistIndex = -1;
             
+        }
+
+        private void EventConnector_RollUpdateEvent(object sender, EventArgs e)
+        {
+            PromotionDb db = new PromotionDb();
+            if (PlistIndex > -1)
+            {
+                List<string> alreadyAssignedList = db.HasAlreadyAssignedOrNot(startYear: NewSessionStartYear, endYear: NewSessionEndYear, cls: PromoList[PlistIndex].NewStudyClass, section: PromoList[PlistIndex].NewSection, roll: PromoList[PlistIndex].NewRoll);
+                if (alreadyAssignedList.Count > 0)
+                {
+                    PromoList[PlistIndex].NewRoll = 0;
+                    System.Windows.MessageBox.Show(alreadyAssignedList.Count.ToString());
+                }
+                else
+                {
+                    Promotion prm = PromoList[PlistIndex];
+                    if (prm.NewRoll > 0 && !string.IsNullOrWhiteSpace(prm.NewSection))
+                    {
+                        db.MakePromotion(prm);
+                    }
+                }
+            }
         }
 
         private void GetData()
         {
             PromoList.Clear();
             PromotionDb db = new PromotionDb();
-            PromoList = db.GetList(startYear: StartYear, endYear: EndYear, cls: SchoolClass[SchoolClassIndex], section: SchoolSection[SchoolSectionIndex]);
-            foreach (var item in PromoList)
-            {
-                item.RollUpdateEvent += RollUpdateHandler;
-            }
-
+            PromoList = db.GetList(startYear: StartYear, endYear: EndYear, cls: SchoolClass[SchoolClassIndex], section: SchoolSection[SchoolSectionIndex], newStartYear: NewSessionStartYear, newEndYear: NewSessionEndYear);
+            PlistIndex = -1;
             NewSessionStartYear = StartYear + 1;
             NewSessionEndYear = EndYear + 1;
             RollUpdateHandler();
@@ -157,6 +207,18 @@ namespace NaimouzaHighSchool.ViewModels
                     }
                 }
             }
+        }
+
+        protected override void OnStartYearChanged()
+        {
+            NewSessionStartYear = StartYear + 1;
+            PrevSessionHeader = "Previous Session : " + StartYear.ToString() + "-" + EndYear.ToString() ;
+        }
+
+        protected override void OnEndYearChanged()
+        {
+            NewSessionEndYear = EndYear + 1;
+            PrevSessionHeader = "Previous Session : " + StartYear.ToString() + "-" + EndYear.ToString();
         }
     }
 }

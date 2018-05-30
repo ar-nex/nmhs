@@ -171,6 +171,7 @@ namespace NaimouzaHighSchool.ViewModels
 
         private void DeleteClassWise()
         {
+            /*
             bool deleted = this.db.DeleteStudents(this.SchoolClasses[this.SchoolClassesIndex], this.SchoolSections[this.SchoolSectionsIndex], StartYear, EndYear);
             if (deleted)
             {
@@ -179,6 +180,16 @@ namespace NaimouzaHighSchool.ViewModels
             else
             {
                 System.Windows.MessageBox.Show("Failed");
+            }
+            */
+            List<string> NotDeletedIds = db.DeleteSessionData(startYear: StartYear, endYear: EndYear, cls: SchoolClasses[SchoolClassesIndex], section: SchoolSections[SchoolSectionsIndex]);
+            if (NotDeletedIds.Count == 0)
+            {
+                System.Windows.MessageBox.Show("Session Info Deleted Successfully.");
+            }
+            else
+            {
+                System.Windows.MessageBox.Show(NotDeletedIds.Count.ToString() +" students data CANNOT be deleted. Only update is possible.");
             }
         }
 
