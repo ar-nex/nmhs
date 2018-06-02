@@ -63,6 +63,11 @@
                 </xctk:IntegerUpDown>
                 <Button Content="Show" Width="100" Margin="43, 2, 2, 2"
                     Command="{Binding GetDataCommand, Source={StaticResource pvm}}"/>
+
+                <CheckBox Margin="20, 2, 2, 2" 
+                          IsChecked="{Binding DoChangeNewClass, Source={StaticResource pvm}}"
+                          Content="Change New Class"
+                          VerticalAlignment="Center"/>
             </StackPanel>
         </Grid>
         <StackPanel Grid.Row="1" Orientation="Vertical">
@@ -91,7 +96,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path=StudentName}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Old Status" Binding="{Binding Path=OldCombined}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="New Class" Binding="{Binding Path=NewStudyClass}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="New Class" Binding="{Binding Path=NewStudyClass}" IsReadOnly="{Binding IsNewClassReadOnly, Source={StaticResource pvm}}"/>
                     <DataGridTextColumn Header="New Section" Binding="{Binding Path=NewSection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="New Roll" Binding="{Binding Path=NewRoll, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
                 </DataGrid.Columns>
@@ -125,6 +130,27 @@
                     <Border>
                         <TextBlock Text="{Binding PrevSessionHeader, Source={StaticResource pvm}}"/>
                     </Border>
+                    <ScrollViewer Grid.Row="1">
+                        <StackPanel Orientation="Vertical">
+                            
+                            <Expander Header="{Binding PrevSecA, Source={StaticResource pvm}}">
+                                <ListBox ItemsSource="{Binding OldToNewMapA, Source={StaticResource pvm}}" DisplayMemberPath="Map"/>
+                            </Expander>
+                            <Expander Header="{Binding PrevSecB, Source={StaticResource pvm}}">
+                                <ListBox ItemsSource="{Binding OldToNewMapB, Source={StaticResource pvm}}" DisplayMemberPath="Map"/>
+                            </Expander>
+                            <Expander Header="{Binding PrevSecC, Source={StaticResource pvm}}">
+                                <ListBox ItemsSource="{Binding OldToNewMapC, Source={StaticResource pvm}}" DisplayMemberPath="Map"/>
+                            </Expander>
+                            <Expander Header="{Binding PrevSecD, Source={StaticResource pvm}}">
+                                <ListBox ItemsSource="{Binding OldToNewMapD, Source={StaticResource pvm}}" DisplayMemberPath="Map"/>
+                            </Expander>
+                            <Expander Header="{Binding PrevSecE, Source={StaticResource pvm}}">
+                                <ListBox ItemsSource="{Binding OldToNewMapE, Source={StaticResource pvm}}" DisplayMemberPath="Map"/>
+                            </Expander>
+                           
+                        </StackPanel>
+                    </ScrollViewer>
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
@@ -134,6 +160,26 @@
                     <Border>
                         <TextBlock Text="{Binding NewSessionHeader, Source={StaticResource pvm}}"/>
                     </Border>
+                    <ScrollViewer Grid.Row="1">
+                        <StackPanel Orientation="Vertical">
+                            <Expander Header="{Binding NewSecA, Source={StaticResource pvm}}">
+                                <ListBox ItemsSource="{Binding NewFromOldMapA, Source={StaticResource pvm}}" DisplayMemberPath="Map"/>
+                            </Expander>
+                            <Expander Header="{Binding NewSecB, Source={StaticResource pvm}}">
+                                <ListBox ItemsSource="{Binding NewFromOldMapB, Source={StaticResource pvm}}" DisplayMemberPath="Map"/>
+                            </Expander>
+                            <Expander Header="{Binding NewSecC, Source={StaticResource pvm}}">
+                                <ListBox ItemsSource="{Binding NewFromOldMapC, Source={StaticResource pvm}}" DisplayMemberPath="Map"/>
+                            </Expander>
+                            <Expander Header="{Binding NewSecD, Source={StaticResource pvm}}">
+                                <ListBox ItemsSource="{Binding NewFromOldMapD, Source={StaticResource pvm}}" DisplayMemberPath="Map"/>
+                            </Expander>
+                            <Expander Header="{Binding NewSecE, Source={StaticResource pvm}}">
+                                <ListBox ItemsSource="{Binding NewFromOldMapE, Source={StaticResource pvm}}" DisplayMemberPath="Map"/>
+                            </Expander>
+
+                        </StackPanel>
+                    </ScrollViewer>
                 </Grid>
             </Grid>
         </Grid>

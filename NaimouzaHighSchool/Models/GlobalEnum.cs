@@ -49,7 +49,7 @@
         Email
     };
 
-    public enum SearchType { Name, ID, Aadhaar, Father, Village, SocialCategory };
+    public enum SearchType { Name, ID, Aadhaar, Father, Village, SocialCategory, Roll };
 
     public enum IdNumberType { Aadhaar, Mobile, StudentId};
 

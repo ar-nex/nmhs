@@ -1111,8 +1111,8 @@ namespace NaimouzaHighSchool.ViewModels
 
             SearchType = "genericSearch";
             //  SearchType = "classSearch";
-            // 0=> student'sName, 1=>ID, 2=>Aadhar, 3=>FatherName, 4=>Village, 5=>SocialCategory
-            SearchBy = new string[] { "Student's Name", "Student's ID", "Aadhaar", "Father's Name", "Village", "Social Category" };
+            // 0=> student'sName, 1=>ID, 2=>Aadhar, 3=>FatherName, 4=>Village, 5=>SocialCategory, 6=>RollNumber
+            SearchBy = new string[] { "Student's Name", "Student's ID", "Aadhaar", "Father's Name", "Village", "Social Category", "Roll Number" };
             SearchClass = new string[] { "All", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "Undefined" };
             SearchSection = new string[] { "All", "A", "B", "C", "D", "E", "Undefined" };
             SearchGender = new string[] { "All", "Boy", "Girl", "Undefined" };
@@ -1201,6 +1201,9 @@ namespace NaimouzaHighSchool.ViewModels
                     break;
                 case 5:
                     SType = Models.SearchType.SocialCategory;
+                    break;
+                case 6:
+                    SType = Models.SearchType.Roll;
                     break;
                 default:
                     SType = Models.SearchType.Name;

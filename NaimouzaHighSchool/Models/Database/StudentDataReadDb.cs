@@ -109,6 +109,9 @@ namespace NaimouzaHighSchool.Models.Database
                 case SearchType.SocialCategory:
                     sql = sql + $" WHERE s.socialCategory = " + dv(searchParam) + session_sql;
                     break;
+                case SearchType.Roll:
+                    sql = sql + $" WHERE c.roll = {dv(searchParam)} {session_sql}";
+                    break;
                 default:
                     break;
             }

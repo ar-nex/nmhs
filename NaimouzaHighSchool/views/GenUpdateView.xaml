@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NaimouzaHighSchool.ViewModels"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="General Info Update" Height="530" Width="800">
+        Title="General Info Update" Height="530" Width="810">
     <Window.Resources>
         <local:GenUpdateViewModel x:Key="geVm" />
     </Window.Resources>
@@ -33,7 +34,8 @@
                 </Border>
 
                 <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Update detials of .." Foreground="#E8EAF6"/>
+                    <Label Content="Update detials of " Foreground="#E8EAF6"/>
+                    <Label Content="{Binding EsName, Source={StaticResource geVm}}" FontWeight="Bold" Foreground="#E8EAF6"/>
                 </StackPanel>
                
             </Grid>
@@ -63,7 +65,7 @@
                                     </Style>
                                 </Grid.Resources>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="3*" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <Grid>
@@ -82,14 +84,24 @@
                                     <TextBox Grid.Column="1" Text="{Binding EsName, Source={StaticResource geVm}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                                     <Label Grid.Row="1" Content="Class" />
                                     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                                        <TextBox Text="{Binding EsClass, Source={StaticResource geVm}}" IsReadOnly="True" Width="60" />
-                                        <Label Content="Section " />
-                                        <ComboBox
+                                        <TextBox Margin="1, 2" Text="{Binding EsClass, Source={StaticResource geVm}}" Width="50" />
+                                        <Label Content="Section " Margin="1, 2" />
+                                        <ComboBox Margin="1, 2"
                                          ItemsSource="{Binding EsSection, Source={StaticResource geVm}}"
                                          SelectedIndex="{Binding EsSectionIndex, Source={StaticResource geVm}}"
-                                         Width="80" />
-                                        <Label Content="Roll " />
-                                        <TextBox Width="80" Text="{Binding EsRoll, Source={StaticResource geVm}, Mode=TwoWay}" />
+                                         Width="50" />
+                                        <Label Content="Roll" Margin="1, 2" />
+                                        <TextBox Width="50" Text="{Binding EsRoll, Source={StaticResource geVm}, Mode=TwoWay}" />
+                                        <Label Content="Session "/>
+                                        <xctk:IntegerUpDown Margin="2"
+                                            Value="{Binding EsSessionStartYear, Source={StaticResource geVm}, Mode=TwoWay}"
+                                            Width="65">
+                                        </xctk:IntegerUpDown>
+                                        <Label Margin="0" Width="Auto">-</Label>
+                                        <xctk:IntegerUpDown Margin="2"
+                                            Value="{Binding EsSessionEndYear, Source={StaticResource geVm}, Mode=TwoWay}"
+                                            Width="65">
+                                        </xctk:IntegerUpDown>
                                     </StackPanel>
                                     <Label Grid.Row="2" Content="Gender"/>
                                     <ComboBox Grid.Row="2" Grid.Column="1" Width="80" 
@@ -156,22 +168,22 @@
                                     </Grid.ColumnDefinitions>
                                     <Label Content="Subject 1 " />
                                     <ComboBox Grid.Column="1" Width="300" 
-                                          ItemsSource="{Binding HsActiveSubs, Source={StaticResource geVm}}"
+                                          ItemsSource="{Binding HsActiveSubs1, Source={StaticResource geVm}}"
                                           SelectedIndex="{Binding HsSub1Index, Source={StaticResource geVm}, Mode=TwoWay}"
                                           HorizontalAlignment="Left" />
                                     <Label Grid.Row="1" Content="Subject 2 " />
                                     <ComboBox Grid.Row="1" Grid.Column="1" Width="300" 
-                                          ItemsSource="{Binding HsActiveSubs, Source={StaticResource geVm}}"
+                                          ItemsSource="{Binding HsActiveSubs2, Source={StaticResource geVm}}"
                                           SelectedIndex="{Binding HsSub2Index, Source={StaticResource geVm}, Mode=TwoWay}"
                                           HorizontalAlignment="Left" />
                                     <Label Grid.Row="2" Content="Subject 3 " />
                                     <ComboBox Grid.Row="2" Grid.Column="1" Width="300" 
-                                          ItemsSource="{Binding HsActiveSubs, Source={StaticResource geVm}}"
+                                          ItemsSource="{Binding HsActiveSubs3, Source={StaticResource geVm}}"
                                           SelectedIndex="{Binding HsSub3Index, Source={StaticResource geVm}, Mode=TwoWay}"
                                           HorizontalAlignment="Left" />
                                     <Label Grid.Row="3" Content="Additional Subject " />
                                     <ComboBox Grid.Row="3" Grid.Column="1" Width="300" 
-                                          ItemsSource="{Binding HsActiveSubs, Source={StaticResource geVm}}"
+                                          ItemsSource="{Binding HsActiveSubs4, Source={StaticResource geVm}}"
                                           SelectedIndex="{Binding HsSub4Index, Source={StaticResource geVm}, Mode=TwoWay}"
                                           HorizontalAlignment="Left" />
                                 </Grid>

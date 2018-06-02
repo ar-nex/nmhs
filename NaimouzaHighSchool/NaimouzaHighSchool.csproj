@@ -167,6 +167,7 @@
     <Compile Include="Models\Utility\OutputFormatter.cs" />
     <Compile Include="Models\Utility\Promotion.cs" />
     <Compile Include="Models\Utility\PromotionBasic.cs" />
+    <Compile Include="Models\Utility\PromotionMapping.cs" />
     <Compile Include="Models\Utility\RegistrationUpdater.cs" />
     <Compile Include="Models\Utility\RollRegistrationUpdater.cs" />
     <Compile Include="Models\Utility\RollUpdater.cs" />

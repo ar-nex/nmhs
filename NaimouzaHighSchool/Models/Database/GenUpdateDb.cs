@@ -17,7 +17,7 @@ namespace NaimouzaHighSchool.Models.Database
 
         
 
-        public bool UpdateStudent(Student s)
+        public bool UpdateStudent(Student s, int oldStartYear, int OldEndYear)
         {
             bool rs = false;
             string dob_temp = s.Dob.ToString("yyyy-MM-dd");
@@ -25,8 +25,7 @@ namespace NaimouzaHighSchool.Models.Database
             string isPH = (s.IsPH) ? "'Y'" : "'N'";
             string isBpl = (s.IsBpl) ? "'Y'" : "'N'";
             string roll = "'" + s.Roll.ToString() + "'";
-            string sYear = "'" + s.StartSessionYear.ToString() + "'";
-            string eYear = "'" + s.EndSessionYear.ToString() + "'";
+           
 
             try
             {
@@ -42,13 +41,13 @@ namespace NaimouzaHighSchool.Models.Database
                     cmd.CommandText = sql1;
                     cmd.ExecuteNonQuery();
 
-                    string sql2 = $"UPDATE student_class SET class={dv(s.StudyingClass)}, section={dv(s.Section)}, roll={roll} WHERE student_basic_id={dv(s.Id)} AND startYear = {sYear} AND endYear = {eYear}";
+                    string sql2 = $"UPDATE student_class SET class={dv(s.StudyingClass)}, section={dv(s.Section)}, roll={roll}, startYear = {dv(s.StartSessionYear)}, endYear = {dv(s.EndSessionYear)} WHERE student_basic_id={dv(s.Id)} AND startYear = {dv(oldStartYear)} AND endYear = {dv(OldEndYear)}";
                     cmd.CommandText = sql2;
                     cmd.ExecuteNonQuery();
 
                     if (s.StudyingClass == "XI" || s.StudyingClass == "XII")
                     {
-                        string sql_sub = $"UPDATE student_class SET hsElemSub1 = {dv(s.HsSub1)}, hsElemSub2 = {dv(s.HsSub2)}, hsElemSub3 = {dv(s.HsSub3)}, hsAdlSub = {dv(s.HsAdlSub)} WHERE student_basic_id = {dv(s.Id)} AND startYear = {dv(s.StartSessionYear)} AND endYear = {dv(s.EndSessionYear)}";
+                        string sql_sub = $"UPDATE student_class SET stream = {dv(s.Stream)}, hsElemSub1 = {dv(s.HsSub1)}, hsElemSub2 = {dv(s.HsSub2)}, hsElemSub3 = {dv(s.HsSub3)}, hsAdlSub = {dv(s.HsAdlSub)} WHERE student_basic_id = {dv(s.Id)} AND startYear = {dv(s.StartSessionYear)} AND endYear = {dv(s.EndSessionYear)}";
                         cmd.CommandText = sql_sub;
                         cmd.ExecuteNonQuery();
                     }

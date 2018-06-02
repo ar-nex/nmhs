@@ -155,7 +155,6 @@ namespace NaimouzaHighSchool.Models.Database
             }
         }
 
-
         public List<string> HasAlreadyAssignedOrNot(int startYear, int endYear, string cls, string section, int roll)
         {
             List<string> stdNameList = new List<string>();
@@ -215,6 +214,192 @@ namespace NaimouzaHighSchool.Models.Database
                 conn.Close();
             }
             return exist;
+        }
+
+        public int GetPreviousToNewCount(int prevStartYear, int prevEndYear, int newStartYear, int newEndYear, string oldClass, string oldSection)
+        {
+            int count = 0;
+
+            string[] sclClass = { "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII" };
+            int clsIndex = Array.IndexOf(sclClass, oldClass);
+            string newClass = sclClass[clsIndex + 1];
+
+            try
+            {
+                conn.Open();
+                string sql = $"SELECT COUNT(*) FROM `student_class` WHERE startYear = {dv(newStartYear)} and endYear = {dv(newEndYear)} and class = {dv(newClass)} and student_basic_id IN (SELECT student_basic_id FROM student_class WHERE startYear = {dv(prevStartYear)} and endYear = {dv(prevEndYear)} AND class = {dv(oldClass)} and section = {dv(oldSection)})";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                object result = cmd.ExecuteScalar();
+                if (result != null)
+                {
+                    count = Convert.ToInt32(result);
+                }
+            }
+            catch (Exception cx)
+            {
+                System.Windows.MessageBox.Show("Problem in getting mapping count. : "+cx.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return count;
+        }
+
+        public int GetPreviousCount(int prevStartYear, int prevEndYear, string oldClass, string oldSection)
+        {
+            int count = 0;
+            try
+            {
+                conn.Open();
+                string sql = $"SELECT COUNT(*) FROM student_class WHERE startYear = {dv(prevStartYear)} AND endYear = {dv(prevEndYear)} AND class = {dv(oldClass)} AND section = {dv(oldSection)}";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                object result = cmd.ExecuteScalar();
+                if (result != null)
+                {
+                    count = Convert.ToInt32(result);
+                }
+            }
+            catch (Exception nx)
+            {
+                System.Windows.MessageBox.Show("Probem in getting new section count : " + nx.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return count;
+        }
+
+        public int GetNewCount(int newStartYear, int newEndYear, string oldClass, string newSection)
+        {
+            int count = 0;
+
+            string[] sclClass = { "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII" };
+            int clsIndex = Array.IndexOf(sclClass, oldClass);
+            string newClass = sclClass[clsIndex + 1];
+
+            try
+            {
+                conn.Open();
+                string sql = $"SELECT COUNT(*) FROM student_class WHERE startYear = {dv(newStartYear)} AND endYear = {dv(newEndYear)} AND class = {dv(newClass)} AND section = {dv(newSection)}";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                object result = cmd.ExecuteScalar();
+                if (result != null)
+                {
+                    count = Convert.ToInt32(result);
+                }
+            }
+            catch (Exception nx)
+            {
+                System.Windows.MessageBox.Show("Probem in getting new section count : "+nx.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return count;
+        }
+
+        public ObservableCollection<PromotionMapping> GetPreviousToNewMap(int prevStartYear, int prevEndYear, int newStartYear, int newEndYear, string oldClass, string oldSection)
+        {
+            ObservableCollection<PromotionMapping> resultList = new ObservableCollection<PromotionMapping>();
+            try
+            {
+                conn.Open();
+                Queue<string> tempQueue = new Queue<string>();
+                string sql1 = $"SELECT student_basic_id, roll FROM student_class WHERE startYear = {dv(prevStartYear)} AND endYear = {dv(prevEndYear)} AND class = {dv(oldClass)} AND section = {dv(oldSection)}";
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = sql1;
+                using (MySqlDataReader rdr1 = cmd.ExecuteReader())
+                {
+                    while (rdr1.Read())
+                    {
+                        string str = oldClass + "-" + oldSection + "-" + rdr1[1].ToString() + "-" + rdr1[0].ToString();
+                        tempQueue.Enqueue(str);
+                    }
+                }
+                while (tempQueue.Count > 0)
+                {
+                    string oldCombination = tempQueue.Dequeue();
+                    int lastPosOfDash = oldCombination.LastIndexOf("-");
+                    string student_id = oldCombination.Substring(lastPosOfDash+1);
+                    string modifiedCombo = oldCombination.Substring(0, lastPosOfDash);
+
+                    string sql2 = $"SELECT class, section, roll FROM student_class WHERE startYear = {dv(newStartYear)} AND endYear = {dv(newEndYear)} AND student_basic_id = {dv(student_id)}";
+                    cmd.CommandText = sql2;
+                    using (MySqlDataReader rdr2 = cmd.ExecuteReader())
+                    {
+                        if (rdr2.Read())
+                        {
+                            string finalCombo = modifiedCombo + " --> " + rdr2[0].ToString() + "-" + rdr2[1].ToString() + "-" + rdr2[2].ToString();
+                            resultList.Add(new PromotionMapping(finalCombo));
+                        }
+                    }
+                }
+                
+            }
+            catch (Exception mx)
+            {
+                System.Windows.MessageBox.Show("Problem in getting forward mapper : "+mx.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return resultList;
+        }
+
+        public ObservableCollection<PromotionMapping> GetNewFromPreviousMap(int prevStartYear, int prevEndYear, int newStartYear, int newEndYear, string oldClass, string NewSection)
+        {
+            string[] sclClass = { "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII" };
+            int clsIndex = Array.IndexOf(sclClass, oldClass);
+            string newClass = sclClass[clsIndex + 1];
+
+            ObservableCollection<PromotionMapping> resultList = new ObservableCollection<PromotionMapping>();
+            try
+            {
+                conn.Open();
+                Queue<string> tempQueue = new Queue<string>();
+                string sql1 = $"SELECT student_basic_id, roll FROM student_class WHERE startYear = {dv(newStartYear)} AND endYear = {dv(newEndYear)} AND class = {dv(newClass)} AND section = {dv(NewSection)}";
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = sql1;
+                using (MySqlDataReader rdr1 = cmd.ExecuteReader())
+                {
+                    while (rdr1.Read())
+                    {
+                        string str = newClass + "-" + NewSection + "-" + rdr1[1].ToString() + "-" + rdr1[0].ToString();
+                        tempQueue.Enqueue(str);
+                    }
+                }
+                while (tempQueue.Count > 0)
+                {
+                    string newCombination = tempQueue.Dequeue();
+                    int lastPosOfDash = newCombination.LastIndexOf("-");
+                    string student_id = newCombination.Substring(lastPosOfDash+1);
+                    string modifiedCombo = newCombination.Substring(0, lastPosOfDash);
+
+                    string sql2 = $"SELECT class, section, roll FROM student_class WHERE startYear = {dv(prevStartYear)} AND endYear = {dv(prevEndYear)} AND student_basic_id = {dv(student_id)}";
+                    cmd.CommandText = sql2;
+                    using (MySqlDataReader rdr2 = cmd.ExecuteReader())
+                    {
+                        if (rdr2.Read())
+                        {
+                            string finalCombo = modifiedCombo + " <-- " + rdr2[0].ToString() + "-" + rdr2[1].ToString() + "-" + rdr2[2].ToString();
+                            resultList.Add(new PromotionMapping(finalCombo));
+                        }
+                    }
+                }
+            }
+            catch (Exception nx)
+            {
+                System.Windows.MessageBox.Show("Problem in getting new to old mapping. : "+nx.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return resultList;
         }
 
         /*

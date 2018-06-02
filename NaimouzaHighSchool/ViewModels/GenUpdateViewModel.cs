@@ -40,14 +40,29 @@ namespace NaimouzaHighSchool.ViewModels
         public string EsClass
         {
             get { return _esClass; }
-            set { _esClass = value; OnPropertyChanged("EsClass"); }
+            set
+            {
+                if (value != null)
+                {
+                    int clsIndex = Array.IndexOf(GlobalVar.SchoolClasses, value.ToUpper());
+                    if (clsIndex > -1)
+                    {
+                        _esClass = value.ToUpper();
+                    }
+                }
+                OnPropertyChanged("EsClass");
+            }
         }
 
         private string[]  _esSection;
         public string[]  EsSection
         {
             get { return _esSection; }
-            set { _esSection = value; OnPropertyChanged("EsSection"); }
+            set
+            {
+                _esSection = value;
+                OnPropertyChanged("EsSection");
+            }
         }
 
         private int _esSectionIndex;
@@ -62,6 +77,20 @@ namespace NaimouzaHighSchool.ViewModels
         {
             get { return _esRoll; }
             set { _esRoll = value; OnPropertyChanged("EsRoll"); }
+        }
+
+        private int _esSessionStartYear;
+        public int EsSessionStartYear
+        {
+            get { return _esSessionStartYear; }
+            set { _esSessionStartYear = value; OnPropertyChanged("EsSessionStartYear"); }
+        }
+
+        private int _esSessionEndYear;
+        public int EsSessionEndYear
+        {
+            get { return _esSessionEndYear; }
+            set { _esSessionEndYear = value; OnPropertyChanged("EsSessionEndYear"); }
         }
 
         private string[] _sex;
@@ -804,7 +833,7 @@ namespace NaimouzaHighSchool.ViewModels
         {
             EsSchoolClass = new string[] { "V", "VI", "VII", "VIII", "IX", "X", "XI" };
             QualifiedClass = new string[] {"IV", "V", "VI", "VII", "VIII", "IX", "X" };
-            Sex = new string[] { "Male", "Female" };
+            Sex = new string[] { "Boy", "Girl" };
             Stream = new string[] { "ARTS", "SCIENCE"};
             QualifiedClassIndex = -1;
             StreamIndex = -1;
@@ -850,6 +879,8 @@ namespace NaimouzaHighSchool.ViewModels
         {
             EsName = EditableStudent.Name;
             EsClass = EditableStudent.StudyingClass;
+            EsSessionStartYear = EditableStudent.StartSessionYear;
+            EsSessionEndYear = EditableStudent.EndSessionYear;
             if (EditableStudent.Sex == "M")
             {
                 SexIndex = 0;
@@ -875,18 +906,23 @@ namespace NaimouzaHighSchool.ViewModels
                 SubHsVisibility = System.Windows.Visibility.Visible;
                
                 StreamIndex = Array.IndexOf(Stream, EditableStudent.Stream);
-                if (Stream[StreamIndex] == "ARTS")
+                if (StreamIndex > -1)
                 {
-                    HsActiveSubs = HsArtsSubs;
+                    if (Stream[StreamIndex] == "ARTS")
+                    {
+                        HsActiveSubs = HsArtsSubs;
+                    }
+                    else if (Stream[StreamIndex] == "SCIENCE")
+                    {
+                        HsActiveSubs = HsSciSubs;
+                    }
+                    HsSub1Index = Array.IndexOf(HsActiveSubs1, EditableStudent.HsSub1);
+
+                    HsSub2Index = HsActiveSubs2.IndexOf(EditableStudent.HsSub2);
+                    HsSub3Index = HsActiveSubs3.IndexOf(EditableStudent.HsSub3);
+                    HsSub4Index = HsActiveSubs4.IndexOf(EditableStudent.HsAdlSub);
+                   
                 }
-                else if (Stream[StreamIndex] == "SCIENCE")
-                {
-                    HsActiveSubs = HsSciSubs;
-                }
-                HsSub1Index = Array.IndexOf(HsActiveSubs, EditableStudent.HsSub1);
-                HsSub2Index = Array.IndexOf(HsActiveSubs, EditableStudent.HsSub2);
-                HsSub3Index = Array.IndexOf(HsActiveSubs, EditableStudent.HsSub3);
-                HsSub4Index = Array.IndexOf(HsActiveSubs, EditableStudent.HsAdlSub);
 
             }
             else
@@ -962,19 +998,25 @@ namespace NaimouzaHighSchool.ViewModels
 
         private bool HasError()
         {
+            // class
+            if (Array.IndexOf(GlobalVar.SchoolClasses, EsClass) == -1)
+            {
+                System.Windows.MessageBox.Show("Sorry! Class has some invalid entries.");
+                return true;
+            }
             // section
             bool valSection = EsSectionIndex != -1;
             if (!valSection)
             {
                 System.Windows.MessageBox.Show("Sorry! Section is not correct.");
-                return false;
+                return true;
             }
             // roll
             bool valRoll = EsRoll > 0;
             if (!valRoll)
             {
                 System.Windows.MessageBox.Show("Sorry! Roll is not correct.");
-                return false;
+                return true;
             }
             // date of birth
             try
@@ -984,9 +1026,8 @@ namespace NaimouzaHighSchool.ViewModels
             catch (Exception exdob)
             {
                 System.Windows.MessageBox.Show("Sorry! Date of Birth is not correct.");
-                return false;
+                return true;
             }
-
 
             // aadhaar
             if (!string.IsNullOrEmpty(EsAadhaar))
@@ -996,7 +1037,7 @@ namespace NaimouzaHighSchool.ViewModels
                 if (!match.Success)
                 {
                     System.Windows.MessageBox.Show("Please enter correct Aadhaar no.");
-                    return false;
+                    return true;
                 }
             }
 
@@ -1008,7 +1049,7 @@ namespace NaimouzaHighSchool.ViewModels
                 if (!match.Success)
                 {
                     System.Windows.MessageBox.Show("Please enter correct mobile no.");
-                    return false;
+                    return true;
                 }
             }
 
@@ -1019,7 +1060,7 @@ namespace NaimouzaHighSchool.ViewModels
                 if (!match.Success)
                 {
                     System.Windows.MessageBox.Show("Please enter guardian's correct mobile no.");
-                    return false;
+                    return true;
                 }
             }
             // email
@@ -1042,6 +1083,10 @@ namespace NaimouzaHighSchool.ViewModels
                 s.Sex = "F";
             }
             s.StudyingClass = EsClass;
+
+            s.StartSessionYear = EsSessionStartYear;
+            s.EndSessionYear = EsSessionEndYear;
+
             s.Section = EsSection[EsSectionIndex];
             s.Roll = EditableStudent.Roll;
             s.Dob = new DateTime(YYYY[DobYYIndex], DobMMIndex + 1, DD[DobDDIndex]);
@@ -1052,22 +1097,46 @@ namespace NaimouzaHighSchool.ViewModels
 
             if (s.StudyingClass == "XI" || s.StudyingClass == "XII")
             {
-               // StreamIndex = Array.IndexOf(Stream, EditableStudent.Stream);
-               // s.Stream = EditableStudent.Stream;
+                // StreamIndex = Array.IndexOf(Stream, EditableStudent.Stream);
+                // s.Stream = EditableStudent.Stream;
+                if (StreamIndex > -1)
+                {
+                    s.Stream = Stream[StreamIndex];
+                }
+                /*
                 if (s.Stream == "ARTS")
                 {
-                    s.HsSub1 = HsActiveSubs[HsSub1Index];
-                    s.HsSub2 = HsActiveSubs[HsSub2Index];
-                    s.HsSub3 = HsActiveSubs[HsSub3Index];
-                    s.HsAdlSub = HsActiveSubs[HsSub4Index];
+                    s.HsSub1 = HsActiveSubs1[HsSub1Index];
+                    s.HsSub2 = HsActiveSubs2[HsSub2Index];
+                    s.HsSub3 = HsActiveSubs3[HsSub3Index];
+                    s.HsAdlSub = HsActiveSubs4[HsSub4Index];
+                    
                 }
                 else if (s.Stream == "SCIENCE")
                 {
-                    s.HsSub1 = HsActiveSubs[HsSub1Index];
-                    s.HsSub2 = HsActiveSubs[HsSub2Index];
-                    s.HsSub3 = HsActiveSubs[HsSub3Index];
-                    s.HsAdlSub = HsActiveSubs[HsSub4Index];
+                    s.HsSub1 = HsActiveSubs1[HsSub1Index];
+                    s.HsSub2 = HsActiveSubs2[HsSub2Index];
+                    s.HsSub3 = HsActiveSubs3[HsSub3Index];
+                    s.HsAdlSub = HsActiveSubs4[HsSub4Index];
                 }
+                */
+                if (HsSub1Index > -1)
+                {
+                    s.HsSub1 = HsActiveSubs1[HsSub1Index];
+                }
+                if (HsSub2Index > -1)
+                {
+                    s.HsSub2 = HsActiveSubs2[HsSub2Index];
+                }
+                if (HsSub3Index > -1)
+                {
+                    s.HsSub3 = HsActiveSubs3[HsSub3Index];
+                }
+                if (HsSub4Index > -1)
+                {
+                    s.HsAdlSub = HsActiveSubs4[HsSub4Index];
+                }
+
             }
             
             if (!string.IsNullOrEmpty(EsAadhaar))
@@ -1179,8 +1248,8 @@ namespace NaimouzaHighSchool.ViewModels
             s.CouncilRoll = HsRoll;
             s.CouncilNo = HsNo;
 
-            s.StartSessionYear = EditableStudent.StartSessionYear;
-            s.EndSessionYear = EditableStudent.EndSessionYear;
+         //   s.StartSessionYear = EditableStudent.StartSessionYear;
+          //  s.EndSessionYear = EditableStudent.EndSessionYear;
 
             return s;
         }
@@ -1191,7 +1260,7 @@ namespace NaimouzaHighSchool.ViewModels
             {
                 Student UpdatedStudent = GetUpdatedStudent();
                 GenUpdateDb db = new GenUpdateDb();
-                if (db.UpdateStudent(UpdatedStudent))
+                if (db.UpdateStudent(UpdatedStudent, EditableStudent.StartSessionYear, EditableStudent.EndSessionYear))
                 {
                     Msg = UpdatedStudent.Name+"'s details updated successfully.";
                 }
@@ -1200,6 +1269,10 @@ namespace NaimouzaHighSchool.ViewModels
                     Msg = "Sorry! Failed to update";
                 }
 
+            }
+            else
+            {
+                Msg = "Data could not be saved.";
             }
         }
 
@@ -1335,7 +1408,11 @@ namespace NaimouzaHighSchool.ViewModels
                     }
                     if (HsSub3Index != -1)
                     {
+                        int r = HsSub3Index;
+                        ObservableCollection<string> tr = HsActiveSubs3;
                         string sub3 = HsActiveSubs3[HsSub3Index];
+                      //  string sub3 = HsActiveSubs[HsSub3Index];
+
                         if (sub3 == "ARABIC" || sub3 == "ECONOMICS")
                         {
                             foreach (var item in HsActiveSubs3)
